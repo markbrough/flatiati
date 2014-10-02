@@ -80,10 +80,10 @@ def activity_export():
 
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
-    headers = ['project_title', 'project_description', 'sector_code', 
-        'sector_name', 'cc_id', 'aid_type_code', 'activity_status_code',
-        'date_start_planned', 'date_end_planned', 'date_start_actual', 
-        'date_end_actual']
+    headers = ['iati_identifier', 'project_title', 'project_description', 
+        'sector_code', 'sector_name', 'cc_id', 'aid_type_code', 
+        'activity_status_code', 'date_start_planned', 'date_end_planned', 
+        'date_start_actual', 'date_end_actual']
 
     for i, h in enumerate(headers):
         ws.write(0, i, h, styleHeader)
@@ -91,17 +91,18 @@ def activity_export():
     i = 0
     for project in p:
         for sector in project.sectors:
-            ws.write(i+1, 0, getcs_string(project.titles, 'text'))
-            ws.write(i+1, 1, getcs_string(project.descriptions, 'text'))
-            ws.write(i+1, 2, sector.dacsector.code)
-            ws.write(i+1, 3, sector.dacsector.description)
-            ws.write(i+1, 4, sector.dacsector.cc.id)
-            ws.write(i+1, 5, project.aid_type_code)
-            ws.write(i+1, 6, project.status_code)
-            ws.write(i+1, 7, project.date_start_planned, styleDates)
-            ws.write(i+1, 8, project.date_end_planned, styleDates)
-            ws.write(i+1, 9, project.date_start_actual, styleDates)
-            ws.write(i+1, 10, project.date_end_actual, styleDates)
+            ws.write(i+1, 0, project.iati_identifier)
+            ws.write(i+1, 1, getcs_string(project.titles, 'text'))
+            ws.write(i+1, 2, getcs_string(project.descriptions, 'text'))
+            ws.write(i+1, 3, sector.dacsector.code)
+            ws.write(i+1, 4, sector.dacsector.description)
+            ws.write(i+1, 5, sector.dacsector.cc.id)
+            ws.write(i+1, 6, project.aid_type_code)
+            ws.write(i+1, 7, project.status_code)
+            ws.write(i+1, 8, project.date_start_planned, styleDates)
+            ws.write(i+1, 9, project.date_end_planned, styleDates)
+            ws.write(i+1, 10, project.date_start_actual, styleDates)
+            ws.write(i+1, 11, project.date_end_actual, styleDates)
             i+=1
 
     strIOsender = StringIO.StringIO()
