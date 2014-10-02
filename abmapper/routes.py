@@ -91,6 +91,8 @@ def activity_export():
     i = 0
     for project in p:
         for sector in project.sectors:
+            if sector.deleted:
+                continue
             ws.write(i+1, 0, project.iati_identifier)
             ws.write(i+1, 1, getcs_string(project.titles, 'text'))
             ws.write(i+1, 2, getcs_string(project.descriptions, 'text'))
