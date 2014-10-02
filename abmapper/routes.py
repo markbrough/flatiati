@@ -62,7 +62,7 @@ def activity_restore_sector(iati_identifier):
         return util.jsonify({"success": True})
     return util.jsonify({"error": True})
 
-@app.route("/export.xlsx")
+@app.route("/export.xls")
 def activity_export():
     def getcs_string(list, col):
         return "; ".join(map(lambda x: getattr(x, col), list))
@@ -109,7 +109,7 @@ def activity_export():
     wb.save(strIOsender)
     strIOsender.seek(0)
     return send_file(strIOsender,
-                     attachment_filename="export.xlsx",
+                     attachment_filename="export.xls",
                      as_attachment=True)
 
 @app.route("/setup/")
