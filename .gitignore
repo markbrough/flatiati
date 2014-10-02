@@ -1,0 +1,8 @@
+*.pyc
+*.py~
+*.html~
+*.css~
+*.tmpl~
+*.js~
+pyenv
+config.py
