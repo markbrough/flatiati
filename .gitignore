@@ -6,3 +6,4 @@
 *.js~
 pyenv
 config.py
+*.sqlite
