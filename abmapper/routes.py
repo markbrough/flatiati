@@ -139,7 +139,7 @@ def setup():
     absetup.setup()
     return "OK"
 
-@app.route("/import/")
+@app.route("/import/<country>/")
 def importer():
-    download.parse_file("iati_data_SN.xml")
+    download.parse_file("iati_data_"+country+".xml")
     return "OK"
