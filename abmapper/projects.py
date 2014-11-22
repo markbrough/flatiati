@@ -13,7 +13,7 @@ def projects():
 def project(iati_identifier):
     p = p = models.Activity.query.filter_by(
         iati_identifier=iati_identifier
-        ).first()
+        ).first_or_404()
     return p
 
 def mappable():
