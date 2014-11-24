@@ -64,8 +64,13 @@ def activity_restore_sector(iati_identifier):
 
 @app.route("/export.xls")
 def activity_export():
+    def notNone(value):
+        if value is not None:
+            return True
+        return False
+
     def getcs_string(list, col):
-        return "; ".join(map(lambda x: getattr(x, col), list))
+        return "; ".join(filter(notNone, map(lambda x: getattr(x, col), list)))
 
     font0 = xlwt.Font()
     font0.name = 'Times New Roman'
