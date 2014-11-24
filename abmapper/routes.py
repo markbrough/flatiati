@@ -107,13 +107,15 @@ def activity_export(country_code, reporting_org=None):
             return True
         return False
 
-    p = projects.projects()
+    p = projects.projects(country_code, reporting_org)
 
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
     headers = ['iati_identifier', 'project_title', 'project_description', 
-        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'aid_type_code', 
-        'activity_status_code', 'date_start', 'date_end', 'capital_spend_pct']
+        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'aid_type_code',
+        'aid_type', 'activity_status_code', 'activity_status', 'date_start', 
+        'date_end', 'capital_spend_pct', 'total_commitments', 
+        'total_disbursements']
 
     for i, h in enumerate(headers):
         ws.write(0, i, h, styleHeader)
@@ -126,12 +128,16 @@ def activity_export(country_code, reporting_org=None):
         ws.write_merge(i, i+numsectors-1, 1, 1, getcs_string(project.titles, 'text'))
         ws.write_merge(i, i+numsectors-1, 2, 2, getcs_string(project.descriptions, 'text'))
         ws.write_merge(i, i+numsectors-1, 7, 7, project.aid_type_code)
-        ws.write_merge(i, i+numsectors-1, 8, 8, project.status_code)
-        ws.write_merge(i, i+numsectors-1, 9, 9, project.date_start_actual or
+        ws.write_merge(i, i+numsectors-1, 8, 8, project.aid_type.text)
+        ws.write_merge(i, i+numsectors-1, 9, 9, project.status_code)
+        ws.write_merge(i, i+numsectors-1, 10, 10, project.status.text)
+        ws.write_merge(i, i+numsectors-1, 11, 11, project.date_start_actual or
                                         project.date_start_planned, styleDates)
-        ws.write_merge(i, i+numsectors-1, 10, 10, project.date_end_actual or 
+        ws.write_merge(i, i+numsectors-1, 12, 12, project.date_end_actual or 
                                         project.date_end_planned, styleDates)
-        ws.write_merge(i, i+numsectors-1, 11, 11, 0.00)
+        ws.write_merge(i, i+numsectors-1, 13, 13, 0.00)
+        ws.write_merge(i, i+numsectors-1, 14, 14, project.total_commitments)
+        ws.write_merge(i, i+numsectors-1, 15, 15, project.total_disbursements)
         for si, sector in enumerate(project.sectors):
             if sector.deleted:
                 continue
