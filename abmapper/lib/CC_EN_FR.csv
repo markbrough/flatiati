@@ -1,0 +1,155 @@
+CC code,Category of Government,Sector,Function,Code CC,Categorie de gouvernement,Secteur,Fonction
+1.1.1,General Public Service,Executive,executive,1.1.1,Services généraux des administrations publiques,Exécutif,Exécutif
+1.2.1,General Public Service,Legislative,legislative,1.2.1,Services généraux des administrations publiques,Législatif,Législatif
+1.3.1,General Public Service,Accountability,macroeconomic policy,1.3.1,Services généraux des administrations publiques,Reddition de comptes,Politique macroéconomique
+1.3.2,General Public Service,Accountability,budgeting,1.3.2,Services généraux des administrations publiques,Reddition de comptes,Prévisions budgétaires
+1.3.3,General Public Service,Accountability,planning,1.3.3,Services généraux des administrations publiques,Reddition de comptes,Planification
+1.3.4,General Public Service,Accountability,Treasury/Accounts,1.3.4,Services généraux des administrations publiques,Reddition de comptes,Trésor public/services de comptabilité 
+1.3.5,General Public Service,Accountability,debt and aid management,1.3.5,Services généraux des administrations publiques,Reddition de comptes,Gestion de l'aide et de la dette publique
+1.3.6,General Public Service,Accountability,tax policy,1.3.6,Services généraux des administrations publiques,Reddition de comptes,Politique fiscale
+1.3.7,General Public Service,Accountability,tax collection,1.3.7,Services généraux des administrations publiques,Reddition de comptes,Recouvrement de l'impôt
+1.3.8,General Public Service,Accountability,local government finance,1.3.8,Services généraux des administrations publiques,Reddition de comptes,Financement des collectivités locales
+1.3.9,General Public Service,Accountability,other central transfers to institutions ,1.3.9,Services généraux des administrations publiques,Reddition de comptes,Autres transferts entre institutions
+1.3.10,General Public Service,Accountability,national audit,1.3.10,Services généraux des administrations publiques,Reddition de comptes,Contrôle interne national
+1.3.11,General Public Service,Accountability,national monitoring and evaluation,1.3.11,Services généraux des administrations publiques,Reddition de comptes,Suivi et evaluation au niveau national
+1.3.12,General Public Service,Accountability,monetary institutions,1.3.12,Services généraux des administrations publiques,Reddition de comptes,Institutions monétaires
+1.3.13,General Public Service,Accountability,financial sector policy and regulation,1.3.13,Services généraux des administrations publiques,Reddition de comptes,Politique et réglementation du secteur financier  
+1.4.1,General Public Service,External Affairs,foreign affairs ,1.4.1,Services généraux des administrations publiques,Affaires étrangères,Affaires étrangères
+1.4.2,General Public Service,External Affairs,diplomatic missions,1.4.2,Services généraux des administrations publiques,Affaires étrangères,Missions diplomatiques
+1.4.3,General Public Service,External Affairs,official development assistance,1.4.3,Services généraux des administrations publiques,Affaires étrangères,Aide publique au développement
+1.5.1,General Public Service,General Personnel Services,general personnel services,1.5.1,Services généraux des administrations publiques,Services généraux de personnel,Services généraux de personnel
+1.6.1,General Public Service,Statistics,statistics,1.6.1,Services généraux des administrations publiques,Statistiques,Statistiques
+1.7.1,General Public Service,Other General Services,support to civil society ,1.7.1,Services généraux des administrations publiques,Autres services généraux,Soutien à la société civile
+1.7.2,General Public Service,Other General Services,central procurement,1.7.2,Services généraux des administrations publiques,Autres services généraux,Services centralisés d'approvisionnement et d'achat
+1.7.3,General Public Service,Other General Services,Local Government Administration,1.7.3,Services généraux des administrations publiques,Autres services généraux,Administration publique locale 
+1.7.4,General Public Service,Other General Services,other general services,1.7.4,Services généraux des administrations publiques,Autres services généraux,Autres services généraux
+1.8.1,General Public Service,Elections,elections,1.8.1,Services généraux des administrations publiques,Elections,Élections
+2.1.1,"Justice, Law, Order and Security","Justice, Law and Order","policy, planning and administration",2.1.1,"Justice, ordre et sécurité public","Justice, ordre et sécurité public","Politiques, planification et administration"
+2.1.2,"Justice, Law, Order and Security","Justice, Law and Order",police,2.1.2,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Services de police
+2.1.3,"Justice, Law, Order and Security","Justice, Law and Order",fire,2.1.3,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Services de protection contre les incendies
+2.1.4,"Justice, Law, Order and Security","Justice, Law and Order",judicial affairs,2.1.4,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Justice
+2.1.5,"Justice, Law, Order and Security","Justice, Law and Order",Ombudsman,2.1.5,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Ombudsman
+2.1.6,"Justice, Law, Order and Security","Justice, Law and Order",human rights affairs,2.1.6,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Affaires droits de la personne
+2.1.7,"Justice, Law, Order and Security","Justice, Law and Order",immigration,2.1.7,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Immigration
+2.1.8,"Justice, Law, Order and Security","Justice, Law and Order",anti corruption,2.1.8,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Lutte ani-corruption 
+2.1.9,"Justice, Law, Order and Security","Justice, Law and Order",prisons,2.1.9,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Administration pénitentiaire
+2.1.10,"Justice, Law, Order and Security","Justice, Law and Order",peace building,2.1.10,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Consolidation de la paix 
+2.1.11,"Justice, Law, Order and Security","Justice, Law and Order",demobilisation,2.1.11,"Justice, ordre et sécurité public","Justice, ordre et sécurité public",Démobilisation
+2.2.1,"Justice, Law, Order and Security",Defence,"policy, planning and administration",2.2.1,"Justice, ordre et sécurité public",Défense,"Politiques, planification et administration"
+2.2.2,"Justice, Law, Order and Security",Defence,military,2.2.2,"Justice, ordre et sécurité public",Défense,Défense militaire
+2.2.3,"Justice, Law, Order and Security",Defence,civil defence,2.2.3,"Justice, ordre et sécurité public",Défense,Défense civile
+2.2.4,"Justice, Law, Order and Security",Defence,foreign military aid,2.2.4,"Justice, ordre et sécurité public",Défense,Aide militaire à des pays étrangers
+3.1.1,Economic Affairs,"General Economic, Commercial and Labour Affairs","policy, planning and administration",3.1.1,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi","Politiques, planification et administration"
+3.1.2,Economic Affairs,"General Economic, Commercial and Labour Affairs",general economic affairs,3.1.2,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi",Économie générale
+3.1.3,Economic Affairs,"General Economic, Commercial and Labour Affairs",investment promotion,3.1.3,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi",Promotion de l'investissement
+3.1.4,Economic Affairs,"General Economic, Commercial and Labour Affairs",privatisation,3.1.4,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi",Privatisation 
+3.1.5,Economic Affairs,"General Economic, Commercial and Labour Affairs",trade,3.1.5,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi",Commerce 
+3.1.6,Economic Affairs,"General Economic, Commercial and Labour Affairs",labour,3.1.6,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi",Emploi/Main d'oeuvre
+3.1.7,Economic Affairs,"General Economic, Commercial and Labour Affairs",national standards development,3.1.7,Affaires économiques,"Tutelle de l'économie générale, des échanges et de l'emploi",Elaboration des normes nationales
+3.2.1,Economic Affairs,Public Works,"policy, planning and administration",3.2.1,Affaires économiques,Travaux publiques,"Politiques, planification et administration"
+3.2.2,Economic Affairs,Public Works,construction regulation,3.2.2,Affaires économiques,Travaux publiques,Contrôle de l'industrie de la construction
+3.2.3,Economic Affairs,Public Works,mechanical services,3.2.3,Affaires économiques,Travaux publiques,Services mécaniques
+3.3.1,Economic Affairs,Agriculture,"policy, planning and administration",3.3.1,Affaires économiques,Agriculture,"Politiques, planification et administration"
+3.3.2,Economic Affairs,Agriculture,irrigation,3.3.2,Affaires économiques,Agriculture,Irrigation
+3.3.3,Economic Affairs,Agriculture,inputs,3.3.3,Affaires économiques,Agriculture,Intrants
+3.3.4,Economic Affairs,Agriculture,food crop,3.3.4,Affaires économiques,Agriculture,Culture vivrière
+3.3.5,Economic Affairs,Agriculture,industrial crop,3.3.5,Affaires économiques,Agriculture,Culture industrielle
+3.3.6,Economic Affairs,Agriculture,livestock,3.3.6,Affaires économiques,Agriculture,Élevage 
+3.3.7,Economic Affairs,Agriculture,agricultural training and extension,3.3.7,Affaires économiques,Agriculture,Formation agricole et services agronomiques
+3.3.8,Economic Affairs,Agriculture,research,3.3.8,Affaires économiques,Agriculture,Recherche
+3.3.9,Economic Affairs,Agriculture,other services,3.3.9,Affaires économiques,Agriculture,Autres services
+3.4.1,Economic Affairs,Forestry,"policy, planning and administration",3.4.1,Affaires économiques,Sylviculture,"Politiques, planification et administration"
+3.4.2,Economic Affairs,Forestry,development and services,3.4.2,Affaires économiques,Sylviculture,Développement et services
+3.4.3,Economic Affairs,Forestry,education/training,3.4.3,Affaires économiques,Sylviculture,Éducation/formation
+3.4.4,Economic Affairs,Forestry,research,3.4.4,Affaires économiques,Sylviculture,Recherche
+3.5.1,Economic Affairs,Fishing and Hunting,"policy, planning and administration",3.5.1,Affaires économiques,Pêche et chasse,"Politiques, planification et administration"
+3.5.2,Economic Affairs,Fishing and Hunting,development and services,3.5.2,Affaires économiques,Pêche et chasse,Développement et services
+3.5.3,Economic Affairs,Fishing and Hunting,education and training,3.5.3,Affaires économiques,Pêche et chasse,Éducation/formation
+3.5.4,Economic Affairs,Fishing and Hunting,research,3.5.4,Affaires économiques,Pêche et chasse,Recherche
+3.6.1,Economic Affairs,Energy,"policy, planning and administration",3.6.1,Affaires économiques,Énergie,"Politiques, planification et administration"
+3.6.2,Economic Affairs,Energy,education and training,3.6.2,Affaires économiques,Énergie,Éducation/formation
+3.6.3,Economic Affairs,Energy,energy regulation,3.6.3,Affaires économiques,Énergie,Réglementation de l'énergie
+3.6.4,Economic Affairs,Energy,electricity transmission,3.6.4,Affaires économiques,Énergie,Transmission d'électricité
+3.6.5,Economic Affairs,Energy,nuclear,3.6.5,Affaires économiques,Énergie,Nucléaire
+3.6.6,Economic Affairs,Energy,power generation,3.6.6,Affaires économiques,Énergie,Production d'énergie
+3.6.7,Economic Affairs,Energy,gas ,3.6.7,Affaires économiques,Énergie,Gaz
+3.7.1,Economic Affairs,Mining and Mineral Development,"policy, planning and administration",3.7.1,Affaires économiques,Extraction et développement des ressources minérales,"Politiques, planification et administration"
+3.7.2,Economic Affairs,Mining and Mineral Development,prospection and exploration,3.7.2,Affaires économiques,Extraction et développement des ressources minérales,Prospection et exploration
+3.7.3,Economic Affairs,Mining and Mineral Development,coal and other solid mineral fuels,3.7.3,Affaires économiques,Extraction et développement des ressources minérales,Charbon et autres combustibles minéraux solides
+3.7.4,Economic Affairs,Mining and Mineral Development,petroleum and gas,3.7.4,Affaires économiques,Extraction et développement des ressources minérales,Pétrole et gaz naturel
+3.7.5,Economic Affairs,Mining and Mineral Development,other fuel,3.7.5,Affaires économiques,Extraction et développement des ressources minérales,Autres combustibles
+3.7.6,Economic Affairs,Mining and Mineral Development,non fuel minerals,3.7.6,Affaires économiques,Extraction et développement des ressources minérales,Minéraux non combustibles 
+3.8.1,Economic Affairs,Transport,"policy, planning and administration",3.8.1,Affaires économiques,Transports,"Politiques, planification et administration"
+3.8.2,Economic Affairs,Transport,transport regulation,3.8.2,Affaires économiques,Transports,Réglementation des transports
+3.8.3,Economic Affairs,Transport,feeder road construction,3.8.3,Affaires économiques,Transports,Construction des voies de desserte
+3.8.4,Economic Affairs,Transport,feeder road maintenance,3.8.4,Affaires économiques,Transports,Entretien des voies de desserte
+3.8.5,Economic Affairs,Transport,national road construction,3.8.5,Affaires économiques,Transports,Construction des routes nationales
+3.8.6,Economic Affairs,Transport,national road maintenance,3.8.6,Affaires économiques,Transports,Entretien des  routes nationales
+3.8.7,Economic Affairs,Transport,rail,3.8.7,Affaires économiques,Transports,Transports par voie ferrée
+3.8.8,Economic Affairs,Transport,water,3.8.8,Affaires économiques,Transports,Transports par voie d'eau
+3.8.9,Economic Affairs,Transport,air,3.8.9,Affaires économiques,Transports,Transports aériens
+3.8.10,Economic Affairs,Transport,pipeline,3.8.10,Affaires économiques,Transports,Pipelines
+3.8.11,Economic Affairs,Transport,storage and distribution,3.8.11,Affaires économiques,Transports,Stockage et distribution
+3.8.12,Economic Affairs,Transport,public transport services,3.8.12,Affaires économiques,Transports,Transports en commun
+3.8.13,Economic Affairs,Transport,meteorological services,3.8.13,Affaires économiques,Transports,Services météorologiques
+3.8.14,Economic Affairs,Transport,education and training,3.8.14,Affaires économiques,Transports,Éducation/formation
+3.9.1,Economic Affairs,Industry,"policy, planning and administration",3.9.1,Affaires économiques,Industrie,"Politiques, planification et administration"
+3.9.2,Economic Affairs,Industry,development and services,3.9.2,Affaires économiques,Industrie,Développement et services
+3.9.3,Economic Affairs,Industry,industrial research,3.9.3,Affaires économiques,Industrie,Recherche industrielle 
+3.9.4,Economic Affairs,Industry,(investment in industry),3.9.4,Affaires économiques,Industrie,(investissement en industrie)
+3.10.1,Economic Affairs,Communications,"policy, planning and administration",3.10.1,Affaires économiques,Communications,"Politiques, planification et administration"
+3.10.2,Economic Affairs,Communications,ICT Infrastructure,3.10.2,Affaires économiques,Communications,Infrastructre des TIC
+3.10.3,Economic Affairs,Communications,telecoms and postal services,3.10.3,Affaires économiques,Communications,Télécommunications et services postaux
+3.10.4,Economic Affairs,Communications,information services,3.10.4,Affaires économiques,Communications,Services d'information
+3.11.1,Economic Affairs,Tourism,"policy, planning and administration",3.11.1,Affaires économiques,Tourisme,"Politiques, planification et administration"
+3.11.2,Economic Affairs,Tourism,services,3.11.2,Affaires économiques,Tourisme,Autres services
+3.12.1,Economic Affairs,Microfinance and financial services,Microfinance and financial services,3.12.1,Affaires économiques,Microfinance et services financiers ,Microfinance et services financiers 
+4.1.1,"Water, Natural Resource Management and Environment",Water supply and Sanitation,"policy, planning and administration",4.1.1,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,"Politiques, planification et administration"
+4.1.2,"Water, Natural Resource Management and Environment",Water supply and Sanitation,education/training,4.1.2,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Éducation/formation
+4.1.3,"Water, Natural Resource Management and Environment",Water supply and Sanitation,rural water supply and sanitation,4.1.3,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Alimentation en eau et installations sanitaires en milieu rural
+4.1.4,"Water, Natural Resource Management and Environment",Water supply and Sanitation,urban water supply and sanitation,4.1.4,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Alimentation en eau et installations sanitaires en milieu urbain
+4.1.5,"Water, Natural Resource Management and Environment",Water supply and Sanitation,rural water supply,4.1.5,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Alimentation en eau en milieu rural
+4.1.6,"Water, Natural Resource Management and Environment",Water supply and Sanitation,urban water supply,4.1.6,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Alimentation en eau en milieu urbain
+4.1.7,"Water, Natural Resource Management and Environment",Water supply and Sanitation,rural sanitation,4.1.7,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Installations sanitaires en milieu rural
+4.1.8,"Water, Natural Resource Management and Environment",Water supply and Sanitation,urban sanitation,4.1.8,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Installations sanitaires en milieu urbain
+4.1.9,"Water, Natural Resource Management and Environment",Water supply and Sanitation,sewage and waste management,4.1.9,"Gestion des ressources en eau et naturelles, et de l'environnement",Alimentation en eau et installations sanitaires,Gestion des déchets et des eaux usées
+4.2.1,"Water, Natural Resource Management and Environment",Environment,"policy, planning and administration",4.2.1,"Gestion des ressources en eau et naturelles, et de l'environnement",Environnement,"Politiques, planification et administration"
+4.2.2,"Water, Natural Resource Management and Environment",Environment,research/ education and training,4.2.2,"Gestion des ressources en eau et naturelles, et de l'environnement",Environnement,"Recherche, éducation et formation"
+4.2.3,"Water, Natural Resource Management and Environment",Environment,natural resource management,4.2.3,"Gestion des ressources en eau et naturelles, et de l'environnement",Environnement,Gestion des ressources naturelles
+4.2.4,"Water, Natural Resource Management and Environment",Environment,water resources management,4.2.4,"Gestion des ressources en eau et naturelles, et de l'environnement",Environnement,Gestion des ressources en eau
+4.2.5,"Water, Natural Resource Management and Environment",Environment,"wildlife protection, parks and site preservation",4.2.5,"Gestion des ressources en eau et naturelles, et de l'environnement",Environnement,"Protection de la faune et de la flore, parcs et réserves naturels"
+5.1.1,Social Affairs,Health,"policy, planning and administration",5.1.1,Affaires sociales,Santé,"Politiques, planification et administration"
+5.2.1,Social Affairs,"Recreation, Culture and Religion",recreation and sport,5.2.1,Affaires sociales,"Récréation, culture et religion",Récréation et sport
+5.2.2,Social Affairs,"Recreation, Culture and Religion",culture,5.2.2,Affaires sociales,"Récréation, culture et religion",Culture
+5.2.3,Social Affairs,"Recreation, Culture and Religion",broadcasting and publishing,5.2.3,Affaires sociales,"Récréation, culture et religion","Services de radiodiffusion, de télévision et d'édition"
+5.2.4,Social Affairs,"Recreation, Culture and Religion",religion,5.2.4,Affaires sociales,"Récréation, culture et religion",Religion
+5.3.1,Social Affairs,Education,"administration, policy and planning",5.3.1,Affaires sociales,Enseignement,"Politiques, planification et administration"
+5.3.2,Social Affairs,Education,research,5.3.2,Affaires sociales,Enseignement,Recherche
+5.3.3,Social Affairs,Education,pre-primary,5.3.3,Affaires sociales,Enseignement,Préélémentaire
+5.3.4,Social Affairs,Education,primary,5.3.4,Affaires sociales,Enseignement,Primaire
+5.3.5,Social Affairs,Education,lower secondary,5.3.5,Affaires sociales,Enseignement,Premier cycle de l'enseignement secondaire
+5.3.6,Social Affairs,Education,upper secondary,5.3.6,Affaires sociales,Enseignement,Deuxième cycle de l'enseignement secondaire
+5.3.7,Social Affairs,Education,post secondary non tertiary ,5.3.7,Affaires sociales,Enseignement,Enseignement postsecondaire non supérieur
+5.3.8,Social Affairs,Education,tertiary,5.3.8,Affaires sociales,Enseignement,Enseignement supérieur
+5.3.9,Social Affairs,Education,vocational training,5.3.9,Affaires sociales,Enseignement,Formation professionnelle
+5.3.10,Social Affairs,Education,advanced technical and managerial training,5.3.10,Affaires sociales,Enseignement,Formation technique et de gestion avancée
+5.3.11,Social Affairs,Education,basic adult education,5.3.11,Affaires sociales,Enseignement,Education de base des adultes
+5.3.12,Social Affairs,Education,teacher training,5.3.12,Affaires sociales,Enseignement,Formation des enseignants 
+5.3.13,Social Affairs,Education,subsidiary services,5.3.13,Affaires sociales,Enseignement,Services annexes à l'enseignement
+5.4.1,Social Affairs,"Social Protection, Land Housing and Community Amenities","policy, planning and administration",5.4.1,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ","Politiques, planification et administration"
+5.4.2,Social Affairs,"Social Protection, Land Housing and Community Amenities",social security (excl pensions),5.4.2,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Protection sociale (excluant retraite)
+5.4.3,Social Affairs,"Social Protection, Land Housing and Community Amenities",general pensions,5.4.3,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Retraites
+5.4.4,Social Affairs,"Social Protection, Land Housing and Community Amenities",civil service and military pensions,5.4.4,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Régimes de retraite du personnel militaire et des fonctionnaires
+5.4.5,Social Affairs,"Social Protection, Land Housing and Community Amenities",social services (incl youth development and women+ children),5.4.5,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ","Protection sociale (y compris jeunes, femmes et enfants)"
+5.4.6,Social Affairs,"Social Protection, Land Housing and Community Amenities",land policy and management,5.4.6,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Administration de l'aménagement du territoire
+5.4.7,Social Affairs,"Social Protection, Land Housing and Community Amenities",rural devt,5.4.7,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Développement rural
+5.4.8,Social Affairs,"Social Protection, Land Housing and Community Amenities",urban devt,5.4.8,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Développement urbain
+5.4.9,Social Affairs,"Social Protection, Land Housing and Community Amenities",housing and community amenities,5.4.9,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Logements et équipements collectifs
+5.4.10,Social Affairs,"Social Protection, Land Housing and Community Amenities",emergency relief,5.4.10,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Secours d'urgence
+5.4.11,Social Affairs,"Social Protection, Land Housing and Community Amenities",disaster prevention and preparedness,5.4.11,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Prévision et prévention des catastrophes 
+5.4.12,Social Affairs,"Social Protection, Land Housing and Community Amenities",support to refugees and internally displaced persons,5.4.12,Affaires sociales,"Protection sociale, terre, Logement et équipements collectifs ",Soutien aux réfugiés et déplacés internes
+6.1.1,Development Partner Affairs,Development Partner affairs,policy planning and administration,6.1.1,Affaires des partenaires de développement ,Affaires des partenaires de développement ,"Politiques, planification et administration"
+6.1.2,Development Partner Affairs,Development Partner affairs,Technical staff services,6.1.2,Affaires des partenaires de développement ,Affaires des partenaires de développement ,Services de personnel technique
+7.1.1,General Budget Support and Aid support external to General Government Sector,External to government sector,External to general government sector,7.1.1,Appui budgétaire général et aide externe au secteur gouvernemental,Aide externe au secteur gouvernemental,Externe au secteur gouvernemental
+7.2.1,General Budget Support and Aid support external to General Government Sector,General Budget Support,General Budget Support,7.2.1,Appui budgétaire général et aide externe au secteur gouvernemental,Appui budgétaire général,Appui budgétaire général
+0,,,Not mappable,0,,,Non mappable
