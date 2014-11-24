@@ -167,7 +167,6 @@ class Description(db.Model):
         index=True)
     text = sa.Column(sa.UnicodeText)
     lang = sa.Column(sa.UnicodeText)
-    percentage = sa.Column(sa.Integer)
     activity = sa.orm.relationship("Activity")
 
 class Transaction(db.Model):
