@@ -29,7 +29,7 @@ def getfirst(list):
         return list[0]
     return None
 
-def parse_file(filename):
+def parse_file(country_code, filename):
     DAC_codes = projects.DAC_codes()
 
     def getDACSectors(sectors):
@@ -152,6 +152,7 @@ def parse_file(filename):
         a.date_end_planned = get_date(activity, 'end-planned')
         a.date_start_actual = get_date(activity, 'start-actual')
         a.date_end_actual = get_date(activity, 'end-actual')
+        a.recipient_country_code = country_code
         db.session.add(a)
         db.session.commit()
 
