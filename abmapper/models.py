@@ -67,9 +67,7 @@ class Activity(db.Model):
     default_currency = sa.Column(sa.UnicodeText)
     hierarchy = sa.Column(sa.UnicodeText)
     last_updated = sa.Column(sa.UnicodeText)
-    reporting_org = sa.Column(sa.UnicodeText)
     reporting_org_ref = sa.Column(sa.UnicodeText)
-    reporting_org_type = sa.Column(sa.UnicodeText)
 
     funding_org = sa.Column(sa.UnicodeText)
     funding_org_ref = sa.Column(sa.UnicodeText)
