@@ -155,13 +155,18 @@ def activity_export(country_code, reporting_org=None):
     strIOsender = StringIO.StringIO()
     wb.save(strIOsender)
     strIOsender.seek(0)
+    if reporting_org:
+        the_filename = "aidonbudget_%s_%s.xls" % (country_code, reporting_org)
+    else:
+        the_filename = "aidonbudget_%s.xls" % (country_code)
     return send_file(strIOsender,
-                     attachment_filename="export.xls",
+                     attachment_filename=the_filename,
                      as_attachment=True)
 
 @app.route("/setup/")
-def setup():
-    absetup.setup()
+@app.route("/setup/<lang>/")
+def setup(lang="EN"):
+    absetup.setup(lang)
     return "OK"
 
 @app.route("/import/<country>/")
