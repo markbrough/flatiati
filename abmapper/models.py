@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy.ext.hybrid import hybrid_property
 import functools as ft
 from abmapper import db
 
@@ -130,6 +131,20 @@ class Activity(db.Model):
     participating_orgs = act_relationship("Participation")
 
     transactions = act_relationship("Transaction")
+
+    capital_exp = sa.Column(sa.Integer)
+
+    @hybrid_property
+    def total_commitments(self):
+        return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
+                where(Transaction.activity_iati_identifier==self.iati_identifier).\
+                where(Transaction.transaction_type_code=="C")).first()[0]
+
+    @hybrid_property
+    def total_disbursements(self):
+        return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
+                where(Transaction.activity_iati_identifier==self.iati_identifier).\
+                where(Transaction.transaction_type_code=="D")).first()[0]
 
 class Title(db.Model):
     __tablename__ = 'title'
