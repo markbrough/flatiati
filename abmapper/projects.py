@@ -7,10 +7,77 @@ from abmapper import app, db
 from abmapper import models
 from abmapper.lib import codelists
 import unicodecsv
+from sqlalchemy import func, distinct
+import xlrd
 
-def projects():
-    p = models.Activity.query.all()
+def projects(country_code, reporting_org=None):
+    if not reporting_org:
+        p = models.Activity.query.filter_by(
+                recipient_country_code=country_code
+            ).all()
+    else:
+        p = models.Activity.query.filter_by(
+                recipient_country_code=country_code,
+                reporting_org_ref=reporting_org
+            ).all()
+        
     return p
+
+def update_project(data):
+    f = data.filename
+    print "Trying to read %s" % f
+    sheetname = "Raw data export"
+    book = xlrd.open_workbook(filename=f)
+    sheet = book.sheet_by_name(sheetname)
+    project_data = {}
+    for i in range(1, sheet.nrows):
+        if sheet.cell_type(i, 0)==1:
+            # Start collecting project data
+            project_id = sheet.cell(i, 0).value
+
+            project_data[project_id] = {"num_sectors": 0}
+            for checkrow in range(i+1, sheet.nrows):
+                if sheet.cell_type(checkrow, 0)==0:
+                    project_data[project_id]["num_sectors"]+=1
+
+                if sheet.cell_type(checkrow, 0)==1:
+                    break
+            
+            project_data[project_id]["sectors"] = []
+
+            for si in range(i, i+project_data[project_id]["num_sectors"]):
+                project_data[project_id]["sectors"].append(
+                    {
+                    "cc_id": sheet.cell(i, 5).value
+                    }
+                )
+
+            # End collecting project data
+        if sheet.cell_type(i, 0)==0: continue
+    print project_data
+
+    # Check existing list of projects and get sectors from there
+    
+
+def country(country_code):
+    c = models.RecipientCountry.query.filter_by(code=country_code).first()
+    return c
+
+def countries_activities():
+    c = db.session.query(func.count(models.Activity.id).label("num_activities"),
+                         models.RecipientCountry
+                    ).join(models.RecipientCountry
+                    ).group_by(models.RecipientCountry
+                    ).all()
+    return c
+
+def reporting_org_activities(country_code):
+    r = db.session.query(distinct(models.Activity.reporting_org_ref).label("reporting_org"),
+                         func.count(models.Activity.id).label("num_activities"),
+                    ).filter(models.Activity.recipient_country_code==country_code
+                    ).group_by(models.Activity.reporting_org_ref
+                    ).all()
+    return r
 
 def project(iati_identifier):
     p = p = models.Activity.query.filter_by(
