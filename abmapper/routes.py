@@ -13,23 +13,36 @@ import StringIO
 import datetime
 
 @app.route("/")
-def home():
-    p = projects.projects()
-    stats = projects.mappable()
-    return render_template("index.html",
-                           projects=p,
-                           stats=stats)
+def dashboard():
+    countries=projects.countries_activities()
+    return render_template("dashboard.html",
+                           countries=countries,
+                          )
 
-@app.route("/activities/<iati_identifier>/")
-def activities(iati_identifier):
+@app.route("/<country_code>/")
+def home(country_code):
+    p = projects.projects(country_code)
+    country = projects.country(country_code)
+    reporting_orgs = projects.reporting_org_activities(country_code)
+    return render_template("country.html",
+                           projects=p,
+                           country=country,
+                           reporting_orgs=reporting_orgs,
+                           )
+
+@app.route("/<country_code>/activities/<iati_identifier>/")
+def activities(country_code, iati_identifier):
     a = projects.project(iati_identifier)
+    country = projects.country(country_code)
     sectors = projects.DAC_codes_cc_mappable()
     return render_template("project.html",
                            activity=a,
-                           sectors=sectors)
+                           sectors=sectors,
+                           country=country,
+                           )
 
-@app.route("/activities/<path:iati_identifier>/addsector/", methods=['POST'])
-def activity_add_sector(iati_identifier):
+@app.route("/<country_code>/activities/<path:iati_identifier>/addsector/", methods=['POST'])
+def activity_add_sector(country_code, iati_identifier):
     sector_code = request.form['sector_code']
     iati_identifier = request.form['iati_identifier']
     percentage = request.form['percentage']
@@ -45,8 +58,8 @@ def activity_add_sector(iati_identifier):
                             })
     return util.jsonify({"error":True})
 
-@app.route("/activities/<path:iati_identifier>/deletesector/", methods=['POST'])
-def activity_delete_sector(iati_identifier):
+@app.route("/<country_code>/activities/<path:iati_identifier>/deletesector/", methods=['POST'])
+def activity_delete_sector(country_code, iati_identifier):
     sector_code = request.form['sector_code']
     iati_identifier = iati_identifier
     result = projects.delete_sector_from_project(sector_code, iati_identifier)
@@ -54,16 +67,17 @@ def activity_delete_sector(iati_identifier):
         return util.jsonify({"success": result})
     return util.jsonify({"error": True})
 
-@app.route("/activities/<path:iati_identifier>/restoresector/", methods=['POST'])
-def activity_restore_sector(iati_identifier):
+@app.route("/<country_code>/activities/<path:iati_identifier>/restoresector/", methods=['POST'])
+def activity_restore_sector(country_code, iati_identifier):
     sector_code = request.form['sector_code']
     iati_identifier = iati_identifier
     if projects.restore_sector_to_project(sector_code, iati_identifier):
         return util.jsonify({"success": True})
     return util.jsonify({"error": True})
 
-@app.route("/export.xls")
-def activity_export():
+@app.route("/<country_code>/<reporting_org>/export.xls")
+@app.route("/<country_code>/export.xls")
+def activity_export(country_code, reporting_org=None):
     def notNone(value):
         if value is not None:
             return True
