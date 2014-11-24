@@ -39,33 +39,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <h1><a href="{{url_for('home')}}">Aid &raquo; Budget Mapper.</a></h1>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li{% if active_page == "index" %} class="active"{%endif%}><a href="">Home</a></li>
-              <li{% if active_page == "organisations" %} class="active"{%endif%}><a href="">Organisations</a></li>
-              <li{% if active_page == "indicators" %} class="active"{%endif%}><a href="">Indicators</a></li>
-              <li{% if active_page == "about" %} class="active"{%endif%}><a href="">About</a></li>
-            </ul>
-            <ul class="nav pull-right">
-              {% if loggedinuser %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                {{loggedinuser.username}}
-                <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  {% if admin %}
-                  <li{% if active_page == "organisations_coverage" %} class="active"{%endif%}><a href="">Admin menu item</a></li>
-                  {% endif %}
-                  <li><a href="">Log out</a></li>
-                </ul>
-              </li>
-              {% else %}
-              <li><a href="#">Login</a></li>
-              {% endif %}
-            </ul>
-          </div><!--/.nav-collapse -->
+          <h1><a href="{{url_for('dashboard')}}">Aid &raquo; Budget Mapper</a> 
+          {% if country %}<a href="{{url_for('home', country_code=country.code)}}">
+            <span class="header-country-name">{{country.text}}</span>
+          </a>{% endif %}
+          </h1>
         </div>
       </div>
     </div>
