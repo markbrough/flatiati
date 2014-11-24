@@ -116,3 +116,10 @@ option.sector-option-0 {
     opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
+.header-country-name {
+    font-size:0.5em;
+    font-style:italic;
+}
+a .header-country-name  {
+    color: #333333;
+}
