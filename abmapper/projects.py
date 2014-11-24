@@ -5,6 +5,8 @@ import urllib2
 import os
 from abmapper import app, db
 from abmapper import models
+from abmapper.lib import codelists
+import unicodecsv
 
 def projects():
     p = models.Activity.query.all()
@@ -39,6 +41,27 @@ def mappable():
 def DAC_codes():
     s = db.session.query(models.DACSector.code).all()
     return zip(*s)[0]
+
+def DAC_codes_existing():
+    codes = []
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/oecd_dac_sectors.csv'), 'r') as csvfile:
+        crsreader = unicodecsv.DictReader(csvfile)
+        for row in crsreader:
+            if row["CRS CODE"] != "":
+                codes.append(int(row["CRS CODE"]))
+    return codes
+
+def DAC_codes_old_new():
+    mapped_DAC_codes = DAC_codes()
+
+    existing_DAC_codes = DAC_codes_existing()
+
+    count = 0
+    for code in existing_DAC_codes:
+        if code not in mapped_DAC_codes:
+            print "%s not found" % (code)
+            count +=1
+    print "%s codes not found" % (count)
 
 def DAC_codes_cc_mappable():
     s = db.session.query(models.DACSector.code,
