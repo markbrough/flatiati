@@ -1,0 +1,21 @@
+{% set active_page='index' %}{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<br />
+
+<h1>Countries</h1>
+<table class="table">
+  <thead>
+    <th>Country</th>
+    <th>Number of projects</th>
+  </thead>
+  <tbody>
+    {% for country in countries %}
+    <tr>
+      <td><a href="{{url_for('home', country_code=country.RecipientCountry.code)}}">{{country.RecipientCountry.text}}</a></td>
+      <td>{{country.num_activities}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
