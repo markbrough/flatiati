@@ -145,6 +145,7 @@ def parse_file(country_code, filename):
         a.descriptions = get_descriptions(activity)
         a.sectors = get_sectors(activity)
         a.participating_orgs = get_orgs(activity)
+        a.reporting_org_ref = getfirst(activity.xpath('reporting-org/@ref'))
         a.transactions = get_transactions(activity)
         a.status_code = getfirst(activity.xpath('activity-status/@code'))
         a.aid_type_code = getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code'))
