@@ -83,8 +83,11 @@ class Activity(db.Model):
     recipient_region = sa.Column(sa.UnicodeText)
     recipient_region_code = sa.Column(sa.UnicodeText)
 
-    recipient_country = sa.Column(sa.UnicodeText)
-    recipient_country_code = sa.Column(sa.UnicodeText)
+    recipient_country = sa.orm.relationship("RecipientCountry")
+    recipient_country_code = sa.Column(
+        act_ForeignKey("recipientcountry.code"),
+        nullable=False,
+        index=True)
 
     collaboration_type = sa.Column(sa.UnicodeText)
     collaboration_type_code = sa.Column(sa.UnicodeText)
@@ -168,6 +171,11 @@ class ActivityStatus(db.Model):
 
 class AidType(db.Model):
     __tablename__ = 'aidtype'
+    code = sa.Column(sa.UnicodeText, primary_key=True)
+    text = sa.Column(sa.UnicodeText)
+
+class RecipientCountry(db.Model):
+    __tablename__ = 'recipientcountry'
     code = sa.Column(sa.UnicodeText, primary_key=True)
     text = sa.Column(sa.UnicodeText)
 
