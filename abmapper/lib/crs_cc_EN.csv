@@ -3,9 +3,9 @@ DAC_sector_code,DAC_sector_name,DAC_5_code,DAC_5_name,CRS_code,DESCRIPTION,notes
 112,EDUCATION,111,"Education, level unspecified",11120,Education facilities and training,"Educational buildings, equipment, materials; subsidiary services to education (boarding facilities, staff housing); language training; colloquia, seminars, lectures, etc.",,5.3.13
 112,EDUCATION,111,"Education, level unspecified",11130,Teacher training,Teacher education (where the level of education is unspecified); in-service and pre-service training; materials development.,,5.3.12
 112,EDUCATION,111,"Education, level unspecified",11182,Educational research,"Research and studies on education effectiveness, relevance and quality; systematic evaluation and monitoring.",,5.3.2
-112,EDUCATION,112,Basic education,11220,Primary education,Formal and non-formal primary education for children; all elementary and first cycle systematic instruction; provision of learning materials.,,5.3.3
+112,EDUCATION,112,Basic education,11220,Primary education,Formal and non-formal primary education for children; all elementary and first cycle systematic instruction; provision of learning materials.,,5.3.4
 112,EDUCATION,112,Basic education,11230,Basic life skills for youth and adults ,Formal and non-formal education for basic life skills for young people and adults (adults education); literacy and numeracy training.,,0
-112,EDUCATION,112,Basic education,11231,Basic life skills for youth and adults,,11230,5.3.6
+112,EDUCATION,112,Basic education,11231,Basic life skills for youth and adults,,11230,5.3.7
 112,EDUCATION,112,Basic education,11232,Primary education equivalent for adults,,11230,5.3.11
 112,EDUCATION,112,Basic education,11240,Early childhood education,Formal and non-formal pre-school education.,,5.3.3
 112,EDUCATION,113,Secondary education,11320,Secondary education,Second cycle systematic instruction at both junior and senior levels.,,0
@@ -218,7 +218,7 @@ Bilateral participation in international civilian peace missions such as those c
 321,INDUSTRY,,,32182,Technological research and development,Including industrial standards; quality management; metrology;  testing;  accreditation;  certification.,,3.9.3
 322,MINERAL RESOURCES AND MINING,,,32210,Mineral/mining policy and administrative management,"Mineral and mining sector policy, planning and programmes;  mining legislation, mining cadastre, mineral resources inventory, information systems, institution capacity building and advice;  unspecified mineral resources exploitation.",,0
 322,MINERAL RESOURCES AND MINING,,,32211,"Minerals and mining policy, planning and administration",,32210,3.7.1
-322,MINERAL RESOURCES AND MINING,,,32212,Other fuel services,,32210,3.7.6
+322,MINERAL RESOURCES AND MINING,,,32212,Other fuel services,,32210,3.7.5
 322,MINERAL RESOURCES AND MINING,,,32220,Mineral prospection and exploration,"Geology, geophysics, geochemistry;  excluding hydrogeology (14010) and environmental geology (41010), mineral extraction and processing, infrastructure, technology, economics, safety and environment management.",,3.7.2
 322,MINERAL RESOURCES AND MINING,,,32261,Coal,Including lignite and peat.,,3.7.3
 322,MINERAL RESOURCES AND MINING,,,32262,Oil and gas,"Petroleum, natural gas, condensates, liquefied petroleum gas (LPG), liquefied natural gas (LNG);  including drilling and production.",,3.7.4
