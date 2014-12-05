@@ -3,9 +3,9 @@ DAC_sector_code,DAC_sector_name,DAC_5_code,DAC_5_name,CRS_code,DESCRIPTION,notes
 110,EDUCATION,111,"Éducation, niveau non spécifié",11120,Équipements scolaires et formation,"Bâtiments scolaires, équipement, fournitures ; services pour l’éducation (équipement pour les pensionnaires, logement pour le personnel) ; cours de langues ; colloques, séminaires, conférences, etc.",,5.3.13
 110,EDUCATION,111,"Éducation, niveau non spécifié",11130,Formation des enseignants,Éducation des enseignants (quand le niveau d’éducation n’est pas spécifié) ; formation et formation continue ; développement des matériels pédagogiques.  ,,5.3.12
 110,EDUCATION,111,"Éducation, niveau non spécifié",11182,Recherche en éducation,"Recherche et études sur l’efficacité, la pertinence et la qualité de l’éducation ; évaluation et suivi systématiques. ",,5.3.2
-110,EDUCATION,112,Éducation de base,11220,Enseignement primaire,Enseignement primaire formel et non formel pour les enfants ; enseignement élémentaire général ; fournitures scolaires.,,5.3.3
+110,EDUCATION,112,Éducation de base,11220,Enseignement primaire,Enseignement primaire formel et non formel pour les enfants ; enseignement élémentaire général ; fournitures scolaires.,,5.3.4
 110,EDUCATION,112,Éducation de base,11230,Éducation pour une meilleure qualité de vie pour les jeunes et les adultes,Éducation formelle et non formelle pour une meilleure qualité de vie pour les jeunes et les adultes (éducation des adultes) ; alphabétisation et apprentissage du calcul.,,0
-110,EDUCATION,112,Éducation de base,11231,Basic life skills for adults,,11230,5.3.6
+110,EDUCATION,112,Éducation de base,11231,Basic life skills for adults,,11230,5.3.7
 110,EDUCATION,112,Éducation de base,11232,Education de base des adultes,,11230,5.3.11
 110,EDUCATION,112,Éducation de base,11240,Éducation de la petite enfance ,Éducation préscolaire formelle et non formelle.,,5.3.3
 110,EDUCATION,113,Éducation secondaire,11320,Enseignement secondaire,Éducation secondaire généralisée pour les premiers et derniers cycles.,,0
@@ -223,7 +223,7 @@ L’aide visant à favoriser une utilisation pacifique de l’énergie nucléair
 321,INDUSTRIES MANUFACTURIERES,,,32182,Recherche et développement technologiques,Y compris les standards industriels ; gestion et contrôle de qualité ; métrologie ; accréditation ; certification.,,3.9.3
 322,INDUSTRIES EXTRACTIVES,,,32210,Politique de l’industrie extractive et gestion administrative,"Politique du secteur des industries extractives, planification et programmes ; législation et cadastre, recensement des richesses minérales, systèmes d’information ; renforcement des capacités institutionnelles et conseils ; exploitation des ressources minérales non spécifiées.",,0
 322,INDUSTRIES EXTRACTIVES,,,32211,"Politiques, planification et administration",,32210,3.7.1
-322,INDUSTRIES EXTRACTIVES,,,32212,Minéraux non combustibles ,,32210,3.7.6
+322,INDUSTRIES EXTRACTIVES,,,32212,Minéraux non combustibles ,,32210,3.7.5
 322,INDUSTRIES EXTRACTIVES,,,32220,Prospection et exploration des minerais,"Géologie, géophysique et géochimie ; à l’exclusion de hydrogéologie (14010) et géologie de l’environnement (41010), production et extraction minérales, infrastructure, technologie, économie, sécurité et gestion de l’environnement.",,3.7.2
 322,INDUSTRIES EXTRACTIVES,,,32261,Charbon,Y compris lignite et la tourbe.,,3.7.3
 322,INDUSTRIES EXTRACTIVES,,,32262,Pétrole et gaz,"Pétrole, gaz naturel, condensés ; y compris derricks et plates-formes de forage.",,3.7.4
