@@ -2,6 +2,7 @@
 
 import optparse, sys
 from abmapper import projects
+from abmapper.datastore import download
 
 def update_projects(options):
     print options
@@ -10,7 +11,14 @@ def update_projects(options):
     assert options.country_code
     projects.update_project(options)
 
+def import_iati_xml(options):
+    print options
+    assert options.filename
+    assert options.country_code
+    download.parse_file(options.country_code, options.filename)
+
 commands = {
+    "import": (import_iati_xml, "Import IATI XML file"),
     "update_projects": (update_projects, "Update projects"),
 }
 
