@@ -225,6 +225,7 @@ class Sector(db.Model):
     percentage = sa.Column(sa.Integer)
     edited = sa.Column(sa.Boolean, default=False)
     deleted = sa.Column(sa.Boolean, default=False)
+    assumed = sa.Column(sa.Boolean, default=False)
     activity = sa.orm.relationship("Activity")
     dacsector = sa.orm.relationship("DACSector")
 
