@@ -3,6 +3,7 @@
 import optparse, sys
 from abmapper import projects
 from abmapper.datastore import download
+from abmapper import setup as absetup
 
 def update_projects(options):
     print options
@@ -17,7 +18,13 @@ def import_iati_xml(options):
     assert options.country_code
     download.parse_file(options.country_code, options.filename)
 
+def setup(options):
+    print options
+    assert options.lang
+    absetup.setup(options.lang)
+
 commands = {
+    "setup": (setup, "Setup"),
     "import": (import_iati_xml, "Import IATI XML file"),
     "update_projects": (update_projects, "Update projects"),
 }
@@ -36,6 +43,8 @@ def main():
                  help="Set country code for projects to update")
     p.add_option("--filename", dest="filename",
                  help="Set filename of data to update")
+    p.add_option("--lang", dest="lang",
+                 help="Set language for setup")
 
     options, args = p.parse_args()
 
