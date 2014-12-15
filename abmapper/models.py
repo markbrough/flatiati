@@ -178,9 +178,9 @@ class RecipientCountry(db.Model):
     __tablename__ = 'recipientcountry'
     code = sa.Column(sa.UnicodeText, primary_key=True)
     text = sa.Column(sa.UnicodeText)
-    budget_types = act_relationship("BudgetTypes")
+    budget_types = act_relationship("BudgetType")
 
-class BudgetTypes(db.Model):
+class BudgetType(db.Model):
     __tablename__ = 'budgettypes'
     code = sa.Column(sa.UnicodeText, primary_key=True)
     text = sa.Column(sa.UnicodeText)
