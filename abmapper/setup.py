@@ -17,6 +17,7 @@ def setup(lang="EN"):
     import_activity_statuses(lang)
     import_aid_types(lang)
     import_recipient_countries(lang)
+    import_budget_types(lang)
 
 def import_common_code(lang):
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/CC_EN_FR.csv'), 'r') as csvfile:
@@ -93,4 +94,15 @@ def import_recipient_countries(lang):
         rc.code = code["code"]
         rc.text = code["name"]
         db.session.add(rc)
+    db.session.commit()
+
+def import_budget_types(lang): 
+    filename="budget_type_EN_FR.csv"
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/'+filename), 'r') as csvfile:
+        budgettypereader = unicodecsv.DictReader(csvfile)
+        for row in budgettypereader:
+            nc = models.BudgetType()
+            nc.code = row["Code"]
+            nc.text = row[lang + "_Name"]
+            db.session.add(nc)
     db.session.commit()
