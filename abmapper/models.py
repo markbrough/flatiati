@@ -178,18 +178,9 @@ class RecipientCountry(db.Model):
     __tablename__ = 'recipientcountry'
     code = sa.Column(sa.UnicodeText, primary_key=True)
     text = sa.Column(sa.UnicodeText)
-    budget_types = act_relationship("CountryBudgetType")
-
-class CountryBudgetType(db.Model):
-    __tablename__ = 'countrybudgettype'
-    id = sa.Column(sa.Integer, primary_key=True)   
-    recipientcountry_code = sa.Column(
-        act_ForeignKey("recipientcountry.code"),
-        nullable=False)
-    recipientcountry = sa.orm.relationship("RecipientCountry")
     budgettype_id = sa.Column(
         act_ForeignKey("budgettype.code"),
-        nullable=False)
+        default=None)
     budgettype = sa.orm.relationship("BudgetType")
 
 class BudgetType(db.Model):
