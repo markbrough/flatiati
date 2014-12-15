@@ -268,6 +268,30 @@ class CommonCode(db.Model):
     sector = sa.Column(sa.UnicodeText)
     function = sa.Column(sa.UnicodeText)
 
+class BudgetCode(db.Model):
+    __tablename__ = 'budgetcode'
+    id = sa.Column(sa.Integer, primary_key=True)
+    code = sa.Column(sa.UnicodeText)
+    name = sa.Column(sa.UnicodeText)
+    country_code = sa.Column(sa.UnicodeText, sa.ForeignKey("recipientcountry.code"))
+    country = sa.orm.relationship("RecipientCountry",
+                primaryjoin=country_code == RecipientCountry.code,
+                foreign_keys=[country_code],
+                )
+    budgettype_code = sa.Column(sa.UnicodeText, sa.ForeignKey("budgettype.code"))
+    budgettype = sa.orm.relationship("BudgetType",
+                primaryjoin=budgettype_code == BudgetType.code,
+                foreign_keys=[budgettype_code],
+                )
+
+class CCBudgetCode(db.Model):
+    __tablename__ = 'ccbudgetcode'
+    id = sa.Column(sa.Integer, primary_key=True)
+    cc_id = sa.Column(sa.UnicodeText, sa.ForeignKey("commoncode.id"))
+    cc = sa.orm.relationship("CommonCode")
+    budgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("budgetcode.id"))
+    budgetcode = sa.orm.relationship("BudgetCode")
+
 class RelatedActivity(db.Model):
     __tablename__ = 'relatedactivity'
     id = sa.Column(sa.Integer, primary_key=True)
