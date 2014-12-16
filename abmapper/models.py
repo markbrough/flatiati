@@ -150,6 +150,33 @@ class Activity(db.Model):
                 where(Transaction.activity_iati_identifier==self.iati_identifier).\
                 where(Transaction.transaction_type_code=="D")).first()[0]
 
+    @hybrid_property
+    def pct_mappable_before(self):
+        return db.engine.execute("""
+            SELECT sum(sector.percentage) AS sum_1 
+            FROM sector
+            JOIN dacsector ON dacsector.code = sector.code 
+            WHERE sector.activity_iati_identifier = '%s' 
+            AND sector.edited = 0 AND dacsector.cc_id != "0";
+            """ % self.iati_identifier).first()[0]
+
+    @hybrid_property
+    def pct_mappable_after(self):
+        return db.engine.execute("""
+            SELECT sum(sector.percentage) AS sum_1 
+            FROM sector
+            JOIN dacsector ON dacsector.code = sector.code 
+            WHERE sector.activity_iati_identifier = '%s' 
+            AND sector.deleted = 0 AND dacsector.cc_id != "0";
+            """ % self.iati_identifier).first()[0]
+
+    @hybrid_property
+    def pct_mappable_diff(self):
+        try:
+            return self.pct_mappable_after - self.pct_mappable_before
+        except TypeError:
+            return 0
+
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
