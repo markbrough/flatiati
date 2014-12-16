@@ -130,7 +130,7 @@ th.sectors-column, td.sectors-column {
 th.titles-column, td.titles-column {
     max-width:240px;
 }
-.sectors-column span {
+.sectors-column span.label {
     clear: left;
     float: left;
     overflow: hidden;
