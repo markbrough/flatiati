@@ -1,6 +1,12 @@
 {% set active_page='index' %}{% extends "layout.html" %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
+
+<script >
+    $(function() {
+    $("table#projects").tablesorter({ sortList: [[3,0]] });
+    });
+</script>
 <br />
 <div class="pull-right">
     <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
