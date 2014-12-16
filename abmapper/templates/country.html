@@ -20,21 +20,41 @@
 </div>
 <h2>Mapping statistics</h2>
 <dl class="dl-horizontal">
-  <dt>Total value</dt><dd>{{stats.total_value}}<p class="text-muted">sum of C01, D01 and D02 Aid Types, in donor's currency</p></dd>
-  <dt>Mappable before</dt><dd>{{stats.total_mappable_before_pct}}
+  <dt>Total value</dt><dd>{{stats.total_value}}
+</dl>
+<h3>Administrative/functional classification</h3>
+<dl class="dl-horizontal">
+  <dt>Before</dt><dd>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_before_pct}}%;">
         <span><b>{{stats.total_mappable_before_pct}}% Mappable</b></span>
       </div>
     </div>
   </dd>
-  <dt>Mappable after</dt><dd>{{stats.total_mappable_after_pct}}
+  <dt>After</dt><dd>
     <div class="progress">
       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_after_pct}}%;">
         <span><b>{{stats.total_mappable_after_pct}}% Mappable</b></span>
       </div>
     </div></dd>
 </dl>
+<h3>Economic classification</h3>
+<dl class="dl-horizontal">
+  <dt>Before</dt><dd>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_before_pct}}%; min-width: 30px;">
+        <span><b>{{stats.total_capital_before_pct}}% Capital</b></span>
+      </div>
+    </div>
+  </dd>
+  <dt>After</dt><dd>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_after_pct}}%;">
+        <span><b>{{stats.total_capital_after_pct}}% Capital</b></span>
+      </div>
+    </div></dd>
+</dl>
+<p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation stage. Values are commitments, in donor's currency.</p>
 <h1>Projects</h1>
 <table class="table" id="projects">
   <thead>
