@@ -64,8 +64,14 @@ def update_project(data):
         if sheet.cell_type(i, 0)==1:
             # Start collecting project data
             project_id = sheet.cell(i, 0).value
+            capital_spend = number_or_none(sheet.cell(i, 13).value)
 
-            project_data[project_id] = {"num_sectors": 0}
+            # There must always be at least 1 sector-row (because of the title,
+            # etc.)
+
+            project_data[project_id] = {"num_sectors": 1}
+            project_data[project_id]["capital_spend"] = capital_spend
+
             for checkrow in range(i+1, sheet.nrows):
                 if sheet.cell_type(checkrow, 0)==0:
                     project_data[project_id]["num_sectors"]+=1
