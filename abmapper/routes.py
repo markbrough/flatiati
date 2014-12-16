@@ -121,9 +121,16 @@ def activity_export(country_code, reporting_org=None):
         ws.write(0, i, h, styleHeader)
 
     i = 0
+
     for project in p:
+
+        def remove_deleted_sectors(sector):
+            return sector.deleted == False
+
+        current_sectors = filter(remove_deleted_sectors, project.sectors)
+
         i+=1
-        numsectors = len(project.sectors)
+        numsectors = len(current_sectors)
         ws.write_merge(i, i+numsectors-1, 0, 0, project.iati_identifier)
         ws.write_merge(i, i+numsectors-1, 1, 1, getcs_string(project.titles, 'text'))
         ws.write_merge(i, i+numsectors-1, 2, 2, getcs_string(project.descriptions, 'text'))
@@ -138,9 +145,7 @@ def activity_export(country_code, reporting_org=None):
         ws.write_merge(i, i+numsectors-1, 13, 13, 0.00)
         ws.write_merge(i, i+numsectors-1, 14, 14, project.total_commitments)
         ws.write_merge(i, i+numsectors-1, 15, 15, project.total_disbursements)
-        for si, sector in enumerate(project.sectors):
-            if sector.deleted:
-                continue
+        for si, sector in enumerate(current_sectors):
             ws.write(i, 3, sector.dacsector.code)
             ws.write(i, 4, sector.dacsector.description)
             ws.write(i, 5, sector.percentage)
