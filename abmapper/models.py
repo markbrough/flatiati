@@ -135,7 +135,8 @@ class Activity(db.Model):
 
     transactions = act_relationship("Transaction")
 
-    capital_exp = sa.Column(sa.Integer)
+    capital_exp = sa.Column(sa.Float(precision=2),
+        default=0.00)
 
     @hybrid_property
     def total_commitments(self):
@@ -225,7 +226,7 @@ class Sector(db.Model):
     code = sa.Column(
         act_ForeignKey("dacsector.code"),
         nullable=True)
-    percentage = sa.Column(sa.Integer)
+    percentage = sa.Column(sa.Float(precision=2))
     edited = sa.Column(sa.Boolean, default=False)
     deleted = sa.Column(sa.Boolean, default=False)
     assumed = sa.Column(sa.Boolean, default=False)
