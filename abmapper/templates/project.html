@@ -76,10 +76,12 @@
     {% for sector in activity.sectors %}
     <tr id="sector-{{sector.dacsector.code}}"{% if sector.deleted %} class="sector-deleted"{% endif %}>
       <td>
+        {% if not sector.assumed %}
         <span class="label label-default">{{sector.dacsector.description}}
         ({{sector.dacsector.code}})</span>
-        {% if sector.edited %}<span class="glyphicon glyphicon-asterisk yellow" 
-          title="Sector was manually added"></span>{% endif %} 
+        {% endif %}
+        {% if sector.edited %}<span class="label label-warning"><span class="glyphicon glyphicon-asterisk white" 
+          title="Sector was manually added"></span> <b>Manually added</b></span>{% endif %}
       </td>
       <td>
         {{ sector.percentage }}
