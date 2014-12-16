@@ -354,9 +354,15 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
                 none_is_zero(project.total_commitments), p))
     total_mappable_after = sum(map(lambda project: none_is_zero(project.pct_mappable_after)/100 * 
                 none_is_zero(project.total_commitments), p))
+    total_capital_before = sum(map(lambda project: none_is_zero(0.00)/100 * 
+                none_is_zero(project.total_commitments), p))
+    total_capital_after = sum(map(lambda project: none_is_zero(project.capital_exp) * 
+                none_is_zero(project.total_commitments), p))
     return {"total_value": "{:,}".format(total_value),
             "total_mappable_before": total_mappable_before,
             "total_mappable_before_pct": round(total_mappable_before/total_value*100, 2),
             "total_mappable_after": total_mappable_after,
             "total_mappable_after_pct": round(total_mappable_after/total_value*100, 2),
+            "total_capital_before_pct": round(total_capital_before/total_value*100, 2),
+            "total_capital_after_pct": round(total_capital_after/total_value*100, 2),
            }
