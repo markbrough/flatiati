@@ -12,6 +12,13 @@ def update_projects(options):
     assert options.country_code
     projects.update_project(options)
 
+def import_budget(options):
+    print options
+    assert options.filename
+    assert options.country_code
+    assert options.budget_type
+    projects.import_budget(options)
+
 def import_iati_xml(options):
     print options
     assert options.filename
@@ -31,7 +38,8 @@ commands = {
     "quicksetup": (setup, "Quick Setup with default arguments"),
     "setup": (setup, "Setup"),
     "import": (import_iati_xml, "Import IATI XML file"),
-    "update_projects": (update_projects, "Update projects"),
+    "update-projects": (update_projects, "Update projects"),
+    "import-budget": (import_budget, "Import CC-budget mapping"),
 }
 
 def main():
@@ -50,6 +58,8 @@ def main():
                  help="Set filename of data to update")
     p.add_option("--lang", dest="lang",
                  help="Set language for setup")
+    p.add_option("--budget-type", dest="budget_type",
+                 help="Set type of budget for importing (a, f)")
 
     options, args = p.parse_args()
 
