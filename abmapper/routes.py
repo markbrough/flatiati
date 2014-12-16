@@ -120,7 +120,8 @@ def activity_export(country_code, reporting_org=None):
         'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'aid_type_code',
         'aid_type', 'activity_status_code', 'activity_status', 'date_start', 
         'date_end', 'capital_spend_pct', 'total_commitments', 
-        'total_disbursements']
+        'total_disbursements', 'budget_code', 'budget_name', 'lowerbudget_code',
+        'lowerbudget_name']
 
     for i, h in enumerate(headers):
         ws.write(0, i, h, styleHeader)
@@ -150,6 +151,13 @@ def activity_export(country_code, reporting_org=None):
         ws.write_merge(i, i+numsectors-1, 13, 13, project.capital_exp, stylePCT)
         ws.write_merge(i, i+numsectors-1, 14, 14, project.total_commitments)
         ws.write_merge(i, i+numsectors-1, 15, 15, project.total_disbursements)
+
+        def frelbudget(budget_code):
+            return project.recipient_country_code == budget_code.budgetcode.country_code
+
+        def frelbudgetlow(budget_code):
+            return project.recipient_country_code == budget_code.lowerbudgetcode.country_code
+
         for si, sector in enumerate(current_sectors):
             ws.write(i, 3, sector.dacsector.code)
             ws.write(i, 4, sector.dacsector.description)
@@ -158,9 +166,24 @@ def activity_export(country_code, reporting_org=None):
                 ws.write(i, 6, sector.dacsector.cc.id, styleYellow)
             else:
                 ws.write(i, 6, sector.dacsector.cc.id)
+        
+            relevant_budget = filter(frelbudget, sector.dacsector.cc.cc_budgetcode)
+            relevant_lowerbudget = filter(frelbudgetlow, sector.dacsector.cc.cc_lowerbudgetcode)
+
+            budget_codes = ",".join(map(lambda budget: budget.budgetcode.code, relevant_budget))
+            budget_names = ",".join(map(lambda budget: budget.budgetcode.name, relevant_budget))
+            lowerbudget_codes = ",".join(map(lambda budget: budget.lowerbudgetcode.code, relevant_lowerbudget))
+            lowerbudget_names = ",".join(map(lambda budget: budget.lowerbudgetcode.name, relevant_lowerbudget))
+
+            ws.write(i, 16, budget_codes)
+            ws.write(i, 17, budget_names)
+            ws.write(i, 18, lowerbudget_codes)
+            ws.write(i, 19, lowerbudget_names)
                 
             if si+1 < numsectors:
                 i+=1
+
+
 
     strIOsender = StringIO.StringIO()
     wb.save(strIOsender)
