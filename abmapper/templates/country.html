@@ -19,10 +19,11 @@
     {% endfor %}
 </div>
 <h1>Projects</h1>
-<table class="table">
+<table class="table" id="projects">
   <thead>
     <th>Title</th>
-    <th>Sectors</th>
+    <th>Common Code</th>
+    <th>Capital expenditure</th>
     <th>Status</th>
     <th>Aid Type</th>
     <th>Organisations</th>
@@ -33,6 +34,7 @@
       <td><a href="{{url_for('activities', country_code=project.recipient_country_code, iati_identifier=project.iati_identifier)}}">{% for title in project.titles %}{{title.text}}<br />{% endfor %}</a></td>
       <td>
         {% for sector in project.sectors %}
+        {% if sector.deleted != True %}
         <p><span class="label label-default">{{sector.dacsector.description}}</span> <br />
         {% if sector.dacsector.cc.id != "0" %}
         <span class="label label-success">{{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})</span>
@@ -40,8 +42,10 @@
         <span class="label label-danger">Not mappable</span>
         {% endif %}
         </p>
+        {% endif %}
         {%endfor%}
       </td>
+      <td>{% if project.capital_exp is not none %}{{ project.capital_exp*100 }}%{% else %}N/A{% endif %}</td>
       <td>
         {{ project.status.text }}
       </td>
