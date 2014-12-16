@@ -492,7 +492,7 @@ def get_sector_from_cc(cc_id):
     return checkS.code
 
 def country_project_stats(country_code, aid_types=["C01", "D01", "D02"], 
-                                        activity_statuses=[2]):
+                                        activity_statuses=[2,3]):
 
     p = projects(country_code)
 
