@@ -23,7 +23,12 @@ def setup(options):
     assert options.lang
     absetup.setup(options.lang)
 
+def setup(options):
+    absetup.setup("FR")
+    download.parse_file("SN", "CA-3-SN.xml")    
+
 commands = {
+    "quicksetup": (setup, "Quick Setup with default arguments"),
     "setup": (setup, "Setup"),
     "import": (import_iati_xml, "Import IATI XML file"),
     "update_projects": (update_projects, "Update projects"),
