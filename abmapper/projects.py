@@ -338,12 +338,14 @@ def get_sector_from_cc(cc_id):
         return False
     return checkS.code
 
-def country_project_stats(country_code, aid_types=["C01", "D01", "D02"]):
+def country_project_stats(country_code, aid_types=["C01", "D01", "D02"], 
+                                        activity_statuses=[2]):
 
     p = projects(country_code)
 
     def aid_type_filter(the_project):
-        return the_project.aid_type_code in aid_types
+        return (the_project.aid_type_code in aid_types) and (
+                    the_project.status_code in activity_statuses)
 
     p = filter(aid_type_filter, p)
 
