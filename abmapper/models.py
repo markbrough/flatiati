@@ -286,6 +286,8 @@ class CommonCode(db.Model):
     category = sa.Column(sa.UnicodeText)
     sector = sa.Column(sa.UnicodeText)
     function = sa.Column(sa.UnicodeText)
+    cc_budgetcode = act_relationship("CCBudgetCode")
+    cc_lowerbudgetcode = act_relationship("CCLowerBudgetCode")
 
 class BudgetCode(db.Model):
     __tablename__ = 'budgetcode'
@@ -303,6 +305,24 @@ class BudgetCode(db.Model):
                 foreign_keys=[budgettype_code],
                 )
 
+class LowerBudgetCode(db.Model):
+    __tablename__ = 'lowerbudgetcode'
+    id = sa.Column(sa.Integer, primary_key=True)
+    code = sa.Column(sa.UnicodeText)
+    name = sa.Column(sa.UnicodeText)
+    country_code = sa.Column(sa.UnicodeText, sa.ForeignKey("recipientcountry.code"))
+    country = sa.orm.relationship("RecipientCountry",
+                primaryjoin=country_code == RecipientCountry.code,
+                foreign_keys=[country_code],
+                )
+    budgettype_code = sa.Column(sa.UnicodeText, sa.ForeignKey("budgettype.code"))
+    budgettype = sa.orm.relationship("BudgetType",
+                primaryjoin=budgettype_code == BudgetType.code,
+                foreign_keys=[budgettype_code],
+                )
+    parent_budgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("budgetcode.id"))
+    parent_budgetcode = sa.orm.relationship("BudgetCode")
+
 class CCBudgetCode(db.Model):
     __tablename__ = 'ccbudgetcode'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -310,6 +330,14 @@ class CCBudgetCode(db.Model):
     cc = sa.orm.relationship("CommonCode")
     budgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("budgetcode.id"))
     budgetcode = sa.orm.relationship("BudgetCode")
+
+class CCLowerBudgetCode(db.Model):
+    __tablename__ = 'cclowerbudgetcode'
+    id = sa.Column(sa.Integer, primary_key=True)
+    cc_id = sa.Column(sa.UnicodeText, sa.ForeignKey("commoncode.id"))
+    cc = sa.orm.relationship("CommonCode")
+    lowerbudgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("lowerbudgetcode.id"))
+    lowerbudgetcode = sa.orm.relationship("LowerBudgetCode")
 
 class RelatedActivity(db.Model):
     __tablename__ = 'relatedactivity'
