@@ -46,17 +46,22 @@
 <dl class="dl-horizontal">
   <dt>Before</dt><dd>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_before_pct}}%; min-width: 30px;">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_before_pct}}%;">
         <span><b>{{stats.total_capital_before_pct}}% Capital</b></span>
       </div>
     </div>
   </dd>
   <dt>After</dt><dd>
     <div class="progress">
-      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_after_pct}}%;">
+      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_after_pct}}%; min-width:3%;">
         <span><b>{{stats.total_capital_after_pct}}% Capital</b></span>
       </div>
-    </div></dd>
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_current_after_pct}}%; max-width: 96%">
+        <span><b>{{stats.total_current_after_pct}}% Current</b></span>
+      </div><br />
+    </div>  
+    <p><span class="label label-warning">Capital</span> <span class="label label-success">Current</span></p>
+  </dd>
 </dl>
 <p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation and completion stage. Values are commitments, in donor's currency.</p>
 <h1>Projects</h1>
