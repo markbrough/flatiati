@@ -84,17 +84,87 @@ def update_project(data):
             for si in range(i, i+project_data[project_id]["num_sectors"]):
                 project_data[project_id]["sectors"].append(
                     {
-                    "cc_id": sheet.cell(i, 5).value
+                    "cc_id": sheet.cell(si, 5).value,
+                    "percentage": "UNKNOWN",
                     }
                 )
 
             # End collecting project data
-        if sheet.cell_type(i, 0)==0: continue
-    print project_data
+        if sheet.cell_type(i, 0)==0: 
+            continue
 
-    # Check existing list of projects and get sectors from there
-    
+    for project_identifier, sectors in project_data.items():
+        try:
+            p = project(project_identifier)
+        except Exception, e:
+            print "UNKNOWN PROJECT", project_identifier
+            continue
 
+        new_sectors = dict(map(lambda s: (s["cc_id"], s["percentage"]), sectors['sectors']))
+        existing_sectors = dict(map(lambda s: (s.dacsector.cc_id, s.percentage), p.sectors))
+        
+        added_sectors = a_not_in_b(new_sectors, existing_sectors)
+        deleted_sectors = a_not_in_b(existing_sectors, new_sectors)
+
+
+        # Update capital expenditure
+        p = project(project_identifier)
+        p.capital_exp = sectors["capital_spend"]
+        db.session.add(p)
+        db.session.commit()
+
+        if deleted_sectors or added_sectors:
+            # Need to update this project
+            """print project_identifier
+            print "sectors are", sectors
+            print "Added sectors", added_sectors
+            print "Deleted sectors", deleted_sectors"""
+
+
+        if deleted_sectors:
+            # 1 Find sectors related to deleted CCs for this project
+
+            # Filter out sectors not related deleted CCs, or already deleted
+            crs_codes_for_deletion = map(lambda s: s.dacsector.code, 
+                    deleted_sector_codes_from_cc(deleted_sectors, p.sectors))
+
+            # 2 Mark those sectors as deleted
+
+            [delete_sector_from_project(sector_code, project_identifier) for 
+                                        sector_code in crs_codes_for_deletion]
+
+        if added_sectors:   
+            # 3 Get pct of remaining percentage
+            unused_sector_pct = get_unused_sector_percentage(project_identifier)
+
+            # 4 Set default percentage value for new added sectors (divide total
+            # available amount by number of added sectors)
+
+            default_sector_pct = float(unused_sector_pct)/len(added_sectors)
+            if default_sector_pct<=0: print "ALERT: 0 VALUE SECTORS"
+
+
+            for addsector in added_sectors:
+                # 5 Get a random sector associated with this CC
+                newsector_code = get_sector_from_cc(addsector)
+                if not newsector_code:
+                    print "UNRECOGNISED CC ID", addsector
+                    continue
+                print "New sector is", addsector
+
+                # 6 Add that sector to the project, but mark it as assumed
+
+                def getRelevantSector(sector):
+                    return sector["cc_id"] == addsector
+
+                relevant_sector = get_first(filter(getRelevantSector, sectors['sectors']))
+                if is_number(relevant_sector["percentage"]):
+                    percentage = relevant_sector["percentage"]
+                else:
+                    percentage = default_sector_pct
+
+                add_sector_to_project(newsector_code, project_identifier, percentage, True)
+        
 def country(country_code):
     c = models.RecipientCountry.query.filter_by(code=country_code).first()
     return c
