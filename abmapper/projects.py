@@ -63,6 +63,13 @@ def none_is_zero(value):
         return float(value)
     except TypeError:
         return 0.0
+    return value
+
+def filter_none_out(proj):
+    return proj.capital_exp is not None
+
+def filter_none_in(proj):
+    return proj.capital_exp is None
 
 class BudgetSetupError(Exception):
     def __init__(self, value):
@@ -507,10 +514,12 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
                 none_is_zero(project.total_commitments), p))
     total_mappable_after = sum(map(lambda project: none_is_zero(project.pct_mappable_after)/100 * 
                 none_is_zero(project.total_commitments), p))
-    total_capital_before = sum(map(lambda project: none_is_zero(0.00)/100 * 
-                none_is_zero(project.total_commitments), p))
-    total_capital_after = sum(map(lambda project: none_is_zero(project.capital_exp) * 
-                none_is_zero(project.total_commitments), p))
+    total_capital_before = 0.00
+    total_capital_after = sum(map(lambda project: project.capital_exp * 
+                none_is_zero(project.total_commitments), filter(filter_none_out, p)))
+    total_na_after = sum(map(lambda project: 1 * 
+                none_is_zero(project.total_commitments), filter(filter_none_in, p)))
+    total_current_after = total_value-total_capital_after-total_na_after
     return {"total_value": "{:,}".format(total_value),
             "total_mappable_before": total_mappable_before,
             "total_mappable_before_pct": round(total_mappable_before/total_value*100, 2),
@@ -518,4 +527,5 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
             "total_mappable_after_pct": round(total_mappable_after/total_value*100, 2),
             "total_capital_before_pct": round(total_capital_before/total_value*100, 2),
             "total_capital_after_pct": round(total_capital_after/total_value*100, 2),
+            "total_current_after_pct": round(total_current_after/total_value*100, 2),
            }
