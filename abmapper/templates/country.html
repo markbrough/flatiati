@@ -38,6 +38,10 @@
       </div>
     </div></dd>
 </dl>
+{% if country.budgettype %}<p class="text-muted">In {{ country.text }}, we are mapping to the {{ country.budgettype.text }} budget.</p>
+{% else %}
+<p class="text-muted">The budget for {{ country.text }} has not yet been mapped to the Common Code.</p>
+{% endif %}
 <h3>Economic classification</h3>
 <dl class="dl-horizontal">
   <dt>Before</dt><dd>
