@@ -1,0 +1,163 @@
+CC,CC_FUNCTION,BUDGET_CODE,BUDGET_NAME,LOWER_BUDGET_CODE,LOWER_BUDGET_NAME
+1.1.1,Exécutif,11,Organes exécutifs,110,Aff générales Présidence de la république
+1.2.1,Législatif,10,Organes législatifs,,
+1.3.1,Politique macroéconomique,31,Finances et fiscalité,310,Affaires générales des finances
+1.3.10,Contrôle interne national,12,Organes juridictionnels,123,Affaires juridictions financières
+1.3.11,Suivi et evaluation au niveau national,30,Affaires communes administration générale et financière,303,Contrôle interne a postériori
+1.3.12,Institutions monétaires,31,Finances et fiscalité,310,Affaires générales des finances
+1.3.13,Politique et réglementation du secteur financier  ,31,Finances et fiscalité,310,Affaires générales des finances
+1.3.3,Planification,32,Elaboration et exécution budgétaire,320,Affaires générales du budget
+1.3.5,Gestion de l'aide et de la dette publique,31,Finances et fiscalité,310,Affaires générales des finances
+1.3.6,Politique fiscale,31,Finances et fiscalité,312,Administration générale des impôts
+1.3.7,Recouvrement de l'impôt,31,Finances et fiscalité,312,Administration générale des impôts
+1.3.8,Financement des collectivités locales,36,Administration des Collectivités locales,360,Affaires générales des collectivités décentralisées
+1.3.9,Autres transferts entre institutions,36,Administration des Collectivités locales,360,Affaires générales des collectivités décentralisées
+1.4.1,Affaires étrangères,14,Organes consultatifs,140,Adm générale des affaires de politique extérieure
+1.4.2,Missions diplomatiques,14,Organes consultatifs,142,Représentations diplomatiques
+1.4.3,Aide publique au développement,14,Organes consultatifs,145,Coopération internationale
+1.5.1,Services généraux de personnel,33,Administration ressources humaines et organisation sociale,330,Aff générales de gestion des ressources humaines
+1.6.1,Statistiques,34,"Planification, Programmation, Prévisions et Statistiques",342,Affaires prévisions et statistiques
+1.7.1,Soutien à la société civile,53,Affaires jeunesse et vie associative,530,Adm générale de la jeunesse et de la vie associative
+1.7.2,Services centralisés d'approvisionnement et d'achat,32,Elaboration et exécution budgétaire,321,Aff relatives gestion des marchés publics
+1.7.3,Administration publique locale ,36,Administration des Collectivités locales,362,Affaires de la décentralisation
+1.7.4,Autres services généraux,54,Affaires de la communication,540,Administration générale de la communication
+1.8.1,Élections,35,Administration territoriale,351,Affaires des élections
+2.1.1,"Politiques, planification et administration",,,,
+2.1.10,Consolidation de la paix ,,,,
+2.1.11,Démobilisation,,,,
+2.1.2,Services de police,21,Sécurité et police,210,Administration générale sécurité et police
+2.1.3,Services de protection contre les incendies,,,,
+2.1.4,Justice,,,,
+2.1.5,Ombudsman,,,,
+2.1.6,Affaires droits de la personne,,,,
+2.1.7,Immigration,,,,
+2.1.8,Lutte ani-corruption ,,,,
+2.1.9,Administration pénitentiaire,21,Sécurité et police,214,Affaires administration pénitentiaire
+2.2.1,"Politiques, planification et administration",20,Affaires des Forces Armées,200,Administration générale des Forces armées
+2.2.2,Défense militaire (non liée au développement),,,,
+2.2.3,Défense civile,21,Sécurité et police,212,Affaires protection civile
+2.2.3,Défense civile,21,Sécurité et police,212,Affaires protection civile
+2.2.4,Aide militaire (non liée au développement),,,,
+3.1.1,"Politiques, planification et administration",34,"Planification, Programmation, Prévisions et Statistiques",340,Aff planification nationale des politiques de développement
+3.1.2,Économie générale,,,,
+3.1.3,Promotion de l'investissement,80,Affaires générales production et commerce,803,Aff générales de promotion des activités productives
+3.1.4,Privatisation ,,,,
+3.1.5,Commerce ,80,Affaires générales production et commerce,801,Adm générale commerce
+3.1.6,Emploi/Main d'oeuvre,33,Administration ressources humaines et organisation sociale,330,Aff générales de gestion des ressources humaines
+3.1.7,Elaboration des normes nationales,80,Affaires générales production et commerce,802,"Normalisation, méth. Contrôle qualité"
+3.10.1,"Politiques, planification et administration",76,"Postes, Télécom. et Technologies de l'Information et la Communication",760,"Adm postes, télécom et TIC"
+3.10.2,Infrastructre des TIC,76,"Postes, Télécom. et Technologies de l'Information et la Communication",762,Aff télécom et TIC
+3.10.3,Télécommunications et services postaux,76,"Postes, Télécom. et Technologies de l'Information et la Communication",760,"Adm postes, télécom et TIC"
+3.10.4,Services d'information,76,"Postes, Télécom. et Technologies de l'Information et la Communication",760,"Adm postes, télécom et TIC"
+3.11.1,"Politiques, planification et administration",,,,
+3.11.2,Autres services,,,,
+3.12.1,Microfinance et services financiers ,,,,
+3.2.1,"Politiques, planification et administration",71,Habitat et urbanisme,710,Adm générale habitat et urbanisme
+3.2.2,Contrôle de l'industrie de la construction,71,Habitat et urbanisme,711,Aff gestion normes de construction
+3.2.3,Services mécaniques,,,,
+3.3.1,"Politiques, planification et administration",81,Affaires agricoles,810,Adm générale affaires agricoles
+3.3.2,Irrigation,72,Hydraulique,722,Aff hydraulique rurale
+3.3.3,Intrants,81,Affaires agricoles,813,Adm générale affaires agricoles
+3.3.4,Culture vivrière,81,Affaires agricoles,810,Adm générale affaires agricoles
+3.3.5,Culture industrielle,81,Affaires agricoles,812,Aff développement des exploitations
+3.3.6,Élevage ,83,Ressources animales et halieutiques,830,Adm ressources animales
+3.3.7,Formation agricole et services agronomiques,81,Affaires agricoles,813,Aff conseil agricole et rural
+3.3.8,Recherche,,,,
+3.3.9,Autres services,81,Affaires agricoles,810,Aff conseil agricole et rural
+3.4.1,"Politiques, planification et administration",82,"Forêts, parcs et réserves",821,Aff gestion et aménagement domaine forestier
+3.4.2,Développement et services,82,"Forêts, parcs et réserves",821,Aff gestion et aménagement domaine forestier
+3.4.3,Éducation/formation,82,"Forêts, parcs et réserves",821,Aff gestion et aménagement domaine forestier
+3.4.4,Recherche,82,"Forêts, parcs et réserves",821,Aff gestion et aménagement domaine forestier
+3.5.1,"Politiques, planification et administration",83,Ressources animales et halieutiques,835,Aff pêches maritimes
+3.5.2,Développement et services,83,Ressources animales et halieutiques,835,Aff pêches maritimes
+3.5.3,Éducation/formation,83,Ressources animales et halieutiques,835,Aff pêches maritimes
+3.5.4,Recherche,83,Ressources animales et halieutiques,835,Aff pêches maritimes
+3.6.1,"Politiques, planification et administration",74,"Electricité, pétrole, gaz, combustibles et autres énergies",740,"Adm électricité, pétrole, gaz, combustibles et autres énergies"
+3.6.2,Éducation/formation,74,"Electricité, pétrole, gaz, combustibles et autres énergies",744,Production d'électricité
+3.6.3,Réglementation de l'énergie,74,"Electricité, pétrole, gaz, combustibles et autres énergies",740,"Adm électricité, pétrole, gaz, combustibles et autres énergies"
+3.6.4,Transmission d'électricité,74,"Electricité, pétrole, gaz, combustibles et autres énergies",745,Transport et distribution d'électricité
+3.6.5,Nucléaire,74,"Electricité, pétrole, gaz, combustibles et autres énergies",744,Production d'électricité
+3.6.6,Production d'énergie,74,"Electricité, pétrole, gaz, combustibles et autres énergies",744,Production d'électricité
+3.6.7,Gaz,74,"Electricité, pétrole, gaz, combustibles et autres énergies",742,"Transport, commercialisation et distribution hydrocarbures"
+3.7.1,"Politiques, planification et administration",,,,
+3.7.2,Prospection et exploration,74,"Electricité, pétrole, gaz, combustibles et autres énergies",743,Recherche pétrole et gaz
+3.7.3,Charbon et autres combustibles minéraux solides,,,,
+3.7.4,Pétrole et gaz naturel,74,"Electricité, pétrole, gaz, combustibles et autres énergies",741,Production pétrole et gaz
+3.7.6,Minéraux non combustibles ,74,"Electricité, pétrole, gaz, combustibles et autres énergies",740,"Adm générale électricité, pétrole, gaz, combustible et autres énergies"
+3.8.1,"Politiques, planification et administration",75,Transports,750,Adm transports
+3.8.10,Pipelines,74,"Electricité, pétrole, gaz, combustibles et autres énergies",742,"Transport, commercialisation et distribution hydrocarbures"
+3.8.11,Stockage et distribution,,,,
+3.8.12,Transports en commun,,,,
+3.8.13,Services météorologiques,77,Cartographie et Météorologie,772,Affaires de la météorologie
+3.8.14,Éducation/formation,75,Transports,750,Adm transports
+3.8.2,Réglementation des transports,75,Transports,750,Adm transports
+3.8.3,Construction des voies de desserte,75,Transports,751,Transports routiers
+3.8.4,Entretien des voies de desserte,75,Transports,751,Transports routiers
+3.8.5,Construction des routes nationales,75,Transports,751,Transports routiers
+3.8.6,Entretien des  routes nationales,75,Transports,751,Transports routiers
+3.8.7,Transports par voie ferrée,75,Transports,753,Transport ferroviaires
+3.8.8,Transports par voie d'eau,75,Transports,755,Transports maritimes
+3.8.9,Transports aériens,75,Transports,754,Transport aérien
+3.9.1,"Politiques, planification et administration",80,Affaires générales production et commerce,800,Adm générale production
+3.9.2,Développement et services,80,Affaires générales production et commerce,800,Adm générale production
+3.9.2,Développement et services,80,Affaires générales production et commerce,800,Adm générale production
+3.9.3,Recherche industrielle ,80,Affaires générales production et commerce,800,Adm générale production
+3.9.4,(investissement en industrie),80,Affaires générales production et commerce,800,Adm générale production
+4.1.1,"Politiques, planification et administration",72,Hydraulique,720,Adm générale de l'hydraulique
+4.1.2,Éducation/formation,,,,
+4.1.3,Alimentation en eau et installations sanitaires en milieu rural,72,Hydraulique,722,Affaires hydrauliques rurales
+4.1.4,Alimentation en eau et installations sanitaires en milieu urbain,72,Hydraulique,721,Affaires hydrauliques urbaines
+4.1.5,Alimentation en eau en milieu rural,72,Hydraulique,722,Affaires hydrauliques rurales
+4.1.6,Alimentation en eau en milieu urbain,72,Hydraulique,721,Affaires hydrauliques urbaines
+4.1.7,Installations sanitaires en milieu rural,73,"Environnement, Assainissement et Cadre de vie",733,Affaires assainissement
+4.1.8,Installations sanitaires en milieu urbain,73,"Environnement, Assainissement et Cadre de vie",733,Affaires assainissement
+4.1.9,Gestion des déchets et des eaux usées,73,"Environnement, Assainissement et Cadre de vie",733,Affaires assainissement
+4.2.1,"Politiques, planification et administration",,,,
+4.2.2,"Recherche, éducation et formation",73,"Environnement, Assainissement et Cadre de vie",730,"Adm générale environnement, assainissement et cadre de vie"
+4.2.3,Gestion des ressources naturelles,73,"Environnement, Assainissement et Cadre de vie",730,"Adm générale environnement, assainissement et cadre de vie"
+4.2.4,Gestion des ressources en eau,72,Hydraulique,723,Aff gestion des ressources en eau
+4.2.5,"Protection de la faune et de la flore, parcs et réserves naturels",82,"Forêts, parcs et réserves",822,"Aff protection parcs, réserves et faune sauvage"
+5.1.1,"Politiques, planification et administration",60,Santé,,
+5.2.1,Récréation et sport,52,Affaires sportives et de loisir,520,Adm générale des activités sportives
+5.2.2,Culture,51,Affaires culturelles artistiques et cinématographiques,510,"Adm générale affaires culturelles, artistiques et cinématographiques"
+5.2.3,"Services de radiodiffusion, de télévision et d'édition",54,Affaires de la communication,540,Adm générale de communication
+5.2.4,Religion (non liée au développement),,,,
+5.3.1,"Politiques, planification et administration",40,"Affaires communes Enseignement, Formation et Recherche",404,Aff communes à tous les ordres d'enseignement
+5.3.10,Formation technique et de gestion avancée,,,,
+5.3.11,Education de base des adultes,46,"Alphabétisation, langue nationale et francophonie",461,Aff alphabétisation et des langues nationales
+5.3.12,Formation des enseignants ,44,Formation professionnelle,441,Aff écoles nationales et centres de formation
+5.3.13,Services annexes à l'enseignement,,,,
+5.3.2,Recherche,40,"Affaires communes Enseignement, Formation et Recherche",403,Adm générale recherche et innovation technologique
+5.3.3,Préélémentaire,41,Education préscolaire et élémentaire,411,Affaires communes éducation préscolaire
+5.3.4,Primaire,41,Education préscolaire et élémentaire,412,Aff enseignement élémentaire
+5.3.5,Premier cycle de l'enseignement secondaire,42,Enseignement moyen secondaire général et technique,422,Affaires enseignement secondaire général
+5.3.6,Deuxième cycle de l'enseignement secondaire,42,Enseignement moyen secondaire général et technique,422,Affaires enseignement secondaire général
+5.3.7,Enseignement postsecondaire non supérieur,42,Enseignement moyen secondaire général et technique,420,Adm ens. moyen second général & technique
+5.3.8,Enseignement supérieur,43,Enseignement supérieur,430,Adm générale enseignement supérieur
+5.3.9,Formation professionnelle,44,Formation professionnelle,440,Adm générale de la formation professionnelle
+5.4.1,"Politiques, planification et administration",60,Santé,600,Administration générale santé et action sociale
+5.4.10,Secours d'urgence,,,,
+5.4.11,Prévision et prévention des catastrophes ,,,,
+5.4.12,Soutien aux réfugiés et déplacés internes,,,,
+5.4.2,Protection sociale (excluant retraite),65,"Protection sociale, assistance et solidarité",651,Affaires protection sociale
+5.4.3,Retraites,65,"Protection sociale, assistance et solidarité",651,Affaire protection sociale
+5.4.4,Régimes de retraite du personnel militaire et des fonctionnaires,33,Administration ressources humaines et organisation sociale,332,Rémunération personnel de l'Etat en activité ou à la retraite
+5.4.5,"Protection sociale (y compris jeunes, femmes et enfants)",65,"Protection sociale, assistance et solidarité",650,"Adm générale protection sociale, assistance et solidarité"
+5.4.6,Administration de l'aménagement du territoire,71,Habitat et urbanisme,710,Administration générale de habitat et urbanisme
+5.4.7,Développement rural,81,Affaires agricoles,815,Aff développement rural intégré
+5.4.8,Développement urbain,71,Habitat et urbanisme,713,Aff aménagement urbain
+5.4.9,Logements et équipements collectifs,71,Habitat et urbanisme,710,Adm générale de habitat et urbanisme
+6.1.1,"Politiques, planification et administration",,,,
+6.1.2,Services de personnel technique,,,,
+,peace building,,,,
+,Not classifiable,,,,
+,Non classifiable (multisecteur),,,,
+,Non classifiable (multisecteur),,,,
+,Non classifiable (multisecteur),,,,
+,Non classifiable (multisecteur),,,,
+,Non classifiable (multisecteur),,,,
+,Non classifiable (aide sous forme de produits),,,,
+,Non classifiable (aide sous forme de produits),,,,
+,Non classifiable (externe - non dépensée dans le pays),,,,
+,Non classifiable (multisecteurs),,,,
+,Non classifiable (externe - non dépensée dans le pays),,,,
