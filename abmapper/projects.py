@@ -308,3 +308,21 @@ def restore_sector_to_project(sector_code, iati_identifier):
     db.session.add(checkS)
     db.session.commit()
     return True
+
+def get_unused_sector_percentage(iati_identifier):
+    checkS = db.session.query(models.Sector.percentage
+        ).filter(models.Sector.activity_iati_identifier==iati_identifier
+        ).filter(models.Sector.deleted==False
+        ).all() 
+    checkSvalues = map(lambda s: s.percentage, checkS)
+    total_pct = sum(checkSvalues)
+    return 100-total_pct
+
+def get_sector_from_cc(cc_id):
+    checkS = db.session.query(models.DACSector.code
+            ).join(models.CommonCode
+            ).filter(models.CommonCode.id==cc_id
+            ).first()
+    if not checkS:
+        return False
+    return checkS.code
