@@ -104,6 +104,9 @@ def activity_export(country_code, reporting_org=None):
     yellowPattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
     styleYellow.pattern = yellowPattern
 
+    stylePCT = xlwt.XFStyle()
+    stylePCT.num_format_str = '0%'
+
     def makeCCYellow(cc_id):
         if cc_id == "0":
             return True
@@ -144,7 +147,7 @@ def activity_export(country_code, reporting_org=None):
                                         project.date_start_planned, styleDates)
         ws.write_merge(i, i+numsectors-1, 12, 12, project.date_end_actual or 
                                         project.date_end_planned, styleDates)
-        ws.write_merge(i, i+numsectors-1, 13, 13, 0.00)
+        ws.write_merge(i, i+numsectors-1, 13, 13, project.capital_exp, stylePCT)
         ws.write_merge(i, i+numsectors-1, 14, 14, project.total_commitments)
         ws.write_merge(i, i+numsectors-1, 15, 15, project.total_disbursements)
         for si, sector in enumerate(current_sectors):
