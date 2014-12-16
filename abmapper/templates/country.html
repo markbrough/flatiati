@@ -18,12 +18,32 @@
     </a>
     {% endfor %}
 </div>
+<h2>Mapping statistics</h2>
+<dl class="dl-horizontal">
+  <dt>Total value</dt><dd>{{stats.total_value}}<p class="text-muted">sum of C01, D01 and D02 Aid Types, in donor's currency</p></dd>
+  <dt>Mappable before</dt><dd>{{stats.total_mappable_before_pct}}
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_before_pct}}%;">
+        <span><b>{{stats.total_mappable_before_pct}}% Mappable</b></span>
+      </div>
+    </div>
+  </dd>
+  <dt>Mappable after</dt><dd>{{stats.total_mappable_after_pct}}
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_after_pct}}%;">
+        <span><b>{{stats.total_mappable_after_pct}}% Mappable</b></span>
+      </div>
+    </div></dd>
+</dl>
 <h1>Projects</h1>
 <table class="table" id="projects">
   <thead>
-    <th>Title</th>
-    <th>Common Code</th>
+    <th class="titles-column">Title</th>
+    <th class="sectors-column">Common Code</th>
     <th>Capital expenditure</th>
+    <th>Mappable before</th>
+    <th>Mappable after</th>
+    <th>Mappable diff</th>
     <th>Status</th>
     <th>Aid Type</th>
     <th>Organisations</th>
@@ -31,13 +51,15 @@
   <tbody>
     {% for project in projects %}
     <tr>
-      <td><a href="{{url_for('activities', country_code=project.recipient_country_code, iati_identifier=project.iati_identifier)}}">{% for title in project.titles %}{{title.text}}<br />{% endfor %}</a></td>
-      <td>
+      <td class="titles-column"><a href="{{url_for('activities', country_code=project.recipient_country_code, iati_identifier=project.iati_identifier)}}">{% for title in project.titles %}{{title.text}}<br />{% endfor %}</a></td>
+      <td class="sectors-column">
         {% for sector in project.sectors %}
         {% if sector.deleted != True %}
-        <p><span class="label label-default">{{sector.dacsector.description}}</span> <br />
         {% if sector.dacsector.cc.id != "0" %}
-        <span class="label label-success">{{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})</span>
+        <span class="label label-success" title="{{sector.dacsector.cc.sector}} 
+ &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})">
+          {{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}}
+          ({{sector.dacsector.cc.id}})</span>
         {% else %}
         <span class="label label-danger">Not mappable</span>
         {% endif %}
@@ -46,6 +68,15 @@
         {%endfor%}
       </td>
       <td>{% if project.capital_exp is not none %}{{ project.capital_exp*100 }}%{% else %}N/A{% endif %}</td>
+      <td>
+        {{ project.pct_mappable_before }}
+      </td>
+      <td>
+        {{ project.pct_mappable_after }}
+      </td>
+      <td>
+        {{ project.pct_mappable_diff|round(2) }}
+      </td>
       <td>
         {{ project.status.text }}
       </td>
