@@ -53,6 +53,17 @@ def get_first(list):
         return None
     return list[0]
 
+def correct_zeros(value):
+    if str(value) == "0.0":
+        return "0"
+    return value
+
+def none_is_zero(value):
+    try:
+        return float(value)
+    except TypeError:
+        return 0.0
+
 def update_project(data):
     f = data.filename
     print "Trying to read %s" % f
