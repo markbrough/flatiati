@@ -337,3 +337,24 @@ def get_sector_from_cc(cc_id):
     if not checkS:
         return False
     return checkS.code
+
+def country_project_stats(country_code, aid_types=["C01", "D01", "D02"]):
+
+    p = projects(country_code)
+
+    def aid_type_filter(the_project):
+        return the_project.aid_type_code in aid_types
+
+    p = filter(aid_type_filter, p)
+
+    total_value = sum(map(lambda project: none_is_zero(project.total_commitments), p))
+    total_mappable_before = sum(map(lambda project: none_is_zero(project.pct_mappable_before)/100 * 
+                none_is_zero(project.total_commitments), p))
+    total_mappable_after = sum(map(lambda project: none_is_zero(project.pct_mappable_after)/100 * 
+                none_is_zero(project.total_commitments), p))
+    return {"total_value": "{:,}".format(total_value),
+            "total_mappable_before": total_mappable_before,
+            "total_mappable_before_pct": round(total_mappable_before/total_value*100, 2),
+            "total_mappable_after": total_mappable_after,
+            "total_mappable_after_pct": round(total_mappable_after/total_value*100, 2),
+           }
