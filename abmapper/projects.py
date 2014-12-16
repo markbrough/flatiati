@@ -95,7 +95,7 @@ def update_project(data):
             for si in range(i, i+project_data[project_id]["num_sectors"]):
                 project_data[project_id]["sectors"].append(
                     {
-                    "cc_id": sheet.cell(si, 5).value,
+                    "cc_id": correct_zeros(sheet.cell(si, 5).value),
                     "percentage": "UNKNOWN",
                     }
                 )
