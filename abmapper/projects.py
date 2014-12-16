@@ -23,6 +23,36 @@ def projects(country_code, reporting_org=None):
         
     return p
 
+def a_not_in_b(a, b):
+    def filterer(a):
+        return a not in b
+    return filter(filterer, a)
+
+def deleted_sector_codes_from_cc(deleted_ccs, project_sectors):
+    def filterer(project_sector):
+        return (project_sector.dacsector.cc_id in deleted_ccs
+                                    ) and (project_sector.deleted==False)
+    return filter(filterer, project_sectors)
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+def number_or_none(s):
+    if s=="":
+        return 0.00
+    if is_number(s):
+        return float(s)
+    return None
+
+def get_first(list):
+    if list is None:
+        return None
+    return list[0]
+
 def update_project(data):
     f = data.filename
     print "Trying to read %s" % f
