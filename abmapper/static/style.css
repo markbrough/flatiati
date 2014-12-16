@@ -123,3 +123,20 @@ option.sector-option-0 {
 a .header-country-name  {
     color: #333333;
 }
+th.sectors-column, td.sectors-column {
+    max-width: 300px;
+    overflow: hidden;
+}
+th.titles-column, td.titles-column {
+    max-width:240px;
+}
+.sectors-column span {
+    clear: left;
+    float: left;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 290px;
+    margin-bottom:4px;
+}
