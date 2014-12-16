@@ -257,7 +257,7 @@ def sector(sector_code):
             ).first()
     return s
 
-def add_sector_to_project(sector_code, iati_identifier, percentage):
+def add_sector_to_project(sector_code, iati_identifier, percentage, assumed=False):
     checkS = db.session.query(models.Sector
             ).filter(models.Sector.activity_iati_identifier==iati_identifier
             ).filter(models.Sector.code==sector_code
@@ -269,6 +269,7 @@ def add_sector_to_project(sector_code, iati_identifier, percentage):
     newS.percentage = percentage
     newS.activity_iati_identifier = iati_identifier
     newS.edited = True
+    newS.assumed = assumed
     db.session.add(newS)
     db.session.commit()
     return newS
