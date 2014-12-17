@@ -46,7 +46,7 @@ footer a, footer a:hover {
     color:#ffffff;
 }
 
-h1, h2, h3, .brand {
+h1, h2, h3, .brand, .navbar-country .navbar-brand {
     font-family: "Yanone Kaffeesatz",sans-serif;
     text-shadow: 1px 1px 0 #ffffff, 2px 2px 0 #ffffff, 3px 3px 0 #ffffff, 4px 4px 0 #ffffff;
 }
@@ -116,7 +116,7 @@ option.sector-option-0 {
     opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
-.header-country-name {
+.header-country-name, nav a.navbar-brand {
     font-size:0.5em;
     font-style:italic;
 }
@@ -139,4 +139,25 @@ th.titles-column, td.titles-column {
     white-space: nowrap;
     width: 290px;
     margin-bottom:4px;
+}
+.navbar-country {
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.9);
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1,startColorStr="#7FFFFFFF",endColorStr="#7FFFFFFF");
+    -ms-filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1,startColorStr="#7FFFFFFF",endColorStr="#7FFFFFFF");
+    color:#000000;
+    border-radius: 0px;
+    padding-left: 20px;
+    border-top:1px solid #eeeeee;
+    border-bottom:1px solid #eeeeee;
+}
+.navbar-country .navbar-brand {
+    font-size:2em;
+}
+nav.navbar-country li.active > a,
+nav.navbar-country li.active > a:hover,
+nav.navbar-country li.active > a:focus {
+    background-color: #eee;
+    text-decoration: none;
+    color:#365e93;
 }
