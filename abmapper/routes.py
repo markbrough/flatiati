@@ -11,6 +11,8 @@ import util
 import xlwt
 import StringIO
 import datetime
+import unicodecsv
+import re
 
 @app.route("/")
 def dashboard():
@@ -31,6 +33,26 @@ def country_home(country_code):
                            stats=stats,
                            budget_stats=budget_stats,
                            )
+
+@app.route("/<country_code>/budgetstats.csv")
+def country_budget_stats_csv(country_code):
+    
+    fieldnames = ['budget_code', 'budget_name', 'before_value', 'after_value']
+    strIOsender = StringIO.StringIO()
+    writer = unicodecsv.DictWriter(strIOsender, fieldnames=fieldnames)
+    writer.writeheader()
+
+    def decomma(value):
+        return re.sub(",", "", value)
+    
+    budget_stats = projects.budget_project_stats(country_code)
+    for c, bs in budget_stats["budgets"].items():
+        writer.writerow({"budget_code": bs["code"],
+                         "budget_name": bs["name"],
+                         "before_value": decomma(bs["before"]["value"]),
+                         "after_value": decomma(bs["after"]["value"])})
+    strIOsender.seek(0)
+    return send_file(strIOsender)
 
 @app.route("/<country_code>/activities/")
 def country_activities(country_code):
