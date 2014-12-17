@@ -5,6 +5,7 @@
 <script >
     $(function() {
     $("table#projects").tablesorter({ sortList: [[5,1]] });
+    $("table#budget-lines").tablesorter({ sortList: [[0,0]] });
     });
 </script>
 <br />
@@ -64,6 +65,32 @@
   </dd>
 </dl>
 <p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation and completion stage. Values are commitments, in donor's currency.</p>
+
+<h2>Total spend to different budget lines</h2>
+<table class="table" id="budget-lines">
+  <thead>
+    <th>Code</th>
+    <th>Budget line</th>
+    <th>Value before</th>
+    <th>Value after</th>
+    <th>Pct before</th>
+    <th>Pct after</th>
+    <th>Pct change</th>
+  </thead>
+  <tbody>
+    {% for code, bs in budget_stats.budgets.items() %}
+    <tr {% if bs.change_pct %}class="active"{% endif %}>
+      <td>{{ bs.code }}</td>
+      <td>{{ bs.name }}</td>
+      <td>{{ bs.before.value }}</td>
+      <td>{{ bs.after.value }}</td>
+      <td>{{ bs.before.pct }}</td>
+      <td>{{ bs.after.pct }}</td>
+      <td>{{ bs.change_pct }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 <h1>Projects</h1>
 <table class="table" id="projects">
   <thead>
