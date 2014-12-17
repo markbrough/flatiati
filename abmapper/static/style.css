@@ -161,3 +161,33 @@ nav.navbar-country li.active > a:focus {
     text-decoration: none;
     color:#365e93;
 }
+
+svg {
+	width: 100%;
+	height: 100%;
+}
+.budget-chart {
+    height:500px;
+}
+#budgetselected {
+    min-height:50px;
+    font-size:2em;
+}
+.budget-area {
+    width:100%;
+    height:500px;
+}
+.budget-chartbox {
+    width:500px;
+    height:100%;
+}
+.budget-infobox {
+    width:500px;
+    margin-top:30px;
+}
+.budgetbefore-dt, .budgetafter-dt {
+    visibility: hidden;
+}
+.tab-content {
+    margin-top:15px;
+}
