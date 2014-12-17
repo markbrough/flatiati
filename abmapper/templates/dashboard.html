@@ -12,7 +12,7 @@
   <tbody>
     {% for country in countries %}
     <tr>
-      <td><a href="{{url_for('home', country_code=country.RecipientCountry.code)}}">{{country.RecipientCountry.text}}</a></td>
+      <td><a href="{{url_for('country_home', country_code=country.RecipientCountry.code)}}">{{country.RecipientCountry.text}}</a></td>
       <td>{{country.num_activities}}</td>
     </tr>
     {% endfor %}
