@@ -498,6 +498,102 @@ def get_sector_from_cc(cc_id):
         return False
     return checkS.code
 
+def budget_project_stats(country_code):
+    sql = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+            budgetcode.code, budgetcode.name
+            FROM atransaction
+            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+            LEFT JOIN dacsector ON sector.code = dacsector.code
+            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+            WHERE sector.deleted = 0
+            AND activity.recipient_country_code="%s"
+            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+            AND activity.status_code IN (2, 3)
+            AND atransaction.transaction_type_code="C"
+            GROUP BY budgetcode.code
+            ;"""
+
+    sql_before = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+            budgetcode.code, budgetcode.name
+            FROM atransaction
+            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+            LEFT JOIN dacsector ON sector.code = dacsector.code
+            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+            WHERE sector.edited = 0
+            AND activity.recipient_country_code="%s"
+            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+            AND activity.status_code IN (2, 3)
+            AND atransaction.transaction_type_code="C"
+            GROUP BY budgetcode.code
+            ;"""
+
+
+    sql_total = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+            budgetcode.code, budgetcode.name
+            FROM atransaction
+            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+            LEFT JOIN dacsector ON sector.code = dacsector.code
+            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+            WHERE sector.deleted = 0
+            AND activity.recipient_country_code="%s"
+            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+            AND activity.status_code IN (2, 3)
+            AND atransaction.transaction_type_code="C"
+            ;"""
+
+    after = db.engine.execute(sql % country_code)
+    before = db.engine.execute(sql_before % country_code)
+    total = db.engine.execute(sql_total % country_code).first()[0]
+
+    stats = {'total': total,
+             'budgets': {}}
+    for b in before:
+        if b.code not in stats['budgets']:
+            stats['budgets'][b.code] = {'code': b.code,
+                                        'name': b.name,
+                                        'after': {'value': 0.00, 'pct': 0.00}}
+        stats['budgets'][b.code]['before'] = {
+                'value': b.sum_value,
+                'pct': round(float(b.sum_value)/total*100, 2)
+                }
+    for a in after:
+        if a.code not in stats['budgets']:
+            stats['budgets'][a.code] = {'code': a.code,
+                                        'name': a.name,
+                                        'before': {'value': 0.00, 'pct': 0.00}
+                                        }
+        stats['budgets'][a.code]['after'] = {
+                'value': a.sum_value,
+                'pct': round(float(a.sum_value)/total*100, 2)
+                }
+
+    for code, budget in stats['budgets'].items():
+        try:
+            stats['budgets'][code]['change_pct'] = round(((budget['after']['value']-budget['before']['value'])/budget['before']['value'])*100, 2)
+        except ZeroDivisionError:
+            stats['budgets'][code]['change_pct'] = "NEW"
+            
+        if stats['budgets'][code]['change_pct'] == 0.0:
+            stats['budgets'][code]['change_pct'] = ""
+
+        stats['budgets'][code]['before']['value'] = "{:,.2f}".format(round(stats['budgets'][code]['before']['value']), 2)
+        stats['budgets'][code]['after']['value'] = "{:,.2f}".format(round(stats['budgets'][code]['after']['value']), 2)
+
+
+    after.close()
+    before.close()
+ 
+    return stats
+
 def country_project_stats(country_code, aid_types=["C01", "D01", "D02"], 
                                         activity_statuses=[2,3]):
 
