@@ -177,6 +177,12 @@ class Activity(db.Model):
         except TypeError:
             return 0
 
+    @hybrid_property
+    def implementing_orgs(self):
+        def filter_implementing(orgs):
+            return orgs.role == "Implementing"
+        return filter(filter_implementing, self.participating_orgs)
+
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
