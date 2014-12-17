@@ -22,7 +22,8 @@
 <h1>Overview</h1>
 <h2>Mapping statistics</h2>
 <dl class="dl-horizontal">
-  <dt>Total value</dt><dd>{{stats.total_value}}
+  <dt>Total value</dt><dd>{{stats.total_value}} (commitments, in donor's currency)</dd>
+  <dt>Total projects</dt><dd>{{stats.total_projects}}</dd>
 </dl>
 <h3>Administrative/functional classification</h3>
 <dl class="dl-horizontal">
@@ -68,28 +69,74 @@
 <p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation and completion stage. Values are commitments, in donor's currency.</p>
 
 <h2>Total spend to different budget lines</h2>
-<table class="table" id="budget-lines">
-  <thead>
-    <th>Code</th>
-    <th>Budget line</th>
-    <th>Value before</th>
-    <th>Value after</th>
-    <th>Pct before</th>
-    <th>Pct after</th>
-    <th>Pct change</th>
-  </thead>
-  <tbody>
-    {% for code, bs in budget_stats.budgets.items() %}
-    <tr {% if bs.change_pct %}class="active"{% endif %}>
-      <td>{{ bs.code }}</td>
-      <td>{{ bs.name }}</td>
-      <td>{{ bs.before.value }}</td>
-      <td>{{ bs.after.value }}</td>
-      <td>{{ bs.before.pct }}</td>
-      <td>{{ bs.after.pct }}</td>
-      <td>{{ bs.change_pct }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" id="budgetTab">
+    <li role="presentation" class="active"><a href="#table" aria-controls="table" role="tab" data-toggle="tab">Table</a></li>
+    <li role="presentation"><a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">Chart</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="table">
+        <table class="table" id="budget-lines">
+          <thead>
+            <th>Code</th>
+            <th>Fonction principale</th>
+            <th>Value before</th>
+            <th>Value after</th>
+            <th>Pct before</th>
+            <th>Pct after</th>
+            <th>Pct change</th>
+          </thead>
+          <tbody>
+            {% for code, bs in budget_stats.budgets.items() %}
+            <tr {% if bs.change_pct %}class="active"{% endif %}>
+              <td>{{ bs.code }}</td>
+              <td>{{ bs.name }}</td>
+              <td>{{ bs.before.value }}</td>
+              <td>{{ bs.after.value }}</td>
+              <td>{{ bs.before.pct }}</td>
+              <td>{{ bs.after.pct }}</td>
+              <td>{{ bs.change_pct }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="chart">
+        <form>
+          <label><input type="radio" name="dataset" value="before_value" checked> Before</label>
+          <label><input type="radio" name="dataset" value="after_value"> After</label>
+        </form>
+        <div class="budget-area">
+            <div class="budget-chartbox pull-left">
+                <div class="budget-chart"></div>
+            </div>
+            <div class="budget-infobox pull-left">
+                <p id="budgetselected">Hover over a sector for details.</p>
+                <dl class="dl-horizontal">
+                <dt class="budgetbefore-dt">Before</dt><dd id="budgetbefore"></dd>
+                <dt class="budgetafter-dt">After</dt><dd id="budgetafter"></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="{{url_for('static', filename='js/budgetstats.js')}}" type="text/javascript"></script>
+<script>
+$('#budgetTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
+
 {% endblock %}
