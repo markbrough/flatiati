@@ -21,18 +21,18 @@
 <h1>Projects</h1>
 <table class="table" id="projects">
   <thead>
-    <th class="titles-column">Title</th>
+    <th>Title</th>
     <th class="sectors-column">Common Code</th>
     <th>Capital expenditure</th>
     <th>CC mappable before</th>
     <th>CC mappable after</th>
     <th>CC mappable diff</th>
-    <th>Organisations</th>
+    <th>Organisme d'exécution</th>
   </thead>
   <tbody>
     {% for project in projects %}
     <tr>
-      <td class="titles-column"><a href="{{url_for('activities', country_code=project.recipient_country_code, iati_identifier=project.iati_identifier)}}">{% for title in project.titles %}{{title.text}}<br />{% endfor %}</a></td>
+      <td><a href="{{url_for('activities', country_code=project.recipient_country_code, iati_identifier=project.iati_identifier)}}">{% for title in project.titles %}{{title.text}}<br />{% endfor %}</a></td>
       <td class="sectors-column">
         {% for sector in project.sectors %}
         {% if sector.deleted != True %}
@@ -59,7 +59,7 @@
         {{ project.pct_mappable_diff }}
       </td>
       <td>
-        {% for org in project.participating_orgs %}
+        {% for org in project.implementing_orgs %}
         {{org.organisation.name}} ({{org.role}})<br />
         {%endfor%}
       </td>
