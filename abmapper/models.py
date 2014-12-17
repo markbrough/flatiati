@@ -173,7 +173,7 @@ class Activity(db.Model):
     @hybrid_property
     def pct_mappable_diff(self):
         try:
-            return self.pct_mappable_after - self.pct_mappable_before
+            return "{0:.2f}".format(self.pct_mappable_after - self.pct_mappable_before)
         except TypeError:
             return 0
 
