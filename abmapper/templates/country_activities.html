@@ -1,0 +1,78 @@
+{% set active_page='activities' %}{% extends "layout.html" %}
+{% block title %}Activities &raquo; {{country.text}}{% endblock %}
+{% block content %}
+
+<script >
+    $(function() {
+    $("table#projects").tablesorter({ sortList: [[5,1]] });
+    });
+</script>
+<br />
+<div class="pull-right">
+    <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export</b>
+    </a>
+    {% for ro in reporting_orgs %}
+    <a class="btn btn-default" href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.reporting_org)}}">
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export {{ro.reporting_org}} ({{ro.num_activities}})</b>
+    </a>
+    {% endfor %}
+</div>
+<h1>Projects</h1>
+<table class="table" id="projects">
+  <thead>
+    <th class="titles-column">Title</th>
+    <th class="sectors-column">Common Code</th>
+    <th>Capital expenditure</th>
+    <th>CC mappable before</th>
+    <th>CC mappable after</th>
+    <th>CC mappable diff</th>
+    <th>Status</th>
+    <th>Aid Type</th>
+    <th>Organisations</th>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+    <tr>
+      <td class="titles-column"><a href="{{url_for('activities', country_code=project.recipient_country_code, iati_identifier=project.iati_identifier)}}">{% for title in project.titles %}{{title.text}}<br />{% endfor %}</a></td>
+      <td class="sectors-column">
+        {% for sector in project.sectors %}
+        {% if sector.deleted != True %}
+        {% if sector.dacsector.cc.id != "0" %}
+        <span class="label label-success" title="{{sector.dacsector.cc.sector}} 
+ &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})">
+          {{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}}
+          ({{sector.dacsector.cc.id}})</span>
+        {% else %}
+        <span class="label label-danger">Not mappable</span>
+        {% endif %}
+        </p>
+        {% endif %}
+        {%endfor%}
+      </td>
+      <td>{% if project.capital_exp is not none %}{{ project.capital_exp*100 }}%{% else %}N/A{% endif %}</td>
+      <td>
+        {{ project.pct_mappable_before }}
+      </td>
+      <td>
+        {{ project.pct_mappable_after }}
+      </td>
+      <td>
+        {{ project.pct_mappable_diff|round(2) }}
+      </td>
+      <td>
+        {{ project.status.text }}
+      </td>
+      <td>
+        {{ project.aid_type.text }}
+      </td>
+      <td>
+        {% for org in project.participating_orgs %}
+        {{org.organisation.name}} ({{org.role}})<br />
+        {%endfor%}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
