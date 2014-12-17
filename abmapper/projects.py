@@ -597,19 +597,20 @@ def budget_project_stats(country_code):
 def country_project_stats(country_code, aid_types=["C01", "D01", "D02"], 
                                         activity_statuses=[2,3]):
 
-    p = projects(country_code)
+    original_p = projects(country_code)
 
-    total_projects = len(p)
+    total_projects = len(original_p)
 
     def aid_type_filter(the_project):
         return (the_project.aid_type_code in aid_types) and (
                     the_project.status_code in activity_statuses)
 
-    p = filter(aid_type_filter, p)
+    p = filter(aid_type_filter, original_p)
 
     filtered_projects = len(p)
 
-    total_value = sum(map(lambda project: none_is_zero(project.total_commitments), p))
+    total_value = sum(map(lambda project: none_is_zero(project.total_commitments), original_p))
+    total_filtered_value = sum(map(lambda project: none_is_zero(project.total_commitments), p))
     total_mappable_before = sum(map(lambda project: none_is_zero(project.pct_mappable_before)/100 * 
                 none_is_zero(project.total_commitments), p))
     total_mappable_after = sum(map(lambda project: none_is_zero(project.pct_mappable_after)/100 * 
@@ -619,15 +620,16 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
                 none_is_zero(project.total_commitments), filter(filter_none_out, p)))
     total_na_after = sum(map(lambda project: 1 * 
                 none_is_zero(project.total_commitments), filter(filter_none_in, p)))
-    total_current_after = total_value-total_capital_after-total_na_after
+    total_current_after = total_filtered_value-total_capital_after-total_na_after
     return {"total_value": "{:,}".format(total_value),
+            "total_filtered_value": "{:,}".format(total_filtered_value),
             "total_mappable_before": total_mappable_before,
-            "total_mappable_before_pct": round(total_mappable_before/total_value*100, 2),
+            "total_mappable_before_pct": round(total_mappable_before/total_filtered_value*100, 2),
             "total_mappable_after": total_mappable_after,
-            "total_mappable_after_pct": round(total_mappable_after/total_value*100, 2),
-            "total_capital_before_pct": round(total_capital_before/total_value*100, 2),
-            "total_capital_after_pct": round(total_capital_after/total_value*100, 2),
-            "total_current_after_pct": round(total_current_after/total_value*100, 2),
+            "total_mappable_after_pct": round(total_mappable_after/total_filtered_value*100, 2),
+            "total_capital_before_pct": round(total_capital_before/total_filtered_value*100, 2),
+            "total_capital_after_pct": round(total_capital_after/total_filtered_value*100, 2),
+            "total_current_after_pct": round(total_current_after/total_filtered_value*100, 2),
             "total_projects": total_projects,
             "filtered_projects": filtered_projects,
            }
