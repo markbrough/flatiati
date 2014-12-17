@@ -2,7 +2,7 @@ var width = 600,
     height = 500,
     radius = Math.min(width, height) / 2;
 
-var color = d3.scale.category20();
+var color = d3.scale.category20c();
 
 var svg = d3.select(".budget-chart").append("svg").append("g")
 
