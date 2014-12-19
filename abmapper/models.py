@@ -156,6 +156,9 @@ class Activity(db.Model):
             SELECT sum(sector.percentage) AS sum_1 
             FROM sector
             JOIN dacsector ON dacsector.code = sector.code 
+            JOIN commoncode ON commoncode.id = dacsector.cc_id
+            JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
+            JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
             WHERE sector.activity_iati_identifier = '%s' 
             AND sector.edited = 0 AND dacsector.cc_id != "0";
             """ % self.iati_identifier).first()[0]
@@ -166,6 +169,9 @@ class Activity(db.Model):
             SELECT sum(sector.percentage) AS sum_1 
             FROM sector
             JOIN dacsector ON dacsector.code = sector.code 
+            JOIN commoncode ON commoncode.id = dacsector.cc_id
+            JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
+            JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
             WHERE sector.activity_iati_identifier = '%s' 
             AND sector.deleted = 0 AND dacsector.cc_id != "0";
             """ % self.iati_identifier).first()[0]
@@ -265,6 +271,21 @@ class Sector(db.Model):
     assumed = sa.Column(sa.Boolean, default=False)
     activity = sa.orm.relationship("Activity")
     dacsector = sa.orm.relationship("DACSector")
+    formersector_id = sa.Column(
+        act_ForeignKey("sector.code"),
+        nullable=True)
+
+    @hybrid_property
+    def formersector(self):
+        return db.engine.execute("""
+            SELECT sector.code AS "sector.code", 
+                   sector.percentage AS "sector.percentage",
+                   sector.assumed AS "sector.assumed",
+                   dacsector.description AS "dacsector.description"
+            FROM sector
+            JOIN dacsector ON sector.code = dacsector.code
+            WHERE sector.id = '%s';
+            """ % self.formersector_id).first()
 
 # Code and name should be from DACSectors table
 # DACSectors table should relate to commoncode table
