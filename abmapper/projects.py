@@ -386,7 +386,7 @@ def update_project(data):
                 else:
                     percentage = default_sector_pct
 
-                add_sector_to_project(newsector_code, project_identifier, percentage, True)
+                add_sector_to_project(newsector_code, project_identifier, percentage, None, True)
         
 def country(country_code):
     c = models.RecipientCountry.query.filter_by(code=country_code).first()
