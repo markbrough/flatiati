@@ -116,6 +116,9 @@ option.sector-option-0 {
     opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
+.sector-deleted {
+    display: none;
+}
 .header-country-name, nav a.navbar-brand {
     font-size:0.5em;
     font-style:italic;
