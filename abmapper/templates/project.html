@@ -116,9 +116,14 @@
         {% if not sector.assumed %}
         {{sector.dacsector.description}}
         ({{sector.dacsector.code}})
+        {% else %}
+        <p class="text-muted">
+        {{sector.formersector.description}}
+        ({{sector.formersector.code}})
+        </p>
         {% endif %}
         {% if sector.edited %}<span class="label label-warning"><span class="glyphicon glyphicon-asterisk white" 
-          title="Sector was manually added"></span> <b>Manually added</b></span>{% endif %}
+          title="Sector was manually added"></span> <b>Amended: previously not mappable</b></span>{% endif %}
       </td>
       <td width="8%">
         {{ sector.percentage }}
