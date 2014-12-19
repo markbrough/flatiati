@@ -39,10 +39,10 @@
         {% if sector.deleted != True %}
         {% if sector.assumed != "0" %}
         <span class="label {% if sector.dacsector.cc.id != "0" %}label-default{% else %}label-danger{% endif %}" title="{{sector.dacsector.description}} ({{sector.dacsector.code}})">
-          {{sector.dacsector.description}} &ndash; {{sector.dacsector.code}}</span>
+          {{sector.dacsector.description}} ({{sector.dacsector.code}})</span>
         {% else %}
         <span class="label label-default" title="{{sector.formersector.description}} ({{sector.formersector.code}})">
-          {{sector.formersector.description}} &ndash; {{sector.formersector.code}}</span>
+          {{sector.formersector.description}} ({{sector.formersector.code}})</span>
         {% endif %}
         </p>
         {% endif %}
