@@ -25,7 +25,7 @@ def projects(country_code, reporting_org=None):
 
 def a_not_in_b(a, b):
     def filterer(a):
-        return a not in b
+        return a[0] not in dict(b).keys()
     return filter(filterer, a)
 
 def deleted_sector_codes_from_cc(deleted_ccs, project_sectors):
@@ -64,6 +64,12 @@ def none_is_zero(value):
     except TypeError:
         return 0.0
     return value
+
+def correct_trailing_decimals(value):
+    try:
+        return int(value)
+    except TypeError:
+        return value
 
 def filter_none_out(proj):
     return proj.capital_exp is not None
@@ -235,7 +241,7 @@ def update_project(data):
         if sheet.cell_type(i, 0)==1:
             # Start collecting project data
             project_id = sheet.cell(i, 0).value
-            capital_spend = number_or_none(sheet.cell(i, 13).value)
+            capital_spend = number_or_none(sheet.cell(i, 14).value)
 
             # There must always be at least 1 sector-row (because of the title,
             # etc.)
@@ -255,7 +261,8 @@ def update_project(data):
             for si in range(i, i+project_data[project_id]["num_sectors"]):
                 project_data[project_id]["sectors"].append(
                     {
-                    "cc_id": correct_zeros(sheet.cell(si, 5).value),
+                    "crs_code": correct_trailing_decimals(sheet.cell(si, 3).value),
+                    "cc_id": correct_zeros(sheet.cell(si, 6).value),
                     "percentage": "UNKNOWN",
                     }
                 )
@@ -271,12 +278,23 @@ def update_project(data):
             print "UNKNOWN PROJECT", project_identifier
             continue
 
-        new_sectors = dict(map(lambda s: (s["cc_id"], s["percentage"]), sectors['sectors']))
-        existing_sectors = dict(map(lambda s: (s.dacsector.cc_id, s.percentage), p.sectors))
-        
+        new_sectors = map(lambda s: (s["cc_id"], {'percentage': s["percentage"], 
+                                                       'original_crs_code': s["crs_code"]}), 
+                                                            sectors['sectors'])
+
+        existing_sectors = map(lambda s: (s.dacsector.cc_id, {
+                                                'percentage': s.percentage,
+                                                'original_crs_code': s.code,
+                                                'deleted': s.deleted}),
+                                                            p.sectors)
+
         added_sectors = a_not_in_b(new_sectors, existing_sectors)
         deleted_sectors = a_not_in_b(existing_sectors, new_sectors)
 
+        added_sectors = dict(map(lambda s: (s[1]['original_crs_code'], {
+                                                'percentage': s[1]['percentage'],
+                                                'cc_id': s[0]}),
+                                                    added_sectors))
 
         # Update capital expenditure
         p = project(project_identifier)
@@ -294,17 +312,50 @@ def update_project(data):
 
         if deleted_sectors:
             # 1 Find sectors related to deleted CCs for this project
+            #   Try and match them against existing CCs
+            
+            for ds in deleted_sectors:
 
-            # Filter out sectors not related deleted CCs, or already deleted
-            crs_codes_for_deletion = map(lambda s: s.dacsector.code, 
-                    deleted_sector_codes_from_cc(deleted_sectors, p.sectors))
+                # For each sector that needs to be deleted...
+                sector_to_delete_cc_id = ds[0]
+                sector_to_delete = ds[1]
 
-            # 2 Mark those sectors as deleted
+                original_crs_code = sector_to_delete['original_crs_code']
+                percentage = sector_to_delete['percentage']
 
-            [delete_sector_from_project(sector_code, project_identifier) for 
-                                        sector_code in crs_codes_for_deletion]
+                print "Deleting CC ID:", sector_to_delete_cc_id
+                print "Had CRS code, pct:", original_crs_code, percentage
 
-        if added_sectors:   
+                newsector_code = False
+
+                try:
+                    new_cc_id = added_sectors[original_crs_code]['cc_id']
+                    newsector_code = get_sector_from_cc(new_cc_id)
+                    added_sectors.pop(original_crs_code)
+                except KeyError:
+                    print "WARNING: Couldn't find CRS CODE", original_crs_code, "for project", project_id
+
+
+                formersector_id = delete_sector_from_project(original_crs_code, 
+                                                             project_identifier)
+
+                print "Deleting sector for", project_identifier, original_crs_code
+
+                if not newsector_code:
+                    continue
+                
+                add_sector_to_project(newsector_code, 
+                                      project_identifier, 
+                                      percentage, 
+                                      formersector_id, 
+                                      True)
+
+                print "Adding sector for", project_identifier, newsector_code, percentage, formersector_id
+            
+        # Check if there are any remaining unadded sectors.
+        if added_sectors:
+            print "Remaining sectors to add", len(added_sectors)
+            print added_sectors
             # 3 Get pct of remaining percentage
             unused_sector_pct = get_unused_sector_percentage(project_identifier)
 
@@ -312,12 +363,13 @@ def update_project(data):
             # available amount by number of added sectors)
 
             default_sector_pct = float(unused_sector_pct)/len(added_sectors)
+
             if default_sector_pct<=0: print "ALERT: 0 VALUE SECTORS"
 
 
-            for addsector in added_sectors:
+            for crscode, addsector in added_sectors.items():
                 # 5 Get a random sector associated with this CC
-                newsector_code = get_sector_from_cc(addsector)
+                newsector_code = get_sector_from_cc(addsector['cc_id'])
                 if not newsector_code:
                     print "UNRECOGNISED CC ID", addsector
                     continue
@@ -326,7 +378,7 @@ def update_project(data):
                 # 6 Add that sector to the project, but mark it as assumed
 
                 def getRelevantSector(sector):
-                    return sector["cc_id"] == addsector
+                    return sector["cc_id"] == addsector['cc_id']
 
                 relevant_sector = get_first(filter(getRelevantSector, sectors['sectors']))
                 if is_number(relevant_sector["percentage"]):
@@ -428,7 +480,8 @@ def sector(sector_code):
             ).first()
     return s
 
-def add_sector_to_project(sector_code, iati_identifier, percentage, assumed=False):
+def add_sector_to_project(sector_code, iati_identifier, percentage, 
+                          formersector_id=None, assumed=False):
     checkS = db.session.query(models.Sector
             ).filter(models.Sector.activity_iati_identifier==iati_identifier
             ).filter(models.Sector.code==sector_code
@@ -441,6 +494,7 @@ def add_sector_to_project(sector_code, iati_identifier, percentage, assumed=Fals
     newS.activity_iati_identifier = iati_identifier
     newS.edited = True
     newS.assumed = assumed
+    newS.formersector_id = formersector_id
     db.session.add(newS)
     db.session.commit()
     return newS
@@ -456,16 +510,15 @@ def delete_sector_from_project(sector_code, iati_identifier):
     # Delete manually added sectors, but just mark sectors in the original
     # IATI data as deleted, don't delete them.
 
-    print "checks was edited", checkS.edited
     if checkS.edited == True:
         db.session.delete(checkS)
         db.session.commit()
-        return "deleted"
+        return True
 
     checkS.deleted = True
     db.session.add(checkS)
     db.session.commit()
-    return "marked as deleted"
+    return checkS.id
 
 def restore_sector_to_project(sector_code, iati_identifier):
     checkS = db.session.query(models.Sector
@@ -585,8 +638,8 @@ def budget_project_stats(country_code):
         if stats['budgets'][code]['change_pct'] == 0.0:
             stats['budgets'][code]['change_pct'] = ""
 
-        stats['budgets'][code]['before']['value'] = "{:,.2f}".format(round(stats['budgets'][code]['before']['value']), 2)
-        stats['budgets'][code]['after']['value'] = "{:,.2f}".format(round(stats['budgets'][code]['after']['value']), 2)
+        stats['budgets'][code]['before']['value'] = "{:,.2f}".format(stats['budgets'][code]['before']['value'])
+        stats['budgets'][code]['after']['value'] = "{:,.2f}".format(stats['budgets'][code]['after']['value'])
 
 
     after.close()
