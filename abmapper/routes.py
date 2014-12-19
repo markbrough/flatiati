@@ -137,6 +137,12 @@ def activity_export(country_code, reporting_org=None):
     yellowPattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
     styleYellow.pattern = yellowPattern
 
+    styleRed = xlwt.XFStyle()
+    redPattern = xlwt.Pattern()
+    redPattern.pattern = xlwt.Pattern.SOLID_PATTERN
+    redPattern.pattern_fore_colour = xlwt.Style.colour_map['red']
+    styleRed.pattern = redPattern
+
     stylePCT = xlwt.XFStyle()
     stylePCT.num_format_str = '0%'
 
@@ -150,7 +156,8 @@ def activity_export(country_code, reporting_org=None):
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
     headers = ['iati_identifier', 'project_title', 'project_description', 
-        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'aid_type_code',
+        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'cc_sector', 
+        'cc_category', 'cc_function', 'aid_type_code',
         'aid_type', 'activity_status_code', 'activity_status', 'date_start', 
         'date_end', 'capital_spend_pct', 'total_commitments', 
         'total_disbursements', 'budget_code', 'budget_name', 'lowerbudget_code',
@@ -173,17 +180,17 @@ def activity_export(country_code, reporting_org=None):
         ws.write_merge(i, i+numsectors-1, 0, 0, project.iati_identifier)
         ws.write_merge(i, i+numsectors-1, 1, 1, getcs_string(project.titles, 'text'))
         ws.write_merge(i, i+numsectors-1, 2, 2, getcs_string(project.descriptions, 'text'))
-        ws.write_merge(i, i+numsectors-1, 7, 7, project.aid_type_code)
-        ws.write_merge(i, i+numsectors-1, 8, 8, project.aid_type.text)
-        ws.write_merge(i, i+numsectors-1, 9, 9, project.status_code)
-        ws.write_merge(i, i+numsectors-1, 10, 10, project.status.text)
-        ws.write_merge(i, i+numsectors-1, 11, 11, project.date_start_actual or
+        ws.write_merge(i, i+numsectors-1, 10, 10, project.aid_type_code)
+        ws.write_merge(i, i+numsectors-1, 11, 11, project.aid_type.text)
+        ws.write_merge(i, i+numsectors-1, 12, 12, project.status_code)
+        ws.write_merge(i, i+numsectors-1, 13, 13, project.status.text)
+        ws.write_merge(i, i+numsectors-1, 14, 14, project.date_start_actual or
                                         project.date_start_planned, styleDates)
-        ws.write_merge(i, i+numsectors-1, 12, 12, project.date_end_actual or 
+        ws.write_merge(i, i+numsectors-1, 15, 15, project.date_end_actual or 
                                         project.date_end_planned, styleDates)
-        ws.write_merge(i, i+numsectors-1, 13, 13, project.capital_exp, stylePCT)
-        ws.write_merge(i, i+numsectors-1, 14, 14, project.total_commitments)
-        ws.write_merge(i, i+numsectors-1, 15, 15, project.total_disbursements)
+        ws.write_merge(i, i+numsectors-1, 16, 16, project.capital_exp, stylePCT)
+        ws.write_merge(i, i+numsectors-1, 17, 17, project.total_commitments)
+        ws.write_merge(i, i+numsectors-1, 18, 18, project.total_disbursements)
 
         def frelbudget(budget_code):
             return project.recipient_country_code == budget_code.budgetcode.country_code
@@ -192,13 +199,21 @@ def activity_export(country_code, reporting_org=None):
             return project.recipient_country_code == budget_code.lowerbudgetcode.country_code
 
         for si, sector in enumerate(current_sectors):
-            ws.write(i, 3, sector.dacsector.code)
-            ws.write(i, 4, sector.dacsector.description)
+            if not sector.assumed:
+                ws.write(i, 3, sector.dacsector.code)
+                ws.write(i, 4, sector.dacsector.description)
+            else:
+                ws.write(i, 3, sector.formersector.code, styleRed)
+                ws.write(i, 4, sector.formersector.description, styleRed)
+                
             ws.write(i, 5, sector.percentage)
             if makeCCYellow(sector.dacsector.cc.id):
                 ws.write(i, 6, sector.dacsector.cc.id, styleYellow)
             else:
                 ws.write(i, 6, sector.dacsector.cc.id)
+            ws.write(i, 7, sector.dacsector.cc.sector)
+            ws.write(i, 8, sector.dacsector.cc.category)
+            ws.write(i, 9, sector.dacsector.cc.function)
         
             relevant_budget = filter(frelbudget, sector.dacsector.cc.cc_budgetcode)
             relevant_lowerbudget = filter(frelbudgetlow, sector.dacsector.cc.cc_lowerbudgetcode)
@@ -208,10 +223,10 @@ def activity_export(country_code, reporting_org=None):
             lowerbudget_codes = ",".join(map(lambda budget: budget.lowerbudgetcode.code, relevant_lowerbudget))
             lowerbudget_names = ",".join(map(lambda budget: budget.lowerbudgetcode.name, relevant_lowerbudget))
 
-            ws.write(i, 16, budget_codes)
-            ws.write(i, 17, budget_names)
-            ws.write(i, 18, lowerbudget_codes)
-            ws.write(i, 19, lowerbudget_names)
+            ws.write(i, 19, budget_codes)
+            ws.write(i, 20, budget_names)
+            ws.write(i, 21, lowerbudget_codes)
+            ws.write(i, 22, lowerbudget_names)
                 
             if si+1 < numsectors:
                 i+=1
