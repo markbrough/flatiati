@@ -178,8 +178,8 @@ def activity_export(country_code, reporting_org=None):
         i+=1
         numsectors = len(current_sectors)
         ws.write_merge(i, i+numsectors-1, 0, 0, project.iati_identifier)
-        ws.write_merge(i, i+numsectors-1, 1, 1, getcs_string(project.titles, 'text'))
-        ws.write_merge(i, i+numsectors-1, 2, 2, getcs_string(project.descriptions, 'text'))
+        ws.write_merge(i, i+numsectors-1, 1, 1, getcs_string(project.titles_fr, 'text'))
+        ws.write_merge(i, i+numsectors-1, 2, 2, getcs_string(project.descriptions_fr, 'text'))
         ws.write_merge(i, i+numsectors-1, 10, 10, project.aid_type_code)
         ws.write_merge(i, i+numsectors-1, 11, 11, project.aid_type.text)
         ws.write_merge(i, i+numsectors-1, 12, 12, project.status_code)
