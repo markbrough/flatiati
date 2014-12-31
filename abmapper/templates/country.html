@@ -11,50 +11,49 @@
 <br />
 <div class="pull-right">
     <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export</b>
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Exporter</b>
     </a>
     {% for ro in reporting_orgs %}
     <a class="btn btn-default" href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.reporting_org)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export {{ro.reporting_org}} ({{ro.num_activities}})</b>
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Exporter {{ro.reporting_org}} ({{ro.num_activities}})</b>
     </a>
     {% endfor %}
 </div>
-<h1>Overview</h1>
-<h3>Mapping statistics</h3>
+<h1>Vue d'ensemble</h1>
+<h3>Chiffres clés</h3>
 <dl class="dl-horizontal">
-  <dt>Total value</dt><dd>{{stats.total_value}} (commitments, in donor's currency)</dd>
-  <dt>Total projects</dt><dd>{{stats.total_projects}}</dd>
+  <dt>Montant de projets</dt><dd>{{stats.total_value}} (engagements en USD)</dd>
+  <dt>Nombre de projets</dt><dd>{{stats.total_projects}}</dd>
 </dl>
-<h3>Administrative/functional classification</h3>
+<h3>Classification 
+    {% if country.budgettype %}{{ country.budgettype.text }}
+    {% else %}Administrative/Fonctionnelle{% endif %}
+</h3>
 <dl class="dl-horizontal">
-  <dt>Before</dt><dd>
+  <dt>Avant</dt><dd>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_before_pct}}%;">
         <span><b>{{stats.total_mappable_before_pct}}% Mappable</b></span>
       </div>
     </div>
   </dd>
-  <dt>After</dt><dd>
+  <dt>Aprés</dt><dd>
     <div class="progress">
       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_after_pct}}%;">
         <span><b>{{stats.total_mappable_after_pct}}% Mappable</b></span>
       </div>
     </div></dd>
 </dl>
-{% if country.budgettype %}<p class="text-muted">In {{ country.text }}, we are mapping to the {{ country.budgettype.text }} budget.</p>
-{% else %}
-<p class="text-muted">The budget for {{ country.text }} has not yet been mapped to the Common Code.</p>
-{% endif %}
-<h3>Economic classification</h3>
+<h3>Classification économique</h3>
 <dl class="dl-horizontal">
-  <dt>Before</dt><dd>
+  <dt>Avant</dt><dd>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_before_pct}}%;">
         <span><b>{{stats.total_capital_before_pct}}% Capital</b></span>
       </div>
     </div>
   </dd>
-  <dt>After</dt><dd>
+  <dt>Aprés</dt><dd>
     <div class="progress">
       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_after_pct}}%; min-width:3%;">
         <span><b>{{stats.total_capital_after_pct}}% Capital</b></span>
