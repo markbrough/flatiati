@@ -203,8 +203,14 @@ def activity_export(country_code, reporting_org=None):
                 ws.write(i, 3, sector.dacsector.code)
                 ws.write(i, 4, sector.dacsector.description)
             else:
-                ws.write(i, 3, sector.formersector.code, styleRed)
-                ws.write(i, 4, sector.formersector.description, styleRed)
+                if sector.formersector:
+                    ws.write(i, 3, sector.formersector.code, styleRed)
+                    ws.write(i, 4, sector.formersector.description, styleRed)
+                # No previous sector known - spreadsheet must have changed
+                # on import... leave blank rather than show warning msg?
+                else:
+                    ws.write(i, 3, "")
+                    ws.write(i, 4, "")
                 
             ws.write(i, 5, sector.percentage)
             if makeCCYellow(sector.dacsector.cc.id):
