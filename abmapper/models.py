@@ -61,6 +61,11 @@ class UniqueMixin(object):
             arg, kw
         )
 
+def none_is_zero(value):
+    if value == None:
+        return 0
+    return value
+
 class Activity(db.Model):
     __tablename__ = 'activity'
     id = sa.Column(sa.Integer, primary_key=True)
@@ -152,7 +157,7 @@ class Activity(db.Model):
 
     @hybrid_property
     def pct_mappable_before(self):
-        return db.engine.execute("""
+        return none_is_zero(db.engine.execute("""
             SELECT sum(sector.percentage) AS sum_1 
             FROM sector
             JOIN dacsector ON dacsector.code = sector.code 
@@ -161,11 +166,11 @@ class Activity(db.Model):
             JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
             WHERE sector.activity_iati_identifier = '%s' 
             AND sector.edited = 0 AND dacsector.cc_id != "0";
-            """ % self.iati_identifier).first()[0]
+            """ % self.iati_identifier).first()[0])
 
     @hybrid_property
     def pct_mappable_after(self):
-        return db.engine.execute("""
+        return none_is_zero(db.engine.execute("""
             SELECT sum(sector.percentage) AS sum_1 
             FROM sector
             JOIN dacsector ON dacsector.code = sector.code 
@@ -174,7 +179,7 @@ class Activity(db.Model):
             JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
             WHERE sector.activity_iati_identifier = '%s' 
             AND sector.deleted = 0 AND dacsector.cc_id != "0";
-            """ % self.iati_identifier).first()[0]
+            """ % self.iati_identifier).first()[0])
 
     @hybrid_property
     def pct_mappable_diff(self):
