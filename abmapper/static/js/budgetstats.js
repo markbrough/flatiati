@@ -43,8 +43,8 @@ d3.csv("budgetstats.csv", type, function(error, data) {
       .each(function(d) { this._current = d; })
 	  .on("mouseover", function(){
                 d3.select("#budgetselected").text(d3.select(this).attr("title"));
-                d3.select("#budgetbefore").text(formatAsMillions(d3.select(this).attr("avant")));
-                d3.select("#budgetafter").text(formatAsMillions(d3.select(this).attr("aprés")));
+                d3.select("#budgetbefore").text(formatAsMillions(d3.select(this).attr("before")));
+                d3.select("#budgetafter").text(formatAsMillions(d3.select(this).attr("after")));
                 d3.select(".budgetafter-dt").style("visibility", "visible");
                 d3.select(".budgetbefore-dt").style("visibility", "visible");
         })
