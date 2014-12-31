@@ -43,17 +43,22 @@
       </td>
       <td class="sectors-column">
         {% for sector in project.sectors %}
-        {% if sector.deleted != True %}
-        {% if sector.assumed != "0" %}
+        {% if not sector.deleted %}
+
+        {% if not sector.assumed %}
         <span class="label {% if sector.dacsector.cc.id != "0" %}label-default{% else %}label-danger{% endif %}" title="{{sector.dacsector.description}} ({{sector.dacsector.code}})">
           {{sector.dacsector.description}} ({{sector.dacsector.code}})</span>
         {% else %}
+
+        {% if sector.formersector %}
         <span class="label label-default" title="{{sector.formersector.description}} ({{sector.formersector.code}})">
           {{sector.formersector.description}} ({{sector.formersector.code}})</span>
         {% endif %}
-        </p>
+
         {% endif %}
-        {%endfor%}
+
+        {% endif %}
+        {% endfor %}
       </td>
       <td class="sectors-column">
         {% for sector in project.sectors %}
