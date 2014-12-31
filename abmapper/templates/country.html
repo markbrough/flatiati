@@ -65,9 +65,9 @@
     <p><span class="label label-warning">Capital</span> <span class="label label-success">Current</span></p>
   </dd>
 </dl>
-<p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation and completion stage. Values are commitments, in donor's currency.</p>
+<p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation and completion stage.</p>
 
-<h2>Total spend to different budget lines</h2>
+<h2>Montant total par fonction principale</h2>
 
 <div class="pull-right">
     <a href="{{url_for('country_budget_stats_csv', country_code=country.code)}}" class="btn btn-default">
@@ -89,11 +89,11 @@
           <thead>
             <th>Code</th>
             <th>Fonction principale</th>
-            <th>Value before</th>
-            <th>Value after</th>
-            <th>Pct before</th>
-            <th>Pct after</th>
-            <th>Pct change</th>
+            <th>Montant avant</th>
+            <th>Montant aprés</th>
+            <th>% avant</th>
+            <th>% aprés</th>
+            <th>% différence</th>
           </thead>
           <tbody>
             {% for code, bs in budget_stats.budgets.items() %}
@@ -113,8 +113,8 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="chart">
         <form>
-          <label><input type="radio" name="dataset" value="before_value" checked> Before</label>
-          <label><input type="radio" name="dataset" value="after_value"> After</label>
+          <label><input type="radio" name="dataset" value="before_value" checked> avant</label>
+          <label><input type="radio" name="dataset" value="after_value"> aprés</label>
         </form>
         <div class="budget-area">
             <div class="budget-chartbox pull-left">
@@ -123,8 +123,8 @@
             <div class="budget-infobox pull-left">
                 <p id="budgetselected">Hover over a sector for details.</p>
                 <dl class="dl-horizontal">
-                <dt class="budgetbefore-dt">Before</dt><dd id="budgetbefore"></dd>
-                <dt class="budgetafter-dt">After</dt><dd id="budgetafter"></dd>
+                <dt class="budgetbefore-dt">avant</dt><dd id="budgetbefore"></dd>
+                <dt class="budgetafter-dt">aprés</dt><dd id="budgetafter"></dd>
                 </dl>
             </div>
         </div>
