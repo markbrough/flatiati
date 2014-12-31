@@ -189,6 +189,20 @@ class Activity(db.Model):
             return orgs.role == "Implementing"
         return filter(filter_implementing, self.participating_orgs)
 
+    @hybrid_property
+    def titles_fr(self):
+        if len(self.titles) <= 1: return self.titles
+        def filter_titles(title):
+            return title.lang == "fr"
+        return filter(filter_titles, self.titles)
+
+    @hybrid_property
+    def descriptions_fr(self):
+        if len(self.descriptions) <= 1: return self.descriptions
+        def filter_descriptions(description):
+            return description.lang == "fr"
+        return filter(filter_descriptions, self.descriptions)
+
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
