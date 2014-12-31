@@ -10,24 +10,24 @@
 <br />
 <div class="pull-right">
     <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export</b>
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Exporter</b>
     </a>
     {% for ro in reporting_orgs %}
     <a class="btn btn-default" href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.reporting_org)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export {{ro.reporting_org}} ({{ro.num_activities}})</b>
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Exporter {{ro.reporting_org}} ({{ro.num_activities}})</b>
     </a>
     {% endfor %}
 </div>
-<h1>Projects</h1>
+<h1>Projets</h1>
 <table class="table" id="projects">
   <thead>
-    <th>Title</th>
-    <th class="sectors-column">CRS Code</th>
-    <th class="sectors-column">Common Code</th>
-    <th>Capital expenditure</th>
-    <th>CC mappable before</th>
-    <th>CC mappable after</th>
-    <th>CC mappable diff</th>
+    <th>Titre</th>
+    <th class="sectors-column">Code CRS</th>
+    <th class="sectors-column">Code commun</th>
+    <th>Capital</th>
+    <th>CC mappable avant</th>
+    <th>CC mappable aprés</th>
+    <th>CC mappable différence</th>
     <th>Organisme d'exécution</th>
   </thead>
   <tbody>
