@@ -127,21 +127,41 @@ a .header-country-name  {
     color: #333333;
 }
 th.sectors-column, td.sectors-column {
-    max-width: 300px;
+    max-width: 220px;
     overflow: hidden;
 }
 th.titles-column, td.titles-column {
     max-width:240px;
 }
 .sectors-column span.label {
-    clear: left;
     float: left;
     overflow: hidden;
     text-align: left;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 290px;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
     margin-bottom:4px;
+    border-radius:0em;
+    padding:3px;
+}
+.sectors-column span.label.label-success {
+  color: #000000;
+  background-color: #ffffff;
+  border: 2px solid #5cb85c;
+}
+.sectors-column span.label.crs-code {
+  float:left;
+  width:49%;
+}
+.sectors-column span.label.cc-code {
+  float:right;
+  width:49%;
+}
+.sectors-column span.label.label-default {
+  color: #000000;
+  background-color: #ffffff;
+  border: 2px solid #777;
 }
 .navbar-country {
     background-color: rgb(255,255,255);
@@ -193,4 +213,11 @@ svg {
 }
 .tab-content {
     margin-top:15px;
+}
+table {
+  background:#ffffff;
+}
+.clearer {
+  clear:both;
+  height:5px;
 }
