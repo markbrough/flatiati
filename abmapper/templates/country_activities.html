@@ -4,7 +4,7 @@
 
 <script >
     $(function() {
-    $("table#projects").tablesorter({ sortList: [[6,1]] });
+    $("table#projects").tablesorter({ sortList: [[7,1]] });
     });
 </script>
 <br />
@@ -21,12 +21,12 @@
 <h1>Projets</h1>
 <table class="table" id="projects">
   <thead>
+    <th>No</th>
     <th>Titre</th>
-    <th class="sectors-column">Code CRS</th>
-    <th class="sectors-column">Code commun</th>
+    <th class="sectors-column">Code CRS &ndash; Code commun</th>
     <th>Capital</th>
     <th>CC mappable avant</th>
-    <th>CC mappable aprés</th>
+    <th>CC mappable après</th>
     <th>CC mappable différence</th>
     <th>Organisme d'exécution</th>
   </thead>
@@ -34,6 +34,9 @@
     {% for project in projects %}
     <tr>
       <td>
+        {{ project.iati_identifier }}
+      </td>
+      <td class="sectors-column">
         <a href="{{url_for('activities', 
                            country_code=project.recipient_country_code, 
                            iati_identifier=project.iati_identifier)}}">
@@ -46,32 +49,27 @@
         {% if not sector.deleted %}
 
         {% if not sector.assumed %}
-        <span class="label {% if sector.dacsector.cc.id != "0" %}label-default{% else %}label-danger{% endif %}" title="{{sector.dacsector.description}} ({{sector.dacsector.code}})">
+        <span class="label crs-code {% if sector.dacsector.cc.id != "0" %}label-default{% else %}label-danger{% endif %}" title="{{sector.dacsector.description}} ({{sector.dacsector.code}})">
           {{sector.dacsector.description}} ({{sector.dacsector.code}})</span>
         {% else %}
 
         {% if sector.formersector %}
-        <span class="label label-default" title="{{sector.formersector.description}} ({{sector.formersector.code}})">
+        <span class="label crs-code label-default" title="{{sector.formersector.description}} ({{sector.formersector.code}})">
           {{sector.formersector.description}} ({{sector.formersector.code}})</span>
         {% endif %}
 
         {% endif %}
 
-        {% endif %}
-        {% endfor %}
-      </td>
-      <td class="sectors-column">
-        {% for sector in project.sectors %}
-        {% if sector.deleted != True %}
         {% if sector.dacsector.cc.id != "0" %}
-        <span class="label label-success" title="{{sector.dacsector.cc.sector}} 
+        <span class="label cc-code label-success" title="{{sector.dacsector.cc.sector}} 
  &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})">
           {{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}}
           ({{sector.dacsector.cc.id}})</span>
         {% else %}
-        <span class="label label-danger">Not mappable</span>
+        <span class="label cc-code label-danger">Not mappable</span>
         {% endif %}
         </p>
+        <div class="clearer"></div>
         {% endif %}
         {%endfor%}
       </td>
