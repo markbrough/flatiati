@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, request, Markup, \
-    session, redirect, url_for, escape, Response, abort, send_file
+    session, redirect, url_for, escape, Response, abort, send_file, jsonify
 
 from abmapper import app
 from abmapper import db
@@ -33,6 +33,10 @@ def country_home(country_code):
                            stats=stats,
                            budget_stats=budget_stats,
                            )
+@app.route("/<country_code>/sankey.json")
+def country_sankey(country_code):
+    data = projects.generate_sankey_data(country_code)
+    return jsonify(data)
 
 @app.route("/<country_code>/budgetstats.csv")
 def country_budget_stats_csv(country_code):
