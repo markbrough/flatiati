@@ -722,6 +722,9 @@ def generate_sankey_data(country_code):
     nodes = [{'name': node} for node in sorted(node_data['known'], 
                                              key=node_data['known'].get)]
 
+    from operator import itemgetter
+    links = sorted(links, key=itemgetter('value'))
+
     out = {'nodes': nodes, 'links': links}
 
     reporting_org_cc.close()
