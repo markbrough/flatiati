@@ -647,6 +647,88 @@ def budget_project_stats(country_code):
  
     return stats
 
+def generate_sankey_data(country_code):
+    sql_reporting_org_cc = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+            activity.reporting_org_ref, commoncode.category
+            FROM atransaction
+            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+            LEFT JOIN dacsector ON sector.code = dacsector.code
+            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+            WHERE sector.deleted = 0
+            AND activity.recipient_country_code="%s"
+            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+            AND activity.status_code IN (2, 3)
+            AND atransaction.transaction_type_code="C"
+            GROUP BY commoncode.category, activity.reporting_org_ref
+            ;"""
+            
+    sql_cc_budgetcode = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+            budgetcode.code, budgetcode.name, commoncode.category
+            FROM atransaction
+            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+            LEFT JOIN dacsector ON sector.code = dacsector.code
+            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+            WHERE sector.deleted = 0
+            AND activity.recipient_country_code="%s"
+            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+            AND activity.status_code IN (2, 3)
+            AND atransaction.transaction_type_code="C"
+            GROUP BY budgetcode.code, commoncode.category
+            ;"""
+
+    reporting_org_cc = db.engine.execute(sql_reporting_org_cc % country_code)
+    cc_budgetcode = db.engine.execute(sql_cc_budgetcode % country_code)
+    
+    node_data = {
+        "known": {},
+        "num_known": 0
+    }
+    links = []
+    
+    def notNull(value, typeof):
+        if (value == None or value == "") and typeof == "category":
+            return "Unmapped"
+        if (value == None or value == "") and typeof == "budgetcode":
+            return "Unknown budget code"
+        return value
+    
+    def get_node_code(node_name, node_data):
+        node_name = node_name
+        if node_name not in node_data['known']:
+            node_data['known'][node_name] = node_data['num_known']
+            node_data['num_known'] += 1
+        return node_data['known'][node_name]
+    
+    for rc in reporting_org_cc:
+        links.append({
+            'source': get_node_code(rc.reporting_org_ref, node_data),
+            'target': get_node_code(notNull(rc.category, "category"), node_data),
+            'value': rc.sum_value
+        })
+    
+    for cb in cc_budgetcode:
+        links.append({
+            'source': get_node_code(notNull(cb.category, "category"), node_data),
+            'target': get_node_code(notNull(cb.name, "budgetcode"), node_data),
+            'value': cb.sum_value
+        })
+
+    nodes = [{'name': node} for node in sorted(node_data['known'], 
+                                             key=node_data['known'].get)]
+
+    out = {'nodes': nodes, 'links': links}
+
+    reporting_org_cc.close()
+    cc_budgetcode.close()
+
+    return out
+
 def country_project_stats(country_code, aid_types=["C01", "D01", "D02"], 
                                         activity_statuses=[2,3]):
 
