@@ -73,6 +73,9 @@
     <a href="{{url_for('country_budget_stats_csv', country_code=country.code)}}" class="btn btn-default">
         <b><span aria-hidden="true" class="glyphicon glyphicon-save"></span> CSV</b>
     </a>
+    <a href="{{url_for('country_sankey', country_code=country.code)}}" class="btn btn-default">
+        <b><span aria-hidden="true" class="glyphicon glyphicon-link"></span> JSON</b>
+    </a>
 </div>
 <div role="tabpanel">
 
@@ -80,6 +83,7 @@
   <ul class="nav nav-tabs" role="tablist" id="budgetTab">
     <li role="presentation" class="active"><a href="#table" aria-controls="table" role="tab" data-toggle="tab">Table</a></li>
     <li role="presentation"><a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">Chart</a></li>
+    <li role="presentation"><a href="#sankey" aria-controls="sankey" role="tab" data-toggle="tab">Sankey</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -129,6 +133,12 @@
             </div>
         </div>
     </div>
+    <div role="tabpanel" class="tab-pane" id="sankey">
+      <p>This chart shows the volume of aid flowing from donors &mdash; Canada
+        and UNDP &mdash; mapped against the Common Code, and the against the 
+        government budget.</p>
+      <div id="sankey-chart"></div>      
+    </div>
   </div>
 
 </div>
@@ -136,11 +146,14 @@
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="{{url_for('static', filename='js/budgetstats.js')}}" type="text/javascript"></script>
+<script src="{{url_for('static', filename='vendor/sankey.js')}}"></script>
+<script src="{{url_for('static', filename='js/sankey_donor_cc_budget.js')}}"></script>
 <script>
 $('#budgetTab a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
 })
 </script>
+
 
 {% endblock %}
