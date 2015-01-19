@@ -7,7 +7,6 @@ var formatNumber = d3.format(",.0f"),
 
 var colour = function(colour_value){
   if (colour_value.charAt(0)=="#") {
-    console.log(colour_value);
     return colour_value;
   } else {
     return "#FFFFFF";
