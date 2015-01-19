@@ -1,0 +1,26 @@
+code,name,colour
+12,Organes juridictionnels,#919191
+30,Affaires communes administration générale et financière,#ff6f00
+31,Finances et fiscalité,#ff6f00
+33,Administration ressources humaines et organisation sociale,#ff6f00
+34,"Planification, Programmation, Prévisions et Statistiques",#ff6f00
+35,Administration territoriale,#ff6f00
+36,Administration des Collectivités locales,#ff6f00
+40,"Affaires communes Enseignement, Formation et Recherche",#a1cb62
+41,Education préscolaire et élémentaire,#a1cb62
+42,Enseignement moyen secondaire général et technique,#a1cb62
+43,Enseignement supérieur,#a1cb62
+44,Formation professionnelle,#a1cb62
+46,"Alphabétisation, langue nationale et francophonie",#a1cb62
+53,Affaires jeunesse et vie associative,#7b77ac
+54,Affaires de la communication,#7b77ac
+60,Santé,#fcff00
+65,"Protection sociale, assistance et solidarité",#fcff00
+72,Hydraulique,#ff0000
+73,"Environnement, Assainissement et Cadre de vie",#ff0000
+74,"Electricité, pétrole, gaz, combustibles et autres énergies",#ff0000
+76,"Postes, Télécom. et Technologies de l'Information et la Communication",#ff0000
+80,Affaires générales production et commerce,#00dad8
+81,Affaires agricoles,#00dad8
+82,"Forêts, parcs et réserves",#00dad8
+83,Ressources animales et halieutiques,#00dad8
