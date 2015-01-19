@@ -6,6 +6,7 @@ import os
 from abmapper import app, db
 from abmapper import models
 from abmapper.lib import codelists
+from abmapper.lib import country_colours
 import unicodecsv
 from sqlalchemy import func, distinct
 import xlrd
@@ -646,6 +647,11 @@ def budget_project_stats(country_code):
     before.close()
  
     return stats
+    
+def get_colour(node, ccolours):
+    if ccolours:
+        if node in ccolours: return ccolours[node]
+    return node
 
 def generate_sankey_data(country_code):
     sql_reporting_org_cc = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
@@ -718,8 +724,11 @@ def generate_sankey_data(country_code):
             'target': get_node_code(notNull(cb.name, "budgetcode"), node_data),
             'value': cb.sum_value
         })
+        
+    ccolours = country_colours.colours(country_code)
 
-    nodes = [{'name': node} for node in sorted(node_data['known'], 
+    nodes = [{'name': node,
+              'colour': get_colour(node, ccolours)} for node in sorted(node_data['known'], 
                                              key=node_data['known'].get)]
 
     from operator import itemgetter
