@@ -1,11 +1,18 @@
-
 var margin = {top: 1, right: 1, bottom: 2, left: 1},
     width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
-    format = function(d) { return formatNumber(d) + " USD"; },
-    color = d3.scale.category20();
+    format = function(d) { return formatNumber(d) + " USD"; };
+
+var colour = function(colour_value){
+  if (colour_value.charAt(0)=="#") {
+    console.log(colour_value);
+    return colour_value;
+  } else {
+    return "#FFFFFF";
+  }
+}
 
 var sankey_svg = d3.select("#sankey-chart").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -51,8 +58,8 @@ d3.json("sankey.json", function(dsv) {
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
       .attr("width", sankey.nodeWidth())
-      .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
-      .style("stroke", function(d) { return d3.rgb(d.color).darker(3); })
+      .style("fill", function(d) { return d3.rgb(colour(d.colour)); })
+      .style("stroke", function(d) { return d3.rgb(colour(d.colour)).darker(3); })
     .append("title")
       .text(function(d) { return d.name + "\n" + format(d.value); });
 
@@ -73,4 +80,3 @@ d3.json("sankey.json", function(dsv) {
     link.attr("d", sankeypath);
   }
 });
-
