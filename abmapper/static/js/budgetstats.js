@@ -2,7 +2,13 @@ var width = 600,
     height = 500,
     radius = Math.min(width, height) / 2;
 
-var color = d3.scale.category20c();
+var colour = function(colour_value){
+  if (colour_value.charAt(0)=="#") {
+    return colour_value;
+  } else {
+    return "#FFFFFF";
+  }
+}
 
 var svg = d3.select(".budget-chart").append("svg").append("g")
 
@@ -35,7 +41,7 @@ d3.csv("budgetstats.csv", type, function(error, data) {
   var path = svg.datum(data).selectAll("path")
       .data(pie)
       .enter().append("path")
-      .attr("fill", function(d, i) { return color(i); })
+      .attr("fill", function(d) { return colour(d['data']['colour']); })
       .attr("title", function(d) { return d['data']['budget_name']; })
       .attr("before", function(d) { return d['data']['before_value']; })
       .attr("after", function(d) { return d['data']['after_value']; })
