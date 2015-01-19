@@ -610,10 +610,21 @@ def budget_project_stats(country_code):
 
     stats = {'total': total,
              'budgets': {}}
+
+    def nulltoUnknown(value):
+        if value == None:
+            return "Inconnu"
+        return value
+
+    def nulltoDash(value):
+        if value == None:
+            return "-"
+        return value
+
     for b in before:
         if b.code not in stats['budgets']:
-            stats['budgets'][b.code] = {'code': b.code,
-                                        'name': b.name,
+            stats['budgets'][b.code] = {'code': nulltoDash(b.code),
+                                        'name': nulltoUnknown(b.name),
                                         'after': {'value': 0.00, 'pct': 0.00}}
         stats['budgets'][b.code]['before'] = {
                 'value': b.sum_value,
@@ -621,8 +632,8 @@ def budget_project_stats(country_code):
                 }
     for a in after:
         if a.code not in stats['budgets']:
-            stats['budgets'][a.code] = {'code': a.code,
-                                        'name': a.name,
+            stats['budgets'][a.code] = {'code': nulltoDash(a.code),
+                                        'name': nulltoUnknown(a.name),
                                         'before': {'value': 0.00, 'pct': 0.00}
                                         }
         stats['budgets'][a.code]['after'] = {
