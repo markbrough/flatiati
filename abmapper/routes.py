@@ -3,6 +3,7 @@ from flask import Flask, render_template, flash, request, Markup, \
 
 from abmapper import app
 from abmapper import db
+from abmapper.lib import country_colours
 import models
 from datastore import download
 import projects
@@ -41,7 +42,8 @@ def country_sankey(country_code):
 @app.route("/<country_code>/budgetstats.csv")
 def country_budget_stats_csv(country_code):
     
-    fieldnames = ['budget_code', 'budget_name', 'before_value', 'after_value']
+    fieldnames = ['budget_code', 'budget_name', 'before_value',
+    'after_value', 'colour']
     strIOsender = StringIO.StringIO()
     writer = unicodecsv.DictWriter(strIOsender, fieldnames=fieldnames)
     writer.writeheader()
@@ -50,9 +52,18 @@ def country_budget_stats_csv(country_code):
         return re.sub(",", "", value)
     
     budget_stats = projects.budget_project_stats(country_code)
+
+    ccolours = country_colours.colours(country_code)
+
+    def get_colour(node, ccolours):
+        if ccolours:
+            if node in ccolours: return ccolours[node]
+        return node
+
     for c, bs in budget_stats["budgets"].items():
         writer.writerow({"budget_code": bs["code"],
                          "budget_name": bs["name"],
+                         "colour": get_colour(bs["name"], ccolours),
                          "before_value": decomma(bs["before"]["value"]),
                          "after_value": decomma(bs["after"]["value"])})
     strIOsender.seek(0)
