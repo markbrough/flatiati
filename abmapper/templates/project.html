@@ -107,6 +107,23 @@
   </a>
 </div>
 -->
+<h2>Versements per exercice fiscal</h2>
+
+<table class="table" id="sectors">
+  <thead>
+    <th>Fiscal Year</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+{% for k, FY in activity.FY_disbursements.items() %}
+    <tr>
+      <td>{{ FY.fiscal_year }}</td>
+      <td>{{ FY.value }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
 <h2>Classifications sectorielles pour ce projet</h2>
 <table class="table" id="sectors">
   <thead>
