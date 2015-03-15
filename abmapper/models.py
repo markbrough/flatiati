@@ -19,6 +19,16 @@ act_ForeignKey = ft.partial(
     ondelete="CASCADE"
 )
 
+FYDATA_QUERY = """
+                    SELECT sum(value) AS value, 
+                    strftime('%%Y', DATE(transaction_date, '-9 month')) 
+                    AS fiscal_year
+                    FROM atransaction
+                    WHERE atransaction.activity_iati_identifier = '%s'
+                    AND atransaction.transaction_type_code = '%s'
+                    GROUP BY fiscal_year
+                    """
+
 # The "Unique Object" pattern
 # http://www.sqlalchemy.org/trac/wiki/UsageRecipes/UniqueObject
 def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
@@ -208,6 +218,32 @@ class Activity(db.Model):
             return description.lang == "fr"
         return filter(filter_descriptions, self.descriptions)
 
+    @hybrid_property
+    def FY_disbursements(self):
+        fydata = db.engine.execute(FYDATA_QUERY % 
+                                        (self.iati_identifier, "D")
+                                  ).fetchall()
+        return {
+                    fyval.fiscal_year: {
+                    "fiscal_year": fyval.fiscal_year,
+                    "value": fyval.value
+                    }
+                    for fyval in fydata
+                }
+
+    @hybrid_property
+    def FY_commitments(self):
+        fydata = db.engine.execute(FYDATA_QUERY % 
+                                        (self.iati_identifier, "C")
+                                  ).fetchall()
+        return {
+                    fyval.fiscal_year: {
+                    "fiscal_year": fyval.fiscal_year,
+                    "value": fyval.value
+                    }
+                    for fyval in fydata
+                }
+
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
@@ -226,17 +262,22 @@ class Title(db.Model):
 class ActivityStatus(db.Model):
     __tablename__ = 'activitystatus'
     code = sa.Column(sa.Integer, primary_key=True)
-    text = sa.Column(sa.UnicodeText)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
 
 class AidType(db.Model):
     __tablename__ = 'aidtype'
     code = sa.Column(sa.UnicodeText, primary_key=True)
-    text = sa.Column(sa.UnicodeText)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
 
 class RecipientCountry(db.Model):
     __tablename__ = 'recipientcountry'
     code = sa.Column(sa.UnicodeText, primary_key=True)
-    text = sa.Column(sa.UnicodeText)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
+    fiscalyear = sa.Column(sa.UnicodeText)
+    fiscalyear_modifier = sa.Column(sa.Integer)
     budgettype_id = sa.Column(
         act_ForeignKey("budgettype.code"),
         default=None)
@@ -245,7 +286,8 @@ class RecipientCountry(db.Model):
 class BudgetType(db.Model):
     __tablename__ = 'budgettype'
     code = sa.Column(sa.UnicodeText, primary_key=True)
-    text = sa.Column(sa.UnicodeText)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
 
 class Description(db.Model):
     __tablename__ = 'description'
@@ -313,9 +355,11 @@ class DACSector(db.Model):
     __tablename__ = 'dacsector'
     code = sa.Column(sa.Integer, primary_key=True)
     dac_sector_code = sa.Column(sa.Integer)
-    dac_sector_name = sa.Column(sa.UnicodeText)
+    dac_sector_name_EN = sa.Column(sa.UnicodeText)
+    dac_sector_name_FR = sa.Column(sa.UnicodeText)
     dac_five_code = sa.Column(sa.Integer)
-    dac_five_name = sa.Column(sa.UnicodeText)
+    dac_five_name_EN = sa.Column(sa.UnicodeText)
+    dac_five_name_FR = sa.Column(sa.UnicodeText)
     description = sa.Column(sa.UnicodeText)
     notes = sa.Column(sa.UnicodeText)
     parent_code = sa.Column(
@@ -329,9 +373,12 @@ class DACSector(db.Model):
 class CommonCode(db.Model):
     __tablename__ = 'commoncode'
     id = sa.Column(sa.UnicodeText, primary_key=True)
-    category = sa.Column(sa.UnicodeText)
-    sector = sa.Column(sa.UnicodeText)
-    function = sa.Column(sa.UnicodeText)
+    category_EN = sa.Column(sa.UnicodeText)
+    sector_EN = sa.Column(sa.UnicodeText)
+    function_EN = sa.Column(sa.UnicodeText)
+    category_FR = sa.Column(sa.UnicodeText)
+    sector_FR = sa.Column(sa.UnicodeText)
+    function_FR = sa.Column(sa.UnicodeText)
     cc_budgetcode = act_relationship("CCBudgetCode")
     cc_lowerbudgetcode = act_relationship("CCLowerBudgetCode")
 
