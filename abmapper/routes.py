@@ -155,7 +155,8 @@ def activity_export(country_code, reporting_org=None):
         return 0
 
     def getcs_string(list, col):
-        return "; ".join(filter(notNone, map(lambda x: getattr(x, col), list)))
+        return "; ".join(filter(notNone, map(lambda x: getattr(x, col),
+                                             list)))
 
     font0 = xlwt.Font()
     font0.name = 'Times New Roman'
