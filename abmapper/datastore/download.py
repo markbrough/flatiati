@@ -90,9 +90,22 @@ def parse_file(country_code, filename):
             t_date = getfirst(ele.xpath("transaction-date/@iso-date"))
             t_value = getfirst(ele.xpath("value/text()"))
             t_value_date = getfirst(ele.xpath("value/@value-date"))
+            
+            #FIXME for WB data which puts t_date in the wrong place
+            if activity.xpath("reporting-org/@ref='US'"):
+                t_date = t_value_date
+            
+            #FIXME for US data which doesn't include a t_date
+            if activity.xpath("reporting-org/@ref='44000'"):
+                t_date = getfirst(ele.xpath("transaction-date/@value-date"))
 
             if not (t_type and t_date and t_value and t_value_date): 
                 print "woah, transaction doesn't look right"
+                print "Extending org is", activity.xpath("participating-org[@role='Extending']/@ref")
+                print "t_type is", t_type
+                print "t_date is", t_date
+                print "t_value is", t_value
+                print "t_value_date is", t_value_date
                 continue
 
             iati_identifier = getfirst(activity.xpath("iati-identifier/text()"))
@@ -136,6 +149,11 @@ def parse_file(country_code, filename):
         return datetime.datetime.strptime(
             date_value,
             "%Y-%m-%d" )
+            
+    def null_to_default(value, default):
+        if value is None:
+            return default
+        return value
 
     def write_activity(activity):
         a = models.Activity()
@@ -147,8 +165,14 @@ def parse_file(country_code, filename):
         a.participating_orgs = get_orgs(activity)
         a.reporting_org_ref = getfirst(activity.xpath('reporting-org/@ref'))
         a.transactions = get_transactions(activity)
-        a.status_code = getfirst(activity.xpath('activity-status/@code'))
-        a.aid_type_code = getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code'))
+        a.status_code = null_to_default(
+            getfirst(activity.xpath('activity-status/@code')),
+            "2"
+            )
+        a.aid_type_code = null_to_default(
+getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code')),
+            "C01"
+            )
         a.date_start_planned = get_date(activity, 'start-planned')
         a.date_end_planned = get_date(activity, 'end-planned')
         a.date_start_actual = get_date(activity, 'start-actual')
@@ -163,4 +187,3 @@ def parse_file(country_code, filename):
     activities = doc.xpath('//iati-activity')
     for i, activity in enumerate(activities):
         write_activity(activity)
-        if i>50: break
