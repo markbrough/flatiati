@@ -34,6 +34,7 @@ def country_home(country_code):
                            stats=stats,
                            budget_stats=budget_stats,
                            )
+
 @app.route("/<country_code>/sankey.json")
 def country_sankey(country_code):
     data = projects.generate_sankey_data(country_code)
