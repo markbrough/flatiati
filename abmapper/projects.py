@@ -666,7 +666,7 @@ def get_colour(node, ccolours):
 
 def generate_sankey_data(country_code):
     sql_reporting_org_cc = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            activity.reporting_org_ref, commoncode.category
+            activity.reporting_org_ref, commoncode.category_EN
             FROM atransaction
             JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
             JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
@@ -679,11 +679,11 @@ def generate_sankey_data(country_code):
             AND activity.aid_type_code IN ('C01', 'D01', 'D02')
             AND activity.status_code IN (2, 3)
             AND atransaction.transaction_type_code="C"
-            GROUP BY commoncode.category, activity.reporting_org_ref
+            GROUP BY commoncode.category_EN, activity.reporting_org_ref
             ;"""
             
     sql_cc_budgetcode = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            budgetcode.code, budgetcode.name, commoncode.category
+            budgetcode.code, budgetcode.name, commoncode.category_EN
             FROM atransaction
             JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
             JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
@@ -696,7 +696,7 @@ def generate_sankey_data(country_code):
             AND activity.aid_type_code IN ('C01', 'D01', 'D02')
             AND activity.status_code IN (2, 3)
             AND atransaction.transaction_type_code="C"
-            GROUP BY budgetcode.code, commoncode.category
+            GROUP BY budgetcode.code, commoncode.category_EN
             ;"""
 
     reporting_org_cc = db.engine.execute(sql_reporting_org_cc % country_code)
@@ -725,13 +725,13 @@ def generate_sankey_data(country_code):
     for rc in reporting_org_cc:
         links.append({
             'source': get_node_code(rc.reporting_org_ref, node_data),
-            'target': get_node_code(notNull(rc.category, "category"), node_data),
+            'target': get_node_code(notNull(rc.category_EN, "category"), node_data),
             'value': rc.sum_value
         })
     
     for cb in cc_budgetcode:
         links.append({
-            'source': get_node_code(notNull(cb.category, "category"), node_data),
+            'source': get_node_code(notNull(cb.category_EN, "category"), node_data),
             'target': get_node_code(notNull(cb.name, "budgetcode"), node_data),
             'value': cb.sum_value
         })
