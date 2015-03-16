@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, flash, request, Markup, \
     session, redirect, url_for, escape, Response, abort, send_file, jsonify
 
@@ -219,9 +220,9 @@ def activity_export(country_code, reporting_org=None):
             1: getcs_string(project.titles_fr, 'text'),
             2: getcs_string(project.descriptions_fr, 'text'),
             10: project.aid_type_code,
-            11: project.aid_type.text_EN,
+            11: project.aid_type.text,
             12: project.status_code,
-            13: project.status.text_EN,
+            13: project.status.text,
             17: project.total_commitments,
             18: project.total_disbursements,
         }
@@ -267,11 +268,12 @@ def activity_export(country_code, reporting_org=None):
             relevant_lowerbudget = filter(frelbudgetlow,
                          sector.dacsector.cc.cc_lowerbudgetcode)
 
+            print sector.dacsector.cc.sector_FR
             cols_vals_simple = {
                 5: sector.percentage,
-                7: sector.dacsector.cc.sector_EN,
-                8: sector.dacsector.cc.category_EN,
-                9: sector.dacsector.cc.function_EN,
+                7: sector.dacsector.cc.sector,
+                8: sector.dacsector.cc.category,
+                9: sector.dacsector.cc.function,
                 19: comma_join('budgetcode.code', relevant_budget),
                 20: comma_join('budgetcode.name', relevant_budget),
                 21: comma_join('lowebudgetcode.code',
@@ -297,9 +299,8 @@ def activity_export(country_code, reporting_org=None):
                      as_attachment=True)
 
 @app.route("/setup/")
-@app.route("/setup/<lang>/")
-def setup(lang="EN"):
-    absetup.setup(lang)
+def setup():
+    absetup.setup()
     return "OK"
 
 @app.route("/import/<country>/")
