@@ -55,14 +55,31 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{url_for('country_home', country_code=country.code)}}">{{country.text}}</a>
+          <a class="navbar-brand" href="{{url_for('country_home', country_code=country.code)}}">{{country.text_EN}}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li {% if active_page == "country" %}class="active"{% endif %}><a href="{{url_for('country_home', country_code=country.code)}}">Vue d'ensemble <span class="sr-only">(current)</span></a></li>
-            <li {% if active_page == "activities" %}class="active"{% endif %}><a href="{{url_for('country_activities', country_code=country.code)}}">Projets</a></li>
+            <li {% if active_page == "country" %}class="active"{% endif %}>
+              <a href="{{url_for('country_home', country_code=country.code)}}">
+                {{ gettext("Overview") }}
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li {% if active_page == "activities" %}class="active"{% endif %}>
+              <a href="{{url_for('country_activities', country_code=country.code)}}">
+                {{ gettext("Projects") }}
+              </a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="{{ url_for("set_lang", lang='en') }}">EN</a>
+          </li>
+          <li>
+            <a href="{{ url_for("set_lang", lang='fr') }}">FR</a>
+          </li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
