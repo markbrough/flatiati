@@ -3,16 +3,20 @@
 {% block content %}
 <br />
 
-<h1>Countries</h1>
+<h1>{{ _("Countries") }}</h1>
 <table class="table">
   <thead>
-    <th>Country</th>
-    <th>Number of projects</th>
+    <th>{{ _("Country") }}</th>
+    <th>{{ _("Number of projects") }}</th>
   </thead>
   <tbody>
     {% for country in countries %}
     <tr>
-      <td><a href="{{url_for('country_home', country_code=country.RecipientCountry.code)}}">{{country.RecipientCountry.text}}</a></td>
+      <td>
+        <a href="{{url_for('country_home', country_code=country.RecipientCountry.code)}}">
+        {{country.RecipientCountry.text}}
+        </a>
+      </td>
       <td>{{country.num_activities}}</td>
     </tr>
     {% endfor %}
