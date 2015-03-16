@@ -1,0 +1,153 @@
+# Translations template for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-03-16 20:33+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: abmapper/templates/country.html:14 abmapper/templates/country.html:18
+msgid "Export"
+msgstr ""
+
+#: abmapper/templates/country.html:22 abmapper/templates/layout.html:66
+msgid "Overview"
+msgstr ""
+
+#: abmapper/templates/country.html:23
+msgid "Summary data"
+msgstr ""
+
+#: abmapper/templates/country.html:25
+msgid "Sum of projects"
+msgstr ""
+
+#: abmapper/templates/country.html:25
+msgid "commitments in USD"
+msgstr ""
+
+#: abmapper/templates/country.html:26 abmapper/templates/dashboard.html:10
+msgid "Number of projects"
+msgstr ""
+
+#: abmapper/templates/country.html:29
+msgid "Administrative/functional classification"
+msgstr ""
+
+#: abmapper/templates/country.html:32 abmapper/templates/country.html:48
+msgid "Before"
+msgstr ""
+
+#: abmapper/templates/country.html:39 abmapper/templates/country.html:55
+msgid "After"
+msgstr ""
+
+#: abmapper/templates/country.html:46
+msgid "Economic classification"
+msgstr ""
+
+#: abmapper/templates/country.html:69
+msgid "Total amount by budget line"
+msgstr ""
+
+#: abmapper/templates/country.html:85
+msgid "Table"
+msgstr ""
+
+#: abmapper/templates/country.html:88
+msgid "Chart"
+msgstr ""
+
+#: abmapper/templates/country.html:91
+msgid "Sankey"
+msgstr ""
+
+#: abmapper/templates/country.html:99
+msgid "Code"
+msgstr ""
+
+#: abmapper/templates/country.html:100
+msgid "Budget line"
+msgstr ""
+
+#: abmapper/templates/country.html:101
+msgid "Amount before"
+msgstr ""
+
+#: abmapper/templates/country.html:102
+msgid "Amount after"
+msgstr ""
+
+#: abmapper/templates/country.html:103
+msgid "before"
+msgstr ""
+
+#: abmapper/templates/country.html:104
+msgid "after"
+msgstr ""
+
+#: abmapper/templates/country.html:105
+msgid "difference"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:2
+#: abmapper/templates/country_activities.html:21
+#: abmapper/templates/layout.html:72
+msgid "Projects"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:24
+msgid "No"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:25
+msgid "Title"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:26
+msgid "CRS code"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:26
+msgid "Common Code"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:28
+msgid "CC mappable before"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:29
+msgid "CC mappable after"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:30
+msgid "CC mappable difference"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:31
+msgid "Implementing org"
+msgstr ""
+
+#: abmapper/templates/dashboard.html:6
+msgid "Countries"
+msgstr ""
+
+#: abmapper/templates/dashboard.html:9
+msgid "Country"
+msgstr ""
+
+#: abmapper/templates/project.html:2
+msgid "Project"
+msgstr ""
+
