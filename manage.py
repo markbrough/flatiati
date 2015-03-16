@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 #  IATI Data Quality, tools for Data QA on IATI-formatted  publications
 #  by Mark Brough, Martin Keegan, Ben Webb and Jennifer Smith
