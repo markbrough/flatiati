@@ -217,8 +217,8 @@ def activity_export(country_code, reporting_org=None):
 
         cols_vals = {
             0: project.iati_identifier,
-            1: getcs_string(project.titles_fr, 'text'),
-            2: getcs_string(project.descriptions_fr, 'text'),
+            1: getcs_string(project.titles, 'text'),
+            2: getcs_string(project.descriptions, 'text'),
             10: project.aid_type_code,
             11: project.aid_type.text,
             12: project.status_code,
@@ -268,7 +268,6 @@ def activity_export(country_code, reporting_org=None):
             relevant_lowerbudget = filter(frelbudgetlow,
                          sector.dacsector.cc.cc_lowerbudgetcode)
 
-            print sector.dacsector.cc.sector_FR
             cols_vals_simple = {
                 5: sector.percentage,
                 7: sector.dacsector.cc.sector,
