@@ -10,11 +10,11 @@
 <br />
 <div class="pull-right">
     <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Exporter</b>
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> _("Export")</b>
     </a>
     {% for ro in reporting_orgs %}
     <a class="btn btn-default" href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.reporting_org)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Exporter {{ro.reporting_org}} ({{ro.num_activities}})</b>
+        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> _("Export") {{ro.reporting_org}} ({{ro.num_activities}})</b>
     </a>
     {% endfor %}
 </div>
