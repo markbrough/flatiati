@@ -140,7 +140,7 @@ def wr(ws, i, col, value, style=None):
 
 def comma_join(attr, list):
     return ",".join(map(lambda budget:
-                 getattr('budget', attr), list))
+                 getattr(budget, attr), list))
 
 @app.route("/<country_code>/<reporting_org>/export.xls")
 @app.route("/<country_code>/export.xls")
