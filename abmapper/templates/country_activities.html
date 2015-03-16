@@ -40,7 +40,7 @@
         <a href="{{url_for('activities', 
                            country_code=project.recipient_country_code, 
                            iati_identifier=project.iati_identifier)}}">
-        {% for title in project.titles_fr %}
+        {% for title in project.titles %}
         {{title.text}}<br />
         {% endfor %}</a>
       </td>
