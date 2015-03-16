@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-16 20:33+0100\n"
-"PO-Revision-Date: 2015-03-16 20:34+0100\n"
+"POT-Creation-Date: 2015-03-16 21:22+0100\n"
+"PO-Revision-Date: 2015-03-16 21:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -48,14 +48,16 @@ msgid "Administrative/functional classification"
 msgstr "Classification administrative/fonctionnelle"
 
 #: abmapper/templates/country.html:32 abmapper/templates/country.html:48
+#: abmapper/templates/project.html:68 abmapper/templates/project.html:84
 msgid "Before"
 msgstr "Avant"
 
 #: abmapper/templates/country.html:39 abmapper/templates/country.html:55
+#: abmapper/templates/project.html:75 abmapper/templates/project.html:91
 msgid "After"
 msgstr "Après"
 
-#: abmapper/templates/country.html:46
+#: abmapper/templates/country.html:46 abmapper/templates/project.html:82
 msgid "Economic classification"
 msgstr "Classification économique"
 
@@ -118,10 +120,12 @@ msgid "Title"
 msgstr "Titre"
 
 #: abmapper/templates/country_activities.html:26
+#: abmapper/templates/project.html:130
 msgid "CRS code"
 msgstr "Code CRS"
 
 #: abmapper/templates/country_activities.html:26
+#: abmapper/templates/project.html:132
 msgid "Common Code"
 msgstr "Code commun"
 
@@ -152,3 +156,23 @@ msgstr "Pays"
 #: abmapper/templates/project.html:2
 msgid "Project"
 msgstr "Projet"
+
+#: abmapper/templates/project.html:110
+msgid "Disbursements by fiscal year"
+msgstr "Versements per exercice fiscal"
+
+#: abmapper/templates/project.html:114
+msgid "Fiscal year"
+msgstr "Exercice fiscal"
+
+#: abmapper/templates/project.html:115
+msgid "Value"
+msgstr "Montant"
+
+#: abmapper/templates/project.html:133
+msgid "Budget classification (upper)"
+msgstr "Fonction principale"
+
+#: abmapper/templates/project.html:134
+msgid "Budget classification (lower)"
+msgstr "Fonction secondaire"
