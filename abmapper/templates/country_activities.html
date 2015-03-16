@@ -1,5 +1,5 @@
 {% set active_page='activities' %}{% extends "layout.html" %}
-{% block title %}Activities &raquo; {{country.text}}{% endblock %}
+{% block title %}{{ _('Projects') }} &raquo; {{country.text}}{% endblock %}
 {% block content %}
 
 <script >
@@ -18,17 +18,17 @@
     </a>
     {% endfor %}
 </div>
-<h1>Projets</h1>
+<h1>{{ _('Projects') }}</h1>
 <table class="table" id="projects">
   <thead>
-    <th>No</th>
-    <th>Titre</th>
-    <th class="sectors-column">Code CRS &ndash; Code commun</th>
+    <th>{{ _('No') }}</th>
+    <th>{{ _("Title") }}</th>
+    <th class="sectors-column">{{ _("CRS code") }} &ndash; {{ _("Common Code") }}</th>
     <th>Capital</th>
-    <th>CC mappable avant</th>
-    <th>CC mappable après</th>
-    <th>CC mappable différence</th>
-    <th>Organisme d'exécution</th>
+    <th>{{ _("CC mappable before") }}</th>
+    <th>{{ _("CC mappable after") }}</th>
+    <th>{{ _("CC mappable difference") }}</th>
+    <th>{{ _("Implementing org") }}</th>
   </thead>
   <tbody>
     {% for project in projects %}
