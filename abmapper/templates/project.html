@@ -1,12 +1,12 @@
 {% set active_page='project' %}{% extends "layout.html" %}
-{% block title %}Activity {{activity.title}}{% endblock %}
+{% block title %}{{ _('Project') }} {{activity.title}}{% endblock %}
 {% block content %}
 <br />
 
-{% for title in activity.titles_fr %}
+{% for title in activity.titles %}
 <h2>{{title.text}} ({{title.lang}})</h2>
 {% endfor %}
-{% for description in activity.descriptions_fr %}
+{% for description in activity.descriptions %}
 <p>{{description.text}}</p>
 {% endfor %}
 <dl class="dl-horizontal">
