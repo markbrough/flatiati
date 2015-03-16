@@ -158,9 +158,8 @@ def parse_file(country_code, filename):
     def write_activity(activity):
         a = models.Activity()
         a.iati_identifier = getfirst(activity.xpath('iati-identifier/text()'))
-        a.title = getfirst(activity.xpath('title/text()'))
-        a.titles = get_titles(activity)
-        a.descriptions = get_descriptions(activity)
+        a.all_titles = get_titles(activity)
+        a.all_descriptions = get_descriptions(activity)
         a.sectors = get_sectors(activity)
         a.participating_orgs = get_orgs(activity)
         a.reporting_org_ref = getfirst(activity.xpath('reporting-org/@ref'))
