@@ -368,11 +368,12 @@ class Sector(db.Model):
             SELECT sector.code AS "sector.code", 
                    sector.percentage AS "sector.percentage",
                    sector.assumed AS "sector.assumed",
-                   dacsector.description AS "dacsector.description"
+                   dacsector.description_%s AS "dacsector.description"
             FROM sector
             JOIN dacsector ON sector.code = dacsector.code
             WHERE sector.id = '%s';
-            """ % self.formersector_id).first()
+            """ % (str(get_locale()).upper(),
+                   self.formersector_id)).first()
 
 # Code and name should be from DACSectors table
 # DACSectors table should relate to commoncode table
