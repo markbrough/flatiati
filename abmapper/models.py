@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import sqlalchemy as sa
 from sqlalchemy.ext.hybrid import hybrid_property
+from flask.ext.babel import get_locale
 import functools as ft
 from abmapper import db
 
@@ -120,8 +122,8 @@ class Activity(db.Model):
 
     iati_identifier = sa.Column(sa.UnicodeText, index=True)
 
-    titles = act_relationship("Title")
-    descriptions = act_relationship("Description")
+    all_titles = act_relationship("Title")
+    all_descriptions = act_relationship("Description")
 
     date_start_actual = sa.Column(sa.Date)
     date_start_planned = sa.Column(sa.Date)
@@ -205,18 +207,18 @@ class Activity(db.Model):
         return filter(filter_implementing, self.participating_orgs)
 
     @hybrid_property
-    def titles_fr(self):
-        if len(self.titles) <= 1: return self.titles
+    def titles(self):
+        if len(self.all_titles) <= 1: return self.all_titles
         def filter_titles(title):
-            return title.lang == "fr"
-        return filter(filter_titles, self.titles)
+            return title.lang == str(get_locale())
+        return filter(filter_titles, self.all_titles)
 
     @hybrid_property
-    def descriptions_fr(self):
-        if len(self.descriptions) <= 1: return self.descriptions
+    def descriptions(self):
+        if len(self.all_descriptions) <= 1: return self.all_descriptions
         def filter_descriptions(description):
-            return description.lang == "fr"
-        return filter(filter_descriptions, self.descriptions)
+            return description.lang == str(get_locale())
+        return filter(filter_descriptions, self.all_descriptions)
 
     @hybrid_property
     def FY_disbursements(self):
@@ -265,11 +267,23 @@ class ActivityStatus(db.Model):
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
 
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
+
 class AidType(db.Model):
     __tablename__ = 'aidtype'
     code = sa.Column(sa.UnicodeText, primary_key=True)
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
 
 class RecipientCountry(db.Model):
     __tablename__ = 'recipientcountry'
@@ -283,11 +297,23 @@ class RecipientCountry(db.Model):
         default=None)
     budgettype = sa.orm.relationship("BudgetType")
 
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
+
 class BudgetType(db.Model):
     __tablename__ = 'budgettype'
     code = sa.Column(sa.UnicodeText, primary_key=True)
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
 
 class Description(db.Model):
     __tablename__ = 'description'
@@ -360,8 +386,10 @@ class DACSector(db.Model):
     dac_five_code = sa.Column(sa.Integer)
     dac_five_name_EN = sa.Column(sa.UnicodeText)
     dac_five_name_FR = sa.Column(sa.UnicodeText)
-    description = sa.Column(sa.UnicodeText)
-    notes = sa.Column(sa.UnicodeText)
+    description_EN = sa.Column(sa.UnicodeText)
+    description_FR = sa.Column(sa.UnicodeText)
+    notes_EN = sa.Column(sa.UnicodeText)
+    notes_FR = sa.Column(sa.UnicodeText)
     parent_code = sa.Column(
         act_ForeignKey("dacsector.code"),
         nullable=True)
@@ -369,6 +397,30 @@ class DACSector(db.Model):
         act_ForeignKey("commoncode.id"),
         nullable=False)
     cc = sa.orm.relationship("CommonCode")
+
+    @hybrid_property
+    def dac_sector_name(self):
+        if str(get_locale()) == "fr":
+            return self.dac_sector_name_FR
+        return self.dac_sector_name_EN
+
+    @hybrid_property
+    def dac_five_name(self):
+        if str(get_locale()) == "fr":
+            return self.dac_five_name_FR
+        return self.dac_five_name_EN
+
+    @hybrid_property
+    def description(self):
+        if str(get_locale()) == "fr":
+            return self.description_FR
+        return self.description_EN
+
+    @hybrid_property
+    def notes(self):
+        if str(get_locale()) == "fr":
+            return self.notes_FR
+        return self.notes_EN
 
 class CommonCode(db.Model):
     __tablename__ = 'commoncode'
@@ -381,6 +433,24 @@ class CommonCode(db.Model):
     function_FR = sa.Column(sa.UnicodeText)
     cc_budgetcode = act_relationship("CCBudgetCode")
     cc_lowerbudgetcode = act_relationship("CCLowerBudgetCode")
+
+    @hybrid_property
+    def category(self):
+        if str(get_locale()) == "fr":
+            return self.category_FR
+        return self.category_EN
+
+    @hybrid_property
+    def sector(self):
+        if str(get_locale()) == "fr":
+            return self.sector_FR
+        return self.sector_EN
+
+    @hybrid_property
+    def function(self):
+        if str(get_locale()) == "fr":
+            return self.function_FR
+        return self.function_EN
 
 class BudgetCode(db.Model):
     __tablename__ = 'budgetcode'
