@@ -138,9 +138,9 @@ def wr(ws, i, col, value, style=None):
     ws.write(i, col, value)
     return ws
 
-def comma_join(attr, list):
+def comma_join(attrA, attrB, list):
     return ",".join(map(lambda budget:
-                 getattr(budget, attr), list))
+                 getattr(getattr(budget, attrA), attrB), list))
 
 @app.route("/<country_code>/<reporting_org>/export.xls")
 @app.route("/<country_code>/export.xls")
@@ -273,11 +273,11 @@ def activity_export(country_code, reporting_org=None):
                 7: sector.dacsector.cc.sector,
                 8: sector.dacsector.cc.category,
                 9: sector.dacsector.cc.function,
-                19: comma_join('budgetcode.code', relevant_budget),
-                20: comma_join('budgetcode.name', relevant_budget),
-                21: comma_join('lowebudgetcode.code',
+                19: comma_join('budgetcode', 'code', relevant_budget),
+                20: comma_join('budgetcode', 'name', relevant_budget),
+                21: comma_join('lowerbudgetcode', 'code',
                                relevant_lowerbudget),
-                22: comma_join('lowerbudgetcode.name',
+                22: comma_join('lowerbudgetcode', 'name',
                                relevant_lowerbudget),
             }
 
