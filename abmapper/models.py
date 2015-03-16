@@ -208,17 +208,22 @@ class Activity(db.Model):
 
     @hybrid_property
     def titles(self):
-        if len(self.all_titles) <= 1: return self.all_titles
         def filter_titles(title):
             return title.lang == str(get_locale())
-        return filter(filter_titles, self.all_titles)
+        relevant_titles = filter(filter_titles, self.all_titles)
+        if not relevant_titles:
+            return self.all_titles
+        return relevant_titles
 
     @hybrid_property
     def descriptions(self):
-        if len(self.all_descriptions) <= 1: return self.all_descriptions
         def filter_descriptions(description):
             return description.lang == str(get_locale())
-        return filter(filter_descriptions, self.all_descriptions)
+        relevant_descriptions = filter(filter_descriptions,
+                                       self.all_descriptions)
+        if not relevant_descriptions:
+            return self.all_descriptions
+        return relevant_descriptions
 
     @hybrid_property
     def FY_disbursements(self):
