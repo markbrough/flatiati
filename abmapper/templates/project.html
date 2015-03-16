@@ -65,30 +65,30 @@
     {% else %}Administrative/Fonctionnelle{% endif %}
 </h3>
 <dl class="dl-horizontal">
-  <dt>Avant</dt><dd>
+  <dt>{{ _("Before")}} </dt><dd>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{activity.pct_mappable_before}}%;">
         <span><b>{{activity.pct_mappable_before}}% Mappable</b></span>
       </div>
     </div>
   </dd>
-  <dt>Après</dt><dd>
+  <dt>{{ _("After")}} </dt><dd>
     <div class="progress">
       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{activity.pct_mappable_after}}%;">
         <span><b>{{activity.pct_mappable_after}}% Mappable</b></span>
       </div>
     </div></dd>
 </dl>
-<h3>Classification économique</h3>
+<h3>{{ _("Economic classification") }}</h3>
 <dl class="dl-horizontal">
-  <dt>Avant</dt><dd>
+  <dt>{{ _("Before")}} </dt><dd>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0.0}%;">
         <span><b>0.0%</b></span>
       </div>
     </div>
   </dd>
-  <dt>Après</dt><dd>
+  <dt>{{ _("After")}} </dt><dd>
     <div class="progress">
       {% if activity.capital_exp is not none %}
       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{activity.capital_exp*100}}%;">
@@ -107,12 +107,12 @@
   </a>
 </div>
 -->
-<h2>Versements per exercice fiscal</h2>
+<h2>{{ _("Disbursements by fiscal year")}} </h2>
 
 <table class="table" id="sectors">
   <thead>
-    <th>Fiscal Year</th>
-    <th>Value</th>
+    <th>{{ _("Fiscal year") }}</th>
+    <th>{{ _("Value") }}</th>
   </thead>
   <tbody>
 {% for k, FY in activity.FY_disbursements.items() %}
@@ -124,14 +124,14 @@
   </tbody>
 </table>
 
-<h2>Classifications sectorielles pour ce projet</h2>
+<h2></h2>
 <table class="table" id="sectors">
   <thead>
-    <th>Sector CRS</th>
+    <th>{{ _("CRS code") }}</th>
     <th>%</th>
-    <th>Code commun</th>
-    <th>Fonction principale</th>
-    <th>Fonction secondaire</th>
+    <th>{{ _("Common Code") }}</th>
+    <th>{{ _("Budget classification (upper)") }}</th>
+    <th>{{ _("Budget classification (lower)") }}</th>
     <!--<th></th>-->
   </thead>
   <tbody>
