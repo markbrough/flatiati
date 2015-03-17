@@ -122,18 +122,18 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="chart">
         <form>
-          <label><input type="radio" name="dataset" value="before_value" checked> _("before")</label>
-          <label><input type="radio" name="dataset" value="after_value"> _("after")</label>
+          <label><input type="radio" name="dataset" value="before_value" checked> {{_("before")}}</label>
+          <label><input type="radio" name="dataset" value="after_value"> {{_("after")}}</label>
         </form>
         <div class="budget-area">
             <div class="budget-chartbox pull-left">
                 <div class="budget-chart"></div>
             </div>
             <div class="budget-infobox pull-left">
-                <p id="budgetselected">_("Hover over a sector for details.")</p>
+                <p id="budgetselected">{{_("Hover over a sector for details.")}}</p>
                 <dl class="dl-horizontal">
-                <dt class="budgetbefore-dt">_("before")</dt><dd id="budgetbefore"></dd>
-                <dt class="budgetafter-dt">_("after")</dt><dd id="budgetafter"></dd>
+                <dt class="budgetbefore-dt">{{_("before")}}</dt><dd id="budgetbefore"></dd>
+                <dt class="budgetafter-dt">{{_("after")}}</dt><dd id="budgetafter"></dd>
                 </dl>
             </div>
         </div>
