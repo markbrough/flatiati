@@ -65,11 +65,21 @@ def parse_file(country_code, filename):
         data = {
             "ref": xml.get("ref", ""),
             "name": getfirst(xml.xpath('text()')),
+            "type": xml.get("@type")
             }
+        if not data.get("ref") and not data.get("name"):
+            return False
+        """
         try:
             data['type'] = xml.get("@type")
         except ValueError:
             data['type'] = None
+        """
+        check = models.Organisation.query.filter_by(
+            ref = data["ref"],
+            name = data["name"]
+        ).first()
+        if check: return check
         return models.Organisation.as_unique(db.session, **data)
 
     def get_orgs(activity):
@@ -78,9 +88,10 @@ def parse_file(country_code, filename):
         for ele in activity.xpath("./participating-org"):
             role = ele.get("role", "Funding")
             organisation = parse_org(ele)
-            if not (role, organisation.name) in seen:
+            if organisation and not (role, organisation.name) in seen:
                 seen.add((role, organisation.name))
-                ret.append(models.Participation(role=role, organisation=organisation))
+                ret.append(models.Participation(role=role,
+                          organisation=organisation))
         return ret
 
     def get_transactions(activity):
