@@ -554,6 +554,8 @@ def get_sector_from_cc(cc_id):
     return checkS.code
 
 def budget_project_stats(country_code):
+    # GET SQL
+    # CALCULATE BEFORE, AFTER
     sql = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
             budgetcode.code, budgetcode.name
             FROM atransaction
@@ -568,6 +570,7 @@ def budget_project_stats(country_code):
             AND activity.aid_type_code IN ('C01', 'D01', 'D02')
             AND activity.status_code IN (2, 3)
             AND atransaction.transaction_type_code="C"
+            AND budgetcode.country_code = "%s"
             GROUP BY budgetcode.code
             ;"""
 
@@ -585,6 +588,7 @@ def budget_project_stats(country_code):
             AND activity.aid_type_code IN ('C01', 'D01', 'D02')
             AND activity.status_code IN (2, 3)
             AND atransaction.transaction_type_code="C"
+            AND budgetcode.country_code = "%s"
             GROUP BY budgetcode.code
             ;"""
 
@@ -605,9 +609,17 @@ def budget_project_stats(country_code):
             AND atransaction.transaction_type_code="C"
             ;"""
 
-    after = db.engine.execute(sql % country_code)
-    before = db.engine.execute(sql_before % country_code)
-    total = db.engine.execute(sql_total % country_code).first()[0]
+    after = db.engine.execute(sql % (
+                country_code, country_code)
+                )
+    print sql % (
+                country_code, country_code)
+    before = db.engine.execute(sql_before % (
+                country_code, country_code)
+                )
+    total = db.engine.execute(sql_total % (
+                country_code
+                )).first()[0]
 
     stats = {'total': total,
              'budgets': {}}
@@ -621,30 +633,54 @@ def budget_project_stats(country_code):
         if value == None:
             return "-"
         return value
+        
+    unknown_value_before = total
+    unknown_value_after = total
 
     for b in before:
         if b.code not in stats['budgets']:
-            stats['budgets'][b.code] = {'code': nulltoDash(b.code),
-                                        'name': nulltoUnknown(b.name),
-                                        'after': {'value': 0.00, 'pct': 0.00}}
+            stats['budgets'][b.code] = {
+                'code': nulltoDash(b.code),
+                'name': nulltoUnknown(b.name),
+                'after': {'value': 0.00, 'pct': 0.00}
+            }
         stats['budgets'][b.code]['before'] = {
                 'value': b.sum_value,
                 'pct': round(float(b.sum_value)/total*100, 2)
                 }
+        unknown_value_before -= b.sum_value
     for a in after:
         if a.code not in stats['budgets']:
-            stats['budgets'][a.code] = {'code': nulltoDash(a.code),
-                                        'name': nulltoUnknown(a.name),
-                                        'before': {'value': 0.00, 'pct': 0.00}
-                                        }
+            stats['budgets'][a.code] = {
+                'code': nulltoDash(a.code),
+                'name': nulltoUnknown(a.name),
+                'before': {'value': 0.00, 'pct': 0.00
+                }
+            }
         stats['budgets'][a.code]['after'] = {
                 'value': a.sum_value,
                 'pct': round(float(a.sum_value)/total*100, 2)
                 }
+        unknown_value_after -= a.sum_value
+
+    stats["budgets"]["-"] = {
+        'code': '-',
+        'name': "Unknown",
+        'before': {
+            'value': unknown_value_before,
+            'pct': round(float(unknown_value_before)/total*100, 2)
+        },
+        'after': {
+            'value': unknown_value_after,
+            'pct': round(float(unknown_value_after)/total*100, 2)
+        }
+    }
 
     for code, budget in stats['budgets'].items():
         try:
-            stats['budgets'][code]['change_pct'] = round(((budget['after']['value']-budget['before']['value'])/budget['before']['value'])*100, 2)
+            stats['budgets'][code]['change_pct'] = round(
+            ((budget['after']['value']-budget['before']['value']
+                ) / budget['before']['value']) * 100, 2)
         except ZeroDivisionError:
             stats['budgets'][code]['change_pct'] = "NEW"
             
@@ -680,6 +716,7 @@ def generate_sankey_data(country_code):
             AND activity.aid_type_code IN ('C01', 'D01', 'D02')
             AND activity.status_code IN (2, 3)
             AND atransaction.transaction_type_code="C"
+            AND budgetcode.country_code="%s"
             GROUP BY commoncode.category_EN, activity.reporting_org_ref
             ;"""
             
@@ -697,11 +734,16 @@ def generate_sankey_data(country_code):
             AND activity.aid_type_code IN ('C01', 'D01', 'D02')
             AND activity.status_code IN (2, 3)
             AND atransaction.transaction_type_code="C"
+            AND budgetcode.country_code="%s"
             GROUP BY budgetcode.code, commoncode.category_EN
             ;"""
 
-    reporting_org_cc = db.engine.execute(sql_reporting_org_cc % country_code)
-    cc_budgetcode = db.engine.execute(sql_cc_budgetcode % country_code)
+    reporting_org_cc = db.engine.execute(sql_reporting_org_cc % (
+            country_code, country_code)
+            )
+    cc_budgetcode = db.engine.execute(sql_cc_budgetcode % (
+            country_code, country_code)
+            )
     
     node_data = {
         "known": {},
