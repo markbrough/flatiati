@@ -177,8 +177,10 @@ class Activity(db.Model):
             JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
             JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
             WHERE sector.activity_iati_identifier = '%s' 
-            AND sector.edited = 0 AND dacsector.cc_id != "0";
-            """ % self.iati_identifier).first()[0])
+            AND sector.edited = 0 AND dacsector.cc_id != "0"
+            AND budgetcode.country_code="%s";
+            """ % (self.iati_identifier,
+                   self.recipient_country_code)).first()[0])
 
     @hybrid_property
     def pct_mappable_after(self):
@@ -190,8 +192,10 @@ class Activity(db.Model):
             JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
             JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
             WHERE sector.activity_iati_identifier = '%s' 
-            AND sector.deleted = 0 AND dacsector.cc_id != "0";
-            """ % self.iati_identifier).first()[0])
+            AND sector.deleted = 0 AND dacsector.cc_id != "0"
+            AND budgetcode.country_code="%s";
+            """ % (self.iati_identifier,
+                   self.recipient_country_code)).first()[0])
 
     @hybrid_property
     def pct_mappable_diff(self):
