@@ -4,6 +4,7 @@
 # and returns IATI-XML data with higher-level activity data mapped onto the
 # lowest level.
 
+import optparse, sys
 from lxml import etree
 import urllib2
 import os, datetime
@@ -77,13 +78,49 @@ def generate_flattened_xml(filename):
                                               doc
                     ) for rep in reporting_orgs])
 
-if __name__ == "__main__":
-    filename='/home/mark/sites/aid-budget-mapper/data/undp-sn.xml'
-    XMLfilename = '/home/mark/sites/aid-budget-mapper/data/%s-out.xml'
+def flatten(options):
+    assert options.input
+    assert options.output
+    out_data = generate_flattened_xml(options.input)
     print "Generating flattened XML"
-    out_data = generate_flattened_xml(filename)
 
     for reporting_org, data in out_data.items():
         doc = etree.ElementTree(data)
-        doc.write(XMLfilename % (reporting_org),encoding='utf-8', xml_declaration=True, pretty_print=True)
+        reporting_org_fn = "%s-out.xml" % reporting_org
+        doc.write(os.path.join(options.output, reporting_org_fn),
+        encoding='utf-8', xml_declaration=True, pretty_print=True)
         print "Written for reporting org %s" % (reporting_org)
+
+commands = {
+    "flatten": (flatten, "Flatten file, with in/out args"),
+}
+
+def main():
+    p = optparse.OptionParser()
+
+    for k, v in commands.iteritems():
+        handler, help_text = v
+        option_name = "--" + k.replace("_", "-")
+        p.add_option(option_name, dest=k, action="store_true", default=False, help=help_text)
+
+    p.add_option("--input", dest="input",
+                 help="Set filename of data to import")
+    p.add_option("--output", dest="output",
+                 help="Set directory for output data")
+
+    options, args = p.parse_args()
+
+    for mode, handler_ in commands.iteritems():
+        handler, _ = handler_
+        if getattr(options, mode, None):
+            handler(options)
+            return
+
+    usage()
+
+def usage():
+    print "You need to specify which mode to run under"
+    sys.exit(1)
+
+if __name__ == '__main__':
+    main()
