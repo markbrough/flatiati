@@ -4,7 +4,8 @@ import StringIO
 import datetime
 import unicodecsv
 import re
-from abmapper.query import projects
+from abmapper.query import projects as abprojects
+from abmapper.query import stats as abstats
 from abmapper import app
 from abmapper.lib import country_colours
 
@@ -69,7 +70,7 @@ def activity_export(country_code, reporting_org=None):
             return True
         return False
 
-    p = projects.projects(country_code, reporting_org)
+    p = abprojects.projects(country_code, reporting_org)
 
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
@@ -178,11 +179,9 @@ def activity_export(country_code, reporting_org=None):
                      attachment_filename=the_filename,
                      as_attachment=True)
                      
-
-
 @app.route("/<country_code>/sankey.json")
 def country_sankey(country_code):
-    data = projects.generate_sankey_data(country_code)
+    data = abstats.generate_sankey_data(country_code)
     return jsonify(data)
 
 @app.route("/<country_code>/budgetstats.csv")
@@ -197,7 +196,7 @@ def country_budget_stats_csv(country_code):
     def decomma(value):
         return re.sub(",", "", value)
 
-    budget_stats = projects.budget_project_stats(country_code)
+    budget_stats = abstats.budget_project_stats(country_code)
 
     ccolours = country_colours.colours(country_code)
 
