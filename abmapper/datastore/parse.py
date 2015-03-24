@@ -2,11 +2,9 @@
 import os
 from abmapper import app, db
 from abmapper.query import projects as abprojects
+from abmapper.query import sectors as absectors
 from abmapper.query import models
 import datetime
-
-
-DAC_codes = abprojects.DAC_codes()
 
 def getfirst(list):
     if len(list)>0:
@@ -14,17 +12,18 @@ def getfirst(list):
     return None
 
 def getDACSectors(sectors):
+    DAC_codes = absectors.DAC_codes()
     out = []
     for sector in sectors:
         code = getfirst(sector.xpath('@code'))
         percentage = getfirst(sector.xpath('@percentage'))
-        if not checkDAC(code): continue
+        if not checkDAC(code, DAC_codes): continue
         out.append({
             'code': code,
             'percentage': percentage})
     return out, len(out)
 
-def checkDAC(code):
+def checkDAC(code, DAC_codes):
     try:
         code = int(code)
     except ValueError:
