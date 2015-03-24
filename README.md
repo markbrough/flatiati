@@ -69,11 +69,11 @@ classification. They should be in CSV format and look like this:
 NB `LOWER_BUDGET_CODE` and `LOWER_BUDGET_NAME` are optional.
 
 You can see an example of this in the 
-[Senegal template file](abmapper/lib/senegal_CC_budget.csv)
+[Senegal template file](data/senegal/senegal_CC_budget.csv)
 
 You can then import the file with `abtool.py`:
 
-    ./abtool.py --import-budget --filename="abmapper/lib/senegal_CC_budget.csv" --country-code="SN" --budget-type="f"
+    ./abtool.py --import-budget --filename="data/senegal/senegal_CC_budget.csv" --country-code="SN" --budget-type="f"
  
 Where `budget-type` is `a` for administrative or `f` for functional
 classification.
