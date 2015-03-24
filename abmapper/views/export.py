@@ -3,8 +3,10 @@ import xlrd, xlwt
 import StringIO
 import datetime
 import unicodecsv
+import re
 from abmapper.query import projects
 from abmapper import app
+from abmapper.lib import country_colours
 
 def wm(ws, i, sectors_rows_length, col, value, style=None):
     if style:
