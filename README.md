@@ -66,7 +66,7 @@ classification. They should be in CSV format and look like this:
 | 1.1.1 | 11 | Organes exécutifs | 110 | Aff générales Présidence de la république |
 | 1.2.1 | 10 | Organes législatifs | | |
 
-NB ´LOWER_BUDGET_CODE` and `LOWER_BUDGET_NAME` are optional.
+NB `LOWER_BUDGET_CODE` and `LOWER_BUDGET_NAME` are optional.
 
 You can see an example of this in the 
 [Senegal template file](abmapper/lib/senegal_CC_budget.csv)
