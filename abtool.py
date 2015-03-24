@@ -26,7 +26,8 @@ def import_iati_xml(options):
     print options
     assert options.filename
     assert options.country_code
-    parse.parse_file(options.country_code, options.filename)
+    sample = bool(options.sample)
+    parse.parse_file(options.country_code, options.filename, sample)
 
 def setup(options):
     absetup.setup()
@@ -56,6 +57,8 @@ def main():
                  help="Set language for setup")
     p.add_option("--budget-type", dest="budget_type",
                  help="Set type of budget for importing (a, f)")
+    p.add_option("--sample", dest="sample", action="store_true",
+                 help="Only import a sample of 50 activities")
 
     options, args = p.parse_args()
 
