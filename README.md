@@ -73,10 +73,7 @@ You can see an example of this in the
 
 You can then import the file with `abtool.py`:
 
-    ./abtool.py --import-budget 
-    --filename="abmapper/lib/senegal_CC_budget.csv"
-    --country-code="SN"
-    --budget-type="f"
+    ./abtool.py --import-budget --filename="abmapper/lib/senegal_CC_budget.csv" --country-code="SN" --budget-type="f"
  
 Where `budget-type` is `a` for administrative or `f` for functional
 classification.
