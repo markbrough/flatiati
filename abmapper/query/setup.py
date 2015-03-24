@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from abmapper import db, models
+from abmapper import db
+from abmapper.query import models
 import unicodecsv
 import os
 import urllib2
