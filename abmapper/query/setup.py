@@ -19,7 +19,7 @@ def setup():
     import_budget_types()
 
 def import_common_code():
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/CC_EN_FR.csv'), 'r') as csvfile:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../lib/CC_EN_FR.csv'), 'r') as csvfile:
         ccreader = unicodecsv.DictReader(csvfile)
         for row in ccreader:
             cc = models.CommonCode()
@@ -35,7 +35,7 @@ def import_common_code():
 
 def import_sectors():
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     'lib/crs_cc_EN.csv'), 'r') as csvfile:
+                     '../lib/crs_cc_EN.csv'), 'r') as csvfile:
         crsccreader = unicodecsv.DictReader(csvfile)
         for row in crsccreader:
             crscc = models.DACSector()
@@ -51,7 +51,7 @@ def import_sectors():
             db.session.add(crscc)
         db.session.commit()
     # Get FR sector names
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/crs_cc_FR.csv'), 'r') as csvfile:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../lib/crs_cc_FR.csv'), 'r') as csvfile:
         crsccreader = unicodecsv.DictReader(csvfile)
         for row in crsccreader:
             crscc = models.DACSector.query.filter_by(
@@ -86,7 +86,7 @@ def import_activity_statuses():
 
 def import_aid_types(): 
     filename="aid_type_EN_FR.csv"
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/'+filename), 'r') as csvfile:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../lib/'+filename), 'r') as csvfile:
         aidtypereader = unicodecsv.DictReader(csvfile)
         for row in aidtypereader:
             nc = models.AidType()
@@ -111,7 +111,7 @@ def import_recipient_countries():
 
 def import_budget_types():
     filename="budget_type_EN_FR.csv"
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/'+filename), 'r') as csvfile:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../lib/'+filename), 'r') as csvfile:
         budgettypereader = unicodecsv.DictReader(csvfile)
         for row in budgettypereader:
             nc = models.BudgetType()
