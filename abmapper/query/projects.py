@@ -5,7 +5,7 @@ from lxml import etree
 import urllib2
 import os
 from abmapper import app, db
-from abmapper import models
+from abmapper.query import models
 from abmapper.lib import codelists
 from abmapper.lib import country_colours
 import unicodecsv
@@ -102,7 +102,8 @@ def import_budget(data):
                 code=country_code
             ).first()
         if not c or not bt:
-            raise BudgetSetupError("Didn't recognise country or budget type, or both")
+            raise BudgetSetupError("Didn't recognise country or budget \
+                                    type, or both")
 
         c.budgettype_id = budget_type
         db.session.add(c)
@@ -110,9 +111,11 @@ def import_budget(data):
 
     setup_budget_type(budget_type, country_code)
 
-    # Do we want to wipe the slate clean? Remove all budget codes for this country?
+    # Do we want to wipe the slate clean? Remove all budget codes for this
+    # country?
 
-    # Add new high and low level sectors, if they exist, and add links with CC
+    # Add new high and low level sectors, if they exist, and add links
+    # with CC
     for row in budgetcsv:
         cc_id = row["CC"]
         budget_code = row["BUDGET_CODE"]
@@ -121,11 +124,11 @@ def import_budget(data):
         low_budget_name = row["LOWER_BUDGET_NAME"]
     
         if budget_code != "":
-            budget_code_id = add_budget_code(country_code, budget_type, cc_id, 
-                        budget_code, budget_name)
+            budget_code_id = add_budget_code(country_code, budget_type,
+                             cc_id, budget_code, budget_name)
             if low_budget_code != "":
-                add_low_budget_code(country_code, budget_type, cc_id, budget_code_id, 
-                            low_budget_code, low_budget_name)
+                add_low_budget_code(country_code, budget_type, cc_id,
+                        budget_code_id, low_budget_code, low_budget_name)
 
 def add_budget_code(country_code, budget_type, cc_id, budget_code, 
                         budget_name):
@@ -162,8 +165,8 @@ def add_budget_code(country_code, budget_type, cc_id, budget_code,
                    ).join(models.BudgetCode
                    ).first()
         if checkBCL:
-            print "Sorry, this CC is already associated with another budget \
-                   code for the same country"
+            print "Sorry, this CC is already associated with another \
+                   budget code for the same country"
             return False
         
         bcl = models.CCBudgetCode()
@@ -184,8 +187,8 @@ def add_low_budget_code(country_code, budget_type, cc_id, budget_code,
     print country_code
     print "Adding low budget code"
 
-    def add_code(country_code, low_budget_code, low_budget_name, budget_type,
-                            budget_code):
+    def add_code(country_code, low_budget_code, low_budget_name,
+                 budget_type, budget_code):
         # Check if this budget code already exists
         checkBC = models.LowerBudgetCode.query.filter_by(
                     country_code = country_code,
@@ -211,13 +214,13 @@ def add_low_budget_code(country_code, budget_type, cc_id, budget_code,
         checkBCL = db.session.query(models.CCLowerBudgetCode,
                                     models.LowerBudgetCode
                    ).filter(
-                        models.LowerBudgetCode.country_code == country_code,
-                        models.CCLowerBudgetCode.cc_id == cc_id
+                    models.LowerBudgetCode.country_code == country_code,
+                    models.CCLowerBudgetCode.cc_id == cc_id
                    ).join(models.LowerBudgetCode
                    ).first()
         if checkBCL:
-            print "Sorry, this CC is already associated with another budget \
-                   code for the same country"
+            print "Sorry, this CC is already associated with another \
+                   budget code for the same country"
             return False
         
         bcl = models.CCLowerBudgetCode()
@@ -227,8 +230,8 @@ def add_low_budget_code(country_code, budget_type, cc_id, budget_code,
         db.session.commit()
         return bcl                        
 
-    bc = add_code(country_code, low_budget_code, low_budget_name, budget_type, 
-                  budget_code)
+    bc = add_code(country_code, low_budget_code, low_budget_name,
+                  budget_type, budget_code)
 
     add_link(country_code, bc, cc_id)
 
@@ -245,8 +248,8 @@ def update_project(data):
             project_id = sheet.cell(i, 0).value
             capital_spend = number_or_none(sheet.cell(i, 14).value)
 
-            # There must always be at least 1 sector-row (because of the title,
-            # etc.)
+            # There must always be at least 1 sector-row (because of the
+            # title, etc.)
 
             project_data[project_id] = {"num_sectors": 1}
             project_data[project_id]["capital_spend"] = capital_spend
@@ -263,9 +266,9 @@ def update_project(data):
             for si in range(i, i+project_data[project_id]["num_sectors"]):
                 project_data[project_id]["sectors"].append(
                     {
-                    "crs_code": correct_trailing_decimals(sheet.cell(si, 3).value),
-                    "cc_id": correct_zeros(sheet.cell(si, 6).value),
-                    "percentage": "UNKNOWN",
+            "crs_code": correct_trailing_decimals(sheet.cell(si, 3).value),
+            "cc_id": correct_zeros(sheet.cell(si, 6).value),
+            "percentage": "UNKNOWN",
                     }
                 )
 
@@ -280,23 +283,28 @@ def update_project(data):
             print "UNKNOWN PROJECT", project_identifier
             continue
 
-        new_sectors = map(lambda s: (s["cc_id"], {'percentage': s["percentage"], 
-                                                       'original_crs_code': s["crs_code"]}), 
-                                                            sectors['sectors'])
+        new_sectors = map(lambda s: (
+                 s["cc_id"],
+                 {'percentage': s["percentage"],
+                 'original_crs_code': s["crs_code"]}
+                 ),
+                  sectors['sectors'])
 
         existing_sectors = map(lambda s: (s.dacsector.cc_id, {
-                                                'percentage': s.percentage,
-                                                'original_crs_code': s.code,
-                                                'deleted': s.deleted}),
-                                                            p.sectors)
+                                            'percentage': s.percentage,
+                                            'original_crs_code': s.code,
+                                            'deleted': s.deleted}),
+                                                        p.sectors)
 
         added_sectors = a_not_in_b(new_sectors, existing_sectors)
         deleted_sectors = a_not_in_b(existing_sectors, new_sectors)
 
-        added_sectors = dict(map(lambda s: (s[1]['original_crs_code'], {
-                                                'percentage': s[1]['percentage'],
-                                                'cc_id': s[0]}),
-                                                    added_sectors))
+        added_sectors = dict(map(lambda s: (s[1]['original_crs_code'],
+                                    {
+                                    'percentage': s[1]['percentage'],
+                                    'cc_id': s[0]
+                                    }),
+                                    added_sectors))
 
         # Update capital expenditure
         p = project(project_identifier)
@@ -335,13 +343,15 @@ def update_project(data):
                     newsector_code = get_sector_from_cc(new_cc_id)
                     added_sectors.pop(original_crs_code)
                 except KeyError:
-                    print "WARNING: Couldn't find CRS CODE", original_crs_code, "for project", project_id
+                    print ("WARNING: Couldn't find CRS CODE",
+                         original_crs_code, "for project", project_id)
 
+                formersector_id = delete_sector_from_project(
+                        original_crs_code,
+                        project_identifier)
 
-                formersector_id = delete_sector_from_project(original_crs_code, 
-                                                             project_identifier)
-
-                print "Deleting sector for", project_identifier, original_crs_code
+                print ("Deleting sector for",
+                            project_identifier, original_crs_code)
 
                 if not newsector_code:
                     continue
@@ -352,19 +362,23 @@ def update_project(data):
                                       formersector_id, 
                                       True)
 
-                print "Adding sector for", project_identifier, newsector_code, percentage, formersector_id
+                print ("Adding sector for", project_identifier,
+                         newsector_code, percentage, formersector_id)
             
         # Check if there are any remaining unadded sectors.
         if added_sectors:
             print "Remaining sectors to add", len(added_sectors)
             print added_sectors
             # 3 Get pct of remaining percentage
-            unused_sector_pct = get_unused_sector_percentage(project_identifier)
+            unused_sector_pct = get_unused_sector_percentage(
+                    project_identifier)
 
-            # 4 Set default percentage value for new added sectors (divide total
-            # available amount by number of added sectors)
+            # 4 Set default percentage value for new added sectors (divide
+            # total available amount by number of added sectors)
 
-            default_sector_pct = float(unused_sector_pct)/len(added_sectors)
+            default_sector_pct = (
+                float(unused_sector_pct)/len(added_sectors)
+                )
 
             if default_sector_pct<=0: print "ALERT: 0 VALUE SECTORS"
 
@@ -382,30 +396,35 @@ def update_project(data):
                 def getRelevantSector(sector):
                     return sector["cc_id"] == addsector['cc_id']
 
-                relevant_sector = get_first(filter(getRelevantSector, sectors['sectors']))
+                relevant_sector = get_first(
+                    filter(getRelevantSector, sectors['sectors'])
+                )
                 if is_number(relevant_sector["percentage"]):
                     percentage = relevant_sector["percentage"]
                 else:
                     percentage = default_sector_pct
 
-                add_sector_to_project(newsector_code, project_identifier, percentage, None, True)
+                add_sector_to_project(newsector_code, project_identifier,
+                                      percentage, None, True)
         
 def country(country_code):
     c = models.RecipientCountry.query.filter_by(code=country_code).first()
     return c
 
 def countries_activities():
-    c = db.session.query(func.count(models.Activity.id).label("num_activities"),
-                         models.RecipientCountry
-                    ).join(models.RecipientCountry
-                    ).group_by(models.RecipientCountry
-                    ).all()
+    c = db.session.query(
+                func.count(models.Activity.id).label("num_activities"),
+                models.RecipientCountry
+            ).join(models.RecipientCountry
+            ).group_by(models.RecipientCountry
+            ).all()
     return c
 
 def reporting_org_activities(country_code):
-    r = db.session.query(distinct(models.Activity.reporting_org_ref).label("reporting_org"),
-                         func.count(models.Activity.id).label("num_activities"),
-                    ).filter(models.Activity.recipient_country_code==country_code
+    r = db.session.query(
+        distinct(models.Activity.reporting_org_ref).label("reporting_org"),
+        func.count(models.Activity.id).label("num_activities"),
+        ).filter(models.Activity.recipient_country_code==country_code
                     ).group_by(models.Activity.reporting_org_ref
                     ).all()
     return r
@@ -442,7 +461,8 @@ def DAC_codes():
 
 def DAC_codes_existing():
     codes = []
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib/oecd_dac_sectors.csv'), 'r') as csvfile:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                 'lib/oecd_dac_sectors.csv'), 'r') as csvfile:
         crsreader = unicodecsv.DictReader(csvfile)
         for row in crsreader:
             if row["CRS CODE"] != "":
@@ -485,7 +505,8 @@ def sector(sector_code):
 def add_sector_to_project(sector_code, iati_identifier, percentage, 
                           formersector_id=None, assumed=False):
     checkS = db.session.query(models.Sector
-            ).filter(models.Sector.activity_iati_identifier==iati_identifier
+            ).filter(
+            models.Sector.activity_iati_identifier==iati_identifier
             ).filter(models.Sector.code==sector_code
             ).first()
     if checkS:
@@ -503,7 +524,8 @@ def add_sector_to_project(sector_code, iati_identifier, percentage,
 
 def delete_sector_from_project(sector_code, iati_identifier):
     checkS = db.session.query(models.Sector
-            ).filter(models.Sector.activity_iati_identifier==iati_identifier
+            ).filter(
+            models.Sector.activity_iati_identifier==iati_identifier
             ).filter(models.Sector.code==sector_code
             ).first() 
     if not checkS:
@@ -524,7 +546,8 @@ def delete_sector_from_project(sector_code, iati_identifier):
 
 def restore_sector_to_project(sector_code, iati_identifier):
     checkS = db.session.query(models.Sector
-            ).filter(models.Sector.activity_iati_identifier==iati_identifier
+            ).filter(
+            models.Sector.activity_iati_identifier==iati_identifier
             ).filter(models.Sector.code==sector_code
             ).first() 
     if not checkS:
@@ -556,64 +579,65 @@ def get_sector_from_cc(cc_id):
 def budget_project_stats(country_code):
     # GET SQL
     # CALCULATE BEFORE, AFTER
-    sql = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            budgetcode.code, budgetcode.name
-            FROM atransaction
-            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
-            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
-            LEFT JOIN dacsector ON sector.code = dacsector.code
-            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
-            WHERE sector.deleted = 0
-            AND activity.recipient_country_code="%s"
-            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
-            AND activity.status_code IN (2, 3)
-            AND atransaction.transaction_type_code="C"
-            AND budgetcode.country_code = "%s"
-            GROUP BY budgetcode.code
-            ;"""
+    sql = """
+    SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+    budgetcode.code, budgetcode.name
+    FROM atransaction
+    JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+    JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+    LEFT JOIN dacsector ON sector.code = dacsector.code
+    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    WHERE sector.deleted = 0
+    AND activity.recipient_country_code="%s"
+    AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+    AND activity.status_code IN (2, 3)
+    AND atransaction.transaction_type_code="C"
+    AND budgetcode.country_code = "%s"
+    GROUP BY budgetcode.code
+    ;"""
 
-    sql_before = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            budgetcode.code, budgetcode.name
-            FROM atransaction
-            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
-            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
-            LEFT JOIN dacsector ON sector.code = dacsector.code
-            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
-            WHERE sector.edited = 0
-            AND activity.recipient_country_code="%s"
-            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
-            AND activity.status_code IN (2, 3)
-            AND atransaction.transaction_type_code="C"
-            AND budgetcode.country_code = "%s"
-            GROUP BY budgetcode.code
-            ;"""
+    sql_before = """
+    SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+    budgetcode.code, budgetcode.name
+    FROM atransaction
+    JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+    JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+    LEFT JOIN dacsector ON sector.code = dacsector.code
+    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    WHERE sector.edited = 0
+    AND activity.recipient_country_code="%s"
+    AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+    AND activity.status_code IN (2, 3)
+    AND atransaction.transaction_type_code="C"
+    AND budgetcode.country_code = "%s"
+    GROUP BY budgetcode.code
+    ;"""
 
 
-    sql_total = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            budgetcode.code, budgetcode.name
-            FROM atransaction
-            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
-            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
-            LEFT JOIN dacsector ON sector.code = dacsector.code
-            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
-            WHERE sector.deleted = 0
-            AND activity.recipient_country_code="%s"
-            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
-            AND activity.status_code IN (2, 3)
-            AND atransaction.transaction_type_code="C"
-            ;"""
+    sql_total = """
+    SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+    budgetcode.code, budgetcode.name
+    FROM atransaction
+    JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
+    JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
+    LEFT JOIN dacsector ON sector.code = dacsector.code
+    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    WHERE sector.deleted = 0
+    AND activity.recipient_country_code="%s"
+    AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+    AND activity.status_code IN (2, 3)
+    AND atransaction.transaction_type_code="C"
+    ;"""
 
     after = db.engine.execute(sql % (
                 country_code, country_code)
                 )
-    print sql % (
-                country_code, country_code)
     before = db.engine.execute(sql_before % (
                 country_code, country_code)
                 )
@@ -702,41 +726,47 @@ def get_colour(node, ccolours):
     return node
 
 def generate_sankey_data(country_code):
-    sql_reporting_org_cc = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            activity.reporting_org_ref, commoncode.category_EN
-            FROM atransaction
-            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
-            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
-            LEFT JOIN dacsector ON sector.code = dacsector.code
-            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
-            WHERE sector.deleted = 0
-            AND activity.recipient_country_code="%s"
-            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
-            AND activity.status_code IN (2, 3)
-            AND atransaction.transaction_type_code="C"
-            AND budgetcode.country_code="%s"
-            GROUP BY commoncode.category_EN, activity.reporting_org_ref
-            ;"""
+    sql_reporting_org_cc = """
+    SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+    activity.reporting_org_ref, commoncode.category_EN
+    FROM atransaction
+    JOIN activity ON
+        activity.iati_identifier=atransaction.activity_iati_identifier
+    JOIN sector ON
+        activity.iati_identifier = sector.activity_iati_identifier
+    LEFT JOIN dacsector ON sector.code = dacsector.code
+    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    WHERE sector.deleted = 0
+    AND activity.recipient_country_code="%s"
+    AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+    AND activity.status_code IN (2, 3)
+    AND atransaction.transaction_type_code="C"
+    AND budgetcode.country_code="%s"
+    GROUP BY commoncode.category_EN, activity.reporting_org_ref
+    ;"""
             
-    sql_cc_budgetcode = """SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-            budgetcode.code, budgetcode.name, commoncode.category_EN
-            FROM atransaction
-            JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
-            JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
-            LEFT JOIN dacsector ON sector.code = dacsector.code
-            LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-            LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-            LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
-            WHERE sector.deleted = 0
-            AND activity.recipient_country_code="%s"
-            AND activity.aid_type_code IN ('C01', 'D01', 'D02')
-            AND activity.status_code IN (2, 3)
-            AND atransaction.transaction_type_code="C"
-            AND budgetcode.country_code="%s"
-            GROUP BY budgetcode.code, commoncode.category_EN
-            ;"""
+    sql_cc_budgetcode = """
+    SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
+    budgetcode.code, budgetcode.name, commoncode.category_EN
+    FROM atransaction
+    JOIN activity ON
+        activity.iati_identifier=atransaction.activity_iati_identifier
+    JOIN sector ON
+        activity.iati_identifier = sector.activity_iati_identifier
+    LEFT JOIN dacsector ON sector.code = dacsector.code
+    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
+    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    WHERE sector.deleted = 0
+    AND activity.recipient_country_code="%s"
+    AND activity.aid_type_code IN ('C01', 'D01', 'D02')
+    AND activity.status_code IN (2, 3)
+    AND atransaction.transaction_type_code="C"
+    AND budgetcode.country_code="%s"
+    GROUP BY budgetcode.code, commoncode.category_EN
+    ;"""
 
     reporting_org_cc = db.engine.execute(sql_reporting_org_cc % (
             country_code, country_code)
@@ -768,22 +798,28 @@ def generate_sankey_data(country_code):
     for rc in reporting_org_cc:
         links.append({
             'source': get_node_code(rc.reporting_org_ref, node_data),
-            'target': get_node_code(notNull(rc.category_EN, "category"), node_data),
+            'target': get_node_code(
+                    notNull(rc.category_EN, "category"), node_data
+                    ),
             'value': rc.sum_value
         })
     
     for cb in cc_budgetcode:
         links.append({
-            'source': get_node_code(notNull(cb.category_EN, "category"), node_data),
-            'target': get_node_code(notNull(cb.name, "budgetcode"), node_data),
+            'source': get_node_code(
+                notNull(cb.category_EN, "category"), node_data
+                ),
+            'target': get_node_code(
+                notNull(cb.name, "budgetcode"), node_data
+                ),
             'value': cb.sum_value
         })
         
     ccolours = country_colours.colours(country_code)
 
     nodes = [{'name': node,
-              'colour': get_colour(node, ccolours)} for node in sorted(node_data['known'], 
-                                             key=node_data['known'].get)]
+              'colour': get_colour(node, ccolours)} for node in
+               sorted(node_data['known'], key=node_data['known'].get)]
 
     from operator import itemgetter
     links = sorted(links, key=itemgetter('value'))
@@ -810,27 +846,43 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
 
     filtered_projects = len(p)
 
-    total_value = sum(map(lambda project: none_is_zero(project.total_commitments), original_p))
-    total_filtered_value = sum(map(lambda project: none_is_zero(project.total_commitments), p))
-    total_mappable_before = sum(map(lambda project: none_is_zero(project.pct_mappable_before)/100 * 
+    total_value = sum(map(lambda project:
+         none_is_zero(project.total_commitments), original_p))
+    total_filtered_value = sum(map(lambda project:
+         none_is_zero(project.total_commitments), p))
+    total_mappable_before = sum(map(lambda project:
+         none_is_zero(project.pct_mappable_before)/100 *
                 none_is_zero(project.total_commitments), p))
-    total_mappable_after = sum(map(lambda project: none_is_zero(project.pct_mappable_after)/100 * 
+    total_mappable_after = sum(map(lambda project:
+         none_is_zero(project.pct_mappable_after)/100 *
                 none_is_zero(project.total_commitments), p))
     total_capital_before = 0.00
-    total_capital_after = sum(map(lambda project: project.capital_exp * 
-                none_is_zero(project.total_commitments), filter(filter_none_out, p)))
+    total_capital_after = sum(map(lambda project:
+        project.capital_exp * none_is_zero(project.total_commitments),
+        filter(filter_none_out, p)))
     total_na_after = sum(map(lambda project: 1 * 
-                none_is_zero(project.total_commitments), filter(filter_none_in, p)))
-    total_current_after = total_filtered_value-total_capital_after-total_na_after
-    return {"total_value": "{:,}".format(total_value),
-            "total_filtered_value": "{:,}".format(total_filtered_value),
-            "total_mappable_before": total_mappable_before,
-            "total_mappable_before_pct": round(total_mappable_before/total_filtered_value*100, 2),
-            "total_mappable_after": total_mappable_after,
-            "total_mappable_after_pct": round(total_mappable_after/total_filtered_value*100, 2),
-            "total_capital_before_pct": round(total_capital_before/total_filtered_value*100, 2),
-            "total_capital_after_pct": round(total_capital_after/total_filtered_value*100, 2),
-            "total_current_after_pct": round(total_current_after/total_filtered_value*100, 2),
-            "total_projects": total_projects,
-            "filtered_projects": filtered_projects,
+        none_is_zero(project.total_commitments),
+        filter(filter_none_in, p)))
+    total_current_after = (
+        total_filtered_value -
+        total_capital_after -
+        total_na_after
+        )
+    return {
+        "total_value": "{:,}".format(total_value),
+        "total_filtered_value": "{:,}".format(total_filtered_value),
+        "total_mappable_before": total_mappable_before,
+        "total_mappable_before_pct": round(
+            total_mappable_before/total_filtered_value*100, 2),
+        "total_mappable_after": total_mappable_after,
+        "total_mappable_after_pct": round(
+            total_mappable_after/total_filtered_value*100, 2),
+        "total_capital_before_pct": round(
+            total_capital_before/total_filtered_value*100, 2),
+        "total_capital_after_pct": round(
+            total_capital_after/total_filtered_value*100, 2),
+        "total_current_after_pct": round(
+            total_current_after/total_filtered_value*100, 2),
+        "total_projects": total_projects,
+        "filtered_projects": filtered_projects,
            }
