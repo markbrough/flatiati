@@ -2,38 +2,32 @@
 # -*- coding: utf-8 -*-
 
 import optparse, sys
-from abmapper import projects
-from abmapper.datastore import download
-from abmapper import setup as absetup
+from abmapper.query import projects as abprojects
+from abmapper.datastore import download, parse
+from abmapper.query import setup as absetup
 
 def update_projects(options):
     print options
     assert options.filename
     assert options.reporting_org
     assert options.country_code
-    projects.update_project(options)
+    abprojects.update_project(options)
 
 def import_budget(options):
     print options
     assert options.filename
     assert options.country_code
     assert options.budget_type
-    projects.import_budget(options)
+    abprojects.import_budget(options)
 
 def import_iati_xml(options):
     print options
     assert options.filename
     assert options.country_code
-    download.parse_file(options.country_code, options.filename)
+    parse.parse_file(options.country_code, options.filename)
 
 def setup(options):
-    print options
-    assert options.lang
-    absetup.setup(options.lang)
-
-def setup(options):
-    absetup.setup("FR")
-    download.parse_file("SN", "CA-3-SN.xml")    
+    absetup.setup()
 
 commands = {
     "quicksetup": (setup, "Quick Setup with default arguments"),
