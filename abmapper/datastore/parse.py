@@ -167,9 +167,7 @@ getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code')),
     db.session.commit()
 
 def parse_file(country_code, filename):
-    LOCAL_DIR=app.config["DATA_STORAGE_DIR"]
-    path = os.path.join(LOCAL_DIR, filename)
-    doc=etree.parse(path)
+    doc=etree.parse(filename)
     activities = doc.xpath('//iati-activity')
     for i, activity in enumerate(activities):
         write_activity(activity, country_code)
