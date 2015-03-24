@@ -1,6 +1,7 @@
 from flask import render_template
 from abmapper import app
 from abmapper.query import projects as abprojects
+from abmapper.query import stats as abstats
 
 @app.route("/")
 def dashboard():
@@ -11,8 +12,8 @@ def dashboard():
 
 @app.route("/<country_code>/")
 def country_home(country_code):
-    stats = abprojects.country_project_stats(country_code)
-    budget_stats = abprojects.budget_project_stats(country_code)
+    stats = abstats.country_project_stats(country_code)
+    budget_stats = abstats.budget_project_stats(country_code)
     country = abprojects.country(country_code)
     reporting_orgs = abprojects.reporting_org_activities(country_code)
     return render_template("country.html",
