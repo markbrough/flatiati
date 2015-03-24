@@ -3,22 +3,24 @@
 
 import optparse, sys
 from abmapper.query import projects as abprojects
+from abmapper.query import update as abupdate
 from abmapper.datastore import download, parse
 from abmapper.query import setup as absetup
+from abmapper.query import budget as abbudget
 
 def update_projects(options):
     print options
     assert options.filename
     assert options.reporting_org
     assert options.country_code
-    abprojects.update_project(options)
+    abupdate.update_projects(options)
 
 def import_budget(options):
     print options
     assert options.filename
     assert options.country_code
     assert options.budget_type
-    abprojects.import_budget(options)
+    abbudget.import_budget(options)
 
 def import_iati_xml(options):
     print options
