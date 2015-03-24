@@ -61,10 +61,10 @@ Importing a budget
 Budgets map between the Common Code and the relevant country's budget
 classification. They should be in CSV format and look like this:
 
-CC | BUDGET_CODE | BUDGET_NAME | LOWER_BUDGET_CODE | LOWER_BUDGET_NAME
--- | ----------- | ----------- | ----------------- | -----------------
-1.1.1 | 11 | Organes exécutifs | 110 | Aff générales Présidence de la république
-1.2.1 | 10 | Organes législatifs | |
+| CC | BUDGET_CODE | BUDGET_NAME | LOWER_BUDGET_CODE | LOWER_BUDGET_NAME |
+| -- | ----------- | ----------- | ----------------- | ----------------- |
+| 1.1.1 | 11 | Organes exécutifs | 110 | Aff générales Présidence de la république |
+| 1.2.1 | 10 | Organes législatifs | | |
 
 NB ´LOWER_BUDGET_CODE` and `LOWER_BUDGET_NAME` are optional.
 
