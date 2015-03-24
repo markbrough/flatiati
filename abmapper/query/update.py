@@ -102,7 +102,6 @@ def get_added_deleted_sectors(sheet_sectors, db_sectors):
                 "cc_id": ns['cc_id'],
                 "percentage": es["percentage"]
             }
-    print "Changed sectors are", changed_sectors
     return changed_sectors
 
 def update_capital_exp(p, capital_spend):
@@ -117,10 +116,6 @@ def handle_changed_sectors(changed_sectors, project_identifier):
     #   Try and match them against existing CCs
     
     for sector_code, cs_data in changed_sectors.items():
-        print "Project", project_identifier
-        print "Changed sector", sector_code
-        # For each sector that needs to be changed...
-        print "Changed sector data", cs_data
         
         # Delete old sector with that CRS code
         # Add a new one, using the old CRS code as the formersector_id
@@ -139,8 +134,8 @@ def handle_changed_sectors(changed_sectors, project_identifier):
                               formersector_id, 
                               True)
 
-        print ("Updated sector for", project_identifier,
-                 newsector_code, new_cc_id)
+        print "Updated sector for project %s, with sector code %s \
+and CC id %s" % (project_identifier, newsector_code, new_cc_id)
 
 def update_project(project_identifier, sectors):
     p = abprojects.project(project_identifier)
