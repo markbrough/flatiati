@@ -166,8 +166,9 @@ getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code')),
     db.session.add(a)
     db.session.commit()
 
-def parse_file(country_code, filename):
+def parse_file(country_code, filename, sample=False):
     doc=etree.parse(filename)
     activities = doc.xpath('//iati-activity')
     for i, activity in enumerate(activities):
         write_activity(activity, country_code)
+        if sample and i>50: break
