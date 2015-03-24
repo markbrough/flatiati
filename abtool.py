@@ -30,7 +30,6 @@ def setup(options):
     absetup.setup()
 
 commands = {
-    "quicksetup": (setup, "Quick Setup with default arguments"),
     "setup": (setup, "Setup"),
     "import": (import_iati_xml, "Import IATI XML file"),
     "update-projects": (update_projects, "Update projects"),
