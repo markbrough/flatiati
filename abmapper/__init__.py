@@ -11,6 +11,7 @@ app.config.from_pyfile(os.path.join('..', 'config.py'))
 db = SQLAlchemy(app)
 babel = Babel(app)
 
+from abmapper.query import models
 import routes
 
 LANGUAGES = app.config["LANGUAGES"].keys()
