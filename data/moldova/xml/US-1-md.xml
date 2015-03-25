@@ -1,0 +1,659 @@
+<iati-activities version="1.05" generated-datetime="2015-03-12T02:10:02">
+  <iati-activity>
+    <iati-identifier>US-1-MD-1</iati-identifier>
+    <title>Telenesti Rehabilitation and Construction of Water Network, Sewage and Water Treatment Plant Project</title>
+    <description>   1. Construction of a wastewater treatment plant with a capacity of 700m/3 per day in Lot 4 of the Telenesti Rehabilitation and Construction of Water Network, Sewage and Water Treatment Plant Project, RDA-C Project Number C11088.          2.Construction of a city sewer system over a length of 17.8 km, and one pumping station in Lot 4 of the Telenesti Rehabilitation and Construction of Water Network, Sewage and Water Treatment Plant Project, RDA-C Project Number C11088.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2014-04-30"/>
+    <activity-date type="end-actual" iso-date="2015-04-29"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="AGENCY FOR REGIONAL DEVELOPMENT" type="70">AGENCY FOR REGIONAL DEVELOPMENT</participating-org>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">683611</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">677973</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-2</iati-identifier>
+    <title>Development Credit Authority (DCA) Loan Portfolio Guarantee Agreement with Prime Capital</title>
+    <description>   Development Credit Authority Activity in Moldova</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2011-09-27"/>
+    <activity-date type="end-actual" iso-date="2018-09-26"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="ICS PRIME CAPITAL" type="70">ICS PRIME CAPITAL</participating-org>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">151787</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">29371</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-3</iati-identifier>
+    <title>Development Credit Authority (DCA) Loan Portfolio Guarantee Agreement with Rural Finance Corporation</title>
+    <description>   USAID/Moldova aims to support at least six key industry clusters in Moldova: winemaking, apparel manufacturing, information technology (IT), footwear, furniture, and other emerging exports industries.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2011-09-27"/>
+    <activity-date type="end-actual" iso-date="2018-09-26"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="CORPORATIA DE FINANTARE RURALA" type="70">CORPORATIA DE FINANTARE RURALA</participating-org>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">174930</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">2834</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">10881</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">12420</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-4</iati-identifier>
+    <title>Development Credit Authority (DCA) Loan Portfolio Guarantee Agreement with Comertbank</title>
+    <description>   Development Credit Authority Activity in Moldova</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2011-09-27"/>
+    <activity-date type="end-actual" iso-date="2018-09-27"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="COMERTBANK" type="70">COMERTBANK</participating-org>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">349860</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">51080</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-5</iati-identifier>
+    <title>Development Credit Authority (DCA) Loan Portfolio Guarantee Agreement with Prime Capital (second agreement)</title>
+    <description>   Development Credit Authority (DCA) Loan Portfolio Guarantee Agreement with Prime Capital</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2013-09-30"/>
+    <activity-date type="end-actual" iso-date="2028-12-29"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="ICS PRIME CAPITAL" type="70">ICS PRIME CAPITAL</participating-org>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">200000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">4580</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-6</iati-identifier>
+    <title>Support of Organic Agriculture Project in Moldova</title>
+    <description>   The project will enhance the capacities of Moldovan farmers through knowledge transfer activities such as training, study tours, demonstration activities, build the capacities of local providers of training and consultancy services related to organic agriculture, and will increase the Moldovan public awareness about organic production through a media campaign and the launch of a Moldovan Organic Farming Web Portal.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2013-04-30"/>
+    <activity-date type="end-actual" iso-date="2015-04-29"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="PEOPLE IN NEED" type="70">PEOPLE IN NEED</participating-org>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">151840</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2016-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2016-01-01">121500</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-7</iati-identifier>
+    <title>ASSISTANCE AGREEMENT BETWEEN THE GOVERNMENT OF USA AND THE GOVERNMENT OF RM FOR THE RULE OF LAW INSTITUTIONAL STRENGTHENING PROGRAM</title>
+    <description>   Agreement is to strengthen institutional capacities, transparency and accountability of key institutions of the justice sector, in order to guarantee independence and increase the effectiveness and professionalism of the judiciary. By strengthening the stability and effectiveness of institutions responsible for guaranteeing democracy and the rule of law, including its administrative and judicial capacity building</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2011-07-22"/>
+    <activity-date type="end-actual" iso-date="2015-09-30"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="United States Agency For International Development" type="70">United States Agency For International Development</participating-org>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">2538320</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">2170000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">2538320</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">2748670</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">2170000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">342000</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-8</iati-identifier>
+    <title>BUSINESS REGULATORY, INVESTMENT AND TRADE ENVIRONMENT (BRITE) PROJECT</title>
+    <description>BRITE is divided into three major components: tax administration and trade facilitation, high impact regulatory reforms, and strategic communications. The principal government counterparts in this endeavor will be the State Tax Service (STS), the Ministry of Finance (which oversees the Customs Service), and the Ministry of Economy. Additional partners will be key entities from the private sector, civil society, local government, and Parliament.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2012-06-05"/>
+    <activity-date type="end-actual" iso-date="2016-06-04"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="CHEMONICS INTERNATIONAL" type="70">CHEMONICS INTERNATIONAL</participating-org>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">2200000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">772094</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">2081177</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">1735214</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">2178800</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">1668578</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-9</iati-identifier>
+    <title>Competitiveness Enhancement and Enterprise Development II (CEED II)</title>
+    <description>Proiectului Cre&#351;terea Competitivit&#259;&#355;ii &#351;i Dezvoltarea &#206;ntreprinderilor II (CEED II) &#238;&#351;i propune s&#259; ajute &#238;ntreprinderile moldovene&#351;ti din sectoarele principale s&#259; concureze cu succes pe pia&#355;a local&#259; &#351;i interna&#355;ional&#259;, astfel sporindu-&#351;i v&#226;nz&#259;rile &#351;i investi&#355;iile.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2010-12-08"/>
+    <activity-date type="end-actual" iso-date="2015-06-07"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="CHEMONICS INTERNATIONAL" type="70">CHEMONICS INTERNATIONAL</participating-org>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">5328888</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2011-01-01">1701125</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">1650000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">2379491</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">1175540</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">2902552</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">2425178</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">1655723</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-10</iati-identifier>
+    <title>Agriculture Competitiveness and Enterprise Development Project (ACED)</title>
+    <description>   Sumarul ProiectuluiProiectul Competitivitatea Agricol&#259; &#351;i Dezvoltarea ntreprinderilor (ACED) este un program cu o durat&#259; prev&#259;zut&#259; de 5 ani, cofinan&#355;at de Agen&#355;ia SUA pentru Dezvoltare Interna&#355;ional&#259; (USAID) &#351;i Corpora&#355;ia  Millennium Challenge Corporation (MCC). Obiectivul principal al acestui proiect const&#259; n sporirea succeselor sectorului agricol moldovenesc n producerea &#351;i comercializarea produselor cu valoare ad&#259;ugat&#259; nalt&#259;. ACED va activa n comun cu grupurile de produc&#259;tori &#351;i ntreprinderile antrenate n lan&#355;ul valoric (case de ambalare, instala&#355;ii ale lan&#539;ului frigorifer, expeditori, furnizori de materii prime, exportatori, re&#355;ele de distribu&#355;ie etc.) n scopul sporirii abilit&#259;&#355;ilor ntregului lan&#355; valoric de a produce &#351;i a livra produse calitatative cu valoare ad&#259;ugat&#259; care pot ob&#355;ine un pre&#355; profitabil de la cump&#259;r&#259;tori att pe pia&#355;a intern&#259;, ct &#351;i pe cea extern&#259;. Proiectul va activa pe ntreg teritoriul &#355;&#259;rii, cu un accent special pe regiunile ce vor beneficia de suportul programului MCC n reabilitarea sistemelor centralizate de irigare. Programul este constituit din patru componente de baz&#259;: - Dezvoltarea rela&#355;iilor de pia&#355;&#259;:     Pornind de la necesit&#259;&#355;ile consumatorilor de pe pie&#355;ele interne &#351;i externe, ACED va facilita dezvoltarea durabil&#259; a rela&#355;iilor de pia&#355;&#259; directe ntre furnizorii locali &#351;i consumatorii de pe pie&#355;ele &#355;int&#259;. - Instruire n procesele de produc&#355;ie: ACED va asigura organizarea unui spectru larg de instruiri &#351;i activit&#259;&#355;i de demonstrare practic&#259; orientate spre cre&#351;terea produc&#355;iei rentabile a produselor cu o cerere nalt&#259; pe pia&#355;&#259;. - Asisten&#355;&#259; tehnic&#259;: ACED &#351;i va orienta eforturile spre cre&#351;terea capacit&#259;&#355;ilor prestatorilor locali de servicii necesare pentru lan&#355;urile valorice &#355;int&#259; &#351;i consolidarea capacit&#259;&#355;ilor acestora de a oferi servicii de o calitate nalt&#259; pe baz&#259; comercial&#259; participan&#355;ilor lan&#355;urilor valorice post-recoltare. - Mediul de afaceri: ACED va colabora cu agen&#355;iile guvernamentale ntru consolidarea capacit&#259;&#355;ilor acestora de inspectare &#351;i testare n domeniul fitosanitar. n acela&#351;i timp, mpreun&#259; cu participan&#355;ii lan&#355;ului valoric, ACED va ncuraja modific&#259;rile la documentele de politici, orientate spre atragerea investi&#355;iilor n producerea agricol&#259; cu valoare ad&#259;ugat&#259; &#351;i facilitarea exportului. Proiectul ACED este administrat de c&#259;tre DAI  o companie american&#259; specializat&#259; n gestionarea proiectelor de dezvoltare care activeaz&#259; n Moldova din anul 1994.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2011-03-23"/>
+    <activity-date type="end-actual" iso-date="2016-03-22"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="Development Alternatives International" type="70">Development Alternatives International</participating-org>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">7012426</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2011-01-01">1414114</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">1200000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">3608061</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">3024944</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">3499814</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">1500000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">3212161</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-11</iati-identifier>
+    <title>WOMEN&#8217;S CAREER DEVELOPMENT PROGRAM</title>
+    <description>The Women&#8217;s Career Development Program will provide support services, information, consultancy and training to vulnerable and socially-disadvantaged women in order to empower them with marketable knowledge and skills necessary for sustainable livelihood and their subsequent employment. Professional training will be offered in the following areas: accounting, banking, sales, computer use, office management, etc.A Social Enterprise will be established to generate income for PBN&#8217;s community-benefiting activities. The income generated will be used to support a sustainable Women&#8217;s Career Development Program to empower vulnerable and disadvantaged women from the Balti region and rural areas in northern Moldova.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2009-07-28"/>
+    <activity-date type="end-actual" iso-date="2015-12-30"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="NGO &quot;Pro-Business Nord&quot;" type="70">NGO "Pro-Business Nord"</participating-org>
+    <transaction>
+      <transaction-date iso-date="2009-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2009-01-01">235000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2009-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2009-01-01">8087</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2010-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2010-01-01">75625</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">162330</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2011-01-01">78168</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">103355</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">150000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">106209</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">93992</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-12</iati-identifier>
+    <title>Moldova Partnerships for Sustainable Civil Society project (MPSCS)</title>
+    <description>   The purpose of PSCS is to improve the capacity of civil society in Moldova to represent citizens interests, influence policy making and sustain the sectors democratic role for the future.   The following objectives have been identified to meet this goal:   Objective 1. CSOs more effectively represent their constituencies;   Objective 2. Institutional capacity of strategic partners developed; and   Objective 3. Enabling environment more conducive to long-term sustainability of civil society.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2013-12-13"/>
+    <activity-date type="end-actual" iso-date="2018-12-12"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="FHI Development 360 LLC" type="70">FHI Development 360 LLC</participating-org>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">1975843</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">2611723</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">701360</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-13</iati-identifier>
+    <title>ASSISTANCE AGREEMENT BETWEEN GOVERNMENT OF REPUBLIC OF MOLDOVA AND THE GOVERNMENT OF UNITED STATES FOR THE ECONOMIC GROWTH</title>
+    <description>   Programme sectors: private sector competitivity economic oportunities, elaboration, and evalution of programme.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2010-07-06"/>
+    <activity-date type="end-actual" iso-date="2017-09-30"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="United States Agency For International Development" type="70">United States Agency For International Development</participating-org>
+    <transaction>
+      <transaction-date iso-date="2010-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2010-01-01">10112426</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2010-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2010-01-01">4198823</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">10348189</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2011-01-01">9205966</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">6282323</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">5050000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">5978925</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">7190164</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">3492339</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">5742217</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-14</iati-identifier>
+    <title>ASSISTANCE AGREEMENT BETWEEN THE GOVERNMENT OF THE UNITED STATES OF AMERICA AND THE GOVERNMENT OF THE REPUBLIC OF MOLDOVA FOR THE LOCAL GOVERNMENT SUPPORT PROJECT</title>
+    <description>   Activitatea, Proiectul de Sus&#355;inere a Autorit&#259;&#355;ilor Publice Locale, va fi sus&#355;inut&#259; prin Acordul prezent. Prin mbun&#259;t&#259;&#355;irea capacit&#259;&#355;ilor &#351;i posibilit&#259;&#355;ilor autorit&#259;&#355;ilor publice locale de a r&#259;spunde la necesit&#259;&#355;ile serviciilor de baz&#259; pentru cet&#259;&#355;eni, USAID va sus&#355;ine tranzi&#355;ia spre o descentralizare efectiv&#259;, ajutnd autorit&#259;&#355;ile publice locale la exercitarea noilor mputerniciri n vederea onor&#259;rii de c&#259;tre acestea a responsabilit&#259;&#355;ilor de serviciu ncredin&#355;ate.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2010-09-17"/>
+    <activity-date type="end-actual" iso-date="2015-04-30"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="United States Agency For International Development" type="70">United States Agency For International Development</participating-org>
+    <transaction>
+      <transaction-date iso-date="2010-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2010-01-01">3798318</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2011-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2011-01-01">1788688</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">4387006</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">925829</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">3309612</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">8554899</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">5496319</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-15</iati-identifier>
+    <title>LOCAL GOVERNMENT SUPPORT PROJECT IN MOLDOVA (LGSP)</title>
+    <description>The Moldova Local Government Support Project (LGSP) is a four-year activity to assist local governments to design and implement policies and procedures that contribute to good governance, develop capacity to meet decentralized authorities and responsibilities for services in a transparent manner, and provide basic services that engender growth of local economies and make services more cost effective and efficient.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2012-02-22"/>
+    <activity-date type="end-actual" iso-date="2016-02-21"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="CHEMONICS INTERNATIONAL" type="70">CHEMONICS INTERNATIONAL</participating-org>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">3848318</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">1195729</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">2274298</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">2270089</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">4761000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">1790388</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-16</iati-identifier>
+    <title>RULE OF LAW INSTITUTIONAL STRENGTHENING PROGRAM (ROLISP)</title>
+    <description>ROLISP will provide technical assistance and training in accordance with the Assistance Agreement Nr. 117-0004-AA signed on 7/22/2012 between the Government of the United States of America, acting through the United States Agency for International Development and the Government of the Republic of Moldova, acting through the State Chancellery. The Program shall focus on the achievement of three main objectives:Objective 1: Enhance the effectiveness, transparency and accountability of the Moldovan judiciary through strengthening the institutional and operational capacity of the Superior Council of Magistrates and the Department of Judicial Administration. Objective 2: Support the development of a professional judicial cadre in Moldova by strengthening the capacity of the National Institute of Justice.Objective 3: Support the GOM and Moldovan civil society organizations to better monitor andadvocate for justice sector reform and improve public legal awareness.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2012-03-01"/>
+    <activity-date type="end-actual" iso-date="2016-02-28"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="CHECCHI AND COMPANY CONSULTING INC" type="70">CHECCHI AND COMPANY CONSULTING INC</participating-org>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">2538320</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">769447</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">2170000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">2322525</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2014-01-01">2147000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2014-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2014-01-01">1434814</value>
+    </transaction>
+  </iati-activity>
+  <iati-activity>
+    <iati-identifier>US-1-MD-17</iati-identifier>
+    <title>THE STRENGTHENING POLITICAL ACCOUNTABILITY AND CIVIC ENGAGEMENT PROGRAM</title>
+    <description>The Strengthening Political Accountability and Civic Engagement Program (SPACE-Moldova) aims to improve the quality of political representation in Moldova through the development of more accountable political parties at the national and local levels that represent citizens&#8217; interests; strengthening pressure points to encourage parties to reform; expanding linkages between political parties and civic groups to increase demand for improved representation of the public interest by political parties and elected officials; and supporting the transparency of the electoral process. SPACE-Moldova works with political parties on one hand and both registered and unofficial civic groups on the other, to provide the impetus and incentives to political parties to serve as a vehicle for citizen voices in the political process and have a citizenry empowered to hold political parties accountable in the process of governance.</description>
+    <activity-status code="2"/>
+    <sector code="99810" vocabulary="DAC"/>
+    <activity-date type="start-actual" iso-date="2012-06-01"/>
+    <activity-date type="end-actual" iso-date="2016-05-31"/>
+    <reporting-org ref="USAID" type="10">US-1</reporting-org>
+    <participating-org role="Funding" ref="United States" type="10">US</participating-org>
+    <participating-org role="Extending" ref="USAID" type="10">US-1</participating-org>
+    <participating-org role="Implementing" ref="NATIONAL DEMOCRATIC INSTITUTE" type="70">NATIONAL DEMOCRATIC INSTITUTE</participating-org>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2012-01-01">2007000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2012-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2012-01-01">536204</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="C"/>
+      <value value-date="2013-01-01">1420000</value>
+    </transaction>
+    <transaction>
+      <transaction-date iso-date="2013-01-01"/>
+      <transaction-type code="D"/>
+      <value value-date="2013-01-01">1426488</value>
+    </transaction>
+  </iati-activity>
+</iati-activities>
+
