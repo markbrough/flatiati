@@ -142,7 +142,7 @@ def update_project(project_identifier, sectors):
     if not p:
         print "UNKNOWN PROJECT", project_identifier
         return
-
+    print "Running for project ID %s" % project_identifier
     changed_sectors = get_added_deleted_sectors(
         sectors["sectors"],
         p.sectors)
