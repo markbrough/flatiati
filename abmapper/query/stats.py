@@ -6,7 +6,7 @@ from abmapper.lib import country_colours
 from abmapper.lib import util
 import projects as abprojects
 
-def budget_project_stats(country_code):
+def budget_project_stats(country_code, budget_type):
     # GET SQL
     # CALCULATE BEFORE, AFTER
     sql = """
@@ -17,16 +17,17 @@ def budget_project_stats(country_code):
         activity.iati_identifier=atransaction.activity_iati_identifier
     JOIN sector ON 
         activity.iati_identifier = sector.activity_iati_identifier
-    LEFT JOIN dacsector ON sector.code = dacsector.code
-    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    JOIN dacsector ON sector.code = dacsector.code
+    JOIN commoncode ON dacsector.cc_id = commoncode.id
+    JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
     WHERE sector.deleted = 0
     AND activity.recipient_country_code="%s"
     AND activity.aid_type_code IN ('C01', 'D01', 'D02')
     AND activity.status_code IN (2, 3)
     AND atransaction.transaction_type_code="C"
     AND budgetcode.country_code = "%s"
+    AND budgetcode.budgettype_code = "%s"
     GROUP BY budgetcode.code
     ;"""
 
@@ -36,33 +37,25 @@ def budget_project_stats(country_code):
     FROM atransaction
     JOIN activity ON activity.iati_identifier=atransaction.activity_iati_identifier
     JOIN sector ON activity.iati_identifier = sector.activity_iati_identifier
-    LEFT JOIN dacsector ON sector.code = dacsector.code
-    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
+    JOIN dacsector ON sector.code = dacsector.code
+    JOIN commoncode ON dacsector.cc_id = commoncode.id
+    JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
+    JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
     WHERE sector.edited = 0
     AND activity.recipient_country_code="%s"
     AND activity.aid_type_code IN ('C01', 'D01', 'D02')
     AND activity.status_code IN (2, 3)
     AND atransaction.transaction_type_code="C"
     AND budgetcode.country_code = "%s"
+    AND budgetcode.budgettype_code = "%s"
     GROUP BY budgetcode.code
     ;"""
 
-
     sql_total = """
-    SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
-    budgetcode.code, budgetcode.name
+    SELECT sum(atransaction.value) AS sum_value
     FROM atransaction
     JOIN activity ON 
         activity.iati_identifier=atransaction.activity_iati_identifier
-    JOIN sector ON 
-        activity.iati_identifier = sector.activity_iati_identifier
-    LEFT JOIN dacsector ON sector.code = dacsector.code
-    LEFT JOIN commoncode ON dacsector.cc_id = commoncode.id
-    LEFT JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
-    LEFT JOIN budgetcode ON ccbudgetcode.budgetcode_id = budgetcode.id
-    WHERE sector.deleted = 0
     AND activity.recipient_country_code="%s"
     AND activity.aid_type_code IN ('C01', 'D01', 'D02')
     AND activity.status_code IN (2, 3)
@@ -70,10 +63,10 @@ def budget_project_stats(country_code):
     ;"""
 
     after = db.engine.execute(sql % (
-                country_code, country_code)
+                country_code, country_code, budget_type)
                 )
     before = db.engine.execute(sql_before % (
-                country_code, country_code)
+                country_code, country_code, budget_type)
                 )
     total = db.engine.execute(sql_total % (
                 country_code
@@ -147,7 +140,7 @@ def get_colour(node, ccolours):
         if node in ccolours: return ccolours[node]
     return node
 
-def generate_sankey_data(country_code):
+def generate_sankey_data(country_code, budget_type):
     sql_reporting_org_cc = """
     SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
     activity.reporting_org_ref, commoncode.category_EN
@@ -166,6 +159,7 @@ def generate_sankey_data(country_code):
     AND activity.status_code IN (2, 3)
     AND atransaction.transaction_type_code="C"
     AND budgetcode.country_code="%s"
+    AND budgetcode.budgettype_code = "%s"
     GROUP BY commoncode.category_EN, activity.reporting_org_ref
     ;"""
             
@@ -187,14 +181,15 @@ def generate_sankey_data(country_code):
     AND activity.status_code IN (2, 3)
     AND atransaction.transaction_type_code="C"
     AND budgetcode.country_code="%s"
+    AND budgetcode.budgettype_code = "%s"
     GROUP BY budgetcode.code, commoncode.category_EN
     ;"""
 
     reporting_org_cc = db.engine.execute(sql_reporting_org_cc % (
-            country_code, country_code)
+            country_code, country_code, budget_type)
             )
     cc_budgetcode = db.engine.execute(sql_cc_budgetcode % (
-            country_code, country_code)
+            country_code, country_code, budget_type)
             )
     
     node_data = {
@@ -278,6 +273,15 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
     total_mappable_after = sum(map(lambda project:
          util.none_is_zero(project.pct_mappable_after)/100 *
                 util.none_is_zero(project.total_commitments), p))
+
+    total_mappable_before_admin = sum(map(lambda project:
+         util.none_is_zero(project.pct_mappable_before_admin)/100 *
+                util.none_is_zero(project.total_commitments), p))
+    total_mappable_after_admin = sum(map(lambda project:
+         util.none_is_zero(project.pct_mappable_after_admin)/100 *
+                util.none_is_zero(project.total_commitments), p))
+    admin = bool(total_mappable_after_admin > 0)
+
     total_capital_before = 0.00
     total_capital_after = sum(map(lambda project:
         project.capital_exp * util.none_is_zero(project.total_commitments),
@@ -307,4 +311,29 @@ def country_project_stats(country_code, aid_types=["C01", "D01", "D02"],
             total_current_after/total_filtered_value*100, 2),
         "total_projects": total_projects,
         "filtered_projects": filtered_projects,
+        "admin": admin,
+        "total_mappable_before_pct_admin": round(
+            total_mappable_before_admin/total_filtered_value*100, 2),
+        "total_mappable_after_pct_admin": round(
+            total_mappable_after_admin/total_filtered_value*100, 2),
            }
+
+def earliest_latest_disbursements(country_code):
+    country = abprojects.country(country_code)
+    FYDATA_QUERY = """
+        SELECT strftime('%%Y', DATE(transaction_date, '-%s month'))
+        AS fiscal_year
+        FROM atransaction
+        JOIN activity ON
+            activity.iati_identifier=atransaction.activity_iati_identifier
+        WHERE activity.recipient_country_code = '%s'
+        AND atransaction.transaction_type_code = '%s'
+        GROUP BY fiscal_year
+        """
+    fydata_results = db.engine.execute(FYDATA_QUERY % (
+            country.fiscalyear_modifier, country_code, "D")
+            )
+    fydata = map(lambda d: int(d[0]), fydata_results)
+    max_fydata = max(fydata)
+    min_fydata = min(fydata)
+    return min_fydata, max_fydata
