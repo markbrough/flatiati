@@ -48,6 +48,14 @@ Run the server:
 
     python manage.py runserver
 
+Importing data for all countries
+--------------------------------
+
+You can run the following script in order to set up data for all 
+countries for which data already exists:
+
+    ./load_data.sh
+
 Importing files for a country
 -----------------------------
 
