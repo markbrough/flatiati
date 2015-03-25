@@ -4,6 +4,7 @@ from abmapper import app, db
 from abmapper.query import projects as abprojects
 from abmapper.query import sectors as absectors
 from abmapper.query import models
+from abmapper.lib import util
 import datetime
 
 def getfirst(list):
@@ -69,9 +70,21 @@ def get_orgs(activity):
                       organisation=organisation))
     return ret
 
+def get_currency(activity, transaction):
+    ac = activity.get("default-currency")
+    if ac and ac != "":
+        return ac
+    tc = transaction.xpath("value/@currency")
+    if tc and tc != "":
+        return tc
+    return "USD"
+
 def get_transactions(activity):
     ret = []
     for ele in activity.xpath("./transaction"):
+        currency = get_currency(activity, ele)
+        exchange_rate = util.exchange_rates()[currency]
+
         t_type = getfirst(ele.xpath("transaction-type/@code"))
         t_date = getfirst(ele.xpath("transaction-date/@iso-date"))
         t_value = getfirst(ele.xpath("value/text()"))
@@ -98,7 +111,7 @@ def get_transactions(activity):
 
         tr = models.Transaction()
         tr.activity_iati_identifier = iati_identifier
-        tr.value = t_value
+        tr.value = t_value * exchange_rate
         tr.value_date = datetime.datetime.strptime(
                 t_value_date, "%Y-%m-%d" )
         tr.value_currency = ""
