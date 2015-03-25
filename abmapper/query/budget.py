@@ -3,6 +3,7 @@
 
 from abmapper import app, db
 from abmapper.query import models
+from abmapper.query import sectors
 import unicodecsv
 
 class BudgetSetupError(Exception):
@@ -87,7 +88,8 @@ def add_budget_code(country_code, budget_type, cc_id, budget_code,
                                     models.BudgetCode
                    ).filter(
                         models.BudgetCode.country_code == country_code,
-                        models.CCBudgetCode.cc_id == cc_id
+                        models.CCBudgetCode.cc_id == cc_id,
+                        models.BudgetCode.budgettype_code == budget_type
                    ).join(models.BudgetCode
                    ).first()
         if checkBCL:
@@ -141,7 +143,8 @@ def add_low_budget_code(country_code, budget_type, cc_id, budget_code,
                                     models.LowerBudgetCode
                    ).filter(
                     models.LowerBudgetCode.country_code == country_code,
-                    models.CCLowerBudgetCode.cc_id == cc_id
+                    models.CCLowerBudgetCode.cc_id == cc_id,
+                    models.LowerBudgetCode.budgettype_code == budget_type
                    ).join(models.LowerBudgetCode
                    ).first()
         if checkBCL:
