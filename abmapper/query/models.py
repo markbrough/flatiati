@@ -206,7 +206,7 @@ class Activity(db.Model):
             self.pct_mappable_after_sql % (self.iati_identifier,
                    self.recipient_country_code,
                    "f")).first()[0])
-                   
+
     @hybrid_property
     def pct_mappable_before_admin(self):
         return none_is_zero(db.engine.execute(
@@ -256,7 +256,7 @@ class Activity(db.Model):
     @hybrid_property
     def FY_disbursements(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier, 
+                        (self.recipient_country.fiscalyear_modifier,
                          self.iati_identifier, "D")
                                   ).fetchall()
         return {
@@ -270,7 +270,7 @@ class Activity(db.Model):
     @hybrid_property
     def FY_commitments(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier, 
+                        (self.recipient_country.fiscalyear_modifier,
                          self.iati_identifier, "C")
                                   ).fetchall()
         return {
@@ -326,8 +326,8 @@ class RecipientCountry(db.Model):
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
     fiscalyear = sa.Column(sa.UnicodeText)
-    fiscalyear_modifier = sa.Column(sa.Integer, 
-        nullable=False, 
+    fiscalyear_modifier = sa.Column(sa.Integer,
+        nullable=False,
         default=0)
     budgettype_id = sa.Column(
         act_ForeignKey("budgettype.code"),
