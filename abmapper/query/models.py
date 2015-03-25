@@ -22,14 +22,14 @@ act_ForeignKey = ft.partial(
 )
 
 FYDATA_QUERY = """
-                    SELECT sum(value) AS value, 
-                    strftime('%%Y', DATE(transaction_date, '-9 month')) 
-                    AS fiscal_year
-                    FROM atransaction
-                    WHERE atransaction.activity_iati_identifier = '%s'
-                    AND atransaction.transaction_type_code = '%s'
-                    GROUP BY fiscal_year
-                    """
+    SELECT sum(value) AS value,
+    strftime('%%Y', DATE(transaction_date, '-%s month'))
+    AS fiscal_year
+    FROM atransaction
+    WHERE atransaction.activity_iati_identifier = '%s'
+    AND atransaction.transaction_type_code = '%s'
+    GROUP BY fiscal_year
+    """
 
 # The "Unique Object" pattern
 # http://www.sqlalchemy.org/trac/wiki/UsageRecipes/UniqueObject
@@ -167,35 +167,59 @@ class Activity(db.Model):
                 where(Transaction.activity_iati_identifier==self.iati_identifier).\
                 where(Transaction.transaction_type_code=="D")).first()[0]
 
+    pct_mappable_before_sql = """
+        SELECT sum(sector.percentage) AS sum_1
+        FROM sector
+        JOIN dacsector ON dacsector.code = sector.code
+        JOIN commoncode ON commoncode.id = dacsector.cc_id
+        JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
+        JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
+        WHERE sector.activity_iati_identifier = '%s'
+        AND sector.edited = 0 AND dacsector.cc_id != "0"
+        AND budgetcode.country_code="%s"
+        AND budgetcode.budgettype_code="%s";
+        """
+
+    pct_mappable_after_sql = """
+        SELECT sum(sector.percentage) AS sum_1
+        FROM sector
+        JOIN dacsector ON dacsector.code = sector.code
+        JOIN commoncode ON commoncode.id = dacsector.cc_id
+        JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
+        JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
+        WHERE sector.activity_iati_identifier = '%s'
+        AND sector.deleted = 0 AND dacsector.cc_id != "0"
+        AND budgetcode.country_code="%s"
+        AND budgetcode.budgettype_code="%s";
+        """
+
     @hybrid_property
     def pct_mappable_before(self):
-        return none_is_zero(db.engine.execute("""
-            SELECT sum(sector.percentage) AS sum_1 
-            FROM sector
-            JOIN dacsector ON dacsector.code = sector.code 
-            JOIN commoncode ON commoncode.id = dacsector.cc_id
-            JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
-            JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
-            WHERE sector.activity_iati_identifier = '%s' 
-            AND sector.edited = 0 AND dacsector.cc_id != "0"
-            AND budgetcode.country_code="%s";
-            """ % (self.iati_identifier,
-                   self.recipient_country_code)).first()[0])
+        return none_is_zero(db.engine.execute(
+            self.pct_mappable_before_sql % (self.iati_identifier,
+                   self.recipient_country_code,
+                   "f")).first()[0])
 
     @hybrid_property
     def pct_mappable_after(self):
-        return none_is_zero(db.engine.execute("""
-            SELECT sum(sector.percentage) AS sum_1 
-            FROM sector
-            JOIN dacsector ON dacsector.code = sector.code 
-            JOIN commoncode ON commoncode.id = dacsector.cc_id
-            JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
-            JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
-            WHERE sector.activity_iati_identifier = '%s' 
-            AND sector.deleted = 0 AND dacsector.cc_id != "0"
-            AND budgetcode.country_code="%s";
-            """ % (self.iati_identifier,
-                   self.recipient_country_code)).first()[0])
+        return none_is_zero(db.engine.execute(
+            self.pct_mappable_after_sql % (self.iati_identifier,
+                   self.recipient_country_code,
+                   "f")).first()[0])
+                   
+    @hybrid_property
+    def pct_mappable_before_admin(self):
+        return none_is_zero(db.engine.execute(
+             self.pct_mappable_before_sql % (self.iati_identifier,
+                   self.recipient_country_code,
+                   "a")).first()[0])
+
+    @hybrid_property
+    def pct_mappable_after_admin(self):
+        return none_is_zero(db.engine.execute(
+            self.pct_mappable_after_sql % (self.iati_identifier,
+                   self.recipient_country_code,
+                   "a")).first()[0])
 
     @hybrid_property
     def pct_mappable_diff(self):
@@ -232,7 +256,8 @@ class Activity(db.Model):
     @hybrid_property
     def FY_disbursements(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
-                                        (self.iati_identifier, "D")
+                        (self.recipient_country.fiscalyear_modifier, 
+                         self.iati_identifier, "D")
                                   ).fetchall()
         return {
                     fyval.fiscal_year: {
@@ -245,7 +270,8 @@ class Activity(db.Model):
     @hybrid_property
     def FY_commitments(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
-                                        (self.iati_identifier, "C")
+                        (self.recipient_country.fiscalyear_modifier, 
+                         self.iati_identifier, "C")
                                   ).fetchall()
         return {
                     fyval.fiscal_year: {
@@ -300,7 +326,9 @@ class RecipientCountry(db.Model):
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
     fiscalyear = sa.Column(sa.UnicodeText)
-    fiscalyear_modifier = sa.Column(sa.Integer)
+    fiscalyear_modifier = sa.Column(sa.Integer, 
+        nullable=False, 
+        default=0)
     budgettype_id = sa.Column(
         act_ForeignKey("budgettype.code"),
         default=None)
