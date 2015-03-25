@@ -121,6 +121,14 @@ def activity_export(country_code, reporting_org=None):
         for col, value in cols_vals.items():
             ws = wm(ws, i, sectors_rows_length, col, value)
 
+        for col, fy in enumerate(disbFYs, start=28):
+            fyd = project.FY_disbursements.get(str(fy))
+            if fyd:
+                value = fyd["value"]
+            else:
+                value = 0
+            ws = wm(ws, i, sectors_rows_length, col, value)
+
         cols_vals_styles = {
             14: (project.date_start_actual or project.date_start_planned,
                  styleDates),
@@ -201,11 +209,6 @@ def activity_export(country_code, reporting_org=None):
                 ws = wr(ws, i, col, value)
             if si+1 < numsectors:
                 i+=1
-
-            for col, fy in enumerate(disbFYs, start=28):
-                fyd = project.FY_disbursements.get(str(fy))
-                if fyd:
-                    ws.write(i, col, fyd['value'])
 
     strIOsender = StringIO.StringIO()
     wb.save(strIOsender)
