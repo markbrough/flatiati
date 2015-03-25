@@ -1,0 +1,154 @@
+"CC","Category of Government","Sector","Function","BUDGET_CODE","LOWER_BUDGET_CODE","BUDGET_NAME","LOWER_BUDGET_NAME"
+"1.1.1","General Public Service","Executive","executive",101,,"President",
+"1.2.1",,"Legislative","legislative",202,202012,"Constituent Assembly / Legislature - Parliament","Constituent Assembly / Legislature-Parliament Secretariat"
+"1.3.1",,"Accountability","macroeconomic policy",305,,"Ministry of Finance",
+"1.3.2",,,"budgeting",305,,"Ministry of Finance",
+"1.3.3",,,"planning",305,,"Ministry of Finance",
+"1.3.4",,,"Treasury/Accounts",305,,"Ministry of Finance",
+"1.3.5",,,"debt and aid management",305,,"Ministry of Finance",
+"1.3.6",,,"tax policy",305,,"Ministry of Finance",
+"1.3.7",,,"tax collection",305,305020,"Ministry of Finance","Inland Revenue Department"
+"1.3.8",,,"local government finance",305,,"Ministry of Finance",
+"1.3.9",,,"other central transfers to institutions ",305,,"Ministry of Finance",
+"1.3.10",,,"national audit",208,208011,"Office of the Auditor General","Office of the Auditor General("
+"1.3.11",,,"national monitoring and evaluation",305,305012,"Ministry of Finance","Financial Comptroller General Office"
+"1.3.12",,,"monetary institutions",305,,"Ministry of Finance",
+"1.3.13",,,"financial sector policy and regulation",305,,"Ministry of Finance",
+"1.4.1",,"External Affairs","foreign affairs ",326,,"Ministry of Foreign Affairs",
+"1.4.2",,,"diplomatic missions",326,326012,"Ministry of Foreign Affairs","Nepalese Embassies and Consulates"
+"1.4.3",,,"official development assistance",305,,"Ministry of Finance",
+"1.5.1",,"General Personnel Services","general personnel services",210,210011,"Public Service Commission","Public Service Commission"
+"1.6.1",,"Statistics","statistics",391,391013,"National Planning Commission Secreterate","Central Bureau of Statistics"
+"1.7.1",,"Other General Services","support to civil society ",,,,
+"1.7.2",,,"central procurement",301,301020,"Prime Minister and Council of Minister's Office","Public Procurement Monitoring Office"
+"1.7.3",,,"Local Government Administration",365,,"Ministry of Federal Affairs and Local Development",
+"1.7.4",,,"other general services",,,,
+"1.8.1",,"Elections","elections",212,,"Election Commission",
+"2.1.1","Justice, Law, Order and Security","Justice, Law and Order","policy, planning and administration",314,,"Ministry of Home",
+"2.1.2",,,"police",314,,"Ministry of Home",
+"2.1.3",,,"fire",314,,"Ministry of Home",
+"2.1.4",,,"judicial affairs",311,,"Ministry of Law, Justice, Constituent Assembly and Parliamentary Affairs",
+"2.1.5",,,"Ombudsman",,,,
+"2.1.6",,,"human rights affairs",214,214011,"National Human Rights Commission","National Human Rights Commission"
+"2.1.7",,,"immigration",314,314021,"Ministry of Home","Department of Immigration"
+"2.1.8",,,"anti corruption",206,206011,"Commission for Investigation of Abuse of Authority","Commission for Investigation of Abuse of Authority"
+"2.1.9",,,"prisons",314,314019,"Ministry of Home","Jail Management Department"
+"2.1.10",,,"peace building",349,349011,"Ministry of Peace & Reconstruction","Ministry of Peace & Reconstruction"
+"2.1.11",,,"demobilisation",349,349102,"Ministry of Peace & Reconstruction","Reconstruction & Rehabilitation Program"
+"2.2.1",,"Defence","policy, planning and administration",345,345012,"Ministry of Defence","National Security Council"
+"2.2.2",,,"military",345,,"Ministry of Defence",
+"2.2.3",,,"civil defence",314,314033,"Ministry of Home","Armed Police Force Metro Politan Office"
+"2.2.4",,,"foreign military aid",345,,"Ministry of Defence",
+"3.1.1","Economic Affairs","General Economic, Commercial and Labour Affairs","policy, planning and administration",305,,"Ministry of Finance",
+"3.1.2",,,"general economic affairs",305,,"Ministry of Finance",
+"3.1.3",,,"investment promotion",301,301031,"Prime Minister and Council of Minister's Office","Investment Board Office"
+"3.1.4",,,"privatisation",305,,"Ministry of Finance",
+"3.1.5",,,"trade",330,330104,"Ministry of Commerce and Supply","Trade Information & Export Support Project"
+"3.1.6",,,"labour",371,371012,"Ministry of Labour and Employment","Department of Labour"
+"3.1.7",,,"national standards development",307,307016,"Ministry of Industry","Department of Nepal Standards, Weights & Measurement"
+"3.2.1",,"Public Works","policy, planning and administration",337,,"Ministry of Physical Infrastructure and Transport",
+"3.2.2",,,"construction regulation",347,347019,"MInistry of Urban Development","Department of Urban Development & Building Construction"
+"3.2.3",,,"mechanical services",337,,"Ministry of Physical Infrastructure and Transport",
+"3.3.1",,"Agriculture","policy, planning and administration",312,312012,"Ministry of Agriculture Development","Department of Agriculture"
+"3.3.2",,,"irrigation",357,357011,"Ministry of Irrigation","Ministry of Irrigation"
+"3.3.3",,,"inputs",312,,"Ministry of Agriculture Development",
+"3.3.4",,,"food crop",312,,"Ministry of Agriculture Development",
+"3.3.5",,,"industrial crop",312,,"Ministry of Agriculture Development",
+"3.3.6",,,"livestock",312,312014,"Ministry of Agriculture Development","Department of Livestock"
+"3.3.7",,,"agricultural training and extension",312,312116,"Ministry of Agriculture Development","Agriculture Extension & Training Program"
+"3.3.8",,,"research",312,312101,"Ministry of Agriculture Development","Agriculture Research and Development Fund"
+"3.3.9",,,"other services",312,,"Ministry of Agriculture Development",
+"3.4.1",,"Forestry","policy, planning and administration",329,329012,"Ministry of Forestry and Soil Conservation","Department of Forest"
+"3.4.2",,,"development and services",329,329106,"Ministry of Forestry and Soil Conservation","National Forest Development & Management Program"
+"3.4.3",,,"education/training",329,,"Ministry of Forestry and Soil Conservation",
+"3.4.4",,,"research",329,329020,"Ministry of Forestry and Soil Conservation","Department of Forest Research & Survey"
+"3.5.1",,"Fishing and Hunting","policy, planning and administration",312,312110,"Ministry of Agriculture Development","Fishery Development Program"
+"3.5.2",,,"development and services",312,312110,"Ministry of Agriculture Development","Fishery Development Program"
+"3.5.3",,,"education and training",312,312110,"Ministry of Agriculture Development","Fishery Development Program"
+"3.5.4",,,"research",312,,"Ministry of Agriculture Development",
+"3.6.1",,"Energy","policy, planning and administration",308,,"Ministry of Energy",
+"3.6.2",,,"education and training",308,,"Ministry of Energy",
+"3.6.3",,,"energy regulation",308,308013,"Ministry of Energy","Commission of Electricity Bill"
+"3.6.4",,,"electricity transmission",308,308012,"Ministry of Energy","Department for Electricity Development"
+"3.6.5",,,"nuclear",308,,"Ministry of Energy",
+"3.6.6",,,"power generation",308,308012,"Ministry of Energy","Department for Electricity Development"
+"3.6.7",,,"gas ",308,,"Ministry of Energy",
+"3.7.1",,"Mining and Mineral Development","policy, planning and administration",307,307013,"Ministry of Industry","Department of Mines & Geology"
+"3.7.2",,,"prospection and exploration",307,307102,"Ministry of Industry","Mine Exploration and Development Project"
+"3.7.3",,,"coal and other solid mineral fuels",307,307013,"Ministry of Industry","Department of Mines & Geology"
+"3.7.4",,,"petroleum and gas",307,307103,"Ministry of Industry","Petroleum Exploration Project"
+"3.7.5",,,"other fuel",307,307013,"Ministry of Industry","Department of Mines & Geology"
+"3.7.6",,,"non fuel minerals",307,307013,"Ministry of Industry","Department of Mines & Geology"
+"3.8.1",,"Transport","policy, planning and administration",337,,"Ministry of Physical Infrastructure and Transport",
+"3.8.2",,,"transport regulation",337,337026,"Ministry of Physical Infrastructure and Transport","Department of Transportation Management"
+"3.8.3",,,"feeder road construction",337,337012,"Ministry of Physical Infrastructure and Transport","Department of Road"
+"3.8.4",,,"feeder road maintenance",337,337012,"Ministry of Physical Infrastructure and Transport","Department of Road"
+"3.8.5",,,"national road construction",337,337012,"Ministry of Physical Infrastructure and Transport","Department of Road"
+"3.8.6",,,"national road maintenance",337,337012,"Ministry of Physical Infrastructure and Transport","Department of Road"
+"3.8.7",,,"rail",337,337022,"Ministry of Physical Infrastructure and Transport","Department of Railway"
+"3.8.8",,,"water",337,337306,"Ministry of Physical Infrastructure and Transport","Water Ways"
+"3.8.9",,,"air",325,,"Ministry of Cooperative and poverty Alleviation",
+"3.8.10",,,"pipeline",308,,"Ministry of Energy",
+"3.8.11",,,"storage and distribution",337,,"Ministry of Physical Infrastructure and Transport",
+"3.8.12",,,"public transport services",337,,"Ministry of Physical Infrastructure and Transport",
+"3.8.13",,,"meteorological services",331,331012,"Ministry of Science Technology and Environment","Department of Hydrology and Meteorology"
+"3.8.14",,,"education and training",337,,"Ministry of Physical Infrastructure and Transport",
+"3.9.1",,"Industry","policy, planning and administration",307,307012,"Ministry of Industry","Department of Industry"
+"3.9.2",,,"development and services",307,,"Ministry of Industry",
+"3.9.3",,,"industrial research",307,307105,"Ministry of Industry","Industrial Enterprise Development Academy"
+"3.9.4",,,"(investment in industry)",307,,"Ministry of Industry",
+"3.10.1",,"Communications","policy, planning and administration",358,,"Ministry of Information and Communications",
+"3.10.2",,,"ICT Infrastructure",331,331015,"Ministry of  Science Technology and Environment","Department of Information Technology "
+"3.10.3",,,"telecoms and postal services",358,,"Ministry of Information and Communications",
+"3.10.4",,,"information services",358,358013,"Ministry of Information and Communications","Department of Information"
+"3.11.1",,"Tourism","policy, planning and administration",325,325011,"Ministry of Cooperative and poverty Alleviation","Ministry of Culture, Tourism and Civil Aviation"
+"3.11.2",,,"services",325,,"Ministry of Cooperative and poverty Alleviation",
+"3.12.1",,"Microfinance and financial services","Microfinance and financial services",305,,"Ministry of Finance",
+"4.1.1","Water, Natural Resource Management and Environment","Water supply and Sanitation","policy, planning and administration",347,,"MInistry of Urban Development",
+"4.1.2",,,"education/training",347,,"MInistry of Urban Development",
+"4.1.3",,,"rural water supply and sanitation",365,,"Ministry of Federal Affairs and Local Development",
+"4.1.4",,,"urban water supply and sanitation",347,347018,"MInistry of Urban Development","Department of Drinking Water & Sewerage"
+"4.1.5",,,"rural water supply",365,365804,"Ministry of Federal Affairs and Local Development","Rural Drinking Water & Sanitation Program"
+"4.1.6",,,"urban water supply",347,347018,"MInistry of Urban Development","Department of Drinking Water & Sewerage"
+"4.1.7",,,"rural sanitation",357,365804,"Ministry of Irrigation","Rural Drinking Water & Sanitation Program"
+"4.1.8",,,"urban sanitation",347,347018,"MInistry of Urban Development","Department of Drinking Water & Sewerage"
+"4.1.9",,,"sewage and waste management",357,,"Ministry of Irrigation",
+"4.2.1",,"Environment","policy, planning and administration",331,,"Ministry of  Science Technology and Environment",
+"4.2.2",,,"research/ education and training",331,331125,"Ministry of  Science Technology and Environment","Nepal Academy of Science & Technology"
+"4.2.3",,,"natural resource management",329,,"Ministry of Forestry and Soil Conservation",
+"4.2.4",,,"water resources management",357,,"Ministry of Irrigation",
+"4.2.5",,,"wildlife protection, parks and site preservation",329,329017,"Ministry of Forestry and Soil Conservation","Department of National Park & Wildlife Protection"
+"5.1.1","Social Affairs","Health","policy, planning and administration",370,,"Ministry of Health and Population",
+"5.2.1",,"Recreation, Culture and Religion","recreation and sport",343,,"Ministry of Youth and Sports",
+"5.2.2",,,"culture",325,,"Ministry of Cooperative and poverty Alleviation",
+"5.2.3",,,"broadcasting and publishing",358,,"Ministry of Information and Communications",
+"5.2.4",,,"religion",365,365011,"Ministry of Federal Affairs and Local Development","Ministry of Federal Affairs and Local Development"
+"5.3.1",,"Education","administration, policy and planning",350,350012,"Ministry of Education","Department of Education"
+"5.3.2",,,"research",350,,"Ministry of Education",
+"5.3.3",,,"pre-primary",350,,"Ministry of Education",
+"5.3.4",,,"primary",350,350016,"Ministry of Education","Education for All - Primary Education"
+"5.3.5",,,"lower secondary",350,350017,"Ministry of Education","Various Secondary & Lower Secondary Schools"
+"5.3.6",,,"upper secondary",350,350108,"Ministry of Education","Higher Secondary Education"
+"5.3.7",,,"post secondary non tertiary ",350,,"Ministry of Education",
+"5.3.8",,,"tertiary",350,350109,"Ministry of Education","Council for Technical Ed. & Vocational Training "
+"5.3.9",,,"vocational training",350,350109,"Ministry of Education","Council for Technical Ed. & Vocational Training "
+"5.3.10",,,"advanced technical and managerial training",350,350109,"Ministry of Education","Council for Technical Ed. & Vocational Training "
+"5.3.11",,,"basic adult education",350,350021,"Ministry of Education","Non formal Education Center"
+"5.3.12",,,"teacher training",350,350020,"Ministry of Education","Teacher Service Commission"
+"5.3.13",,,"subsidiary services",350,,"Ministry of Education",
+"5.4.1",,"Social Protection, Land Housing and Community Amenities","policy, planning and administration",340,,"Ministry of Women, Children & Social Welfare",
+"5.4.2",,,"social security (excl pensions)",340,,"Ministry of Women, Children & Social Welfare",
+"5.4.3",,,"general pensions",365,365015,"Ministry of Federal Affairs and Local Development","Senior Citizen, Disabled, Endangered Ethnicity & Single Woman Security Scheme"
+"5.4.4",,,"civil service and military pensions",601,,"MOF Staff Benifits and Retirement Benefits",
+"5.4.5",,,"social services (incl youth development and women+ children)",365,,"Ministry of Federal Affairs and Local Development",
+"5.4.6",,,"land policy and management",336,,"Ministry of Land Reforms and Management",
+"5.4.7",,,"rural devt",365,365016,"Ministry of Federal Affairs and Local Development","Department of Local Infrastructure Development and Agriculture Road"
+"5.4.8",,,"urban devt",347,347019,"MInistry of Urban Development","Department of Urban Development & Building Construction"
+"5.4.9",,,"housing and community amenities",365,,"Ministry of Federal Affairs and Local Development",
+"5.4.10",,,"emergency relief",602,602102,"MOF Miscellaneous","Natural Disaster Relief & Reconstruction"
+"5.4.11",,,"disaster prevention and preparedness",,,,
+"5.4.12",,,"support to refugees and internally displaced persons",349,,"Ministry of Peace & Reconstruction",
+"6.1.1","Development Partner Affairs","Development Partner affairs","policy planning and administration",,,,
+"6.1.2",,,"Technical staff services",,,,
+"7.1.1","General Budget Support and Aid support external to General Government Sector","External to government sector","External to general government sector",,,,
+"7.2.1",,"General Budget Support","General Budget Support",,,,
