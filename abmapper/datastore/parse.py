@@ -111,7 +111,7 @@ def get_transactions(activity):
 
         tr = models.Transaction()
         tr.activity_iati_identifier = iati_identifier
-        tr.value = t_value * exchange_rate
+        tr.value = (float(t_value) * exchange_rate)
         tr.value_date = datetime.datetime.strptime(
                 t_value_date, "%Y-%m-%d" )
         tr.value_currency = ""
