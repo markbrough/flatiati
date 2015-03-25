@@ -90,7 +90,7 @@ def get_added_deleted_sectors(sheet_sectors, db_sectors):
         try:
             assert sector_code in new_sectors
         except AssertionError:
-            print "Sector code %s not found in spreadsheet"
+            print "Sector code %s not found in spreadsheet" % sector_code
             raise
         
         ns = new_sectors[sector_code]
