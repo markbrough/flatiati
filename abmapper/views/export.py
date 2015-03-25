@@ -41,6 +41,10 @@ def activity_export(country_code, reporting_org=None):
         return "; ".join(filter(notNone, map(lambda x: getattr(x, col),
                                              list)))
 
+    def getcs_org(list, col):
+        return "; ".join(filter(notNone, map(lambda x:
+                         getattr(x.organisation, col), list)))
+
     font0 = xlwt.Font()
     font0.name = 'Times New Roman'
     font0.bold = True
@@ -80,7 +84,12 @@ def activity_export(country_code, reporting_org=None):
         'activity_status_code', 'activity_status', 'date_start',
         'date_end', 'capital_spend_pct', 'total_commitments',
         'total_disbursements', 'budget_code', 'budget_name',
-        'lowerbudget_code', 'lowerbudget_name']
+        'lowerbudget_code', 'lowerbudget_name', 'admin_code',
+        'admin_name', 'loweradmin_code', 'loweradmin_name',
+        'implementing_org']
+    minFY, maxFY = abstats.earliest_latest_disbursements(country_code)
+    disbFYs = range(minFY, maxFY+1)
+    headers += map(lambda fy: "%s (D)" % fy, disbFYs)
 
     [ws.write(0, i, h, styleHeader) for i, h in enumerate(headers)]
 
@@ -107,6 +116,7 @@ def activity_export(country_code, reporting_org=None):
             13: project.status.text,
             17: project.total_commitments,
             18: project.total_disbursements,
+            27: getcs_org(project.implementing_orgs, 'name'),
         }
         for col, value in cols_vals.items():
             ws = wm(ws, i, sectors_rows_length, col, value)
@@ -117,17 +127,27 @@ def activity_export(country_code, reporting_org=None):
             15: (project.date_end_actual or project.date_end_planned,
                  styleDates),
             16: (project.capital_exp,
-                 stylePCT)
+                 stylePCT),
         }
 
         for col, value in cols_vals_styles.items():
             ws = wm(ws, i, sectors_rows_length, col, value[0], value[1])
 
         def frelbudget(budget_code):
-            return project.recipient_country_code == budget_code.budgetcode.country_code
+            return (project.recipient_country_code == budget_code.budgetcode.country_code and
+            budget_code.budgetcode.budgettype_code == 'f')
 
         def frelbudgetlow(budget_code):
-            return project.recipient_country_code == budget_code.lowerbudgetcode.country_code
+            return (project.recipient_country_code == budget_code.lowerbudgetcode.country_code and
+            budget_code.lowerbudgetcode.budgettype_code == 'f')
+
+        def frelbudget_admin(budget_code):
+            return (project.recipient_country_code == budget_code.budgetcode.country_code and
+            budget_code.budgetcode.budgettype_code == 'a')
+
+        def frelbudgetlow_admin(budget_code):
+            return (project.recipient_country_code == budget_code.lowerbudgetcode.country_code and
+            budget_code.lowerbudgetcode.budgettype_code == 'a')
 
         for si, sector in enumerate(current_sectors):
             if not sector.assumed:
@@ -136,7 +156,8 @@ def activity_export(country_code, reporting_org=None):
             else:
                 if sector.formersector:
                     ws.write(i, 3, sector.formersector.code, styleRed)
-                    ws.write(i, 4, sector.formersector.description, styleRed)
+                    ws.write(i, 4, sector.formersector.description,
+                                                             styleRed)
                 # No previous sector known - spreadsheet must have changed
                 # on import... leave blank rather than show warning msg?
 
@@ -150,6 +171,11 @@ def activity_export(country_code, reporting_org=None):
             relevant_lowerbudget = filter(frelbudgetlow,
                          sector.dacsector.cc.cc_lowerbudgetcode)
 
+            relevant_budget_admin = filter(frelbudget_admin,
+                         sector.dacsector.cc.cc_budgetcode)
+            relevant_lowerbudget_admin = filter(frelbudgetlow_admin,
+                         sector.dacsector.cc.cc_lowerbudgetcode)
+
             cols_vals_simple = {
                 5: sector.percentage,
                 7: sector.dacsector.cc.sector,
@@ -161,12 +187,25 @@ def activity_export(country_code, reporting_org=None):
                                relevant_lowerbudget),
                 22: comma_join('lowerbudgetcode', 'name',
                                relevant_lowerbudget),
+                23: comma_join('budgetcode', 'code',
+                                            relevant_budget_admin),
+                24: comma_join('budgetcode', 'name',
+                                            relevant_budget_admin),
+                25: comma_join('lowerbudgetcode', 'code',
+                               relevant_lowerbudget_admin),
+                26: comma_join('lowerbudgetcode', 'name',
+                               relevant_lowerbudget_admin),
             }
 
             for col, value in cols_vals_simple.items():
                 ws = wr(ws, i, col, value)
             if si+1 < numsectors:
                 i+=1
+
+            for col, fy in enumerate(disbFYs, start=28):
+                fyd = project.FY_disbursements.get(str(fy))
+                if fyd:
+                    ws.write(i, col, fyd['value'])
 
     strIOsender = StringIO.StringIO()
     wb.save(strIOsender)
@@ -181,7 +220,7 @@ def activity_export(country_code, reporting_org=None):
                      
 @app.route("/<country_code>/sankey.json")
 def country_sankey(country_code):
-    data = abstats.generate_sankey_data(country_code)
+    data = abstats.generate_sankey_data(country_code, "f")
     return jsonify(data)
 
 @app.route("/<country_code>/budgetstats.csv")
@@ -196,7 +235,7 @@ def country_budget_stats_csv(country_code):
     def decomma(value):
         return re.sub(",", "", value)
 
-    budget_stats = abstats.budget_project_stats(country_code)
+    budget_stats = abstats.budget_project_stats(country_code, "f")
 
     ccolours = country_colours.colours(country_code)
 
