@@ -25,8 +25,7 @@
   <dt>{{ _("Sum of projects") }}</dt><dd>{{stats.total_value}} ({{ _("commitments in USD") }})</dd>
   <dt>{{ _("Number of projects") }}</dt><dd>{{stats.total_projects}}</dd>
 </dl>
-<h3>{% if country.budgettype %}{{ country.budgettype.text }}
-    {% else %}{{ _("Administrative/functional classification") }}{% endif %}
+<h3> {{ _("Functional classification") }}
 </h3>
 <dl class="dl-horizontal">
   <dt>{{ _("Before") }}</dt><dd>
@@ -43,6 +42,30 @@
       </div>
     </div></dd>
 </dl>
+{% if stats.admin %}
+<h3>
+    {{ _("Administrative classification") }}
+</h3>
+<dl class="dl-horizontal">
+  <dt>{{ _("Before") }}</dt><dd>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" 
+      aria-valuemin="0" aria-valuemax="100" 
+      style="width: {{stats.total_mappable_before_pct_admin}}%;">
+        <span><b>{{stats.total_mappable_before_pct_admin}}% Mappable</b></span>
+      </div>
+    </div>
+  </dd>
+  <dt>{{ _("After") }}</dt><dd>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" 
+      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
+      style="width: {{stats.total_mappable_after_pct_admin}}%;">
+        <span><b>{{stats.total_mappable_after_pct_admin}}% Mappable</b></span>
+      </div>
+    </div></dd>
+</dl>
+{% endif %}
 <h3>{{ _("Economic classification") }}</h3>
 <dl class="dl-horizontal">
   <dt>{{ _("Before") }}</dt><dd>
@@ -94,6 +117,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="table">
+        <h3>{{ _("Functional classification") }}</h3>
         <table class="table" id="budget-lines">
           <thead>
             <th>{{ _("Code") }}</th>
@@ -105,7 +129,32 @@
             <th>% {{ _("difference") }}</th>
           </thead>
           <tbody>
-            {% for code, bs in budget_stats.budgets.items() %}
+            {% for code, bs in functional_stats.budgets.items() %}
+            <tr {% if bs.change_pct %}class="active"{% endif %}>
+              <td>{{ bs.code }}</td>
+              <td>{{ bs.name }}</td>
+              <td>{{ bs.before.value }}</td>
+              <td>{{ bs.after.value }}</td>
+              <td>{{ bs.before.pct }}</td>
+              <td>{{ bs.after.pct }}</td>
+              <td>{{ bs.change_pct }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <h3>{{ _("Administrative classification") }}</h3>
+        <table class="table" id="budget-lines">
+          <thead>
+            <th>{{ _("Code") }}</th>
+            <th>{{ _("Budget line") }}</th>
+            <th>{{ _("Amount before") }}</th>
+            <th>{{ _("Amount after") }}</th>
+            <th>% {{ _("before") }}</th>
+            <th>% {{ _("after") }}</th>
+            <th>% {{ _("difference") }}</th>
+          </thead>
+          <tbody>
+            {% for code, bs in admin_stats.budgets.items() %}
             <tr {% if bs.change_pct %}class="active"{% endif %}>
               <td>{{ bs.code }}</td>
               <td>{{ bs.name }}</td>
