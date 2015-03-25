@@ -16,7 +16,7 @@ def exchange_rates():
     return {
         'GBP': 1.48446,
         'USD': 1,
-        'CAN': 0.799941,
+        'CAD': 0.799941,
     }
 
 def a_not_in_b(a, b):
