@@ -12,6 +12,13 @@ def jsonify(*args, **kwargs):
             indent=None if request.is_xhr else 2, cls=JSONEncoder),
             mimetype='application/json')
 
+def exchange_rates():
+    return {
+        'GBP': 1.48446,
+        'USD': 1,
+        'CAN': 0.799941,
+    }
+
 def a_not_in_b(a, b):
     def filterer(a):
         return a[0] not in dict(b).keys()
