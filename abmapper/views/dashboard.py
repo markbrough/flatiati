@@ -13,14 +13,16 @@ def dashboard():
 @app.route("/<country_code>/")
 def country_home(country_code):
     stats = abstats.country_project_stats(country_code)
-    budget_stats = abstats.budget_project_stats(country_code)
+    functional_stats = abstats.budget_project_stats(country_code, "f")
+    admin_stats = abstats.budget_project_stats(country_code, "a")
     country = abprojects.country(country_code)
     reporting_orgs = abprojects.reporting_org_activities(country_code)
     return render_template("country.html",
                            country=country,
                            reporting_orgs=reporting_orgs,
                            stats=stats,
-                           budget_stats=budget_stats,
+                           functional_stats=functional_stats,
+                           admin_stats=admin_stats,
                            )
 
 @app.route("/<country_code>/activities/")
