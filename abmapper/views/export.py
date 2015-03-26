@@ -79,8 +79,8 @@ def activity_export(country_code, reporting_org=None):
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
     headers = ['iati_identifier', 'project_title', 'project_description',
-        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'cc_sector',
-        'cc_category', 'cc_function', 'aid_type_code', 'aid_type',
+        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'cc_category',
+        'cc_sector', 'cc_function', 'aid_type_code', 'aid_type',
         'activity_status_code', 'activity_status', 'date_start',
         'date_end', 'capital_spend_pct', 'total_commitments',
         'total_disbursements', 'budget_code', 'budget_name',
@@ -186,8 +186,8 @@ def activity_export(country_code, reporting_org=None):
 
             cols_vals_simple = {
                 5: sector.percentage,
-                7: sector.dacsector.cc.sector,
-                8: sector.dacsector.cc.category,
+                7: sector.dacsector.cc.category,
+                8: sector.dacsector.cc.sector,
                 9: sector.dacsector.cc.function,
                 19: comma_join('budgetcode', 'code', relevant_budget),
                 20: comma_join('budgetcode', 'name', relevant_budget),
