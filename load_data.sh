@@ -17,7 +17,7 @@
 ./abtool.py --import --filename="data/haiti/xml/CA-3-HT.xml" --country-code="HT"
 ./abtool.py --update-projects --filename="data/haiti/xls/canada-HT.XLS" --reporting-org="CA-3" --country-code="HT"
 ./abtool.py --import --filename="data/haiti/xml/worldbank-ht.xml" --country-code="HT"
-# Missing WB Excel file
+./abtool.py --update-projects --filename="data/haiti/xls/worldbank-HT.XLS" --reporting-org="44000" --country-code="HT"
 ./abtool.py --import-budget --filename="data/haiti/haiti-mapping.csv" --country-code="HT" --budget-type="f"
 # -- end Haiti
 # Moldova - USAID
@@ -25,4 +25,9 @@
 ./abtool.py --update-projects --filename="data/moldova/xls/US-1-new.xls" --reporting-org="US-1" --country-code="MD"
 ./abtool.py --import-budget --filename="data/moldova/moldova_CC_functional.csv" --country-code="MD" --budget-type="f"
 ./abtool.py --import-budget --filename="data/moldova/moldova_CC_admin.csv" --country-code="MD" --budget-type="a"
+# -- end Moldova
+# DRC - Canada
+./abtool.py --import --filename="data/drc/xml/CA-3-CD.xml" --country-code="CD"
+./abtool.py --update-projects --filename="data/drc/xls/canada-drc.XLS" --country-code="CD" --reporting-org="CA-3"
+./abtool.py --import-budget --filename="data/drc/drc-mapping.csv" --country-code="CD" --budget-type="f"
 # Remember to manually adjust Fiscal Years for each country!
