@@ -58,7 +58,7 @@ def parse_org(xml):
     if check: return check
     return models.Organisation.as_unique(db.session, **data)
 
-def get_orgs(activity):
+def get_orgs(activity, country_code):
     ret = []
     seen = set()
     for ele in activity.xpath("./participating-org"):
@@ -67,7 +67,8 @@ def get_orgs(activity):
         if organisation and not (role, organisation.name) in seen:
             seen.add((role, organisation.name))
             ret.append(models.Participation(role=role,
-                      organisation=organisation))
+                      organisation=organisation,
+                      country_code=country_code))
     return ret
 
 def get_currency(activity, transaction):
@@ -160,7 +161,7 @@ def write_activity(activity, country_code):
     a.all_titles = get_titles(activity)
     a.all_descriptions = get_descriptions(activity)
     a.sectors = get_sectors(activity)
-    a.participating_orgs = get_orgs(activity)
+    a.participating_orgs = get_orgs(activity, country_code)
     a.reporting_org_ref = getfirst(activity.xpath('reporting-org/@ref'))
     a.transactions = get_transactions(activity)
     a.status_code = null_to_default(
