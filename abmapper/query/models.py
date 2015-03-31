@@ -553,6 +553,9 @@ class Participation(db.Model):
     activity_identifier = sa.Column(
         act_ForeignKey("activity.iati_identifier"),
         primary_key=True)
+    country_code = sa.Column(
+        act_ForeignKey("recipientcountry.code"),
+        primary_key=True)
     organisation_id = sa.Column(
         sa.ForeignKey("organisation.id"),
         primary_key=True)
