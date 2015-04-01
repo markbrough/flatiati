@@ -17,7 +17,7 @@
 ./abtool.py --import --filename="data/haiti/xml/CA-3-HT.xml" --country-code="HT"
 ./abtool.py --update-projects --filename="data/haiti/xls/canada-HT.XLS" --reporting-org="CA-3" --country-code="HT"
 ./abtool.py --import --filename="data/haiti/xml/worldbank-ht.xml" --country-code="HT"
-./abtool.py --update-projects --filename="data/haiti/xls/worldbank-HT.XLS" --reporting-org="44000" --country-code="HT"
+./abtool.py --update-projects --filename="data/haiti/xls/worldbank-HT.xls" --reporting-org="44000" --country-code="HT"
 ./abtool.py --import-budget --filename="data/haiti/haiti-mapping.csv" --country-code="HT" --budget-type="f"
 # -- end Haiti
 # Moldova - USAID
