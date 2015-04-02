@@ -256,3 +256,16 @@ def country_budget_stats_csv(country_code):
                           "after_value": decomma(bs["after"]["value"])})
     strIOsender.seek(0)
     return send_file(strIOsender)
+
+@app.route("/sectors/export.csv")
+def sectors_stats_csv():
+    data = abstats.sectors_stats()
+    strIOsender = StringIO.StringIO()
+    fieldnames = ['sector_code', 'sector_description',
+      'sector_parent_code', 'countries', 'total_value', 'num_activities']
+    writer = unicodecsv.DictWriter(strIOsender, fieldnames=fieldnames)
+    writer.writeheader()
+    for stats in data:
+        writer.writerow(stats)
+    strIOsender.seek(0)
+    return send_file(strIOsender)
