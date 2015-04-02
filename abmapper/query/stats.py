@@ -337,3 +337,40 @@ def earliest_latest_disbursements(country_code):
     max_fydata = max(fydata)
     min_fydata = min(fydata)
     return min_fydata, max_fydata
+
+def sectors_stats():
+    # for each sector, count number of projects and value using that
+    #  sector.
+    sql = """
+    SELECT
+    dacsector.code, dacsector.description_EN,
+    dacsector.parent_code,
+    group_concat(activity.recipient_country_code) AS countries,
+    sum(atransaction.value*sector.percentage/100) AS sum_value,
+    count(activity.id) AS num_activities
+    FROM dacsector
+    LEFT JOIN sector ON sector.code = dacsector.code
+    LEFT JOIN activity ON
+        activity.iati_identifier = sector.activity_iati_identifier
+    LEFT JOIN atransaction ON
+        activity.iati_identifier=atransaction.activity_iati_identifier
+    WHERE sector.deleted = 0
+    AND atransaction.transaction_type_code='C'
+    GROUP BY dacsector.code
+    ;"""
+    sector_stats_results = db.engine.execute(sql)
+
+    def tidy_countries(countries):
+        return ",".join(set(countries.split(",")))
+
+    stats = []
+    for sector in sector_stats_results:
+        stats.append({
+            "sector_code": sector.code,
+            "sector_description": sector.description_EN,
+            "sector_parent_code": sector.parent_code,
+            "countries": tidy_countries(sector.countries),
+            "total_value": round(sector.sum_value, 2),
+            "num_activities": sector.num_activities
+        })
+    return stats
