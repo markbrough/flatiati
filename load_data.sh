@@ -23,6 +23,8 @@
 # Moldova - USAID
 ./abtool.py --import --filename="data/moldova/xml/US-1-md.xml" --country-code="MD"
 ./abtool.py --update-projects --filename="data/moldova/xls/US-1-new.xls" --reporting-org="US-1" --country-code="MD"
+./abtool.py --import --filename="data/moldova/xml/worldbank-md.xml" --country-code="MD"
+./abtool.py --update-projects --filename="data/moldova/xls/worldbank-new.xls" --reporting-org="44000" --country-code="MD"
 ./abtool.py --import-budget --filename="data/moldova/moldova_CC_functional.csv" --country-code="MD" --budget-type="f"
 ./abtool.py --import-budget --filename="data/moldova/moldova_CC_admin.csv" --country-code="MD" --budget-type="a"
 # -- end Moldova
