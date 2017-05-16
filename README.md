@@ -7,6 +7,7 @@ License: AGPL v3.0
 ------------------
 
 Copyright (C) 2017 Mark Brough
+
 Copyright (C) 2015 Mark Brough, Publish What You Fund
 
     This program is free software: you can redistribute it and/or modify
