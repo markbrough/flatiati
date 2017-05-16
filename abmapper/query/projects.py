@@ -19,7 +19,7 @@ def projects(country_code, reporting_org=None):
     else:
         p = models.Activity.query.filter_by(
                 recipient_country_code=country_code,
-                reporting_org_ref=reporting_org
+                reporting_org_id=reporting_org
             ).all()
         
     return p
@@ -30,20 +30,23 @@ def country(country_code):
 
 def countries_activities():
     c = db.session.query(
-                func.count(models.Activity.id).label("num_activities"),
-                models.RecipientCountry
-            ).join(models.RecipientCountry
+                models.RecipientCountry,
+                func.count(models.Activity.id).label("num_activities")
+            ).outerjoin(models.Activity
             ).group_by(models.RecipientCountry
+            ).order_by("num_activities DESC"
+            ).order_by(models.RecipientCountry.code
             ).all()
     return c
 
 def reporting_org_activities(country_code):
-    r = db.session.query(
-        distinct(models.Activity.reporting_org_ref).label("reporting_org"),
-        func.count(models.Activity.id).label("num_activities"),
-        ).filter(models.Activity.recipient_country_code==country_code
-                    ).group_by(models.Activity.reporting_org_ref
-                    ).all()
+    reporting_orgs = models.ReportingOrg.query.all()
+    r = list(map(lambda x: {
+                "id": x.id,
+                "code": x.code,
+                "text": x.text,
+                "num_activities": x.num_activities}, reporting_orgs))
+    print r
     return r
 
 def project(iati_identifier):
@@ -51,23 +54,3 @@ def project(iati_identifier):
         iati_identifier=iati_identifier
         ).first()
     return p
-
-def mappable():
-    csql = """select count(activity.id) from activity;"""
-    
-    msql = """select count(activity.id) from activity 
-            left join sector on
-              activity.iati_identifier=sector.activity_iati_identifier 
-            left join dacsector on 
-              sector.code=dacsector.code
-            left join commoncode on 
-              dacsector.cc_id=commoncode.id 
-            where cc_id >0;"""
-
-    counta = db.engine.execute(csql).first()[0]
-    countm = db.engine.execute(msql).first()[0]
-
-    total = float(countm)/float(counta)*100
-    return {"all": counta, 
-            "mapped": countm, 
-            "total": total}
