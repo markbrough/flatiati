@@ -51,7 +51,7 @@ h1, h2, h3, .brand, .navbar-country .navbar-brand {
     text-shadow: 1px 1px 0 #ffffff, 2px 2px 0 #ffffff, 3px 3px 0 #ffffff, 4px 4px 0 #ffffff;
 }
 h1 {
-    font-size: 5.5em;
+    font-size: 4em;
 }
 h2 {
     font-size: 2em;
@@ -242,4 +242,12 @@ table {
 }
 #sankey-chart .link:hover, .selected {
   stroke-opacity: .5;
+}
+.flashmessage {
+    display:none;
+    margin-top:10px;
+}
+.form-control-feedback {
+    right: 5px;
+    top: 10px;
 }
