@@ -6,6 +6,7 @@ import unicodecsv
 import re
 from abmapper.query import projects as abprojects
 from abmapper.query import stats as abstats
+from abmapper.query import settings as absettings
 from abmapper import app
 from abmapper.lib import country_colours
 
@@ -79,17 +80,20 @@ def activity_export(country_code, reporting_org=None):
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
     headers = ['iati_identifier', 'project_title', 'project_description',
-        'sector_code', 'sector_name', 'sector_pct', 'cc_id', 'cc_category',
-        'cc_sector', 'cc_function', 'aid_type_code', 'aid_type',
+        'sector_code', 'sector_name', 'sector_pct', 'aid_type_code', 'aid_type',
         'activity_status_code', 'activity_status', 'date_start',
         'date_end', 'capital_spend_pct', 'total_commitments',
         'total_disbursements', 'budget_code', 'budget_name',
         'lowerbudget_code', 'lowerbudget_name', 'admin_code',
         'admin_name', 'loweradmin_code', 'loweradmin_name',
         'implementing_org']
-    minFY, maxFY = abstats.earliest_latest_disbursements(country_code)
-    disbFYs = range(minFY, maxFY+1)
-    headers += map(lambda fy: "%s (D)" % fy, disbFYs)
+    try:
+        minFY, maxFY = abstats.earliest_latest_disbursements(country_code)
+        disbFYs = range(minFY, maxFY+1)
+        headers += map(lambda fy: "%s (D)" % fy, disbFYs)
+    except ValueError:
+        disbFYs = []
+        pass
 
     [ws.write(0, i, h, styleHeader) for i, h in enumerate(headers)]
 
@@ -110,23 +114,23 @@ def activity_export(country_code, reporting_org=None):
             0: project.iati_identifier,
             1: getcs_string(project.titles, 'text'),
             2: getcs_string(project.descriptions, 'text'),
-            10: project.aid_type_code,
-            11: project.aid_type.text,
-            12: project.status_code,
-            13: project.status.text,
-            17: project.total_commitments,
-            18: project.total_disbursements,
-            27: getcs_org(project.implementing_orgs, 'name'),
+            6: project.aid_type_code,
+            7: project.aid_type.text,
+            8: project.status_code,
+            9: project.status.text,
+            13: project.total_commitments,
+            14: project.total_disbursements,
+            23: getcs_org(project.implementing_orgs, 'name'),
         }
         for col, value in cols_vals.items():
             ws = wm(ws, i, sectors_rows_length, col, value)
 
         cols_vals_styles = {
-            14: (project.date_start_actual or project.date_start_planned,
+            10: (project.date_start_actual or project.date_start_planned,
                  styleDates),
-            15: (project.date_end_actual or project.date_end_planned,
+            11: (project.date_end_actual or project.date_end_planned,
                  styleDates),
-            16: (project.capital_exp,
+            12: (project.capital_exp,
                  stylePCT),
         }
 
@@ -158,50 +162,16 @@ def activity_export(country_code, reporting_org=None):
                     ws.write(i, 3, sector.formersector.code, styleRed)
                     ws.write(i, 4, sector.formersector.description,
                                                              styleRed)
-                # No previous sector known - spreadsheet must have changed
-                # on import... leave blank rather than show warning msg?
-
-            if makeCCYellow(sector.dacsector.cc.id):
-                ws.write(i, 6, sector.dacsector.cc.id, styleYellow)
-            else:
-                ws.write(i, 6, sector.dacsector.cc.id)
-        
-            relevant_budget = filter(frelbudget,
-                         sector.dacsector.cc.cc_budgetcode)
-            relevant_lowerbudget = filter(frelbudgetlow,
-                         sector.dacsector.cc.cc_lowerbudgetcode)
-
-            relevant_budget_admin = filter(frelbudget_admin,
-                         sector.dacsector.cc.cc_budgetcode)
-            relevant_lowerbudget_admin = filter(frelbudgetlow_admin,
-                         sector.dacsector.cc.cc_lowerbudgetcode)
 
             cols_vals_simple = {
                 5: sector.percentage,
-                7: sector.dacsector.cc.category,
-                8: sector.dacsector.cc.sector,
-                9: sector.dacsector.cc.function,
-                19: comma_join('budgetcode', 'code', relevant_budget),
-                20: comma_join('budgetcode', 'name', relevant_budget),
-                21: comma_join('lowerbudgetcode', 'code',
-                               relevant_lowerbudget),
-                22: comma_join('lowerbudgetcode', 'name',
-                               relevant_lowerbudget),
-                23: comma_join('budgetcode', 'code',
-                                            relevant_budget_admin),
-                24: comma_join('budgetcode', 'name',
-                                            relevant_budget_admin),
-                25: comma_join('lowerbudgetcode', 'code',
-                               relevant_lowerbudget_admin),
-                26: comma_join('lowerbudgetcode', 'name',
-                               relevant_lowerbudget_admin),
             }
 
             for col, value in cols_vals_simple.items():
                 ws = wr(ws, i, col, value)
 
-            for col, fy in enumerate(disbFYs, start=28):
-                fyd = project.FY_disbursements.get(str(fy))
+            for col, fy in enumerate(disbFYs, start=24):
+                fyd = project.FY_disbursements_dict.get(str(fy))
                 if fyd:
                     value = fyd["value"] * sector.percentage/100
                 else:
@@ -214,8 +184,9 @@ def activity_export(country_code, reporting_org=None):
     strIOsender = StringIO.StringIO()
     wb.save(strIOsender)
     strIOsender.seek(0)
+    reporting_org_obj = absettings.reporting_org_by_id(reporting_org)
     if reporting_org:
-        the_filename = "aidonbudget_%s_%s.xls" % (country_code, reporting_org)
+        the_filename = "aidonbudget_%s_%s.xls" % (country_code, reporting_org_obj.text)
     else:
         the_filename = "aidonbudget_%s.xls" % (country_code)
     return send_file(strIOsender,
