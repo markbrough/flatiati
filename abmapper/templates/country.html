@@ -10,14 +10,24 @@
 </script>
 <br />
 <div class="pull-right">
-    <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> {{ _("Export") }}</b>
-    </a>
-    {% for ro in reporting_orgs %}
-    <a class="btn btn-default" href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.reporting_org)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> {{ _("Export") }} {{ro.reporting_org}} ({{ro.num_activities}})</b>
-    </a>
-    {% endfor %}
+  <div class="btn-group">
+    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export data  <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li>
+        <a href="{{url_for('activity_export', country_code=country.code)}}">
+          {{ _("Export all donors") }}
+        </a>
+      </li>
+      <li role="separator" class="divider"></li>
+      {% for ro in reporting_orgs %}
+      <li><a href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.id)}}">
+        {{ _("Export") }} {{ro.text}} ({{ro.num_activities}})
+      </a></li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 <h1>{{ _("Overview") }}</h1>
 <h3>{{ _("Summary data") }}</h3>
@@ -25,177 +35,6 @@
   <dt>{{ _("Sum of projects") }}</dt><dd>{{stats.total_value}} ({{ _("commitments in USD") }})</dd>
   <dt>{{ _("Number of projects") }}</dt><dd>{{stats.total_projects}}</dd>
 </dl>
-<h3> {{ _("Functional classification") }}
-</h3>
-<dl class="dl-horizontal">
-  <dt>{{ _("Before") }}</dt><dd>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_before_pct}}%;">
-        <span><b>{{stats.total_mappable_before_pct}}% Mappable</b></span>
-      </div>
-    </div>
-  </dd>
-  <dt>{{ _("After") }}</dt><dd>
-    <div class="progress">
-      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_mappable_after_pct}}%;">
-        <span><b>{{stats.total_mappable_after_pct}}% Mappable</b></span>
-      </div>
-    </div></dd>
-</dl>
-{% if stats.admin %}
-<h3>
-    {{ _("Administrative classification") }}
-</h3>
-<dl class="dl-horizontal">
-  <dt>{{ _("Before") }}</dt><dd>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" 
-      aria-valuemin="0" aria-valuemax="100" 
-      style="width: {{stats.total_mappable_before_pct_admin}}%;">
-        <span><b>{{stats.total_mappable_before_pct_admin}}% Mappable</b></span>
-      </div>
-    </div>
-  </dd>
-  <dt>{{ _("After") }}</dt><dd>
-    <div class="progress">
-      <div class="progress-bar progress-bar-success" role="progressbar" 
-      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
-      style="width: {{stats.total_mappable_after_pct_admin}}%;">
-        <span><b>{{stats.total_mappable_after_pct_admin}}% Mappable</b></span>
-      </div>
-    </div></dd>
-</dl>
-{% endif %}
-<h3>{{ _("Economic classification") }}</h3>
-<dl class="dl-horizontal">
-  <dt>{{ _("Before") }}</dt><dd>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_before_pct}}%;">
-        <span><b>{{stats.total_capital_before_pct}}% Capital</b></span>
-      </div>
-    </div>
-  </dd>
-  <dt>{{ _("After") }}</dt><dd>
-    <div class="progress">
-      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_capital_after_pct}}%; min-width:3%;">
-        <span><b>{{stats.total_capital_after_pct}}% Capital</b></span>
-      </div>
-      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{stats.total_current_after_pct}}%; max-width: 96%">
-        <span><b>{{stats.total_current_after_pct}}% Current</b></span>
-      </div><br />
-    </div>  
-    <p><span class="label label-warning">Capital</span> <span class="label label-success">Current</span></p>
-  </dd>
-</dl>
-<p class="text-muted">Statistics restricted to C01, D01 and D02 aid types and activities in implementation and completion stage.</p>
-
-<h2>{{ _("Total amount by budget line") }}</h2>
-
-<div class="pull-right">
-    <a href="{{url_for('country_budget_stats_csv', country_code=country.code)}}" class="btn btn-default">
-        <b><span aria-hidden="true" class="glyphicon glyphicon-save"></span> CSV</b>
-    </a>
-    <a href="{{url_for('country_sankey', country_code=country.code)}}" class="btn btn-default">
-        <b><span aria-hidden="true" class="glyphicon glyphicon-link"></span> JSON</b>
-    </a>
-</div>
-<div role="tabpanel">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist" id="budgetTab">
-    <li role="presentation" class="active">
-      <a href="#table" aria-controls="table" role="tab" data-toggle="tab">
-        {{ _("Table") }}</a></li>
-    <li role="presentation">
-      <a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">
-        {{ _("Chart") }}</a></li>
-    <li role="presentation">
-      <a href="#sankey" aria-controls="sankey" role="tab" data-toggle="tab">
-        {{ _("Sankey") }}</a></li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="table">
-        <h3>{{ _("Functional classification") }}</h3>
-        <table class="table" id="budget-lines">
-          <thead>
-            <th>{{ _("Code") }}</th>
-            <th>{{ _("Budget line") }}</th>
-            <th>{{ _("Amount before") }}</th>
-            <th>{{ _("Amount after") }}</th>
-            <th>% {{ _("before") }}</th>
-            <th>% {{ _("after") }}</th>
-            <th>% {{ _("difference") }}</th>
-          </thead>
-          <tbody>
-            {% for code, bs in functional_stats.budgets.items() %}
-            <tr {% if bs.change_pct %}class="active"{% endif %}>
-              <td>{{ bs.code }}</td>
-              <td>{{ bs.name }}</td>
-              <td>{{ bs.before.value }}</td>
-              <td>{{ bs.after.value }}</td>
-              <td>{{ bs.before.pct }}</td>
-              <td>{{ bs.after.pct }}</td>
-              <td>{{ bs.change_pct }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        <h3>{{ _("Administrative classification") }}</h3>
-        <table class="table" id="budget-lines">
-          <thead>
-            <th>{{ _("Code") }}</th>
-            <th>{{ _("Budget line") }}</th>
-            <th>{{ _("Amount before") }}</th>
-            <th>{{ _("Amount after") }}</th>
-            <th>% {{ _("before") }}</th>
-            <th>% {{ _("after") }}</th>
-            <th>% {{ _("difference") }}</th>
-          </thead>
-          <tbody>
-            {% for code, bs in admin_stats.budgets.items() %}
-            <tr {% if bs.change_pct %}class="active"{% endif %}>
-              <td>{{ bs.code }}</td>
-              <td>{{ bs.name }}</td>
-              <td>{{ bs.before.value }}</td>
-              <td>{{ bs.after.value }}</td>
-              <td>{{ bs.before.pct }}</td>
-              <td>{{ bs.after.pct }}</td>
-              <td>{{ bs.change_pct }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-    </div>
-    <div role="tabpanel" class="tab-pane" id="chart">
-        <form>
-          <label><input type="radio" name="dataset" value="before_value" checked> {{_("before")}}</label>
-          <label><input type="radio" name="dataset" value="after_value"> {{_("after")}}</label>
-        </form>
-        <div class="budget-area">
-            <div class="budget-chartbox pull-left">
-                <div class="budget-chart"></div>
-            </div>
-            <div class="budget-infobox pull-left">
-                <p id="budgetselected">{{_("Hover over a sector for details.")}}</p>
-                <dl class="dl-horizontal">
-                <dt class="budgetbefore-dt">{{_("before")}}</dt><dd id="budgetbefore"></dd>
-                <dt class="budgetafter-dt">{{_("after")}}</dt><dd id="budgetafter"></dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="sankey">
-      <p>This chart shows the volume of aid flowing from donors &mdash; Canada
-        and UNDP &mdash; mapped against the Common Code, and the against the 
-        government budget.</p>
-      <div id="sankey-chart"></div>      
-    </div>
-  </div>
-
-</div>
 
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
