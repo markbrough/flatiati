@@ -1,11 +1,12 @@
-Aid-Budget Mapper
-=================
+FlatIATI
+========
 
-Maps aid data published by donors in the IATI format to country budget classifications.
+Retrieves IATI data and makes it downloadable as beautiful spreadsheets.
 
 License: AGPL v3.0
 ------------------
 
+Copyright (C) 2017 Mark Brough
 Copyright (C) 2015 Mark Brough, Publish What You Fund
 
     This program is free software: you can redistribute it and/or modify
@@ -47,41 +48,3 @@ Setup the database:
 Run the server:
 
     python manage.py runserver
-
-Importing data for all countries
---------------------------------
-
-You can run the following script in order to set up data for all 
-countries for which data already exists:
-
-    ./load_data.sh
-
-Importing files for a country
------------------------------
-
-Importing a file can also be done via `abtool.py`:
-
-    ./abtool.py --import --filename="CA-3-SN.xml" --country-code="SN"
-
-Importing a budget
-------------------
-
-Budgets map between the Common Code and the relevant country's budget
-classification. They should be in CSV format and look like this:
-
-| CC | BUDGET_CODE | BUDGET_NAME | LOWER_BUDGET_CODE | LOWER_BUDGET_NAME |
-| --- | ----------- | ----------- | ----------------- | ----------------- |
-| 1.1.1 | 11 | Organes exécutifs | 110 | Aff générales Présidence de la république |
-| 1.2.1 | 10 | Organes législatifs | | |
-
-NB `LOWER_BUDGET_CODE` and `LOWER_BUDGET_NAME` are optional.
-
-You can see an example of this in the 
-[Senegal template file](data/senegal/senegal_CC_budget.csv)
-
-You can then import the file with `abtool.py`:
-
-    ./abtool.py --import-budget --filename="data/senegal/senegal_CC_budget.csv" --country-code="SN" --budget-type="f"
- 
-Where `budget-type` is `a` for administrative or `f` for functional
-classification.
