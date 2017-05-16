@@ -1,5 +1,8 @@
 from flask import request, current_app
 import json
+import os
+import unicodecsv
+import datetime
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -12,11 +15,17 @@ def jsonify(*args, **kwargs):
             indent=None if request.is_xhr else 2, cls=JSONEncoder),
             mimetype='application/json')
 
+def make_date_from_iso(iso_str):
+    return datetime.date(int(iso_str[:4]), int(iso_str[5:7]),
+                            int(iso_str[8:10]))
+
 def exchange_rates():
     return {
         'GBP': 1.48446,
         'USD': 1,
         'CAD': 0.799941,
+        'EUR': 1.12650,
+        'AUD': 0.768543,
     }
 
 def a_not_in_b(a, b):
@@ -76,3 +85,23 @@ def nulltoDash(value):
     if value == None:
         return "-"
     return value
+
+def load_codelists():
+    """Load codelists in that need to be changed"""
+
+    def filter_csv(filename):
+        if filename.endswith(".csv"):
+            return True
+        return False
+
+    cl = filter(filter_csv, os.listdir("codelists"))
+    codelists = {}
+    for c in cl:
+        csv = unicodecsv.DictReader(
+                    open(os.path.join("codelists", c), "rb")
+                    )
+        codelist_name = c.split(".")[0]
+        codelists[codelist_name] = {}
+        for row in csv:
+            codelists[codelist_name][row['2.01']] = row['1.0x']
+    return codelists
