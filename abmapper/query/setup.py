@@ -9,9 +9,11 @@ from flask import abort
 
 CODELISTS_API = "http://iatistandard.org/codelists/downloads/clv2/json/%s/%s.json"
 
+def trash():
+    db.drop_all()
+
 def setup():
     db.create_all()
-    import_common_code()
     import_sectors()
     import_activity_statuses()
     import_aid_types()
@@ -47,7 +49,6 @@ def import_sectors():
             crscc.description_EN = row["DESCRIPTION"]
             crscc.notes_EN = row["notes"]
             crscc.parent_code = row["parent_code"]
-            crscc.cc_id = row["cc_id"]
             db.session.add(crscc)
         db.session.commit()
     # Get FR sector names
