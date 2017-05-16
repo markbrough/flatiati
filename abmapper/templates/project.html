@@ -4,15 +4,20 @@
 <br />
 
 {% for title in activity.titles %}
-<h2>{{title.text}} ({{title.lang}})</h2>
+<h2>{{title.text}}</h2>
 {% endfor %}
 {% for description in activity.descriptions %}
 <p>{{description.text}}</p>
 {% endfor %}
 <dl class="dl-horizontal">
-  <dt>Numéro du projet</dt><dd><code>{{activity.iati_identifier}}</code></dd>
-  <dt>Statut de l'activité</dt><dd>{{activity.status.code}} - {{activity.status.text}}</dd>
-  <dt>Type d'aide</dt><dd>{{activity.aid_type.code}} - {{activity.aid_type.text}}</dd>
+  <dt>{{ _("Project ID") }}</dt>
+  <dd><code>{{activity.iati_identifier}}</code></dd>
+  <dt>{{ _("Activity status") }}</dt>
+  <dd>{{activity.status.code}} - {{activity.status.text}}</dd>
+  <dt>{{ _("Aid type") }}</dt>
+  <dd>{{activity.aid_type.code}} - {{activity.aid_type.text}}</dd>
+  <dt>% to {{ country.text }}</dt>
+  <dd>{{activity.this_country_pct}}</dd>
 </dl>
 
 <h2>Organisations</h2>
@@ -58,48 +63,7 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<h2>Chiffres clés</h2>
 
-<h3>Classification 
-    {% if country.budgettype %}{{ country.budgettype.text }}
-    {% else %}Administrative/Fonctionnelle{% endif %}
-</h3>
-<dl class="dl-horizontal">
-  <dt>{{ _("Before")}} </dt><dd>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{activity.pct_mappable_before}}%;">
-        <span><b>{{activity.pct_mappable_before}}% Mappable</b></span>
-      </div>
-    </div>
-  </dd>
-  <dt>{{ _("After")}} </dt><dd>
-    <div class="progress">
-      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{activity.pct_mappable_after}}%;">
-        <span><b>{{activity.pct_mappable_after}}% Mappable</b></span>
-      </div>
-    </div></dd>
-</dl>
-<h3>{{ _("Economic classification") }}</h3>
-<dl class="dl-horizontal">
-  <dt>{{ _("Before")}} </dt><dd>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0.0}%;">
-        <span><b>0.0%</b></span>
-      </div>
-    </div>
-  </dd>
-  <dt>{{ _("After")}} </dt><dd>
-    <div class="progress">
-      {% if activity.capital_exp is not none %}
-      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{activity.capital_exp*100}}%;">
-        <span><b>{{activity.capital_exp*100}}% Capital</b></span>
-      </div>
-      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{100-(activity.capital_exp*100)}}%;">
-        <span><b>{{100-(activity.capital_exp*100)}}% Current</b></span>
-      </div>
-      {% endif %}
-    </div></dd>
-</dl>
 <!--
 <div class="pull-right">
   <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
@@ -114,13 +78,15 @@
     <table class="table" id="sectors">
       <thead>
         <th>{{ _("Fiscal year") }}</th>
-        <th>{{ _("Value") }}</th>
+        <th>{{ _("Value (USD)") }}</th>
+        <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
       <tbody>
-    {% for k, FY in activity.FY_disbursements.items() %}
+    {% for FY in activity.FY_disbursements %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
-          <td>{{ FY.value }}</td>
+          <td>{{ "{:,.2f}".format(FY.value) }}</td>
+          <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
         </tr>
     {% endfor %}
       </tbody>
@@ -131,13 +97,15 @@
     <table class="table" id="sectors">
       <thead>
         <th>{{ _("Fiscal year") }}</th>
-        <th>{{ _("Value") }}</th>
+        <th>{{ _("Value (USD)") }}</th>
+        <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
       <tbody>
-    {% for k, FY in activity.FY_commitments.items() %}
+    {% for FY in activity.FY_commitments %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
-          <td>{{ FY.value }}</td>
+          <td>{{ "{:,.2f}".format(FY.value) }}</td>
+          <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
         </tr>
     {% endfor %}
       </tbody>
@@ -150,7 +118,6 @@
   <thead>
     <th>{{ _("CRS code") }}</th>
     <th>%</th>
-    <th>{{ _("Common Code") }}</th>
     <th>{{ _("Budget classification (upper)") }}</th>
     <th>{{ _("Budget classification (lower)") }}</th>
     <!--<th></th>-->
@@ -158,7 +125,7 @@
   <tbody>
     {% for sector in activity.sectors %}
     <tr id="sector-{{sector.dacsector.code}}"{% if sector.deleted %} class="sector-deleted"{% endif %}>
-      <td width="15%">
+      <td>
         {% if not sector.assumed %}
         {{sector.dacsector.description}}
         ({{sector.dacsector.code}})
@@ -171,38 +138,13 @@
         {% if sector.edited %}<span class="label label-warning"><span class="glyphicon glyphicon-asterisk white" 
           title="Sector was manually added"></span> <b>Amended: previously not mappable</b></span>{% endif %}
       </td>
-      <td width="8%">
+      <td>
         {{ sector.percentage }}
       </td>
-      <td width="24%">
-        {% if sector.dacsector.cc.id != "0" %}
-        {{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})
-        {% else %}
-        <span class="label label-danger">Not mappable</span>
-        {% endif %}
+      <td>
       </td>
-      <td width="24%">
-        {% for budget in sector.dacsector.cc.cc_budgetcode %}
-            {% if activity.recipient_country_code == budget.budgetcode.country_code %}
-            {{ budget.budgetcode.name }} ({{budget.budgetcode.code}})
-            {% endif %}
-        {% endfor %}
+      <td>
       </td>
-      <td width="24%">
-        {% for budget in sector.dacsector.cc.cc_lowerbudgetcode %}
-            {% if activity.recipient_country_code == budget.lowerbudgetcode.country_code %}
-            {{ budget.lowerbudgetcode.name }} ({{budget.lowerbudgetcode.code}})
-            {% endif %}
-        {% endfor %}
-      </td>
-      <!--
-      <td width="3%">{% if not sector.deleted %}
-          <a href="" data-confirm="Are you sure you want to delete this sector?" data-sector-code="{{sector.dacsector.code}}" class="delete-sector"><span class="glyphicon glyphicon-trash"></span></a>
-          {% else %}
-          <a href="" data-confirm="Are you sure you want to restore this sector?" data-sector-code="{{sector.dacsector.code}}" class="restore-sector"><span class="glyphicon glyphicon-repeat"></span></a>
-          {% endif %}
-      </td>
-      -->
     </tr>
     {% endfor %}
   </tbody>
