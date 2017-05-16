@@ -9,26 +9,34 @@
 </script>
 <br />
 <div class="pull-right">
-    <a class="btn btn-success" href="{{url_for('activity_export', country_code=country.code)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> {{ _("Export") }}</b>
-    </a>
-    {% for ro in reporting_orgs %}
-    <a class="btn btn-default" href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.reporting_org)}}">
-        <b><span class="glyphicon glyphicon-save" aria-hidden="true"></span> {{ _("Export") }} {{ro.reporting_org}} ({{ro.num_activities}})</b>
-    </a>
-    {% endfor %}
+  <div class="btn-group">
+    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export data  <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li>
+        <a href="{{url_for('activity_export', country_code=country.code)}}">
+          {{ _("Export all donors") }}
+        </a>
+      </li>
+      <li role="separator" class="divider"></li>
+      {% for ro in reporting_orgs %}
+      <li><a href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.id)}}">
+        {{ _("Export") }} {{ro.text}} ({{ro.num_activities}})
+      </a></li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 <h1>{{ _('Projects') }}</h1>
 <table class="table" id="projects">
   <thead>
     <th>{{ _('No') }}</th>
     <th>{{ _("Title") }}</th>
-    <th width="25%">{{ _("CRS code") }} &ndash; {{ _("Common Code") }}</th>
-    <th>Capital</th>
-    <th>{{ _("CC mappable before") }}</th>
-    <th>{{ _("CC mappable after") }}</th>
-    <th>{{ _("CC mappable difference") }}</th>
+    <th width="25%">{{ _("Sectors (CRS code)") }}</th>
     <th width="15%">{{ _("Implementing org") }}</th>
+    <th width="15%">{{ _('Pct to ') }}{{ country.text_EN }}</th>
+    <th width="15%">{{ _('Status') }}</th>
   </thead>
   <tbody>
     {% for project in projects %}
@@ -46,47 +54,21 @@
       </td>
       <td class="sectors-column">
         {% for sector in project.sectors %}
-        {% if not sector.deleted %}
-
-        {% if not sector.assumed %}
-        <span class="label crs-code {% if sector.dacsector.cc.id != "0" %}label-default{% else %}label-danger{% endif %}" title="{{sector.dacsector.description}} ({{sector.dacsector.code}})">
+        <span class="label label-default" title="{{sector.dacsector.description}} ({{sector.dacsector.code}})">
           {{sector.dacsector.description}} ({{sector.dacsector.code}})</span>
-        {% else %}
-
-        {% if sector.formersector %}
-        <span class="label crs-code label-default" title="{{sector.formersector.description}} ({{sector.formersector.code}})">
-          {{sector.formersector.description}} ({{sector.formersector.code}})</span>
-        {% endif %}
-
-        {% endif %}
-
-        {% if sector.dacsector.cc.id != "0" %}
-        <span class="label cc-code label-success" title="{{sector.dacsector.cc.sector}} 
- &ndash; {{sector.dacsector.cc.function}} ({{sector.dacsector.cc.id}})">
-          {{sector.dacsector.cc.sector}} &ndash; {{sector.dacsector.cc.function}}
-          ({{sector.dacsector.cc.id}})</span>
-        {% else %}
-        <span class="label cc-code label-danger">Not mappable</span>
-        {% endif %}
-        </p>
         <div class="clearer"></div>
-        {% endif %}
         {%endfor%}
-      </td>
-      <td>{% if project.capital_exp is not none %}{{ project.capital_exp*100 }}%{% else %}N/A{% endif %}</td>
-      <td>
-        {{ project.pct_mappable_before }}
-      </td>
-      <td>
-        {{ project.pct_mappable_after }}
-      </td>
-      <td>
-        {{ project.pct_mappable_diff }}
       </td>
       <td>
         {% for org in project.implementing_orgs %}
         {{org.organisation.name}}<br />
         {%endfor%}
+      </td>
+      <td>
+        {{ project.this_country_pct }}
+      </td>
+      <td>
+        {{ project.status.text }}
       </td>
     </tr>
     {% endfor %}
