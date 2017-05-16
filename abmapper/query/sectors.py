@@ -31,9 +31,7 @@ def DAC_codes_old_new():
 
 def DAC_codes_cc_mappable():
     s = db.session.query(models.DACSector.code,
-                         models.DACSector.description,
-                         models.CommonCode.id
-            ).outerjoin(models.CommonCode
+                         models.DACSector.description
             ).order_by(models.DACSector.code
             ).all()
     return s
