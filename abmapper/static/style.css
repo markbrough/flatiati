@@ -48,10 +48,13 @@ footer a, footer a:hover {
 
 h1, h2, h3, .brand, .navbar-country .navbar-brand {
     font-family: "Yanone Kaffeesatz",sans-serif;
-    text-shadow: 1px 1px 0 #ffffff, 2px 2px 0 #ffffff, 3px 3px 0 #ffffff, 4px 4px 0 #ffffff;
+    text-shadow: 1px 1px 0 #ffffff, 2px 2px 0 #ffffff, 2px 2px 0 #ffffff, 2px 2px 0 #ffffff;
+}
+h1.brand {
+  margin-top: 0px;
 }
 h1 {
-    font-size: 4em;
+    font-size: 3em;
 }
 h2 {
     font-size: 2em;
@@ -78,7 +81,7 @@ h3 {
     padding-left:40px;
     padding-right:40px;
 }
-a {
+nav a {
     -webkit-transition: all .2s ease-in-out;
     -webkit-transition-property: all;
     -webkit-transition-duration: 0.2s;
