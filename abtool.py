@@ -29,14 +29,30 @@ def import_iati_xml(options):
     sample = bool(options.sample)
     parse.parse_file(options.country_code, options.filename, sample)
 
+def download_iati_xml(options):
+    assert options.country_code
+    assert options.reporting_org
+    sample = bool(options.sample)
+    print ""
+    print "Download and import data"
+    print ""
+    print """Downloading IATI XML for country {} and reporting organisation {}""".format(options.country_code, options.reporting_org)
+    download.download_data(options.country_code, options.reporting_org)
+
+def remake(options):
+    absetup.trash()
+    absetup.setup()
+
 def setup(options):
     absetup.setup()
 
 commands = {
     "setup": (setup, "Setup"),
     "import": (import_iati_xml, "Import IATI XML file"),
+    "download": (download_iati_xml, "Download and Import IATI XML file"),
     "update-projects": (update_projects, "Update projects"),
     "import-budget": (import_budget, "Import CC-budget mapping"),
+    "remake": (remake, "Trash the database and regenerate"),
 }
 
 def main():
