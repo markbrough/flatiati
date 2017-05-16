@@ -4,7 +4,7 @@ from abmapper.lib import util
 from abmapper.query import projects as abprojects
 from abmapper.query import sectors as absectors
 
-@app.route("/<country_code>/activities/<iati_identifier>/")
+@app.route("/<country_code>/activities/<path:iati_identifier>/")
 def activities(country_code, iati_identifier):
     a = abprojects.project(iati_identifier)
     country = abprojects.country(country_code)
