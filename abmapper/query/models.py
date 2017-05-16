@@ -9,6 +9,12 @@ act_relationship = ft.partial(
     sa.orm.relationship,
     cascade="all,delete",
     passive_deletes=True,
+    backref="activity"
+)
+other_relationship = ft.partial(
+    sa.orm.relationship,
+    cascade="all,delete",
+    passive_deletes=True
 )
 lazy_act_relationship = ft.partial(
     sa.orm.relationship,
@@ -26,9 +32,10 @@ FYDATA_QUERY = """
     strftime('%%Y', DATE(transaction_date, '-%s month'))
     AS fiscal_year
     FROM atransaction
-    WHERE atransaction.activity_iati_identifier = '%s'
-    AND atransaction.transaction_type_code = '%s'
+    WHERE atransaction.activity_id = '%s'
+    AND atransaction.transaction_type_code IN ('%s')
     GROUP BY fiscal_year
+    ORDER BY atransaction.transaction_date DESC
     """
 
 # The "Unique Object" pattern
@@ -85,8 +92,11 @@ class Activity(db.Model):
     default_currency = sa.Column(sa.UnicodeText)
     hierarchy = sa.Column(sa.UnicodeText)
     last_updated = sa.Column(sa.UnicodeText)
-    reporting_org_ref = sa.Column(sa.UnicodeText)
-
+    reporting_org_id = sa.Column(
+        act_ForeignKey("reportingorg.id"),
+        nullable=False,
+        index=True)
+    reporting_org = sa.orm.relationship("ReportingOrg")
     funding_org = sa.Column(sa.UnicodeText)
     funding_org_ref = sa.Column(sa.UnicodeText)
     funding_org_type = sa.Column(sa.UnicodeText)
@@ -99,6 +109,8 @@ class Activity(db.Model):
 
     recipient_region = sa.Column(sa.UnicodeText)
     recipient_region_code = sa.Column(sa.UnicodeText)
+
+    recipient_countries = act_relationship("RecipientCountries")
 
     recipient_country = sa.orm.relationship("RecipientCountry")
     recipient_country_code = sa.Column(
@@ -158,14 +170,15 @@ class Activity(db.Model):
     @hybrid_property
     def total_commitments(self):
         return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
-                where(Transaction.activity_iati_identifier==self.iati_identifier).\
+                where(Transaction.activity_id==self.id).\
                 where(Transaction.transaction_type_code=="C")).first()[0]
 
     @hybrid_property
     def total_disbursements(self):
         return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
-                where(Transaction.activity_iati_identifier==self.iati_identifier).\
-                where(Transaction.transaction_type_code=="D")).first()[0]
+                where(Transaction.activity_id==self.id).\
+                where(sa.or_(Transaction.transaction_type_code=="D",
+                    Transaction.transaction_type_code=="E"))).first()[0]
 
     pct_mappable_before_sql = """
         SELECT sum(sector.percentage) AS sum_1
@@ -174,7 +187,7 @@ class Activity(db.Model):
         JOIN commoncode ON commoncode.id = dacsector.cc_id
         JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
         JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
-        WHERE sector.activity_iati_identifier = '%s'
+        WHERE sector.activity_id = '%s'
         AND sector.edited = 0 AND dacsector.cc_id != "0"
         AND budgetcode.country_code="%s"
         AND budgetcode.budgettype_code="%s";
@@ -187,7 +200,7 @@ class Activity(db.Model):
         JOIN commoncode ON commoncode.id = dacsector.cc_id
         JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
         JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
-        WHERE sector.activity_iati_identifier = '%s'
+        WHERE sector.activity_id = '%s'
         AND sector.deleted = 0 AND dacsector.cc_id != "0"
         AND budgetcode.country_code="%s"
         AND budgetcode.budgettype_code="%s";
@@ -196,28 +209,28 @@ class Activity(db.Model):
     @hybrid_property
     def pct_mappable_before(self):
         return none_is_zero(db.engine.execute(
-            self.pct_mappable_before_sql % (self.iati_identifier,
+            self.pct_mappable_before_sql % (self.id,
                    self.recipient_country_code,
                    "f")).first()[0])
 
     @hybrid_property
     def pct_mappable_after(self):
         return none_is_zero(db.engine.execute(
-            self.pct_mappable_after_sql % (self.iati_identifier,
+            self.pct_mappable_after_sql % (self.id,
                    self.recipient_country_code,
                    "f")).first()[0])
 
     @hybrid_property
     def pct_mappable_before_admin(self):
         return none_is_zero(db.engine.execute(
-             self.pct_mappable_before_sql % (self.iati_identifier,
+             self.pct_mappable_before_sql % (self.id,
                    self.recipient_country_code,
                    "a")).first()[0])
 
     @hybrid_property
     def pct_mappable_after_admin(self):
         return none_is_zero(db.engine.execute(
-            self.pct_mappable_after_sql % (self.iati_identifier,
+            self.pct_mappable_after_sql % (self.id,
                    self.recipient_country_code,
                    "a")).first()[0])
 
@@ -244,6 +257,15 @@ class Activity(db.Model):
         return relevant_titles
 
     @hybrid_property
+    def this_country_pct(self):
+        def filter_countries(country):
+            return country.recipient_country_code == self.recipient_country_code
+        relevant_countries = filter(filter_countries, self.recipient_countries)
+        if not relevant_countries:
+            return 0.00
+        return relevant_countries[0].percentage
+
+    @hybrid_property
     def descriptions(self):
         def filter_descriptions(description):
             return description.lang == str(get_locale())
@@ -254,24 +276,24 @@ class Activity(db.Model):
         return relevant_descriptions
 
     @hybrid_property
-    def FY_disbursements(self):
+    def FY_disbursements_dict(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
-                         self.iati_identifier, "D")
+                         self.id, "D','E")
                                   ).fetchall()
         return {
                     fyval.fiscal_year: {
                     "fiscal_year": fyval.fiscal_year,
-                    "value": fyval.value
+                    "value": round(fyval.value, 2)
                     }
                     for fyval in fydata
                 }
 
     @hybrid_property
-    def FY_commitments(self):
+    def FY_commitments_dict(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
-                         self.iati_identifier, "C")
+                         self.id, "C")
                                   ).fetchall()
         return {
                     fyval.fiscal_year: {
@@ -280,18 +302,57 @@ class Activity(db.Model):
                     }
                     for fyval in fydata
                 }
+    @hybrid_property
+    def FY_disbursements(self):
+        fydata = db.engine.execute(FYDATA_QUERY % 
+                        (self.recipient_country.fiscalyear_modifier,
+                         self.id, "D','E")
+                                  ).fetchall()
+        return [{
+                    "fiscal_year": fyval.fiscal_year,
+                    "value": round(fyval.value, 2)
+                }
+                for fyval in fydata]
+
+    @hybrid_property
+    def FY_commitments(self):
+        fydata = db.engine.execute(FYDATA_QUERY % 
+                        (self.recipient_country.fiscalyear_modifier,
+                         self.id, "C")
+                                  ).fetchall()
+        return  [{
+                    "fiscal_year": fyval.fiscal_year,
+                    "value": fyval.value
+                }
+                for fyval in fydata]
 
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
-    activity_iati_identifier = sa.Column(
-        act_ForeignKey("activity.iati_identifier"),
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
         nullable=False,
         index=True)
     text = sa.Column(sa.UnicodeText)
     lang = sa.Column(sa.UnicodeText)
     percentage = sa.Column(sa.Integer)
-    activity = sa.orm.relationship("Activity")
+
+    def as_string(self):
+        return {c.text: getattr(self, c.text) for c in self.__table__.columns}
+
+class RecipientCountries(db.Model):
+    __tablename__ = 'recipientcountries'
+    id = sa.Column(sa.Integer, primary_key=True)
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
+        nullable=False,
+        index=True)
+    percentage = sa.Column(sa.Integer)
+    recipient_country = sa.orm.relationship("RecipientCountry")
+    recipient_country_code = sa.Column(
+        act_ForeignKey("recipientcountry.code"),
+        nullable=False,
+        index=True)
 
     def as_string(self):
         return {c.text: getattr(self, c.text) for c in self.__table__.columns}
@@ -320,6 +381,28 @@ class AidType(db.Model):
             return self.text_FR
         return self.text_EN
 
+class ReportingOrg(db.Model):
+    __tablename__ = 'reportingorg'
+    id = sa.Column(sa.Integer, primary_key=True)
+    code = sa.Column(sa.UnicodeText)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
+
+    @hybrid_property
+    def num_activities(self):
+        return Activity.query.filter_by(
+            reporting_org_id=self.id
+        ).count()
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class RecipientCountry(db.Model):
     __tablename__ = 'recipientcountry'
     code = sa.Column(sa.UnicodeText, primary_key=True)
@@ -340,6 +423,12 @@ class RecipientCountry(db.Model):
             return self.text_FR
         return self.text_EN
 
+    @hybrid_property
+    def num_activities(self):
+        return Activity.query.filter_by(
+            recipient_country_code=self.code
+        ).count()
+
 class BudgetType(db.Model):
     __tablename__ = 'budgettype'
     code = sa.Column(sa.UnicodeText, primary_key=True)
@@ -355,19 +444,18 @@ class BudgetType(db.Model):
 class Description(db.Model):
     __tablename__ = 'description'
     id = sa.Column(sa.Integer, primary_key=True)   
-    activity_iati_identifier = sa.Column(
-        act_ForeignKey("activity.iati_identifier"),
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
         nullable=False,
         index=True)
     text = sa.Column(sa.UnicodeText)
     lang = sa.Column(sa.UnicodeText)
-    activity = sa.orm.relationship("Activity")
 
 class Transaction(db.Model):
     __tablename__ = 'atransaction'
     id = sa.Column(sa.Integer, primary_key=True)
-    activity_iati_identifier = sa.Column(
-        act_ForeignKey("activity.iati_identifier"),
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
         nullable=False,
         index=True)
     value = sa.Column(sa.Float(precision=2))
@@ -382,8 +470,8 @@ class Transaction(db.Model):
 class Sector(db.Model):
     __tablename__ = 'sector'
     id = sa.Column(sa.Integer, primary_key=True)   
-    activity_iati_identifier = sa.Column(
-        act_ForeignKey("activity.iati_identifier"),
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
         nullable=False,
         index=True)
     code = sa.Column(
@@ -393,24 +481,7 @@ class Sector(db.Model):
     edited = sa.Column(sa.Boolean, default=False)
     deleted = sa.Column(sa.Boolean, default=False)
     assumed = sa.Column(sa.Boolean, default=False)
-    activity = sa.orm.relationship("Activity")
     dacsector = sa.orm.relationship("DACSector")
-    formersector_id = sa.Column(
-        act_ForeignKey("sector.code"),
-        nullable=True)
-
-    @hybrid_property
-    def formersector(self):
-        return db.engine.execute("""
-            SELECT sector.code AS "sector.code", 
-                   sector.percentage AS "sector.percentage",
-                   sector.assumed AS "sector.assumed",
-                   dacsector.description_%s AS "dacsector.description"
-            FROM sector
-            JOIN dacsector ON sector.code = dacsector.code
-            WHERE sector.id = '%s';
-            """ % (str(get_locale()).upper(),
-                   self.formersector_id)).first()
 
 # Code and name should be from DACSectors table
 # DACSectors table should relate to commoncode table
@@ -428,13 +499,6 @@ class DACSector(db.Model):
     description_FR = sa.Column(sa.UnicodeText)
     notes_EN = sa.Column(sa.UnicodeText)
     notes_FR = sa.Column(sa.UnicodeText)
-    parent_code = sa.Column(
-        act_ForeignKey("dacsector.code"),
-        nullable=True)
-    cc_id = sa.Column(
-        act_ForeignKey("commoncode.id"),
-        nullable=False)
-    cc = sa.orm.relationship("CommonCode")
 
     @hybrid_property
     def dac_sector_name(self):
@@ -469,8 +533,8 @@ class CommonCode(db.Model):
     category_FR = sa.Column(sa.UnicodeText)
     sector_FR = sa.Column(sa.UnicodeText)
     function_FR = sa.Column(sa.UnicodeText)
-    cc_budgetcode = act_relationship("CCBudgetCode")
-    cc_lowerbudgetcode = act_relationship("CCLowerBudgetCode")
+    cc_budgetcode = other_relationship("CCBudgetCode")
+    cc_lowerbudgetcode = other_relationship("CCLowerBudgetCode")
 
     @hybrid_property
     def category(self):
@@ -550,8 +614,8 @@ class RelatedActivity(db.Model):
 
 class Participation(db.Model):
     __tablename__ = "participation"
-    activity_identifier = sa.Column(
-        act_ForeignKey("activity.iati_identifier"),
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
         primary_key=True)
     country_code = sa.Column(
         act_ForeignKey("recipientcountry.code"),
