@@ -1,0 +1,48 @@
+{% set active_page='project' %}{% extends "layout.html" %}
+{% block title %}{{ _('Settings') }}{% endblock %}
+{% block content %}
+<h2>Settings</h2>
+<form class="form-horizontal" name="settings" method="POST">
+  <div class="form-group">
+    <label for="fy_start" class="col-sm-2">
+      FY starts in
+    </label>
+    <div class="col-sm-10">
+      <select class="form-control" name="fiscalyear_modifier">
+        <option value="0" {% if country.fiscalyear_modifier == 0 %}selected{% endif %}>January</option>
+        <option value="1" {% if country.fiscalyear_modifier == 1 %}selected{% endif %}>February</option>
+        <option value="2" {% if country.fiscalyear_modifier == 2 %}selected{% endif %}>March</option>
+        <option value="3" {% if country.fiscalyear_modifier == 3 %}selected{% endif %}>April</option>
+        <option value="4" {% if country.fiscalyear_modifier == 4 %}selected{% endif %}>May</option>
+        <option value="5" {% if country.fiscalyear_modifier == 5 %}selected{% endif %}>June</option>
+        <option value="6" {% if country.fiscalyear_modifier == 6 %}selected{% endif %}>July</option>
+        <option value="7" {% if country.fiscalyear_modifier == 7 %}selected{% endif %}>August</option>
+        <option value="8" {% if country.fiscalyear_modifier == 8 %}selected{% endif %}>September</option>
+        <option value="9" {% if country.fiscalyear_modifier == 9 %}selected{% endif %}>October</option>
+        <option value="10" {% if country.fiscalyear_modifier == 10 %}selected{% endif %}>November</option>
+        <option value="11" {% if country.fiscalyear_modifier == 11 %}selected{% endif %}>December</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" name="settings">
+    {{ _('Update settings') }}</button>
+</form>
+<h2>Retrieve new IATI data</h2>
+<form class="form-horizontal" name="fetch_reporting_org" method="POST">
+  <div class="form-group">
+    <label for="reporting_org_ref" class="col-sm-2">
+      Donor
+    </label>
+    <div class="col-sm-10">
+      <select class="form-control" name="reporting_org_ref">
+        <option>Select a donor...</option>
+        {% for ro in reporting_orgs %}
+        <option value="{{ ro.code }}">{{ ro.text }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" name="fetch_reporting_org">
+    {{ _('Retrieve data') }}</button>
+</form>
+{% endblock %}
