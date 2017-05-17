@@ -86,9 +86,7 @@ def activity_export(country_code, reporting_org=None):
         'sector_code', 'sector_name', 'sector_pct', 'aid_type_code', 'aid_type',
         'activity_status_code', 'activity_status', 'date_start',
         'date_end', 'capital_spend_pct', 'total_commitments',
-        'total_disbursements', 'budget_code', 'budget_name',
-        'lowerbudget_code', 'lowerbudget_name', 'admin_code',
-        'admin_name', 'loweradmin_code', 'loweradmin_name',
+        'total_disbursements',
         'implementing_org']
     try:
         minFY, maxFY = abstats.earliest_latest_disbursements(country_code)
@@ -124,7 +122,7 @@ def activity_export(country_code, reporting_org=None):
             10: project.status.text,
             14: project.total_commitments,
             15: project.total_disbursements,
-            24: getcs_org(project.implementing_orgs, 'name'),
+            16: getcs_org(project.implementing_orgs, 'name'),
         }
         for col, value in cols_vals.items():
             ws = wm(ws, i, sectors_rows_length, col, value)
@@ -159,7 +157,7 @@ def activity_export(country_code, reporting_org=None):
             for col, value in cols_vals_simple.items():
                 ws = wr(ws, i, col, value)
 
-            for col, fy in enumerate(disbFYs, start=25):
+            for col, fy in enumerate(disbFYs, start=17):
                 fyd = project.FY_disbursements_dict.get(str(fy))
                 if fyd:
                     value = fyd["value"] * sector.percentage/100
