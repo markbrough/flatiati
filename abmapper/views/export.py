@@ -46,6 +46,8 @@ def activity_export(country_code, reporting_org=None):
         return "; ".join(filter(notNone, map(lambda x:
                          getattr(x.organisation, col), list)))
 
+    country_name = abprojects.country(country_code).text
+
     font0 = xlwt.Font()
     font0.name = 'Times New Roman'
     font0.bold = True
@@ -80,6 +82,7 @@ def activity_export(country_code, reporting_org=None):
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
     headers = ['iati_identifier', 'project_title', 'project_description',
+        'pct_{}'.format(country_name),
         'sector_code', 'sector_name', 'sector_pct', 'aid_type_code', 'aid_type',
         'activity_status_code', 'activity_status', 'date_start',
         'date_end', 'capital_spend_pct', 'total_commitments',
@@ -89,7 +92,8 @@ def activity_export(country_code, reporting_org=None):
         'implementing_org']
     try:
         minFY, maxFY = abstats.earliest_latest_disbursements(country_code)
-        disbFYs = range(minFY, maxFY+1)
+        disbFYs_QTRs = [("{} Q1".format(fy), "{} Q2".format(fy), "{} Q3".format(fy), "{} Q4".format(fy)) for fy in range(minFY, maxFY+1)]
+        disbFYs = [item for sublist in disbFYs_QTRs for item in sublist]
         headers += map(lambda fy: "%s (D)" % fy, disbFYs)
     except ValueError:
         disbFYs = []
@@ -114,63 +118,48 @@ def activity_export(country_code, reporting_org=None):
             0: project.iati_identifier,
             1: getcs_string(project.titles, 'text'),
             2: getcs_string(project.descriptions, 'text'),
-            6: project.aid_type_code,
-            7: project.aid_type.text,
-            8: project.status_code,
-            9: project.status.text,
-            13: project.total_commitments,
-            14: project.total_disbursements,
-            23: getcs_org(project.implementing_orgs, 'name'),
+            7: project.aid_type_code,
+            8: project.aid_type.text,
+            9: project.status_code,
+            10: project.status.text,
+            14: project.total_commitments,
+            15: project.total_disbursements,
+            24: getcs_org(project.implementing_orgs, 'name'),
         }
         for col, value in cols_vals.items():
             ws = wm(ws, i, sectors_rows_length, col, value)
 
         cols_vals_styles = {
-            10: (project.date_start_actual or project.date_start_planned,
+            3: (project.this_country_pct/100.0, stylePCT),
+            11: (project.date_start_actual or project.date_start_planned,
                  styleDates),
-            11: (project.date_end_actual or project.date_end_planned,
+            12: (project.date_end_actual or project.date_end_planned,
                  styleDates),
-            12: (project.capital_exp,
+            13: (project.capital_exp,
                  stylePCT),
         }
 
         for col, value in cols_vals_styles.items():
             ws = wm(ws, i, sectors_rows_length, col, value[0], value[1])
 
-        def frelbudget(budget_code):
-            return (project.recipient_country_code == budget_code.budgetcode.country_code and
-            budget_code.budgetcode.budgettype_code == 'f')
-
-        def frelbudgetlow(budget_code):
-            return (project.recipient_country_code == budget_code.lowerbudgetcode.country_code and
-            budget_code.lowerbudgetcode.budgettype_code == 'f')
-
-        def frelbudget_admin(budget_code):
-            return (project.recipient_country_code == budget_code.budgetcode.country_code and
-            budget_code.budgetcode.budgettype_code == 'a')
-
-        def frelbudgetlow_admin(budget_code):
-            return (project.recipient_country_code == budget_code.lowerbudgetcode.country_code and
-            budget_code.lowerbudgetcode.budgettype_code == 'a')
-
         for si, sector in enumerate(current_sectors):
             if not sector.assumed:
-                ws.write(i, 3, sector.dacsector.code)
-                ws.write(i, 4, sector.dacsector.description)
+                ws.write(i, 4, sector.dacsector.code)
+                ws.write(i, 5, sector.dacsector.description)
             else:
                 if sector.formersector:
-                    ws.write(i, 3, sector.formersector.code, styleRed)
-                    ws.write(i, 4, sector.formersector.description,
+                    ws.write(i, 4, sector.formersector.code, styleRed)
+                    ws.write(i, 5, sector.formersector.description,
                                                              styleRed)
 
             cols_vals_simple = {
-                5: sector.percentage,
+                6: sector.percentage,
             }
 
             for col, value in cols_vals_simple.items():
                 ws = wr(ws, i, col, value)
 
-            for col, fy in enumerate(disbFYs, start=24):
+            for col, fy in enumerate(disbFYs, start=25):
                 fyd = project.FY_disbursements_dict.get(str(fy))
                 if fyd:
                     value = fyd["value"] * sector.percentage/100
