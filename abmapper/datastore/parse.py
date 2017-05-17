@@ -3,10 +3,12 @@ import os
 from abmapper import app, db
 from abmapper.query import projects as abprojects
 from abmapper.query import sectors as absectors
+from abmapper.query import settings as absettings
 from abmapper.query import models
 from abmapper.lib import util
 import exchangerates
 import datetime
+import flattener, flatten_rules
 
 class UnrecognisedVersionException(Exception):
     pass
@@ -128,7 +130,8 @@ def get_t_type(value):
             "7": u"R",
             "8": u"QP",
             "9": u"Q3",
-            "10": u"CG"
+            "10": u"CG",
+            "11": u"IC"
         }
         return types[value]
     except KeyError:
@@ -234,10 +237,10 @@ def write_activity(activity, country_code, reporting_org_id, version, exchange_r
 getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code')),
         "C01"
         ))
-    a.date_start_planned = get_date(activity, {2: 'start-planned', 1: "1"}[version])
-    a.date_end_planned = get_date(activity, {2: 'end-planned', 1: "3"}[version])
-    a.date_start_actual = get_date(activity, {2: 'start-actual', 1: "2"}[version])
-    a.date_end_actual = get_date(activity, {2: 'end-actual', 1: "4"}[version])
+    a.date_start_planned = get_date(activity, {1: 'start-planned', 2: "1"}[version])
+    a.date_end_planned = get_date(activity, {1: 'end-planned', 2: "3"}[version])
+    a.date_start_actual = get_date(activity, {1: 'start-actual', 2: "2"}[version])
+    a.date_end_actual = get_date(activity, {1: 'end-actual', 2: "4"}[version])
     db.session.add(a)
     db.session.commit()
 
@@ -253,6 +256,9 @@ def get_version(activity):
 
 def parse_doc(country_code, reporting_org_id, doc, update_exchange_rates=True, sample=False):
     exchange_rates = exchangerates.CurrencyConverter(update=update_exchange_rates)
+    reporting_org_code = absettings.reporting_org_by_id(reporting_org_id).code
+    if reporting_org_code in flatten_rules.FLATTEN_RULES:
+        doc = flattener.flatten(doc.find("iati-activities"))[reporting_org_code]
     activities = doc.xpath('//iati-activity')
     print("Parsing {} activities".format(len(activities)))
     for i, activity in enumerate(activities):
