@@ -78,6 +78,7 @@
     <table class="table" id="sectors">
       <thead>
         <th>{{ _("Fiscal year") }}</th>
+        <th>{{ _("Fiscal quarter") }}</th>
         <th>{{ _("Value (USD)") }}</th>
         <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
@@ -85,6 +86,7 @@
     {% for FY in activity.FY_disbursements %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
+          <td>{{ FY.fiscal_quarter }}</td>
           <td>{{ "{:,.2f}".format(FY.value) }}</td>
           <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
         </tr>
@@ -97,6 +99,7 @@
     <table class="table" id="sectors">
       <thead>
         <th>{{ _("Fiscal year") }}</th>
+        <th>{{ _("Fiscal quarter") }}</th>
         <th>{{ _("Value (USD)") }}</th>
         <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
@@ -104,6 +107,7 @@
     {% for FY in activity.FY_commitments %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
+          <td>{{ FY.fiscal_quarter }}</td>
           <td>{{ "{:,.2f}".format(FY.value) }}</td>
           <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
         </tr>
