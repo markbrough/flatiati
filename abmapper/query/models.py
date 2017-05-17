@@ -30,11 +30,17 @@ act_ForeignKey = ft.partial(
 FYDATA_QUERY = """
     SELECT sum(value) AS value,
     strftime('%%Y', DATE(transaction_date, '-%s month'))
-    AS fiscal_year
+    AS fiscal_year,
+    CASE 
+        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('01','02','03') THEN 'Q1'
+        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('04','05','06') THEN 'Q2'
+        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('07','08','09') THEN 'Q3'
+        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('10','11','12') THEN 'Q4'
+    END AS fiscal_quarter
     FROM atransaction
     WHERE atransaction.activity_id = '%s'
     AND atransaction.transaction_type_code IN ('%s')
-    GROUP BY fiscal_year
+    GROUP BY fiscal_quarter, fiscal_year
     ORDER BY atransaction.transaction_date DESC
     """
 
@@ -164,14 +170,14 @@ class Activity(db.Model):
 
     transactions = act_relationship("Transaction")
 
-    capital_exp = sa.Column(sa.Float(precision=2),
-        default=0.00)
+    capital_exp = sa.Column(sa.Float(precision=2))
 
     @hybrid_property
     def total_commitments(self):
         return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
                 where(Transaction.activity_id==self.id).\
-                where(Transaction.transaction_type_code=="C")).first()[0]
+                where(sa.or_(Transaction.transaction_type_code=="C", 
+                    Transaction.transaction_type_code=="IC"))).first()[0]
 
     @hybrid_property
     def total_disbursements(self):
@@ -279,11 +285,16 @@ class Activity(db.Model):
     def FY_disbursements_dict(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
                          self.id, "D','E")
                                   ).fetchall()
         return {
-                    fyval.fiscal_year: {
+                    "{} {}".format(fyval.fiscal_year, fyval.fiscal_quarter): {
                     "fiscal_year": fyval.fiscal_year,
+                    "fiscal_quarter": fyval.fiscal_quarter,
                     "value": round(fyval.value, 2)
                     }
                     for fyval in fydata
@@ -293,11 +304,16 @@ class Activity(db.Model):
     def FY_commitments_dict(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
-                         self.id, "C")
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.id, "C','IC")
                                   ).fetchall()
         return {
-                    fyval.fiscal_year: {
+                    "{} {}".format(fyval.fiscal_year, fyval.fiscal_quarter): {
                     "fiscal_year": fyval.fiscal_year,
+                    "fiscal_quarter": fyval.fiscal_quarter,
                     "value": fyval.value
                     }
                     for fyval in fydata
@@ -306,10 +322,15 @@ class Activity(db.Model):
     def FY_disbursements(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
                          self.id, "D','E")
                                   ).fetchall()
         return [{
                     "fiscal_year": fyval.fiscal_year,
+                    "fiscal_quarter": fyval.fiscal_quarter,
                     "value": round(fyval.value, 2)
                 }
                 for fyval in fydata]
@@ -318,10 +339,15 @@ class Activity(db.Model):
     def FY_commitments(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
-                         self.id, "C")
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.recipient_country.fiscalyear_modifier,
+                         self.id, "C','IC")
                                   ).fetchall()
         return  [{
                     "fiscal_year": fyval.fiscal_year,
+                    "fiscal_quarter": fyval.fiscal_quarter,
                     "value": fyval.value
                 }
                 for fyval in fydata]
@@ -347,7 +373,7 @@ class RecipientCountries(db.Model):
         act_ForeignKey("activity.id"),
         nullable=False,
         index=True)
-    percentage = sa.Column(sa.Integer)
+    percentage = sa.Column(sa.Float(precision=2))
     recipient_country = sa.orm.relationship("RecipientCountry")
     recipient_country_code = sa.Column(
         act_ForeignKey("recipientcountry.code"),
