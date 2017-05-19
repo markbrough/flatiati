@@ -39,9 +39,17 @@ def download_iati_xml(options):
     print """Downloading IATI XML for country {} and reporting organisation {}""".format(options.country_code, options.reporting_org)
     download.download_data(options.country_code, options.reporting_org)
 
+def update_codelists(options):
+    absetup.update_codelists()
+
+def update_exchange_rates(options):
+    absetup.update_exchange_rates()
+
 def remake(options):
     absetup.trash()
     absetup.setup()
+    if options.rates:
+        absetup.update_exchange_rates()
 
 def setup(options):
     absetup.setup()
@@ -53,6 +61,8 @@ commands = {
     "update-projects": (update_projects, "Update projects"),
     "import-budget": (import_budget, "Import CC-budget mapping"),
     "remake": (remake, "Trash the database and regenerate"),
+    "update-codelists": (update_codelists, "Update cached codelists"),
+    "update-exchange-rates": (update_exchange_rates, "Update exchange rates"),
 }
 
 def main():
@@ -75,6 +85,8 @@ def main():
                  help="Set type of budget for importing (a, f)")
     p.add_option("--sample", dest="sample", action="store_true",
                  help="Only import a sample of 50 activities")
+    p.add_option("--rates", dest="rates", action="store_true",
+                 help="With remake, update exchange rates")
 
     options, args = p.parse_args()
 
