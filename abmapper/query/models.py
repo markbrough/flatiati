@@ -124,8 +124,6 @@ class Activity(db.Model):
         nullable=False,
         index=True)
 
-    collaboration_type = sa.Column(sa.UnicodeText)
-    collaboration_type_code = sa.Column(sa.UnicodeText)
     flow_type = sa.Column(sa.UnicodeText)
     flow_type_code = sa.Column(sa.UnicodeText)
 
@@ -134,9 +132,6 @@ class Activity(db.Model):
         act_ForeignKey("aidtype.code"),
         nullable=False,
         index=True)
-
-    finance_type = sa.Column(sa.UnicodeText)
-    finance_type_code = sa.Column(sa.UnicodeText)
 
     iati_identifier = sa.Column(sa.UnicodeText, index=True)
 
@@ -153,6 +148,12 @@ class Activity(db.Model):
         nullable=False,
         index=True)
     status = sa.orm.relationship("ActivityStatus")
+
+    collaboration_type_code = sa.Column(
+        act_ForeignKey("collaborationtype.code"),
+        nullable=False,
+        index=True)
+    collaboration_type = sa.orm.relationship("CollaborationType")
 
     contact_organisation = sa.Column(sa.UnicodeText)
     contact_telephone = sa.Column(sa.UnicodeText)
@@ -352,6 +353,14 @@ class Activity(db.Model):
                 }
                 for fyval in fydata]
 
+    @hybrid_property
+    def finance_types(self):
+        return db.session.query(FinanceType
+            ).distinct(FinanceType.code
+            ).join(Transaction
+            ).filter(Transaction.activity_id == self.id
+            ).filter(Transaction.activity_id == self.id).all()
+
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
@@ -385,6 +394,30 @@ class RecipientCountries(db.Model):
 
 class ActivityStatus(db.Model):
     __tablename__ = 'activitystatus'
+    code = sa.Column(sa.Integer, primary_key=True)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
+
+class CollaborationType(db.Model):
+    __tablename__ = 'collaborationtype'
+    code = sa.Column(sa.Integer, primary_key=True)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
+
+class FinanceType(db.Model):
+    __tablename__ = 'financetype'
     code = sa.Column(sa.Integer, primary_key=True)
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
@@ -489,6 +522,9 @@ class Transaction(db.Model):
     value_currency = sa.Column(sa.UnicodeText)
     transaction_date = sa.Column(sa.Date)
     transaction_type_code = sa.Column(sa.UnicodeText)
+    finance_type_code = sa.Column(
+        act_ForeignKey("financetype.code"))
+    finance_type = sa.orm.relationship("FinanceType")
 
 # Put everything into sectors table, and link back to specific activity. 
 # Might want to normalise this in future.
