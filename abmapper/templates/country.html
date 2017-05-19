@@ -1,13 +1,6 @@
 {% set active_page='country' %}{% extends "layout.html" %}
 {% block title %}{{country.text}}{% endblock %}
 {% block content %}
-
-<script >
-    $(function() {
-    $("table#projects").tablesorter({ sortList: [[5,1]] });
-    $("table#budget-lines").tablesorter({ sortList: [[0,0]] });
-    });
-</script>
 <br />
 <div class="pull-right">
   <div class="btn-group">
@@ -35,18 +28,4 @@
   <dt>{{ _("Sum of projects") }}</dt><dd>{{stats.total_value}} ({{ _("commitments in USD") }})</dd>
   <dt>{{ _("Number of projects") }}</dt><dd>{{stats.total_projects}}</dd>
 </dl>
-
-
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="{{url_for('static', filename='js/budgetstats.js')}}" type="text/javascript"></script>
-<script src="{{url_for('static', filename='vendor/sankey.js')}}"></script>
-<script src="{{url_for('static', filename='js/sankey_donor_cc_budget.js')}}"></script>
-<script>
-$('#budgetTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
-
-
 {% endblock %}
