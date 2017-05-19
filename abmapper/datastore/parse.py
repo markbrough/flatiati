@@ -16,6 +16,13 @@ class UnrecognisedVersionException(Exception):
 class InvalidFormatException(Exception):
     pass
 
+def get_alt(list_1, list_2):
+    if list_1:
+        return list_1[0]
+    if list_2:
+        return list_2[0]
+    return None
+
 def getfirst(list):
     if len(list)>0:
         return list[0]
@@ -151,14 +158,6 @@ def get_transactions(activity, iati_identifier, version, exchange_rates):
         
         exchange_rate = exchange_rates.closest_rate(
             currency, util.make_date_from_iso(t_value_date))["conversion_rate"]
-        
-        #FIXME for WB data which puts t_date in the wrong place
-        if activity.xpath("reporting-org/@ref='US'"):
-            t_date = t_value_date
-        
-        #FIXME for US data which doesn't include a t_date
-        if activity.xpath("reporting-org/@ref='44000'"):
-            t_date = getfirst(ele.xpath("transaction-date/@value-date"))
 
         if not (t_type and t_date and t_value and t_value_date): 
             print "woah, transaction doesn't look right"
@@ -177,6 +176,8 @@ def get_transactions(activity, iati_identifier, version, exchange_rates):
         tr.transaction_date = datetime.datetime.strptime(
                 t_date, "%Y-%m-%d" )
         tr.transaction_type_code = t_type
+        tr.finance_type_code = get_alt(ele.xpath("finance-type/@code"),
+                    activity.xpath('default-finance-type/@code'))
         ret.append(tr)
     return ret 
 
@@ -231,6 +232,14 @@ def write_activity(activity, country_code, reporting_org_id, version, exchange_r
                                       version, exchange_rates)
     a.status_code = unicode(null_to_default(
         getfirst(activity.xpath('activity-status/@code')),
+        "2"
+        ))
+    a.capital_exp = null_to_default(
+        getfirst(activity.xpath('capital-spend/@percentage')),
+        None
+        )
+    a.collaboration_type_code = unicode(null_to_default(
+        getfirst(activity.xpath('collaboration-type/@code')),
         "2"
         ))
     a.aid_type_code = unicode(null_to_default(
