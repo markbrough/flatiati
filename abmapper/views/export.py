@@ -18,6 +18,8 @@ def wm(ws, i, sectors_rows_length, col, value, style=None):
     return ws
 
 def wr(ws, i, col, value, style=None):
+    if style:
+        ws.write(i, col, value, style)
     ws.write(i, col, value)
     return ws
 
@@ -39,7 +41,7 @@ def activity_export(country_code, reporting_org=None):
         return 0
 
     def getcs_string(list, col):
-        return "; ".join(filter(notNone, map(lambda x: getattr(x, col),
+        return "; ".join(filter(notNone, map(lambda x: unicode(getattr(x, col)),
                                              list)))
 
     def getcs_org(list, col):
@@ -57,40 +59,28 @@ def activity_export(country_code, reporting_org=None):
     styleDates = xlwt.XFStyle()
     styleDates.num_format_str = 'YYYY-MM-DD'
 
-    styleYellow = xlwt.XFStyle()
-    yellowPattern = xlwt.Pattern()
-    yellowPattern.pattern = xlwt.Pattern.SOLID_PATTERN
-    yellowPattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
-    styleYellow.pattern = yellowPattern
-
-    styleRed = xlwt.XFStyle()
-    redPattern = xlwt.Pattern()
-    redPattern.pattern = xlwt.Pattern.SOLID_PATTERN
-    redPattern.pattern_fore_colour = xlwt.Style.colour_map['red']
-    styleRed.pattern = redPattern
-
     stylePCT = xlwt.XFStyle()
     stylePCT.num_format_str = '0%'
 
-    def makeCCYellow(cc_id):
-        if cc_id == "0":
-            return True
-        return False
-
-    p = abprojects.projects(country_code, reporting_org)
+    projects = abprojects.projects(country_code, reporting_org)
 
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Raw data export')
+    
     headers = ['iati_identifier', 'project_title', 'project_description',
         'pct_{}'.format(country_name),
         'sector_code', 'sector_name', 'sector_pct', 'aid_type_code', 'aid_type',
+        'collaboration_type_code','collaboration_type','finance_type_code',
+        'finance_type',
         'activity_status_code', 'activity_status', 'date_start',
         'date_end', 'capital_spend_pct', 'total_commitments',
         'total_disbursements',
         'implementing_org']
     try:
         minFY, maxFY = abstats.earliest_latest_disbursements(country_code)
-        disbFYs_QTRs = [("{} Q1".format(fy), "{} Q2".format(fy), "{} Q3".format(fy), "{} Q4".format(fy)) for fy in range(minFY, maxFY+1)]
+        disbFYs_QTRs = [("{} Q1".format(fy), "{} Q2".format(fy), 
+                         "{} Q3".format(fy), "{} Q4".format(fy)
+                         ) for fy in range(minFY, maxFY+1)]
         disbFYs = [item for sublist in disbFYs_QTRs for item in sublist]
         headers += map(lambda fy: "%s (D)" % fy, disbFYs)
     except ValueError:
@@ -101,7 +91,7 @@ def activity_export(country_code, reporting_org=None):
 
     i = 0
 
-    for project in p:
+    for project in projects:
 
         def remove_deleted_sectors(sector):
             return sector.deleted == False
@@ -113,54 +103,48 @@ def activity_export(country_code, reporting_org=None):
         sectors_rows_length = get_sectors_rows_length(numsectors)
 
         cols_vals = {
-            0: project.iati_identifier,
-            1: getcs_string(project.titles, 'text'),
-            2: getcs_string(project.descriptions, 'text'),
-            7: project.aid_type_code,
-            8: project.aid_type.text,
-            9: project.status_code,
-            10: project.status.text,
-            14: project.total_commitments,
-            15: project.total_disbursements,
-            16: getcs_org(project.implementing_orgs, 'name'),
-        }
-        for col, value in cols_vals.items():
-            ws = wm(ws, i, sectors_rows_length, col, value)
-
-        cols_vals_styles = {
+            0: (project.iati_identifier, None),
+            1: (getcs_string(project.titles, 'text'), None),
+            2: (getcs_string(project.descriptions, 'text'), None),
             3: (project.this_country_pct/100.0, stylePCT),
-            11: (project.date_start_actual or project.date_start_planned,
+            7: (project.aid_type_code, None),
+            8: (project.aid_type.text, None),
+            9: (project.collaboration_type.code, None),
+            10: (project.collaboration_type.text, None),
+            11: (getcs_string(project.finance_types, 'code'), None),
+            12: (getcs_string(project.finance_types, 'text'), None),
+            13: (project.status_code, None),
+            14: (project.status.text, None),
+            15: (project.date_start_actual or project.date_start_planned,
                  styleDates),
-            12: (project.date_end_actual or project.date_end_planned,
+            16: (project.date_end_actual or project.date_end_planned,
                  styleDates),
-            13: (project.capital_exp,
-                 stylePCT),
+            17: (project.capital_exp, None),
+            18: (project.total_commitments, None),
+            19: (project.total_disbursements, None),
+            20: (getcs_org(project.implementing_orgs, 'name'), None),
         }
 
-        for col, value in cols_vals_styles.items():
-            ws = wm(ws, i, sectors_rows_length, col, value[0], value[1])
+        for col, value in cols_vals.items():
+            if value[1] != None:
+                ws = wm(ws, i, sectors_rows_length, col, value[0], value[1])
+            else:
+                ws = wm(ws, i, sectors_rows_length, col, value[0])
 
         for si, sector in enumerate(current_sectors):
-            if not sector.assumed:
-                ws.write(i, 4, sector.dacsector.code)
-                ws.write(i, 5, sector.dacsector.description)
-            else:
-                if sector.formersector:
-                    ws.write(i, 4, sector.formersector.code, styleRed)
-                    ws.write(i, 5, sector.formersector.description,
-                                                             styleRed)
-
             cols_vals_simple = {
+                4: sector.dacsector.code,
+                5: sector.dacsector.description,
                 6: sector.percentage,
             }
 
             for col, value in cols_vals_simple.items():
                 ws = wr(ws, i, col, value)
 
-            for col, fy in enumerate(disbFYs, start=17):
+            for col, fy in enumerate(disbFYs, start=21):
                 fyd = project.FY_disbursements_dict.get(str(fy))
                 if fyd:
-                    value = fyd["value"] * sector.percentage/100
+                    value = fyd["value"] * sector.percentage/100.0
                 else:
                     value = 0
                 ws.write(i, col, value)
@@ -179,41 +163,6 @@ def activity_export(country_code, reporting_org=None):
     return send_file(strIOsender,
                      attachment_filename=the_filename,
                      as_attachment=True)
-                     
-@app.route("/<country_code>/sankey.json")
-def country_sankey(country_code):
-    data = abstats.generate_sankey_data(country_code, "f")
-    return jsonify(data)
-
-@app.route("/<country_code>/budgetstats.csv")
-def country_budget_stats_csv(country_code):
-
-    fieldnames = ['budget_code', 'budget_name', 'before_value',
-    'after_value', 'colour']
-    strIOsender = StringIO.StringIO()
-    writer = unicodecsv.DictWriter(strIOsender, fieldnames=fieldnames)
-    writer.writeheader()
-
-    def decomma(value):
-        return re.sub(",", "", value)
-
-    budget_stats = abstats.budget_project_stats(country_code, "f")
-
-    ccolours = country_colours.colours(country_code)
-
-    def get_colour(node, ccolours):
-        if ccolours:
-            if node in ccolours: return ccolours[node]
-        return node
-
-    for c, bs in budget_stats["budgets"].items():
-        writer.writerow({"budget_code": bs["code"],
-                          "budget_name": bs["name"],
-                          "colour": get_colour(bs["name"], ccolours),
-                          "before_value": decomma(bs["before"]["value"]),
-                          "after_value": decomma(bs["after"]["value"])})
-    strIOsender.seek(0)
-    return send_file(strIOsender)
 
 @app.route("/sectors/export.csv")
 def sectors_stats_csv():
