@@ -6,6 +6,8 @@ import os
 import urllib2
 import json
 from flask import abort
+import exchangerates
+from datetime import datetime
 
 CODELIST_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../lib/codelists/{}.csv')
 
@@ -18,9 +20,14 @@ def update_codelists():
         "AidType": "https://andylolz.github.io/dac-crs-codes/data/aid_type.csv",
         "Country": "https://github.com/datasets/country-codes/raw/master/data/country-codes.csv",
         "Sector": "https://andylolz.github.io/dac-crs-codes/data/sector.csv",
-        "SectorCategory": "https://andylolz.github.io/dac-crs-codes/data/sector_category.csv"
+        "SectorCategory": "https://andylolz.github.io/dac-crs-codes/data/sector_category.csv",
+        "CollaborationType": "https://andylolz.github.io/dac-crs-codes/data/collaboration_type.csv",
+        "FinanceType": "https://andylolz.github.io/dac-crs-codes/data/finance_type.csv",
+        "FinanceType_old": "https://raw.githubusercontent.com/markbrough/IATI-Codelists-NonEmbedded/CRS-codelists-en-fr/csv/FinanceType.csv",
+        "FiscalYears": "https://raw.githubusercontent.com/markbrough/country-fiscal-years/gh-pages/data/countries_fiscal_years.csv",
     }
     for code, url in codelists.items():
+        print("Fetching codelist {} from {}".format(code, url))
         sourcedata = urllib2.urlopen(url, timeout=60).read()
         path = CODELIST_PATH.format(code)
         with file(path, 'w') as localFile:
@@ -33,6 +40,9 @@ def setup():
     import_aid_types()
     import_recipient_countries()
     import_budget_types()
+    import_collaboration_types()
+    import_finance_types()
+    import_reporting_organisations()
 
 def import_sectors():
     SectorCategories = {}
@@ -82,20 +92,71 @@ def import_aid_types():
             db.session.add(nc)
     db.session.commit()
 
+def import_collaboration_types():
+    with open(CODELIST_PATH.format("CollaborationType"), 'r') as csvfile:
+        collabtypereader = unicodecsv.DictReader(csvfile)
+        for row in collabtypereader:
+            nc = models.CollaborationType()
+            nc.code = row["code"]
+            nc.text_EN = row["name_en"]
+            nc.text_FR = row["name_fr"]
+            db.session.add(nc)
+    db.session.commit()
+
+def import_finance_types():
+    with open(CODELIST_PATH.format("FinanceType"), 'r') as csvfile:
+        financetypereader = unicodecsv.DictReader(csvfile)
+        for row in financetypereader:
+            nc = models.FinanceType()
+            nc.code = row["code"]
+            nc.text_EN = row["heading_en"]
+            nc.text_FR = row["heading_fr"]
+            db.session.add(nc)
+    with open(CODELIST_PATH.format("FinanceType_old"), 'r') as csvfile:
+        financetypereader = unicodecsv.DictReader(csvfile)
+        for row in financetypereader:
+            if not models.FinanceType.query.filter_by(code=row["code"]).first():
+                nc = models.FinanceType()
+                nc.code = row["code"]
+                nc.text_EN = row["name_en"]
+                nc.text_FR = row["name_fr"]
+                db.session.add(nc)
+    db.session.commit()
+
 def import_recipient_countries():
     with open(CODELIST_PATH.format("Country"), 'r') as csvfile:
         countryreader = unicodecsv.DictReader(csvfile)
         for row in countryreader:
-            if (row["name"] == "") or (row["ISO3166-1-Alpha-2"] == ""): continue
+            if (row["official_name_en"] == "") or (row["ISO3166-1-Alpha-2"] == ""): continue
             rc = models.RecipientCountry()
             rc.code = row["ISO3166-1-Alpha-2"]
             rc.text_EN = row["official_name_en"]
             rc.text_FR = row["official_name_fr"]
             db.session.add(rc)
+    ADDITIONAL_COUNTRIES = [{
+        "code": u"KV",
+        "text_EN": u"Kosovo",
+        "text_FR": u"Kosovo"
+    }]
+    for country in ADDITIONAL_COUNTRIES:
+        rc = models.RecipientCountry()
+        rc.code = country["code"]
+        rc.text_EN = country["text_EN"]
+        rc.text_FR = country["text_FR"]
+        db.session.add(rc)
+    with open(CODELIST_PATH.format("FiscalYears"), 'r') as csvfile:
+        countryreader = unicodecsv.DictReader(csvfile)
+        for row in countryreader:
+            country = models.RecipientCountry.query.filter_by(code=row["code"]
+                        ).first()
+            if not country: continue
+            if row["fy_start"] == "Unknown": continue
+            month_offset = datetime.strptime(row["fy_start"], "%d %B").month-1
+            country.fiscalyear_modifier = month_offset
+            db.session.add(country)
     db.session.commit()
 
 def import_budget_types():
-    filename="budget_type_EN_FR.csv"
     with open(CODELIST_PATH.format("budget_type_EN_FR"), 'r') as csvfile:
         budgettypereader = unicodecsv.DictReader(csvfile)
         for row in budgettypereader:
@@ -105,3 +166,17 @@ def import_budget_types():
             nc.text_FR = row["FR_Name"]
             db.session.add(nc)
     db.session.commit()
+
+def import_reporting_organisations():
+    with open(CODELIST_PATH.format("ReportingOrganisation"), 'r') as csvfile:
+        roreader = unicodecsv.DictReader(csvfile)
+        for row in roreader:
+            nc = models.ReportingOrg()
+            nc.code = row["code"]
+            nc.text_EN = row["text_en"]
+            nc.text_FR = row["text_fr"]
+            db.session.add(nc)
+    db.session.commit()
+
+def update_exchange_rates():
+    exchangerates.CurrencyConverter(update=True)
