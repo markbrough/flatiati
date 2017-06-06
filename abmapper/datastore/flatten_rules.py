@@ -14,5 +14,13 @@ FLATTEN_RULES = {
 		"flatten_from_fields": {
 			"1": []
 		}
+	},
+	"GB-GOV-1": {
+        "flatten_down": False,
+		"flatten_from": ["2"],
+		"flatten_to": "1",
+		"flatten_from_fields": {
+			"2": ["transaction", "budget"]
+		}
 	}
 }
