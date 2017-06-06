@@ -258,7 +258,8 @@ def get_version(activity):
     version = activity.get("{%s}version" % ns, "1.05")
     if version in ("2.01", "2.02"):
         return 2
-    elif version in ("1.01", "1.05"):
+    elif version in ("1.01", "1.04", "1.05"):
+        #FIXME when looking at locations, handle differently
         return 1
     raise UnrecognisedVersionException("""The IATI-XML version {} was not 
     recognised.""".format(version))
