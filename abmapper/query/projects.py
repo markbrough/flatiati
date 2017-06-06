@@ -40,13 +40,14 @@ def countries_activities():
     return c
 
 def reporting_org_activities(country_code):
-    reporting_orgs = models.ReportingOrg.query.all()
+    reporting_orgs = models.ReportingOrg.query.order_by(
+                models.ReportingOrg.text
+            ).all()
     r = list(map(lambda x: {
                 "id": x.id,
                 "code": x.code,
                 "text": x.text,
                 "num_activities": x.num_activities}, reporting_orgs))
-    print r
     return r
 
 def project(iati_identifier):
