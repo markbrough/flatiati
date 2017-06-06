@@ -9,6 +9,8 @@ from abmapper.lib import util
 import exchangerates
 import datetime
 import flattener, flatten_rules
+import sqlalchemy as sa
+from flask import flash
 
 class UnrecognisedVersionException(Exception):
     pass
@@ -273,9 +275,14 @@ def parse_doc(country_code, reporting_org_id, doc, update_exchange_rates=True, s
     print("Parsing {} activities".format(len(activities)))
     for i, activity in enumerate(activities):
         version = get_version(activity)
-        write_activity(activity, unicode(country_code), reporting_org_id,
+        try:
+            write_activity(activity, unicode(country_code), reporting_org_id,
                        version, exchange_rates)
-        if sample and i>50: break
+        except sa.exc.IntegrityError:
+            db.session.rollback()
+            iati_identifier = activity.xpath("iati-identifier/text()")
+            flash("""Unable to parse activity {} as one or more codes used 
+            are invalid""".format("".join(iati_identifier)))
 
 def parse_file(country_code, filename, sample=False):
     doc=etree.parse(filename)
