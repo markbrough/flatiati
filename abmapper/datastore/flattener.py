@@ -38,9 +38,13 @@ def get_reporting_org_activities(rep, root, doc):
     
     for from_h in sorted(rules["flatten_from"], reverse=rules["flatten_down"]):
         for iati_id, activity in data[from_h].items():
-            other_iati_id = activity.xpath(
-                'related-activity[@type="{}"]/@ref'.format(related_activity_type))[0]
-            other_activity = data[str(int(from_h)+related_activity_h)][other_iati_id]
+            related_activity_ids = activity.xpath(
+                'related-activity[@type="{}"]/@ref'.format(related_activity_type))
+            if not related_activity_ids: 
+                continue
+            other_activity = data[str(int(from_h)+related_activity_h)].get(related_activity_ids[0])
+            if not other_activity:
+                continue
             
             for element in rules["flatten_from_fields"][from_h]:
                 for el in activity.xpath(element):
