@@ -8,7 +8,9 @@ import json
 from flask import abort
 
 def reporting_orgs():
-    return models.ReportingOrg.query.all()
+    return models.ReportingOrg.query.order_by(
+                models.ReportingOrg.text
+            ).all()
 
 def reporting_org_by_id(reporting_org_id):
     return models.ReportingOrg.query.filter_by(
