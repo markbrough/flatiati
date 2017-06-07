@@ -1,7 +1,19 @@
 code,text_en,text_fr
-CA-3,Canada,Canada
-AU-5,Australia,Australie
+CA-3,Canada (GAC),Canada (AMC)
+AU-5,Australia (AusAID),Australie (AusAID)
 47045,Global Fund,Global Fund
 47122,GAVI,GAVI
 XM-DAC-41114,UNDP,PNUD
 44000,World Bank,Banque mondiale
+GB-GOV-1,UK (DFID),UK (DFID)
+XM-DAC-7,Netherlands (MFA),Pays-Bas
+46002,African Development Bank (AfDB),Banque africaine de développement
+XM-DAC-2-10,Belgium,Belgique
+XI-IATI-EC_ECHO,European Commission (ECHO),Commission européene (ECHO)
+XI-IATI-EC_FPI,European Commission (FPI),Commission européene (FPI)
+XM-DAC-918-3,European Investment Bank (EIB),Bank européene d'investissement (BEI)
+SE-0,Sweden (Sida),Suède (Sida)
+XM-DAC-41140,World Food Programme (WFP),Programme alimentaire mondial (PAM)
+46004,Asian Development Bank (AsDB),Asian Development Bank (AsDB)
+XI-IATI-EBRD,European Bank for Reconstruction and Development (EBRD),European Bank for Reconstruction and Development (EBRD)
+XI-IATI-EC_DEVCO,European Commission (DG DEVCO),Commission européene (DG DEVCO)
