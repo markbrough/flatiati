@@ -87,6 +87,10 @@ def activity_export(country_code, reporting_org=None):
         disbFYs = []
         pass
 
+    minFY_fwd, maxFY_fwd = abstats.earliest_latest_forward_data(country_code)
+    fwdFYs = [fy for fy in range(minFY_fwd, maxFY_fwd+1)]
+    headers += map(lambda fy: "MTEF {}".format(fy), fwdFYs)
+
     [ws.write(0, i, h, styleHeader) for i, h in enumerate(headers)]
 
     i = 0
@@ -143,6 +147,14 @@ def activity_export(country_code, reporting_org=None):
 
             for col, fy in enumerate(disbFYs, start=21):
                 fyd = project.FY_disbursements_dict.get(str(fy))
+                if fyd:
+                    value = fyd["value"] * sector.percentage/100.0
+                else:
+                    value = 0
+                ws.write(i, col, value)
+
+            for col, fy in enumerate(fwdFYs, start=21+len(disbFYs)):
+                fyd = project.FY_forward_spend_dict.get(str(fy))
                 if fyd:
                     value = fyd["value"] * sector.percentage/100.0
                 else:
