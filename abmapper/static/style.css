@@ -2,7 +2,7 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300";
 
 body {
-    background: url("img/background.png") repeat fixed left top #d1dce8;
+    background-color: #e8eef4;
     font-family: "Open Sans";
     font-size:16px;
 }
