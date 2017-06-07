@@ -199,67 +199,6 @@ class Activity(db.Model):
                 where(sa.or_(Transaction.transaction_type_code=="D",
                     Transaction.transaction_type_code=="E"))).first()[0]
 
-    pct_mappable_before_sql = """
-        SELECT sum(sector.percentage) AS sum_1
-        FROM sector
-        JOIN dacsector ON dacsector.code = sector.code
-        JOIN commoncode ON commoncode.id = dacsector.cc_id
-        JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
-        JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
-        WHERE sector.activity_id = '%s'
-        AND sector.edited = 0 AND dacsector.cc_id != "0"
-        AND budgetcode.country_code="%s"
-        AND budgetcode.budgettype_code="%s";
-        """
-
-    pct_mappable_after_sql = """
-        SELECT sum(sector.percentage) AS sum_1
-        FROM sector
-        JOIN dacsector ON dacsector.code = sector.code
-        JOIN commoncode ON commoncode.id = dacsector.cc_id
-        JOIN ccbudgetcode ON ccbudgetcode.cc_id = commoncode.id
-        JOIN budgetcode ON budgetcode.id = ccbudgetcode.budgetcode_id
-        WHERE sector.activity_id = '%s'
-        AND sector.deleted = 0 AND dacsector.cc_id != "0"
-        AND budgetcode.country_code="%s"
-        AND budgetcode.budgettype_code="%s";
-        """
-
-    @hybrid_property
-    def pct_mappable_before(self):
-        return none_is_zero(db.engine.execute(
-            self.pct_mappable_before_sql % (self.id,
-                   self.recipient_country_code,
-                   "f")).first()[0])
-
-    @hybrid_property
-    def pct_mappable_after(self):
-        return none_is_zero(db.engine.execute(
-            self.pct_mappable_after_sql % (self.id,
-                   self.recipient_country_code,
-                   "f")).first()[0])
-
-    @hybrid_property
-    def pct_mappable_before_admin(self):
-        return none_is_zero(db.engine.execute(
-             self.pct_mappable_before_sql % (self.id,
-                   self.recipient_country_code,
-                   "a")).first()[0])
-
-    @hybrid_property
-    def pct_mappable_after_admin(self):
-        return none_is_zero(db.engine.execute(
-            self.pct_mappable_after_sql % (self.id,
-                   self.recipient_country_code,
-                   "a")).first()[0])
-
-    @hybrid_property
-    def pct_mappable_diff(self):
-        try:
-            return "{0:.2f}".format(self.pct_mappable_after - self.pct_mappable_before)
-        except TypeError:
-            return 0
-
     @hybrid_property
     def implementing_orgs(self):
         def filter_implementing(orgs):
@@ -510,10 +449,6 @@ class RecipientCountry(db.Model):
     fiscalyear_modifier = sa.Column(sa.Integer,
         nullable=False,
         default=0)
-    budgettype_id = sa.Column(
-        act_ForeignKey("budgettype.code"),
-        default=None)
-    budgettype = sa.orm.relationship("BudgetType")
 
     @hybrid_property
     def text(self):
@@ -526,18 +461,6 @@ class RecipientCountry(db.Model):
         return Activity.query.filter_by(
             recipient_country_code=self.code
         ).count()
-
-class BudgetType(db.Model):
-    __tablename__ = 'budgettype'
-    code = sa.Column(sa.UnicodeText, primary_key=True)
-    text_EN = sa.Column(sa.UnicodeText)
-    text_FR = sa.Column(sa.UnicodeText)
-
-    @hybrid_property
-    def text(self):
-        if str(get_locale()) == "fr":
-            return self.text_FR
-        return self.text_EN
 
 class Description(db.Model):
     __tablename__ = 'description'
@@ -653,85 +576,58 @@ class DACSector(db.Model):
             return self.notes_FR
         return self.notes_EN
 
-class CommonCode(db.Model):
-    __tablename__ = 'commoncode'
-    id = sa.Column(sa.UnicodeText, primary_key=True)
-    category_EN = sa.Column(sa.UnicodeText)
-    sector_EN = sa.Column(sa.UnicodeText)
-    function_EN = sa.Column(sa.UnicodeText)
-    category_FR = sa.Column(sa.UnicodeText)
-    sector_FR = sa.Column(sa.UnicodeText)
-    function_FR = sa.Column(sa.UnicodeText)
-    cc_budgetcode = other_relationship("CCBudgetCode")
-    cc_lowerbudgetcode = other_relationship("CCLowerBudgetCode")
-
-    @hybrid_property
-    def category(self):
-        if str(get_locale()) == "fr":
-            return self.category_FR
-        return self.category_EN
-
-    @hybrid_property
-    def sector(self):
-        if str(get_locale()) == "fr":
-            return self.sector_FR
-        return self.sector_EN
-
-    @hybrid_property
-    def function(self):
-        if str(get_locale()) == "fr":
-            return self.function_FR
-        return self.function_EN
-
-class BudgetCode(db.Model):
-    __tablename__ = 'budgetcode'
+class BudgetMapping(db.Model):
+    __tablename__ = 'budgetmapping'
     id = sa.Column(sa.Integer, primary_key=True)
+    order = sa.Column(sa.Integer)
+    name = sa.Column(sa.UnicodeText)
+    recipientcountry_code = sa.Column(
+        act_ForeignKey("recipientcountry.code"),
+        nullable=False,
+        index=True)
+    is_constant = sa.Column(sa.Boolean,
+                        default=False)
+    constant_value = sa.Column(sa.UnicodeText,
+                        nullable=True)
+    maps_to = sa.Column(sa.Integer)
+    budgetmappingdac = other_relationship("BudgetMappingDACCode")
+    budgetmappingro = other_relationship("BudgetMappingRO")
+
+class BudgetMappingDACCode(db.Model):
+    __tablename__ = 'budgetmappingdac'
+    id = sa.Column(sa.Integer, primary_key=True)
+    budgetmapping_id = sa.Column(
+        act_ForeignKey("budgetmapping.id"),
+        nullable=False,
+        index=True)
+    dacsector_code = sa.Column(
+        act_ForeignKey("dacsector.code"),
+        nullable=False,
+        index=True)
     code = sa.Column(sa.UnicodeText)
     name = sa.Column(sa.UnicodeText)
-    country_code = sa.Column(sa.UnicodeText, sa.ForeignKey("recipientcountry.code"))
-    country = sa.orm.relationship("RecipientCountry",
-                primaryjoin=country_code == RecipientCountry.code,
-                foreign_keys=[country_code],
-                )
-    budgettype_code = sa.Column(sa.UnicodeText, sa.ForeignKey("budgettype.code"))
-    budgettype = sa.orm.relationship("BudgetType",
-                primaryjoin=budgettype_code == BudgetType.code,
-                foreign_keys=[budgettype_code],
-                )
 
-class LowerBudgetCode(db.Model):
-    __tablename__ = 'lowerbudgetcode'
+class BudgetMappingRO(db.Model):
+    __tablename__ = 'budgetmappingro'
     id = sa.Column(sa.Integer, primary_key=True)
+    budgetmapping_id = sa.Column(
+        act_ForeignKey("budgetmapping.id"),
+        nullable=False,
+        index=True)
+    reportingorg_id = sa.Column(
+        act_ForeignKey("reportingorg.id"),
+        nullable=False,
+        index=True)
+    aidtype_code = sa.Column(
+        act_ForeignKey("aidtype.code"),
+        nullable=True,
+        index=True)
+    financetype_code = sa.Column(
+        act_ForeignKey("financetype.code"),
+        nullable=True,
+        index=True)
     code = sa.Column(sa.UnicodeText)
     name = sa.Column(sa.UnicodeText)
-    country_code = sa.Column(sa.UnicodeText, sa.ForeignKey("recipientcountry.code"))
-    country = sa.orm.relationship("RecipientCountry",
-                primaryjoin=country_code == RecipientCountry.code,
-                foreign_keys=[country_code],
-                )
-    budgettype_code = sa.Column(sa.UnicodeText, sa.ForeignKey("budgettype.code"))
-    budgettype = sa.orm.relationship("BudgetType",
-                primaryjoin=budgettype_code == BudgetType.code,
-                foreign_keys=[budgettype_code],
-                )
-    parent_budgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("budgetcode.id"))
-    parent_budgetcode = sa.orm.relationship("BudgetCode")
-
-class CCBudgetCode(db.Model):
-    __tablename__ = 'ccbudgetcode'
-    id = sa.Column(sa.Integer, primary_key=True)
-    cc_id = sa.Column(sa.UnicodeText, sa.ForeignKey("commoncode.id"))
-    cc = sa.orm.relationship("CommonCode")
-    budgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("budgetcode.id"))
-    budgetcode = sa.orm.relationship("BudgetCode")
-
-class CCLowerBudgetCode(db.Model):
-    __tablename__ = 'cclowerbudgetcode'
-    id = sa.Column(sa.Integer, primary_key=True)
-    cc_id = sa.Column(sa.UnicodeText, sa.ForeignKey("commoncode.id"))
-    cc = sa.orm.relationship("CommonCode")
-    lowerbudgetcode_id = sa.Column(sa.Integer, sa.ForeignKey("lowerbudgetcode.id"))
-    lowerbudgetcode = sa.orm.relationship("LowerBudgetCode")
 
 class RelatedActivity(db.Model):
     __tablename__ = 'relatedactivity'
