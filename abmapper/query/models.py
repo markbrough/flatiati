@@ -26,6 +26,16 @@ act_ForeignKey = ft.partial(
     sa.ForeignKey,
     ondelete="CASCADE"
 )
+FWDDATA_QUERY = """
+    SELECT sum(value) AS value,
+    strftime('%%Y', DATE(period_start_date, '-%s month'))
+    AS fiscal_year
+    FROM forwardspend
+    WHERE forwardspend.activity_id = '%s'
+    AND value > 0
+    GROUP BY fiscal_year
+    ORDER BY forwardspend.period_start_date DESC
+    """
 
 FYDATA_QUERY = """
     SELECT sum(value) AS value,
@@ -171,6 +181,8 @@ class Activity(db.Model):
 
     transactions = act_relationship("Transaction")
 
+    forward_spend = act_relationship("ForwardSpend")
+
     capital_exp = sa.Column(sa.Float(precision=2))
 
     @hybrid_property
@@ -283,6 +295,20 @@ class Activity(db.Model):
         return relevant_descriptions
 
     @hybrid_property
+    def FY_forward_spend_dict(self):
+        fydata = db.engine.execute(FWDDATA_QUERY % 
+                        (self.recipient_country.fiscalyear_modifier,
+                         self.id)
+                                  ).fetchall()
+        return {
+                    "{}".format(fyval.fiscal_year): {
+                    "fiscal_year": fyval.fiscal_year,
+                    "value": round(fyval.value, 2)
+                    }
+                    for fyval in fydata
+                }
+
+    @hybrid_property
     def FY_disbursements_dict(self):
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (self.recipient_country.fiscalyear_modifier,
@@ -350,6 +376,19 @@ class Activity(db.Model):
                     "fiscal_year": fyval.fiscal_year,
                     "fiscal_quarter": fyval.fiscal_quarter,
                     "value": fyval.value
+                }
+                for fyval in fydata]
+
+
+    @hybrid_property
+    def FY_forward_spend(self):
+        fydata = db.engine.execute(FWDDATA_QUERY % 
+                        (self.recipient_country.fiscalyear_modifier,
+                         self.id)
+                                  ).fetchall()
+        return [{
+                    "fiscal_year": fyval.fiscal_year,
+                    "value": round(fyval.value, 2)
                 }
                 for fyval in fydata]
 
@@ -525,6 +564,34 @@ class Transaction(db.Model):
     finance_type_code = sa.Column(
         act_ForeignKey("financetype.code"))
     finance_type = sa.orm.relationship("FinanceType")
+
+class ForwardSpend(db.Model):
+    __tablename__ = 'forwardspend'
+    id = sa.Column(sa.Integer, primary_key=True)
+    activity_id = sa.Column(
+        act_ForeignKey("activity.id"),
+        nullable=False,
+        index=True)
+    value = sa.Column(sa.Float(precision=2))
+    value_date = sa.Column(sa.Date)
+    value_currency = sa.Column(sa.UnicodeText)
+    period_start_date = sa.Column(sa.Date)
+    period_end_date = sa.Column(sa.Date)
+    forwardspendtype_code = sa.Column(
+        act_ForeignKey("forwardspendtype.code"))
+    forward_spend_type = sa.orm.relationship("ForwardSpendType")
+
+class ForwardSpendType(db.Model):
+    __tablename__ = 'forwardspendtype'
+    code = sa.Column(sa.Integer, primary_key=True)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
 
 # Put everything into sectors table, and link back to specific activity. 
 # Might want to normalise this in future.
