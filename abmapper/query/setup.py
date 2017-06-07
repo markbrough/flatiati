@@ -39,7 +39,6 @@ def setup():
     import_activity_statuses()
     import_aid_types()
     import_recipient_countries()
-    import_budget_types()
     import_collaboration_types()
     import_finance_types()
     import_reporting_organisations()
@@ -57,9 +56,6 @@ def import_sectors():
                 dacsector.code = row["voluntary_code"]
             else:
                 dacsector.code = row["code"]
-            #dacsector.dac_sector_code = row["DAC_sector_code"] #NO
-            #dacsector.dac_sector_name_EN = row["DAC_sector_name"] #NO
-            #dacsector.dac_sector_name_FR = row["DAC_sector_name"] #NO
             dacsector.dac_five_code = SectorCategories[row["category"]]["code"]
             dacsector.dac_five_name_EN = SectorCategories[row["category"]]["name_en"]
             dacsector.dac_five_name_FR = SectorCategories[row["category"]]["name_fr"]
@@ -156,15 +152,59 @@ def import_recipient_countries():
             db.session.add(country)
     db.session.commit()
 
-def import_budget_types():
-    with open(CODELIST_PATH.format("budget_type_EN_FR"), 'r') as csvfile:
-        budgettypereader = unicodecsv.DictReader(csvfile)
-        for row in budgettypereader:
-            nc = models.BudgetType()
-            nc.code = row["Code"]
-            nc.text_EN = row["EN_Name"]
-            nc.text_FR = row["FR_Name"]
-            db.session.add(nc)
+def import_budget_mappings():
+    bms = [{
+        "order": 1,
+        "name": u"Agency",
+        "recipientcountry_code": u"LR",
+        "is_constant": False,
+        "maps_to": 1
+    },
+    {
+        "order": 2,
+        "name": u"Budget Classification",
+        "recipientcountry_code": u"LR",
+        "is_constant": True,
+        "constant_value": u"6"
+    },
+    {
+        "order": 3,
+        "name": u"Fund Type",
+        "recipientcountry_code": u"LR",
+        "is_constant": True,
+        "constant_value": u"01"
+    },
+    {
+        "order": 5,
+        "name": u"Project",
+        "recipientcountry_code": u"LR",
+        "is_constant": True,
+        "constant_value": u"000000"
+    },
+    ]
+    for bm in bms:
+        m = models.BudgetMapping()
+        m.order = bm["order"]
+        m.name = bm["name"]
+        m.recipientcountry_code = bm["recipientcountry_code"]
+        m.is_constant = bm["is_constant"]
+        if bm.get("is_constant"):
+            m.constant_value = bm["constant_value"]
+        else:
+            m.maps_to = bm["maps_to"]
+        db.session.add(m)
+    db.session.commit()
+    
+    the_bm = models.BudgetMapping.query.filter_by(name=u"Agency").first()
+    with open(CODELIST_PATH.format("liberia/sector_agency"), 'r') as csvfile:
+        mappingreader = unicodecsv.DictReader(csvfile)
+        for row in mappingreader:
+            nmc = models.BudgetMappingDACCode()
+            nmc.budgetmapping_id = the_bm.id
+            nmc.dacsector_code = row["code"]
+            nmc.code = row["agency_code"]
+            nmc.name = row["agency_name"]
+            db.session.add(nmc)
     db.session.commit()
 
 def import_reporting_organisations():
