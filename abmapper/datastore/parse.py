@@ -147,6 +147,56 @@ def get_t_type(value):
         raise InvalidFormatException("""{} is not a valid transaction type 
         for this version of the IATI Standard""")
 
+def get_forward_spend_item(ele, activity, iati_identifier, exchange_rates, 
+                           forward_spend_type_code):
+    fs = models.ForwardSpend()
+    start_date = ele.xpath("period-start/@iso-date")
+    
+    fs.period_start_date = util.make_date_from_iso(start_date[0])
+    end_date = ele.xpath("period-end/@iso-date")
+    if end_date: 
+        fs.period_end_date = util.make_date_from_iso(end_date[0])
+    else:
+        fs.period_end_date = start_date
+    
+    value = getfirst(ele.xpath("value/text()"))
+    value_date = getfirst(ele.xpath("value/@value-date"))
+    currency = get_currency(activity, ele)
+    exchange_rate = exchange_rates.closest_rate(
+        currency, util.make_date_from_iso(value_date))["conversion_rate"]
+    
+    fs.value = (float(value) * exchange_rate)
+    fs.value_currency = u"USD"
+    fs.value_date = util.make_date_from_iso(value_date)
+    fs.forward_spend_type_code = forward_spend_type_code
+    return fs
+
+def fs_overlaps(fs, forward_spends):
+    fs_start_date = fs.period_start_date
+    fs_end_date = fs.period_end_date
+    for fs_existing in forward_spends:
+        if ((min(fs_existing.period_end_date, fs_end_date) - 
+             max(fs_existing.period_start_date, fs_start_date)).days + 1) > 0:
+            return True
+    return False
+
+def get_forward_spend(activity, iati_identifier, version, exchange_rates):
+    # Consider original / revised budgets and planned disbursements as equivalent
+    # Line these up alongside each other and take only one.
+    forward_spends = []
+    for ele in activity.xpath("./budget[@type='1']|budget[not(@type)]"):
+        fs = get_forward_spend_item(ele, activity, iati_identifier, 
+            exchange_rates, 1)
+        forward_spends.append(fs)
+    return forward_spends 
+    #FIXME
+    for ele in activity.xpath("./budget[@type='2']"):
+        fs = get_forward_spend_item(ele, activity, iati_identifier, 
+            exchange_rates, 2)
+        if not fs_overlaps(fs, forward_spends):
+            forward_spends.append(fs)
+    return forward_spends 
+
 def get_transactions(activity, iati_identifier, version, exchange_rates):
     ret = []
     for ele in activity.xpath("./transaction"):
@@ -231,6 +281,8 @@ def write_activity(activity, country_code, reporting_org_id, version, exchange_r
     a.sectors = get_sectors(activity)
     a.participating_orgs = get_orgs(activity, country_code, version)
     a.transactions = get_transactions(activity, a.iati_identifier, 
+                                      version, exchange_rates)
+    a.forward_spend = get_forward_spend(activity, a.iati_identifier, 
                                       version, exchange_rates)
     a.status_code = unicode(null_to_default(
         getfirst(activity.xpath('activity-status/@code')),
