@@ -172,23 +172,40 @@ def country_project_stats(country_code):
 
 def earliest_latest_disbursements(country_code):
     country = abprojects.country(country_code)
-    FYDATA_QUERY = """
-        SELECT strftime('%%Y', DATE(transaction_date, '-%s month'))
-        AS fiscal_year
-        FROM atransaction
-        JOIN activity ON
-            activity.id=atransaction.id
-        WHERE activity.recipient_country_code = '%s'
-        AND atransaction.transaction_type_code IN('%s')
-        GROUP BY fiscal_year
-        """
-    fydata_results = db.engine.execute(FYDATA_QUERY % (
+    MIN_MAX_FY_QUERY = """
+    SELECT strftime('%%Y', MIN(DATE(transaction_date, '-%s month')))
+    AS min_fiscal_year,
+		strftime('%%Y', MAX(DATE(transaction_date, '-%s month')))
+		    AS max_fiscal_year
+    FROM atransaction
+    JOIN activity ON
+        activity.id=atransaction.activity_id
+    WHERE activity.recipient_country_code = '%s'
+    AND atransaction.transaction_type_code IN('%s')
+    """
+    fydata_results = db.engine.execute(MIN_MAX_FY_QUERY % (
+            country.fiscalyear_modifier,
             country.fiscalyear_modifier, country_code, "D','E")
-            )
-    fydata = map(lambda d: int(d[0]), fydata_results)
-    max_fydata = max(fydata)
-    min_fydata = min(fydata)
-    return min_fydata, max_fydata
+            ).first()
+    return int(fydata_results.min_fiscal_year), int(fydata_results.max_fiscal_year)
+
+def earliest_latest_forward_data(country_code):
+    country = abprojects.country(country_code)
+    MIN_MAX_FY_QUERY = """
+    SELECT strftime('%%Y', MIN(DATE(period_start_date, '-%s month')))
+    AS min_fiscal_year,
+		strftime('%%Y', MAX(DATE(period_start_date, '-%s month')))
+		    AS max_fiscal_year
+    FROM forwardspend
+    JOIN activity ON
+        activity.id=forwardspend.activity_id
+    WHERE activity.recipient_country_code = '%s'
+    """
+    fydata_results = db.engine.execute(MIN_MAX_FY_QUERY % (
+            country.fiscalyear_modifier,
+            country.fiscalyear_modifier, country_code)
+            ).first()
+    return int(fydata_results.min_fiscal_year), int(fydata_results.max_fiscal_year)
 
 def sectors_stats():
     # for each sector, count number of projects and value using that
