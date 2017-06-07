@@ -8,10 +8,8 @@ from abmapper.query import sectors as absectors
 def activities(country_code, iati_identifier):
     a = abprojects.project(iati_identifier)
     country = abprojects.country(country_code)
-    sectors = absectors.DAC_codes_cc_mappable()
     return render_template("project.html",
                            activity=a,
-                           sectors=sectors,
                            country=country,
                            )
 
