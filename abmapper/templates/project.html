@@ -72,8 +72,8 @@
 </div>
 -->
 <div class="row">
-  <div class="col-md-6">
-    <h2>{{ _("Disbursements by fiscal year")}} </h2>
+  <div class="col-md-4">
+    <h2>{{ _("Disbursements by fiscal year, quarter")}} </h2>
 
     <table class="table" id="sectors">
       <thead>
@@ -94,8 +94,8 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
-    <h2>{{ _("Commitments by fiscal year")}} </h2>
+  <div class="col-md-4">
+    <h2>{{ _("Commitments by fiscal year, quarter")}} </h2>
     <table class="table" id="sectors">
       <thead>
         <th>{{ _("Fiscal year") }}</th>
@@ -108,6 +108,25 @@
         <tr>
           <td>{{ FY.fiscal_year }}</td>
           <td>{{ FY.fiscal_quarter }}</td>
+          <td>{{ "{:,.2f}".format(FY.value) }}</td>
+          <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>{{ _("MTEF projections by fiscal year")}} </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>{{ _("Fiscal year") }}</th>
+        <th>{{ _("Value (USD)") }}</th>
+        <th>{{ country.text }} {{ _("Value (USD)") }}</th>
+      </thead>
+      <tbody>
+    {% for FY in activity.FY_forward_spend %}
+        <tr>
+          <td>{{ FY.fiscal_year }}</td>
           <td>{{ "{:,.2f}".format(FY.value) }}</td>
           <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
         </tr>
