@@ -20,7 +20,7 @@
       </td>
       <td>{{country.num_activities}}</td>
       <td>{% if country.num_activities > 0 %}
-        <a href="{{url_for('activity_export', country_code=country.code)}}" class="btn btn-success btn-sm">
+        <a href="{{url_for('activity_export', country_code=country.RecipientCountry.code)}}" class="btn btn-success btn-sm">
           <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
         {{ _("Download spreadsheet") }}
         </a>
