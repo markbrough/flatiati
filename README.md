@@ -6,7 +6,7 @@ Retrieves IATI data and makes it downloadable as beautiful spreadsheets.
 License: AGPL v3.0
 ------------------
 
-Copyright (C) 2017 Mark Brough
+Copyright (C) 2017 Mark Brough, Overseas Development Institute
 
 Copyright (C) 2015 Mark Brough, Publish What You Fund
 
@@ -22,6 +22,14 @@ Copyright (C) 2015 Mark Brough, Publish What You Fund
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+What the tool does 
+------------------
+1. Retrieves data from the IATI Datastore
+2. Reads data in version 1.x and 2.x of the IATI Standard
+3. Converts all currencies to USD
+4. Flattens hierarchies in publishers' data
+5. Allows data to be exported in English and French.
 
 Installation
 ------------
