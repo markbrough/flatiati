@@ -46,7 +46,7 @@
       </td>
       <td class="sectors-column">
         <a href="{{url_for('activities', 
-                           country_code=project.recipient_country_code, 
+                           country_code=country.code, 
                            iati_identifier=project.iati_identifier)}}">
         {% for title in project.titles %}
         {{title.text}}<br />
@@ -65,7 +65,7 @@
         {%endfor%}
       </td>
       <td>
-        {{ project.this_country_pct }}
+        {{ project.country_pcts[country.code] }}
       </td>
       <td>
         {{ project.status.text }}
