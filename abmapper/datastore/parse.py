@@ -25,10 +25,10 @@ def get_alt(list_1, list_2):
         return list_2[0]
     return None
 
-def getfirst(list):
+def getfirst(list, default=None):
     if len(list)>0:
         return list[0]
-    return None
+    return default
 
 def getDACSectors(sectors):
     DAC_codes = absectors.DAC_codes()
@@ -240,7 +240,8 @@ def get_titles(activity, version):
     for ele in loop:
         title = models.Title()
         title.text = unicode(ele.text)
-        title.lang = unicode(getfirst(ele.xpath('@xml:lang')))
+        title.lang = unicode(getfirst(ele.xpath('@xml:lang'),
+                             getfirst(activity.xpath('@xml:lang'))))
         ret.append(title)
     return ret
 
@@ -251,7 +252,8 @@ def get_descriptions(activity, version):
     for ele in loop:
         description = models.Description()
         description.text = unicode(ele.text)
-        description.lang = unicode(getfirst(ele.xpath('@xml:lang')))
+        description.lang = unicode(getfirst(ele.xpath('@xml:lang'),
+                             getfirst(activity.xpath('@xml:lang'))))
         ret.append(description)
     return ret
 
@@ -271,11 +273,11 @@ def null_to_default(value, default):
     return value
 
 def write_activity(activity, country_code, reporting_org_id, version, exchange_rates):
+    iati_identifier = unicode(getfirst(activity.xpath('iati-identifier/text()')))
     a = models.Activity()
-    a.iati_identifier = unicode(getfirst(activity.xpath('iati-identifier/text()')))
+    a.iati_identifier = iati_identifier
     a.reporting_org_id = reporting_org_id
     a.all_titles = get_titles(activity, version)
-    a.recipient_country_code = unicode(country_code)
     a.recipient_countries = get_recipient_countries(activity)
     a.all_descriptions = get_descriptions(activity, version)
     a.sectors = get_sectors(activity)
