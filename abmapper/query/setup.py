@@ -133,6 +133,10 @@ def import_recipient_countries():
         "code": u"KV",
         "text_EN": u"Kosovo",
         "text_FR": u"Kosovo"
+    },{
+        "code": u"XK",
+        "text_EN": u"Kosovo",
+        "text_FR": u"Kosovo"
     }]
     for country in ADDITIONAL_COUNTRIES:
         rc = models.RecipientCountry()
