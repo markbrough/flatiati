@@ -48,7 +48,8 @@ def activity_export(country_code, reporting_org=None):
         return "; ".join(filter(notNone, map(lambda x:
                          getattr(x.organisation, col), list)))
 
-    country_name = abprojects.country(country_code).text
+    country = abprojects.country(country_code)
+    country_name = country.text
 
     font0 = xlwt.Font()
     font0.name = 'Times New Roman'
@@ -110,7 +111,7 @@ def activity_export(country_code, reporting_org=None):
             0: (project.iati_identifier, None),
             1: (getcs_string(project.titles, 'text'), None),
             2: (getcs_string(project.descriptions, 'text'), None),
-            3: (project.this_country_pct/100.0, stylePCT),
+            3: (project.country_pcts[country.code]/100.0, stylePCT),
             7: (project.aid_type_code, None),
             8: (project.aid_type.text, None),
             9: (project.collaboration_type.code, None),
@@ -146,7 +147,7 @@ def activity_export(country_code, reporting_org=None):
                 ws = wr(ws, i, col, value)
 
             for col, fy in enumerate(disbFYs, start=21):
-                fyd = project.FY_disbursements_dict.get(str(fy))
+                fyd = project.FY_disbursements_dict(country).get(str(fy))
                 if fyd:
                     value = fyd["value"] * sector.percentage/100.0
                 else:
@@ -154,7 +155,7 @@ def activity_export(country_code, reporting_org=None):
                 ws.write(i, col, value)
 
             for col, fy in enumerate(fwdFYs, start=21+len(disbFYs)):
-                fyd = project.FY_forward_spend_dict.get(str(fy))
+                fyd = project.FY_forward_spend_dict(country).get(str(fy))
                 if fyd:
                     value = fyd["value"] * sector.percentage/100.0
                 else:
