@@ -13,13 +13,15 @@ from sqlalchemy import func, distinct
 
 def projects(country_code, reporting_org=None):
     if not reporting_org:
-        p = models.Activity.query.filter_by(
-                recipient_country_code=country_code
+        p = models.Activity.query.filter(
+                models.RecipientCountries.recipient_country_code==country_code
+            ).join(models.RecipientCountries
             ).all()
     else:
-        p = models.Activity.query.filter_by(
-                recipient_country_code=country_code,
-                reporting_org_id=reporting_org
+        p = models.Activity.query.filter(
+                models.RecipientCountries.recipient_country_code==country_code,
+                models.Activity.reporting_org_id==reporting_org
+            ).join(models.RecipientCountries
             ).all()
         
     return p
@@ -31,7 +33,9 @@ def country(country_code):
 def countries_activities():
     c = db.session.query(
                 models.RecipientCountry,
-                func.count(models.Activity.id).label("num_activities")
+                models.RecipientCountries,
+                func.count(models.Activity.iati_identifier).label("num_activities")
+            ).outerjoin(models.RecipientCountries
             ).outerjoin(models.Activity
             ).group_by(models.RecipientCountry
             ).order_by("num_activities DESC"
@@ -51,7 +55,7 @@ def reporting_org_activities(country_code):
     return r
 
 def project(iati_identifier):
-    p = p = models.Activity.query.filter_by(
+    p = models.Activity.query.filter_by(
         iati_identifier=iati_identifier
         ).first()
     return p
