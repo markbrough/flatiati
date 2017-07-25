@@ -179,8 +179,10 @@ def earliest_latest_disbursements(country_code):
 		    AS max_fiscal_year
     FROM atransaction
     JOIN activity ON
-        activity.id=atransaction.activity_id
-    WHERE activity.recipient_country_code = '%s'
+        activity.iati_identifier=atransaction.activity_id
+    JOIN recipientcountries ON
+        recipientcountries.activity_id = activity.iati_identifier
+    WHERE recipientcountries.recipient_country_code = '%s'
     AND atransaction.transaction_type_code IN('%s')
     """
     fydata_results = db.engine.execute(MIN_MAX_FY_QUERY % (
@@ -198,8 +200,10 @@ def earliest_latest_forward_data(country_code):
 		    AS max_fiscal_year
     FROM forwardspend
     JOIN activity ON
-        activity.id=forwardspend.activity_id
-    WHERE activity.recipient_country_code = '%s'
+        activity.iati_identifier=forwardspend.activity_id
+    JOIN recipientcountries ON
+        recipientcountries.activity_id = activity.iati_identifier
+    WHERE recipientcountries.recipient_country_code = '%s'
     """
     fydata_results = db.engine.execute(MIN_MAX_FY_QUERY % (
             country.fiscalyear_modifier,
