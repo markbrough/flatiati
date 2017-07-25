@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 import sqlalchemy as sa
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from flask.ext.babel import get_locale
 import functools as ft
 from abmapper import db
 
+country_relationship = ft.partial(
+    sa.orm.relationship,
+    cascade="all,delete",
+    passive_deletes=True,
+    backref="recipientcountry"
+)
 act_relationship = ft.partial(
     sa.orm.relationship,
     cascade="all,delete",
@@ -31,7 +37,7 @@ FWDDATA_QUERY = """
     strftime('%%Y', DATE(period_start_date, '-%s month'))
     AS fiscal_year
     FROM forwardspend
-    WHERE forwardspend.activity_id = '%s'
+    WHERE forwardspend.activity_iati_identifier = '%s'
     AND value > 0
     GROUP BY fiscal_year
     ORDER BY forwardspend.period_start_date DESC
@@ -48,7 +54,7 @@ FYDATA_QUERY = """
         WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('10','11','12') THEN 'Q4'
     END AS fiscal_quarter
     FROM atransaction
-    WHERE atransaction.activity_id = '%s'
+    WHERE atransaction.activity_iati_identifier = '%s'
     AND atransaction.transaction_type_code IN ('%s')
     GROUP BY fiscal_quarter, fiscal_year
     ORDER BY atransaction.transaction_date DESC
@@ -103,7 +109,7 @@ def none_is_zero(value):
 
 class Activity(db.Model):
     __tablename__ = 'activity'
-    id = sa.Column(sa.Integer, primary_key=True)
+    iati_identifier = sa.Column(sa.UnicodeText, primary_key=True)
     activity_lang = sa.Column(sa.UnicodeText)
     default_currency = sa.Column(sa.UnicodeText)
     hierarchy = sa.Column(sa.UnicodeText)
@@ -123,16 +129,7 @@ class Activity(db.Model):
     implementing_org_ref = sa.Column(sa.UnicodeText)
     implementing_org_type = sa.Column(sa.UnicodeText)
 
-    recipient_region = sa.Column(sa.UnicodeText)
-    recipient_region_code = sa.Column(sa.UnicodeText)
-
     recipient_countries = act_relationship("RecipientCountries")
-
-    recipient_country = sa.orm.relationship("RecipientCountry")
-    recipient_country_code = sa.Column(
-        act_ForeignKey("recipientcountry.code"),
-        nullable=False,
-        index=True)
 
     flow_type = sa.Column(sa.UnicodeText)
     flow_type_code = sa.Column(sa.UnicodeText)
@@ -142,8 +139,6 @@ class Activity(db.Model):
         act_ForeignKey("aidtype.code"),
         nullable=False,
         index=True)
-
-    iati_identifier = sa.Column(sa.UnicodeText, index=True)
 
     all_titles = act_relationship("Title")
     all_descriptions = act_relationship("Description")
@@ -188,14 +183,14 @@ class Activity(db.Model):
     @hybrid_property
     def total_commitments(self):
         return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
-                where(Transaction.activity_id==self.id).\
+                where(Transaction.activity_iati_identifier==self.iati_identifier).\
                 where(sa.or_(Transaction.transaction_type_code=="C", 
                     Transaction.transaction_type_code=="IC"))).first()[0]
 
     @hybrid_property
     def total_disbursements(self):
         return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
-                where(Transaction.activity_id==self.id).\
+                where(Transaction.activity_iati_identifier==self.iati_identifier).\
                 where(sa.or_(Transaction.transaction_type_code=="D",
                     Transaction.transaction_type_code=="E"))).first()[0]
 
@@ -215,13 +210,11 @@ class Activity(db.Model):
         return relevant_titles
 
     @hybrid_property
-    def this_country_pct(self):
-        def filter_countries(country):
-            return country.recipient_country_code == self.recipient_country_code
-        relevant_countries = filter(filter_countries, self.recipient_countries)
-        if not relevant_countries:
-            return 0.00
-        return relevant_countries[0].percentage
+    def country_pcts(self):
+        countries = self.recipient_countries
+        return dict(map(lambda c: (c.recipient_country_code, 
+                                   "{0:.2f}".format(c.percentage)), 
+                       countries))
 
     @hybrid_property
     def descriptions(self):
@@ -233,11 +226,11 @@ class Activity(db.Model):
             return self.all_descriptions
         return relevant_descriptions
 
-    @hybrid_property
-    def FY_forward_spend_dict(self):
+    @hybrid_method
+    def FY_forward_spend_dict(self, recipient_country):
         fydata = db.engine.execute(FWDDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier,
-                         self.id)
+                        (recipient_country.fiscalyear_modifier,
+                         self.iati_identifier)
                                   ).fetchall()
         return {
                     "{}".format(fyval.fiscal_year): {
@@ -247,15 +240,15 @@ class Activity(db.Model):
                     for fyval in fydata
                 }
 
-    @hybrid_property
-    def FY_disbursements_dict(self):
+    @hybrid_method
+    def FY_disbursements_dict(self, recipient_country):
         fydata = db.engine.execute(FYDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.id, "D','E")
+                        (recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         self.iati_identifier, "D','E")
                                   ).fetchall()
         return {
                     "{} {}".format(fyval.fiscal_year, fyval.fiscal_quarter): {
@@ -266,15 +259,15 @@ class Activity(db.Model):
                     for fyval in fydata
                 }
 
-    @hybrid_property
-    def FY_commitments_dict(self):
+    @hybrid_method
+    def FY_commitments_dict(self, recipient_country):
         fydata = db.engine.execute(FYDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.id, "C','IC")
+                        (recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         self.iati_identifier, "C','IC")
                                   ).fetchall()
         return {
                     "{} {}".format(fyval.fiscal_year, fyval.fiscal_quarter): {
@@ -284,50 +277,56 @@ class Activity(db.Model):
                     }
                     for fyval in fydata
                 }
-    @hybrid_property
-    def FY_disbursements(self):
+    @hybrid_method
+    def FY_disbursements(self, recipient_country):
+        country_pct = float(self.country_pcts[recipient_country.code])
         fydata = db.engine.execute(FYDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.id, "D','E")
+                        (recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         self.iati_identifier, "D','E")
                                   ).fetchall()
         return [{
                     "fiscal_year": fyval.fiscal_year,
                     "fiscal_quarter": fyval.fiscal_quarter,
-                    "value": round(fyval.value, 2)
+                    "value": "{:,.2f}".format(fyval.value),
+                    "value_country": "{:,.2f}".format(fyval.value * country_pct/100)
                 }
                 for fyval in fydata]
 
-    @hybrid_property
-    def FY_commitments(self):
+    @hybrid_method
+    def FY_commitments(self, recipient_country):
+        country_pct = float(self.country_pcts[recipient_country.code])
         fydata = db.engine.execute(FYDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.recipient_country.fiscalyear_modifier,
-                         self.id, "C','IC")
+                        (recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         recipient_country.fiscalyear_modifier,
+                         self.iati_identifier, "C','IC")
                                   ).fetchall()
         return  [{
                     "fiscal_year": fyval.fiscal_year,
                     "fiscal_quarter": fyval.fiscal_quarter,
-                    "value": fyval.value
+                    "value": "{:,.2f}".format(fyval.value),
+                    "value_country": "{:,.2f}".format(fyval.value * country_pct/100)
                 }
                 for fyval in fydata]
 
 
-    @hybrid_property
-    def FY_forward_spend(self):
+    @hybrid_method
+    def FY_forward_spend(self, recipient_country):
+        country_pct = float(self.country_pcts[recipient_country.code])
         fydata = db.engine.execute(FWDDATA_QUERY % 
-                        (self.recipient_country.fiscalyear_modifier,
-                         self.id)
+                        (recipient_country.fiscalyear_modifier,
+                         self.iati_identifier)
                                   ).fetchall()
         return [{
                     "fiscal_year": fyval.fiscal_year,
-                    "value": round(fyval.value, 2)
+                    "value": "{:,.2f}".format(fyval.value),
+                    "value_country": "{:,.2f}".format(fyval.value * country_pct/100)
                 }
                 for fyval in fydata]
 
@@ -336,14 +335,14 @@ class Activity(db.Model):
         return db.session.query(FinanceType
             ).distinct(FinanceType.code
             ).join(Transaction
-            ).filter(Transaction.activity_id == self.id
-            ).filter(Transaction.activity_id == self.id).all()
+            ).filter(Transaction.activity_iati_identifier == self.iati_identifier
+            ).filter(Transaction.activity_iati_identifier == self.iati_identifier).all()
 
 class Title(db.Model):
     __tablename__ = 'title'
     id = sa.Column(sa.Integer, primary_key=True)   
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
         nullable=False,
         index=True)
     text = sa.Column(sa.UnicodeText)
@@ -353,11 +352,44 @@ class Title(db.Model):
     def as_string(self):
         return {c.text: getattr(self, c.text) for c in self.__table__.columns}
 
+class Description(db.Model):
+    __tablename__ = 'description'
+    id = sa.Column(sa.Integer, primary_key=True)   
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
+        nullable=False,
+        index=True)
+    text = sa.Column(sa.UnicodeText)
+    lang = sa.Column(sa.UnicodeText)
+
+class RecipientCountry(db.Model):
+    __tablename__ = 'recipientcountry'
+    code = sa.Column(sa.UnicodeText, primary_key=True)
+    text_EN = sa.Column(sa.UnicodeText)
+    text_FR = sa.Column(sa.UnicodeText)
+    fiscalyear = sa.Column(sa.UnicodeText)
+    fiscalyear_modifier = sa.Column(sa.Integer,
+        nullable=False,
+        default=0)
+    recipient_countries = country_relationship("RecipientCountries")
+
+    @hybrid_property
+    def text(self):
+        if str(get_locale()) == "fr":
+            return self.text_FR
+        return self.text_EN
+
+    @hybrid_property
+    def num_activities(self):
+        return Activity.query.filter(
+            RecipientCountries.recipient_country_code==self.code
+        ).count()
+
 class RecipientCountries(db.Model):
     __tablename__ = 'recipientcountries'
     id = sa.Column(sa.Integer, primary_key=True)
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
         nullable=False,
         index=True)
     percentage = sa.Column(sa.Float(precision=2))
@@ -440,43 +472,11 @@ class ReportingOrg(db.Model):
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-class RecipientCountry(db.Model):
-    __tablename__ = 'recipientcountry'
-    code = sa.Column(sa.UnicodeText, primary_key=True)
-    text_EN = sa.Column(sa.UnicodeText)
-    text_FR = sa.Column(sa.UnicodeText)
-    fiscalyear = sa.Column(sa.UnicodeText)
-    fiscalyear_modifier = sa.Column(sa.Integer,
-        nullable=False,
-        default=0)
-
-    @hybrid_property
-    def text(self):
-        if str(get_locale()) == "fr":
-            return self.text_FR
-        return self.text_EN
-
-    @hybrid_property
-    def num_activities(self):
-        return Activity.query.filter_by(
-            recipient_country_code=self.code
-        ).count()
-
-class Description(db.Model):
-    __tablename__ = 'description'
-    id = sa.Column(sa.Integer, primary_key=True)   
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
-        nullable=False,
-        index=True)
-    text = sa.Column(sa.UnicodeText)
-    lang = sa.Column(sa.UnicodeText)
-
 class Transaction(db.Model):
     __tablename__ = 'atransaction'
     id = sa.Column(sa.Integer, primary_key=True)
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
         nullable=False,
         index=True)
     value = sa.Column(sa.Float(precision=2))
@@ -491,8 +491,8 @@ class Transaction(db.Model):
 class ForwardSpend(db.Model):
     __tablename__ = 'forwardspend'
     id = sa.Column(sa.Integer, primary_key=True)
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
         nullable=False,
         index=True)
     value = sa.Column(sa.Float(precision=2))
@@ -522,8 +522,8 @@ class ForwardSpendType(db.Model):
 class Sector(db.Model):
     __tablename__ = 'sector'
     id = sa.Column(sa.Integer, primary_key=True)   
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
         nullable=False,
         index=True)
     code = sa.Column(
@@ -632,15 +632,15 @@ class BudgetMappingRO(db.Model):
 class RelatedActivity(db.Model):
     __tablename__ = 'relatedactivity'
     id = sa.Column(sa.Integer, primary_key=True)
-    activity_id = sa.Column(sa.UnicodeText, index=True)
+    activity_iati_identifier = sa.Column(sa.UnicodeText, index=True)
     reltext = sa.Column(sa.UnicodeText)
     relref = sa.Column(sa.UnicodeText)
     reltype = sa.Column(sa.UnicodeText)
 
 class Participation(db.Model):
     __tablename__ = "participation"
-    activity_id = sa.Column(
-        act_ForeignKey("activity.id"),
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
         primary_key=True)
     country_code = sa.Column(
         act_ForeignKey("recipientcountry.code"),
