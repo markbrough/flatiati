@@ -17,7 +17,7 @@
   <dt>{{ _("Aid type") }}</dt>
   <dd>{{activity.aid_type.code}} - {{activity.aid_type.text}}</dd>
   <dt>% to {{ country.text }}</dt>
-  <dd>{{activity.this_country_pct}}</dd>
+  <dd>{{activity.country_pcts[country.code]}}</dd>
 </dl>
 
 <h2>Organisations</h2>
@@ -83,12 +83,12 @@
         <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
       <tbody>
-    {% for FY in activity.FY_disbursements %}
+    {% for FY in activity.FY_disbursements(country) %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
           <td>{{ FY.fiscal_quarter }}</td>
-          <td>{{ "{:,.2f}".format(FY.value) }}</td>
-          <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
+          <td>{{ FY.value }}</td>
+          <td>{{ FY.value_country }}</td>
         </tr>
     {% endfor %}
       </tbody>
@@ -104,12 +104,12 @@
         <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
       <tbody>
-    {% for FY in activity.FY_commitments %}
+    {% for FY in activity.FY_commitments(country) %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
           <td>{{ FY.fiscal_quarter }}</td>
-          <td>{{ "{:,.2f}".format(FY.value) }}</td>
-          <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
+          <td>{{ FY.value }}</td>
+          <td>{{ FY.value_country }}</td>
         </tr>
     {% endfor %}
       </tbody>
@@ -124,11 +124,11 @@
         <th>{{ country.text }} {{ _("Value (USD)") }}</th>
       </thead>
       <tbody>
-    {% for FY in activity.FY_forward_spend %}
+    {% for FY in activity.FY_forward_spend(country) %}
         <tr>
           <td>{{ FY.fiscal_year }}</td>
-          <td>{{ "{:,.2f}".format(FY.value) }}</td>
-          <td>{{ "{:,.2f}".format(FY.value*(activity.this_country_pct/100)) }}</td>
+          <td>{{ FY.value }}</td>
+          <td>{{ FY.value_country }}</td>
         </tr>
     {% endfor %}
       </tbody>
