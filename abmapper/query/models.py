@@ -113,7 +113,7 @@ class Activity(db.Model):
     activity_lang = sa.Column(sa.UnicodeText)
     default_currency = sa.Column(sa.UnicodeText)
     hierarchy = sa.Column(sa.UnicodeText)
-    last_updated = sa.Column(sa.UnicodeText)
+    last_updated = sa.Column(sa.DateTime)
     reporting_org_id = sa.Column(
         act_ForeignKey("reportingorg.id"),
         nullable=False,
