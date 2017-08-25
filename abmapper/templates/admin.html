@@ -42,6 +42,7 @@
       <th>{% endraw %}{{ _('Organisation identifier') }}{% raw %}</th>
       <th>{% endraw %}{{ _('Name (EN)') }}{% raw %}</th>
       <th>{% endraw %}{{ _('Name (FR)') }}{% raw %}</th>
+      <th>{% endraw %}{{ _('Active?') }}{% raw %}</th>
       <th></th>
     </thead>
     <tbody id="reporting-orgs-rows">
@@ -70,6 +71,12 @@
         <input type="text" class="form-control" name="text_FR"
         value="{{ text_FR }}">
       </div>
+    </td>
+    <td>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="active"
+      value="1" {{# active }}checked {{/active}}> Active
+      </label>
     </td>
     <td>
       <a class="btn btn-sm btn-default deleteReportingOrg"
