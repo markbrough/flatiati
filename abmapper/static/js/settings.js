@@ -86,11 +86,18 @@ var setupReportingOrgs = function() {
 };
 setupReportingOrgs()
 
-$(document).on("change", "#reporting-orgs input[type=text]", function(e) {
+$(document).on("change", "#reporting-orgs input[type=text], input[type=checkbox]", function(e) {
   var data = {
     'reporting_org_id': $(this).closest("tr").attr("data-reporting-org-id"),
     'attr': this.name,
     'value': this.value,
+  }
+  if (data.name = "active") {
+    if (this.checked) {
+      data["value"] = true;
+    } else {
+      data["value"] = false;
+    }
   }
   var input = this;
   resetFormGroup(input);
