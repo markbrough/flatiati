@@ -11,6 +11,7 @@ import datetime
 import flattener, flatten_rules
 import sqlalchemy as sa
 from flask import flash
+from dateutil.parser import parse as dtparse
 
 class UnrecognisedVersionException(Exception):
     pass
@@ -274,9 +275,14 @@ def null_to_default(value, default):
 
 def write_activity(activity, country_code, reporting_org_id, version, exchange_rates):
     iati_identifier = unicode(getfirst(activity.xpath('iati-identifier/text()')))
+    #if this identifier already exists, then delete, otherwise, insert
+    checkA = models.Activity.query.filter_by(iati_identifier=iati_identifier).first()
+    if checkA:
+        db.session.delete(checkA)
     a = models.Activity()
     a.iati_identifier = iati_identifier
     a.reporting_org_id = reporting_org_id
+    a.last_updated = dtparse(activity.get("last-updated-datetime"))
     a.all_titles = get_titles(activity, version)
     a.recipient_countries = get_recipient_countries(activity)
     a.all_descriptions = get_descriptions(activity, version)
