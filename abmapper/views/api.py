@@ -41,6 +41,10 @@ def api_update_reporting_org_attr():
         'value': request.form['value'],
         'reporting_org_id': request.form['reporting_org_id'],
     }
+    if data["value"] == u"true":
+        data["value"] = True
+    elif data["value"] == u"false":
+        data["value"] = False
     update_status = qsettings.update_reporting_org_attr(data)
     if update_status == True:
         return "success"
