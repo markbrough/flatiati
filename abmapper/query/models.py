@@ -217,6 +217,13 @@ class Activity(db.Model):
                        countries))
 
     @hybrid_property
+    def country_pcts_float(self):
+        countries = self.recipient_countries
+        return dict(map(lambda c: (c.recipient_country_code, 
+                                   c.percentage), 
+                       countries))
+
+    @hybrid_property
     def descriptions(self):
         def filter_descriptions(description):
             return description.lang == str(get_locale())
@@ -279,7 +286,7 @@ class Activity(db.Model):
                 }
     @hybrid_method
     def FY_disbursements(self, recipient_country):
-        country_pct = float(self.country_pcts[recipient_country.code])
+        country_pct = self.country_pcts_float[recipient_country.code]
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (recipient_country.fiscalyear_modifier,
                          recipient_country.fiscalyear_modifier,
@@ -298,7 +305,7 @@ class Activity(db.Model):
 
     @hybrid_method
     def FY_commitments(self, recipient_country):
-        country_pct = float(self.country_pcts[recipient_country.code])
+        country_pct = self.country_pcts_float[recipient_country.code]
         fydata = db.engine.execute(FYDATA_QUERY % 
                         (recipient_country.fiscalyear_modifier,
                          recipient_country.fiscalyear_modifier,
@@ -318,7 +325,7 @@ class Activity(db.Model):
 
     @hybrid_method
     def FY_forward_spend(self, recipient_country):
-        country_pct = float(self.country_pcts[recipient_country.code])
+        country_pct = self.country_pcts_float[recipient_country.code]
         fydata = db.engine.execute(FWDDATA_QUERY % 
                         (recipient_country.fiscalyear_modifier,
                          self.iati_identifier)
