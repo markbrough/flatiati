@@ -148,29 +148,66 @@ def get_t_type(value):
         raise InvalidFormatException("""{} is not a valid transaction type 
         for this version of the IATI Standard""")
 
+def get_fiscal_periods(start_date, end_date):
+    quarters = {1:1, 2:1, 3:1, 4:2, 5:2, 6:2, 7:3, 8:3, 9:3, 10:4, 11:4, 12:4}
+    start_year, start_qtr = start_date.year, quarters[start_date.month]
+    end_year, end_qtr = end_date.year, quarters[end_date.month]
+    if (start_year == end_year) and (start_qtr == end_qtr):
+        return [(start_year, start_qtr)]
+    out_qtrs = []
+    for _year in range(start_year, end_year+1):
+        if start_year == end_year:
+            _qtrs = range(start_qtr, end_qtr+1)
+        elif _year == start_year:
+            _qtrs = range(start_qtr, 5)
+        elif _year == end_year:
+            _qtrs = range(1, end_qtr+1)
+        for _qtr in _qtrs:
+            out_qtrs.append((_year, _qtr))
+    return out_qtrs
+
+def get_start_end_fiscal_period(year, quarter):
+    end_mth = quarter*3
+    start_mth = end_mth-2
+    start = datetime.date(year, start_mth, 1)
+    end = datetime.date(year, end_mth, 28)
+    return start, end
+
 def get_forward_spend_item(ele, activity, iati_identifier, exchange_rates, 
                            forward_spend_type_code):
-    fs = models.ForwardSpend()
-    start_date = ele.xpath("period-start/@iso-date")
-    
-    fs.period_start_date = util.make_date_from_iso(start_date[0])
-    end_date = ele.xpath("period-end/@iso-date")
-    if end_date: 
-        fs.period_end_date = util.make_date_from_iso(end_date[0])
+    # Collect data
+    _start_date = ele.xpath("period-start/@iso-date")
+    start_date = util.make_date_from_iso(_start_date[0])
+    _end_date = ele.xpath("period-end/@iso-date")
+    if _end_date:
+        end_date = util.make_date_from_iso(_end_date[0])
     else:
-        fs.period_end_date = start_date
-    
+        end_date = start_date
     value = getfirst(ele.xpath("value/text()"))
-    value_date = getfirst(ele.xpath("value/@value-date"))
+    _value_date = getfirst(ele.xpath("value/@value-date"))
+    value_date = util.make_date_from_iso(_value_date)
     currency = get_currency(activity, ele)
     exchange_rate = exchange_rates.closest_rate(
-        currency, util.make_date_from_iso(value_date))["conversion_rate"]
-    
-    fs.value = (float(value) * exchange_rate)
-    fs.value_currency = u"USD"
-    fs.value_date = util.make_date_from_iso(value_date)
-    fs.forward_spend_type_code = forward_spend_type_code
-    return fs
+        currency, value_date)["conversion_rate"]
+    value_usd = (float(value) * exchange_rate)
+
+    # Correct to quarters
+    # If start and end months are not in the same quarter, then we need to handle this…
+
+    fiscal_periods = get_fiscal_periods(start_date, end_date)
+    fiscal_period_value = value_usd/len(fiscal_periods)
+    fps = []
+    for year, quarter in fiscal_periods:
+        fs = models.ForwardSpend()
+        start_d, end_d = get_start_end_fiscal_period(year, quarter)
+        fs.period_start_date = start_d
+        fs.period_end_date = end_d
+        fs.value = fiscal_period_value
+        fs.value_currency = u"USD"
+        fs.value_date = value_date
+        fs.forward_spend_type_code = forward_spend_type_code
+        fps.append(fs)
+    return fps
 
 def fs_overlaps(fs, forward_spends):
     fs_start_date = fs.period_start_date
@@ -188,14 +225,15 @@ def get_forward_spend(activity, iati_identifier, version, exchange_rates):
     for ele in activity.xpath("./budget[@type='1']|budget[not(@type)]"):
         fs = get_forward_spend_item(ele, activity, iati_identifier, 
             exchange_rates, 1)
-        forward_spends.append(fs)
+        forward_spends += fs
     return forward_spends 
     #FIXME
     for ele in activity.xpath("./budget[@type='2']"):
         fs = get_forward_spend_item(ele, activity, iati_identifier, 
             exchange_rates, 2)
-        if not fs_overlaps(fs, forward_spends):
-            forward_spends.append(fs)
+        for fs_item in fs:
+            if not fs_overlaps(fs_item, forward_spends):
+                forward_spends.append(fs_item)
     return forward_spends 
 
 def get_transactions(activity, iati_identifier, version, exchange_rates):
