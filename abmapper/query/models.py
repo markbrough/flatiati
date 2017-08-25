@@ -456,6 +456,7 @@ class ReportingOrg(db.Model):
     code = sa.Column(sa.UnicodeText)
     text_EN = sa.Column(sa.UnicodeText)
     text_FR = sa.Column(sa.UnicodeText)
+    active = sa.Column(sa.Boolean, default=False)
 
     @hybrid_property
     def text(self):
