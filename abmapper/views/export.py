@@ -111,7 +111,7 @@ def activity_export(country_code, reporting_org=None):
             0: (project.iati_identifier, None),
             1: (getcs_string(project.titles, 'text'), None),
             2: (getcs_string(project.descriptions, 'text'), None),
-            3: (project.country_pcts[country.code]/100.0, stylePCT),
+            3: (project.country_pcts_float[country.code]/100.0, stylePCT),
             7: (project.aid_type_code, None),
             8: (project.aid_type.text, None),
             9: (project.collaboration_type.code, None),
