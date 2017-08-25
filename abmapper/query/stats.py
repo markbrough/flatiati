@@ -14,9 +14,9 @@ def budget_project_stats(country_code, budget_type):
     budgetcode.code, budgetcode.name
     FROM atransaction
     JOIN activity ON 
-        activity.id=atransaction.activity_id
+        activity.id=atransaction.activity_iati_identifier
     JOIN sector ON 
-        activity.id = sector.activity_id
+        activity.id = sector.activity_iati_identifier
     JOIN dacsector ON sector.code = dacsector.code
     JOIN commoncode ON dacsector.cc_id = commoncode.id
     JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
@@ -35,8 +35,8 @@ def budget_project_stats(country_code, budget_type):
     SELECT sum(atransaction.value*sector.percentage/100) AS sum_value,
     budgetcode.code, budgetcode.name
     FROM atransaction
-    JOIN activity ON activity.id=atransaction.activity_id
-    JOIN sector ON activity.id = sector.activity_id
+    JOIN activity ON activity.id=atransaction.activity_iati_identifier
+    JOIN sector ON activity.id = sector.activity_iati_identifier
     JOIN dacsector ON sector.code = dacsector.code
     JOIN commoncode ON dacsector.cc_id = commoncode.id
     JOIN ccbudgetcode ON commoncode.id = ccbudgetcode.cc_id
@@ -55,7 +55,7 @@ def budget_project_stats(country_code, budget_type):
     SELECT sum(atransaction.value) AS sum_value
     FROM atransaction
     JOIN activity ON 
-        activity.id=atransaction.activity_id
+        activity.id=atransaction.activity_iati_identifier
     AND activity.recipient_country_code="%s"
     AND activity.aid_type_code IN ('C01', 'D01', 'D02')
     AND activity.status_code IN (2, 3)
@@ -179,9 +179,9 @@ def earliest_latest_disbursements(country_code):
 		    AS max_fiscal_year
     FROM atransaction
     JOIN activity ON
-        activity.iati_identifier=atransaction.activity_id
+        activity.iati_identifier=atransaction.activity_iati_identifier
     JOIN recipientcountries ON
-        recipientcountries.activity_id = activity.iati_identifier
+        recipientcountries.activity_iati_identifier = activity.iati_identifier
     WHERE recipientcountries.recipient_country_code = '%s'
     AND atransaction.transaction_type_code IN('%s')
     """
@@ -200,9 +200,9 @@ def earliest_latest_forward_data(country_code):
 		    AS max_fiscal_year
     FROM forwardspend
     JOIN activity ON
-        activity.iati_identifier=forwardspend.activity_id
+        activity.iati_identifier=forwardspend.activity_iati_identifier
     JOIN recipientcountries ON
-        recipientcountries.activity_id = activity.iati_identifier
+        recipientcountries.activity_iati_identifier = activity.iati_identifier
     WHERE recipientcountries.recipient_country_code = '%s'
     """
     fydata_results = db.engine.execute(MIN_MAX_FY_QUERY % (
@@ -224,9 +224,9 @@ def sectors_stats():
     FROM dacsector
     LEFT JOIN sector ON sector.code = dacsector.code
     LEFT JOIN activity ON
-        activity.id = sector.activity_id
+        activity.id = sector.activity_iati_identifier
     LEFT JOIN atransaction ON
-        activity.id=atransaction.activity_id
+        activity.id=atransaction.activity_iati_identifier
     WHERE sector.deleted = 0
     AND atransaction.transaction_type_code='C'
     GROUP BY dacsector.code
