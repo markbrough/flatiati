@@ -219,6 +219,7 @@ def import_reporting_organisations():
             nc.code = row["code"]
             nc.text_EN = row["text_en"]
             nc.text_FR = row["text_fr"]
+            nc.active = bool(row["active"])
             db.session.add(nc)
     db.session.commit()
 
