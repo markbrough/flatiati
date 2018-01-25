@@ -7,6 +7,7 @@ from abmapper.query import update as abupdate
 from abmapper.datastore import download, parse
 from abmapper.query import setup as absetup
 from abmapper.query import budget as abbudget
+from abmapper.query import settings as absettings
 
 def update_projects(options):
     print options
@@ -30,20 +31,29 @@ def import_iati_xml(options):
     parse.parse_file(options.country_code, options.filename, sample)
 
 def download_iati_xml(options):
-    assert options.country_code
     assert options.reporting_org
     sample = bool(options.sample)
     print ""
     print "Download and import data"
     print ""
     print """Downloading IATI XML for country {} and reporting organisation {}""".format(options.country_code, options.reporting_org)
-    download.download_data(options.country_code, options.reporting_org)
+    download.download_data(options.reporting_org, options.country_code or None)
 
 def update_codelists(options):
     absetup.update_codelists()
 
 def update_exchange_rates(options):
     absetup.update_exchange_rates()
+
+def update_all_reporting_orgs(options):
+    orgs = absettings.reporting_orgs()
+    print ""
+    print "Download and import data"
+    for org in orgs:
+        if org.active == True:
+            print ""
+            print """Downloading IATI XML for reporting organisation {}""".format(org.text_EN)
+            download.download_data(org.code)
 
 def remake(options):
     absetup.trash()
@@ -63,6 +73,7 @@ commands = {
     "remake": (remake, "Trash the database and regenerate"),
     "update-codelists": (update_codelists, "Update cached codelists"),
     "update-exchange-rates": (update_exchange_rates, "Update exchange rates"),
+    "update-all": (update_all_reporting_orgs, "Update all reporting orgs"),
 }
 
 def main():
