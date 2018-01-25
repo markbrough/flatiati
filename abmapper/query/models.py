@@ -180,6 +180,8 @@ class Activity(db.Model):
 
     capital_exp = sa.Column(sa.Float(precision=2))
 
+    #documents = act_relationship("Document")
+
     @hybrid_property
     def total_commitments(self):
         return db.engine.execute(sa.select([sa.func.sum(Transaction.value)]).\
@@ -354,7 +356,6 @@ class Title(db.Model):
         index=True)
     text = sa.Column(sa.UnicodeText)
     lang = sa.Column(sa.UnicodeText)
-    percentage = sa.Column(sa.Integer)
 
     def as_string(self):
         return {c.text: getattr(self, c.text) for c in self.__table__.columns}
@@ -379,6 +380,7 @@ class RecipientCountry(db.Model):
         nullable=False,
         default=0)
     recipient_countries = country_relationship("RecipientCountries")
+    active = sa.Column(sa.Boolean, default=False)
 
     @hybrid_property
     def text(self):
@@ -650,9 +652,6 @@ class Participation(db.Model):
     activity_iati_identifier = sa.Column(
         act_ForeignKey("activity.iati_identifier"),
         primary_key=True)
-    country_code = sa.Column(
-        act_ForeignKey("recipientcountry.code"),
-        primary_key=True)
     organisation_id = sa.Column(
         sa.ForeignKey("organisation.id"),
         primary_key=True)
@@ -680,3 +679,56 @@ class Organisation(db.Model, UniqueMixin):
         return "Organisation(ref=%r)" % self.ref
     def __unicode__(self):
         return u"Organisation ref='%s'" % self.ref
+"""
+class Document(db.Model):
+    __tablename__ = 'document'
+    id = sa.Column(sa.Integer, primary_key=True)
+    activity_iati_identifier = sa.Column(
+        act_ForeignKey("activity.iati_identifier"),
+        primary_key=True)
+    url = sa.Column(sa.UnicodeText)
+    format = sa.Column(sa.UnicodeText)
+    lang = sa.Column(sa.UnicodeText)
+    #title = other_relationship("DocumentTitle")
+    #document_categories = other_relationship("DocumentsCategories")
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
+class DocumentTitle(db.Model):
+    __tablename__ = 'documenttitle'
+    id = sa.Column(sa.Integer, primary_key=True)
+    document_id = sa.Column(
+        act_ForeignKey("document.id"),
+        primary_key=True)
+    title = sa.Column(sa.UnicodeText)
+    lang = sa.Column(sa.UnicodeText)
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class DocumentCategory(db.Model):
+    __tablename__ = 'documentcategory'
+    code = sa.Column(sa.UnicodeText, primary_key=True)
+    name_EN = sa.Column(sa.UnicodeText)
+    name_FR = sa.Column(sa.UnicodeText)
+    activity_doc = sa.Column(sa.Boolean, default=True)
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class DocumentsCategories(db.Model):
+    __tablename__ = 'documentscategories'
+    id = sa.Column(sa.Integer, primary_key=True)
+    document_id = sa.Column(
+        act_ForeignKey("document.id"),
+        primary_key=True)
+    documentcategory_code = sa.Column(
+        act_ForeignKey("documentcategory.code"),
+        primary_key=True)
+    documentcategory = sa.orm.relationship("DocumentCategory")
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+"""
