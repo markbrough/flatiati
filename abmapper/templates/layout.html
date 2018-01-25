@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{% block title %}{% endblock %} &raquo; Aid on Spreadsheets</title>
+    <title>{% block title %}{% endblock %} &raquo; {{ gettext("Aid on Spreadsheets") }}</title>
     <link href="{{url_for('static', filename='vendor/bootstrap-3.2.0/css/bootstrap.min.css')}}" media="all" rel="stylesheet" type="text/css" />
     <script src="{{url_for('static', filename='vendor/jquery/3.2.1/jquery-3.2.1.min.js')}}" type="text/javascript"></script>
     <script src="{{url_for('static', filename='vendor/bootstrap-3.2.0/js/bootstrap.js')}}" type="text/javascript"></script>
@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <h1 class="brand"><a href="{{url_for('dashboard')}}">Aid on Spreadsheets</a>
+          <h1 class="brand"><a href="{{url_for('dashboard', lang=lang)}}">{{ gettext("Aid on Spreadsheets") }}</a>
           </h1>
         </div>
       </div>
@@ -37,39 +37,43 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{url_for('country_home', country_code=country.code)}}">{{ country.text }}</a>
+          <a class="navbar-brand" href="{{url_for('country_home', country_code=country.code, lang=lang)}}">{{ country.text }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li {% if active_page == "country" %}class="active"{% endif %}>
-              <a href="{{url_for('country_home', country_code=country.code)}}">
+              <a href="{{url_for('country_home', country_code=country.code, lang=lang)}}">
                 {{ gettext("Overview") }}
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li {% if active_page == "activities" %}class="active"{% endif %}>
-              <a href="{{url_for('country_activities', country_code=country.code)}}">
+              <a href="{{url_for('country_activities', country_code=country.code, lang=lang)}}">
                 {{ gettext("Projects") }}
               </a>
             </li>
+            {% if not freeze %}
             <li {% if active_page == "settings" %}class="active"{% endif %}>
-              <a href="{{url_for('country_settings', country_code=country.code)}}">
+              <a href="{{url_for('country_settings', country_code=country.code, lang=lang)}}">
                 {{ gettext("Settings") }}
               </a>
             </li>
+            {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="{{ url_for("set_lang", lang='en') }}">EN</a>
+            <a href="{{ url_for(page_endpoint, lang='en', **page_args) }}">EN</a>
           </li>
           <li>
-            <a href="{{ url_for("set_lang", lang='fr') }}">FR</a>
+            <a href="{{ url_for(page_endpoint, lang='fr', **page_args) }}">FR</a>
           </li>
+          {% if not freeze %}
           <li>
-            <a href="{{ url_for("admin") }}">Admin</a>
+            <a href="{{ url_for("admin", lang=lang) }}">{{ gettext("Admin") }}</a>
           </li>
+          {% endif %}
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
