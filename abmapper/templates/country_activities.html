@@ -8,26 +8,28 @@
     });
 </script>
 <br />
+{% if projects %}
 <div class="pull-right">
   <div class="btn-group">
     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export data  <span class="caret"></span>
+      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> {{ _("Export data") }} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu dropdown-menu-right">
       <li>
-        <a href="{{url_for('activity_export', country_code=country.code)}}">
+        <a href="{{url_for('activity_export', country_code=country.code, lang=lang)}}">
           {{ _("Export all donors") }}
         </a>
       </li>
       <li role="separator" class="divider"></li>
       {% for ro in reporting_orgs %}
-      <li><a href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.id)}}">
+      <li><a href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.id, lang=lang)}}">
         {{ _("Export") }} {{ro.text}} ({{ro.num_activities}})
       </a></li>
       {% endfor %}
     </ul>
   </div>
 </div>
+{% endif %}
 <h1>{{ _('Projects') }}</h1>
 <table class="table" id="projects">
   <thead>
@@ -46,6 +48,7 @@
       </td>
       <td class="sectors-column">
         <a href="{{url_for('activities', 
+                           lang=lang,
                            country_code=country.code, 
                            iati_identifier=project.iati_identifier)}}">
         {% for title in project.titles %}
