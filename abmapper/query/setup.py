@@ -19,12 +19,16 @@ def update_codelists():
         "ActivityStatus": "http://iatistandard.org/202/codelists/downloads/clv2/csv/en/ActivityStatus.csv",
         "AidType": "https://andylolz.github.io/dac-crs-codes/data/aid_type.csv",
         "Country": "https://github.com/datasets/country-codes/raw/master/data/country-codes.csv",
-        "Sector": "https://andylolz.github.io/dac-crs-codes/data/sector.csv",
-        "SectorCategory": "https://andylolz.github.io/dac-crs-codes/data/sector_category.csv",
+        "Sector_en": "http://iatistandard.org/202/codelists/downloads/clv3/csv/en/Sector.csv",
+        "Sector_fr": "http://iatistandard.org/202/codelists/downloads/clv3/csv/fr/Sector.csv",
+        "SectorCategory_en": "http://iatistandard.org/202/codelists/downloads/clv3/csv/en/SectorCategory.csv",
+        "SectorCategory_fr": "http://iatistandard.org/202/codelists/downloads/clv3/csv/fr/SectorCategory.csv",
         "CollaborationType": "https://andylolz.github.io/dac-crs-codes/data/collaboration_type.csv",
         "FinanceType": "https://andylolz.github.io/dac-crs-codes/data/finance_type.csv",
         "FinanceType_old": "https://raw.githubusercontent.com/markbrough/IATI-Codelists-NonEmbedded/CRS-codelists-en-fr/csv/FinanceType.csv",
         "FiscalYears": "https://raw.githubusercontent.com/markbrough/country-fiscal-years/gh-pages/data/countries_fiscal_years.csv",
+        "DocumentCategory_en": "http://iatistandard.org/202/codelists/downloads/clv3/csv/en/DocumentCategory.csv",
+        "DocumentCategory_fr": "http://iatistandard.org/202/codelists/downloads/clv3/csv/fr/DocumentCategory.csv",
     }
     for code, url in codelists.items():
         print("Fetching codelist {} from {}".format(code, url))
@@ -42,27 +46,41 @@ def setup():
     import_collaboration_types()
     import_finance_types()
     import_reporting_organisations()
+    create_fallback_codes()
+    #import_document_categories()
 
 def import_sectors():
     SectorCategories = {}
-    with open(CODELIST_PATH.format("SectorCategory"), 'r') as scfile:
+    with open(CODELIST_PATH.format("SectorCategory_en"), 'r') as scfile:
         for row in unicodecsv.DictReader(scfile):
+            row["name_en"] = row["name"]
+            row["description_en"] = row["description"]
             SectorCategories[row["code"]] = row
 
-    with open(CODELIST_PATH.format("Sector"), 'r') as sfile:
+    with open(CODELIST_PATH.format("SectorCategory_fr"), 'r') as scfile:
+        for row in unicodecsv.DictReader(scfile):
+            SectorCategories[row["code"]]["name_fr"] = row["name"]
+            SectorCategories[row["code"]]["description_fr"] = row["description"]
+
+    with open(CODELIST_PATH.format("Sector_en"), 'r') as sfile:
         for row in unicodecsv.DictReader(sfile):
             dacsector = models.DACSector()
-            if row["voluntary_code"] != "": 
-                dacsector.code = row["voluntary_code"]
-            else:
-                dacsector.code = row["code"]
+            dacsector.code = row["code"]
             dacsector.dac_five_code = SectorCategories[row["category"]]["code"]
             dacsector.dac_five_name_EN = SectorCategories[row["category"]]["name_en"]
             dacsector.dac_five_name_FR = SectorCategories[row["category"]]["name_fr"]
-            dacsector.description_EN = row["name_en"]
-            dacsector.description_FR = row["name_fr"]
-            dacsector.notes_EN = row["description_en"]
-            dacsector.notes_FR = row["description_fr"]
+            dacsector.description_EN = row["name"]
+            dacsector.notes_EN = row["description"]
+            db.session.add(dacsector)
+        db.session.commit()
+
+    with open(CODELIST_PATH.format("Sector_fr"), 'r') as sfile:
+        for row in unicodecsv.DictReader(sfile):
+            dacsector = models.DACSector.query.filter_by(code=row["code"]
+                        ).first()
+            dacsector.code = row["code"]
+            dacsector.description_FR = row["name"]
+            dacsector.notes_FR = row["description"]
             db.session.add(dacsector)
         db.session.commit()
 
@@ -105,8 +123,8 @@ def import_finance_types():
         for row in financetypereader:
             nc = models.FinanceType()
             nc.code = row["code"]
-            nc.text_EN = row["heading_en"]
-            nc.text_FR = row["heading_fr"]
+            nc.text_EN = row["name_en"]
+            nc.text_FR = row["name_fr"]
             db.session.add(nc)
     with open(CODELIST_PATH.format("FinanceType_old"), 'r') as csvfile:
         financetypereader = unicodecsv.DictReader(csvfile)
@@ -221,6 +239,47 @@ def import_reporting_organisations():
             nc.text_FR = row["text_fr"]
             nc.active = bool(row["active"])
             db.session.add(nc)
+    db.session.commit()
+
+def import_document_categories():
+    with open(CODELIST_PATH.format("DocumentCategory_en"), 'r') as csvfile:
+        roreader = unicodecsv.DictReader(csvfile)
+        for row in roreader:
+            nc = models.DocumentCategory()
+            nc.code = row["code"]
+            nc.text_EN = row["name"]
+            nc.activity_doc = bool(row["category"] == "A")
+            db.session.add(nc)
+    with open(CODELIST_PATH.format("DocumentCategory_fr"), 'r') as csvfile:
+        roreader = unicodecsv.DictReader(csvfile)
+        for row in roreader:
+            nc = models.DocumentCategory.query.filter_by(code=row["code"]
+                        ).first()
+            nc.text_FR = row["name"]
+            db.session.add(nc)
+    db.session.commit()
+
+def create_fallback_codes():
+    for nc in [models.FinanceType(), models.CollaborationType()]:
+        nc.code = 0
+        nc.text_EN = u"Unknown"
+        nc.text_FR = u"Inconnu"
+        db.session.add(nc)
+    for nc in [models.AidType(), models.RecipientCountry()]:
+        nc.code = "0"
+        nc.text_EN = u"Unknown"
+        nc.text_FR = u"Inconnu"
+        db.session.add(nc)
+    dacsector = models.DACSector()
+    dacsector.code = 0
+    dacsector.dac_five_code = 0
+    dacsector.dac_five_name_EN = u"Unknown"
+    dacsector.dac_five_name_FR = u"Inconnu"
+    dacsector.description_EN = u"Unknown"
+    dacsector.notes_EN = u"Unknown"
+    dacsector.description_FR = u"Inconnu"
+    dacsector.notes_FR = u"Inconnu"
+    db.session.add(dacsector)
     db.session.commit()
 
 def update_exchange_rates():
