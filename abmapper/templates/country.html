@@ -2,30 +2,33 @@
 {% block title %}{{country.text}}{% endblock %}
 {% block content %}
 <br />
+{% if stats.total_projects > 0 %}
 <div class="pull-right">
   <div class="btn-group">
     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Export data  <span class="caret"></span>
+      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> {{ _("Export data") }}  <span class="caret"></span>
     </button>
     <ul class="dropdown-menu dropdown-menu-right">
       <li>
-        <a href="{{url_for('activity_export', country_code=country.code)}}">
+        <a href="{{url_for('activity_export', country_code=country.code, lang=lang)}}">
           {{ _("Export all donors") }}
         </a>
       </li>
       <li role="separator" class="divider"></li>
       {% for ro in reporting_orgs %}
-      <li><a href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.id)}}">
+      <li><a href="{{url_for('activity_export', country_code=country.code, reporting_org=ro.id, lang=lang)}}">
         {{ _("Export") }} {{ro.text}} ({{ro.num_activities}})
       </a></li>
       {% endfor %}
     </ul>
   </div>
 </div>
+{% endif %}
 <h1>{{ _("Overview") }}</h1>
 <h3>{{ _("Summary data") }}</h3>
 <dl class="dl-horizontal">
   <dt>{{ _("Sum of projects") }}</dt><dd>{{stats.total_value}} ({{ _("commitments in USD") }})</dd>
   <dt>{{ _("Number of projects") }}</dt><dd>{{stats.total_projects}}</dd>
+  <dt>{{ _("Fiscal year starts in") }}</dt><dd>{{stats.fiscalyear_start}}</dd>
 </dl>
 {% endblock %}
