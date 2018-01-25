@@ -92,7 +92,7 @@ $(document).on("change", "#reporting-orgs input[type=text], input[type=checkbox]
     'attr': this.name,
     'value': this.value,
   }
-  if (data.name = "active") {
+  if (data["attr"] == "active") {
     if (this.checked) {
       data["value"] = true;
     } else {
