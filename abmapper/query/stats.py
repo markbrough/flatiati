@@ -5,6 +5,7 @@ from abmapper import app, db
 from abmapper.lib import country_colours
 from abmapper.lib import util
 import projects as abprojects
+import datetime
 
 def budget_project_stats(country_code, budget_type):
     # GET SQL
@@ -165,9 +166,17 @@ def country_project_stats(country_code):
     total_projects = len(projects)
     total_value = sum(map(lambda project:
          util.none_is_zero(project.total_commitments), projects))
+    country = abprojects.country(country_code)
+
+    fiscalyear_start_month = datetime.date(year=2017,
+                    month=country.fiscalyear_modifier+1,
+                    day=1
+                    ).strftime("%B")
+
     return {
         "total_value": "{:,}".format(total_value),
         "total_projects": total_projects,
+        "fiscalyear_start": fiscalyear_start_month
        }
 
 def earliest_latest_disbursements(country_code):
@@ -189,6 +198,9 @@ def earliest_latest_disbursements(country_code):
             country.fiscalyear_modifier,
             country.fiscalyear_modifier, country_code, "D','E")
             ).first()
+    if (fydata_results == (None, None)):
+        current_year = datetime.datetime.now().year
+        return current_year, current_year
     return int(fydata_results.min_fiscal_year), int(fydata_results.max_fiscal_year)
 
 def earliest_latest_forward_data(country_code):
@@ -209,6 +221,9 @@ def earliest_latest_forward_data(country_code):
             country.fiscalyear_modifier,
             country.fiscalyear_modifier, country_code)
             ).first()
+    if (fydata_results == (None, None)):
+        current_year = datetime.datetime.now().year
+        return current_year, current_year
     return int(fydata_results.min_fiscal_year), int(fydata_results.max_fiscal_year)
 
 def sectors_stats():
