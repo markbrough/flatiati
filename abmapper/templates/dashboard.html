@@ -14,13 +14,13 @@
     {% for country in countries %}
     <tr>
       <td>
-        <a href="{{url_for('country_home', country_code=country.RecipientCountry.code)}}">
+        <a href="{{url_for('country_home', country_code=country.RecipientCountry.code, lang=lang)}}">
         {{country.RecipientCountry.text}}
         </a>
       </td>
       <td>{{country.num_activities}}</td>
       <td>{% if country.num_activities > 0 %}
-        <a href="{{url_for('activity_export', country_code=country.RecipientCountry.code)}}" class="btn btn-success btn-sm">
+        <a href="{{url_for('activity_export', country_code=country.RecipientCountry.code, lang=lang)}}" class="btn btn-success btn-sm">
           <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
         {{ _("Download spreadsheet") }}
         </a>
