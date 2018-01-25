@@ -1,48 +1,22 @@
 from flask import render_template, request
+import abmapper
 from abmapper import app
 from abmapper.lib import util
 from abmapper.query import projects as abprojects
 from abmapper.query import sectors as absectors
 
-@app.route("/<country_code>/activities/<path:iati_identifier>/")
-def activities(country_code, iati_identifier):
+@app.route("/<lang>/countries/<country_code>/activities/<path:iati_identifier>/")
+def activities(country_code, iati_identifier, lang="en"):
+    abmapper.set_lang(lang)
     a = abprojects.project(iati_identifier)
     country = abprojects.country(country_code)
+    page_args = request.view_args
+    page_args.pop("lang")
     return render_template("project.html",
                            activity=a,
                            country=country,
+                           freeze=('FREEZE' in app.config),
+                           lang=lang,
+                           page_endpoint = request.endpoint,
+                           page_args = page_args,
                            )
-
-@app.route("/<country_code>/activities/<path:iati_identifier>/addsector/", methods=['POST'])
-def activity_add_sector(country_code, iati_identifier):
-    sector_code = request.form['sector_code']
-    iati_identifier = request.form['iati_identifier']
-    percentage = request.form['percentage']
-    sector_data = absectors.sector(sector_code)
-
-    if absectors.add_sector_to_project(sector_code, iati_identifier, percentage):
-        return util.jsonify({"cc": {
-                               "sector": sector_data.sector, 
-                               "function": sector_data.function, 
-                               "id": sector_data.id
-                             },
-                             "description": sector_data.description,
-                            })
-    return util.jsonify({"error":True})
-
-@app.route("/<country_code>/activities/<path:iati_identifier>/deletesector/", methods=['POST'])
-def activity_delete_sector(country_code, iati_identifier):
-    sector_code = request.form['sector_code']
-    iati_identifier = iati_identifier
-    result = absectors.delete_sector_from_project(sector_code, iati_identifier)
-    if result:
-        return util.jsonify({"success": result})
-    return util.jsonify({"error": True})
-
-@app.route("/<country_code>/activities/<path:iati_identifier>/restoresector/", methods=['POST'])
-def activity_restore_sector(country_code, iati_identifier):
-    sector_code = request.form['sector_code']
-    iati_identifier = iati_identifier
-    if absectors.restore_sector_to_project(sector_code, iati_identifier):
-        return util.jsonify({"success": True})
-    return util.jsonify({"error": True})
