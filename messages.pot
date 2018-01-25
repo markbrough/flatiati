@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2015 ORGANIZATION
+# Copyright (C) 2018 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-16 21:22+0100\n"
+"POT-Creation-Date: 2018-01-25 18:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,130 +17,140 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: abmapper/templates/country.html:14 abmapper/templates/country.html:18
+#: abmapper/templates/admin.html:2
+msgid "Administration"
+msgstr ""
+
+#: abmapper/templates/admin.html:7 abmapper/templates/admin.html:14
+msgid "Reporting organisations"
+msgstr ""
+
+#: abmapper/templates/admin.html:8 abmapper/templates/admin.html:26
+msgid "Exchange rates"
+msgstr ""
+
+#: abmapper/templates/admin.html:19
+msgid "Add reporting organisation"
+msgstr ""
+
+#: abmapper/templates/admin.html:31
+msgid "Update exchange rate data"
+msgstr ""
+
+#: abmapper/templates/admin.html:42
+msgid "Organisation identifier"
+msgstr ""
+
+#: abmapper/templates/admin.html:43
+msgid "Name (EN)"
+msgstr ""
+
+#: abmapper/templates/admin.html:44
+msgid "Name (FR)"
+msgstr ""
+
+#: abmapper/templates/admin.html:45
+msgid "Active?"
+msgstr ""
+
+#: abmapper/templates/admin.html:96
+msgid "Confirm delete"
+msgstr ""
+
+#: abmapper/templates/admin.html:99
+msgid ""
+"Are you sure you want to delete this reporting organisation? This action "
+"will also delete any activities reported by this organisation."
+msgstr ""
+
+#: abmapper/templates/admin.html:102
+msgid "Cancel"
+msgstr ""
+
+#: abmapper/templates/admin.html:103
+msgid "Confirm"
+msgstr ""
+
+#: abmapper/templates/country.html:9
+#: abmapper/templates/country_activities.html:15
+msgid "Export data"
+msgstr ""
+
+#: abmapper/templates/country.html:14
+#: abmapper/templates/country_activities.html:20
+msgid "Export all donors"
+msgstr ""
+
+#: abmapper/templates/country.html:20
+#: abmapper/templates/country_activities.html:26
 msgid "Export"
 msgstr ""
 
-#: abmapper/templates/country.html:22 abmapper/templates/layout.html:66
+#: abmapper/templates/country.html:27 abmapper/templates/layout.html:48
 msgid "Overview"
 msgstr ""
 
-#: abmapper/templates/country.html:23
+#: abmapper/templates/country.html:28
 msgid "Summary data"
 msgstr ""
 
-#: abmapper/templates/country.html:25
+#: abmapper/templates/country.html:30
 msgid "Sum of projects"
 msgstr ""
 
-#: abmapper/templates/country.html:25
+#: abmapper/templates/country.html:30
 msgid "commitments in USD"
 msgstr ""
 
-#: abmapper/templates/country.html:26 abmapper/templates/dashboard.html:10
+#: abmapper/templates/country.html:31 abmapper/templates/dashboard.html:10
 msgid "Number of projects"
 msgstr ""
 
-#: abmapper/templates/country.html:29
-msgid "Administrative/functional classification"
-msgstr ""
-
-#: abmapper/templates/country.html:32 abmapper/templates/country.html:48
-#: abmapper/templates/project.html:68 abmapper/templates/project.html:84
-msgid "Before"
-msgstr ""
-
-#: abmapper/templates/country.html:39 abmapper/templates/country.html:55
-#: abmapper/templates/project.html:75 abmapper/templates/project.html:91
-msgid "After"
-msgstr ""
-
-#: abmapper/templates/country.html:46 abmapper/templates/project.html:82
-msgid "Economic classification"
-msgstr ""
-
-#: abmapper/templates/country.html:69
-msgid "Total amount by budget line"
-msgstr ""
-
-#: abmapper/templates/country.html:85
-msgid "Table"
-msgstr ""
-
-#: abmapper/templates/country.html:88
-msgid "Chart"
-msgstr ""
-
-#: abmapper/templates/country.html:91
-msgid "Sankey"
-msgstr ""
-
-#: abmapper/templates/country.html:99
-msgid "Code"
-msgstr ""
-
-#: abmapper/templates/country.html:100
-msgid "Budget line"
-msgstr ""
-
-#: abmapper/templates/country.html:101
-msgid "Amount before"
-msgstr ""
-
-#: abmapper/templates/country.html:102
-msgid "Amount after"
-msgstr ""
-
-#: abmapper/templates/country.html:103
-msgid "before"
-msgstr ""
-
-#: abmapper/templates/country.html:104
-msgid "after"
-msgstr ""
-
-#: abmapper/templates/country.html:105
-msgid "difference"
+#: abmapper/templates/country.html:32
+msgid "Fiscal year starts in"
 msgstr ""
 
 #: abmapper/templates/country_activities.html:2
-#: abmapper/templates/country_activities.html:21
-#: abmapper/templates/layout.html:72
+#: abmapper/templates/country_activities.html:33
+#: abmapper/templates/layout.html:54
 msgid "Projects"
 msgstr ""
 
-#: abmapper/templates/country_activities.html:24
+#: abmapper/templates/country_activities.html:36
 msgid "No"
 msgstr ""
 
-#: abmapper/templates/country_activities.html:25
+#: abmapper/templates/country_activities.html:37
 msgid "Title"
 msgstr ""
 
-#: abmapper/templates/country_activities.html:26
-#: abmapper/templates/project.html:130
-msgid "CRS code"
+#: abmapper/templates/country_activities.html:38
+msgid "Sectors (CRS code)"
 msgstr ""
 
-#: abmapper/templates/country_activities.html:26
-#: abmapper/templates/project.html:132
-msgid "Common Code"
-msgstr ""
-
-#: abmapper/templates/country_activities.html:28
-msgid "CC mappable before"
-msgstr ""
-
-#: abmapper/templates/country_activities.html:29
-msgid "CC mappable after"
-msgstr ""
-
-#: abmapper/templates/country_activities.html:30
-msgid "CC mappable difference"
-msgstr ""
-
-#: abmapper/templates/country_activities.html:31
+#: abmapper/templates/country_activities.html:39
 msgid "Implementing org"
+msgstr ""
+
+#: abmapper/templates/country_activities.html:40
+msgid "Pct to "
+msgstr ""
+
+#: abmapper/templates/country_activities.html:41
+msgid "Status"
+msgstr ""
+
+#: abmapper/templates/country_settings.html:2 abmapper/templates/layout.html:60
+msgid "Settings"
+msgstr ""
+
+#: abmapper/templates/country_settings.html:28
+msgid "Update settings"
+msgstr ""
+
+#: abmapper/templates/country_settings.html:46
+#: abmapper/templates/country_settings.html:51
+msgid "Retrieve data"
 msgstr ""
 
 #: abmapper/templates/dashboard.html:6
@@ -151,27 +161,70 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
+#: abmapper/templates/dashboard.html:11
+msgid "Spreadsheet"
+msgstr ""
+
+#: abmapper/templates/dashboard.html:25
+msgid "Download spreadsheet"
+msgstr ""
+
+#: abmapper/templates/dashboard.html:30
+msgid "No data available"
+msgstr ""
+
+#: abmapper/templates/layout.html:8 abmapper/templates/layout.html:24
+msgid "Aid on Spreadsheets"
+msgstr ""
+
+#: abmapper/templates/layout.html:74
+msgid "Admin"
+msgstr ""
+
 #: abmapper/templates/project.html:2
 msgid "Project"
 msgstr ""
 
-#: abmapper/templates/project.html:110
-msgid "Disbursements by fiscal year"
+#: abmapper/templates/project.html:13
+msgid "Project ID"
 msgstr ""
 
-#: abmapper/templates/project.html:114
+#: abmapper/templates/project.html:15
+msgid "Activity status"
+msgstr ""
+
+#: abmapper/templates/project.html:17
+msgid "Aid type"
+msgstr ""
+
+#: abmapper/templates/project.html:76
+msgid "Disbursements by fiscal year, quarter"
+msgstr ""
+
+#: abmapper/templates/project.html:80 abmapper/templates/project.html:101
+#: abmapper/templates/project.html:122
 msgid "Fiscal year"
 msgstr ""
 
-#: abmapper/templates/project.html:115
-msgid "Value"
+#: abmapper/templates/project.html:81 abmapper/templates/project.html:102
+msgid "Fiscal quarter"
 msgstr ""
 
-#: abmapper/templates/project.html:133
-msgid "Budget classification (upper)"
+#: abmapper/templates/project.html:82 abmapper/templates/project.html:83
+#: abmapper/templates/project.html:103 abmapper/templates/project.html:104
+#: abmapper/templates/project.html:123 abmapper/templates/project.html:124
+msgid "Value (USD)"
 msgstr ""
 
-#: abmapper/templates/project.html:134
-msgid "Budget classification (lower)"
+#: abmapper/templates/project.html:98
+msgid "Commitments by fiscal year, quarter"
+msgstr ""
+
+#: abmapper/templates/project.html:119
+msgid "MTEF projections by fiscal year"
+msgstr ""
+
+#: abmapper/templates/project.html:142
+msgid "CRS code"
 msgstr ""
 
