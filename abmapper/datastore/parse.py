@@ -5,13 +5,14 @@ from abmapper.query import projects as abprojects
 from abmapper.query import sectors as absectors
 from abmapper.query import settings as absettings
 from abmapper.query import models
-from abmapper.lib import util
+from abmapper.lib import util, codelists
 import exchangerates
 import datetime
 import flattener, flatten_rules
 import sqlalchemy as sa
 from flask import flash
 from dateutil.parser import parse as dtparse
+from collections import defaultdict
 
 class UnrecognisedVersionException(Exception):
     pass
@@ -56,19 +57,42 @@ def get_recipient_countries(activity):
         'recipient-country')
     for country in countries:
         rc = models.RecipientCountries()
-        rc.recipient_country_code = unicode(country.get("code"))
+        rc.recipient_country_code = avoidIntegrityError(
+            unicode(country.get("code")), "Country", "0")
         rc.percentage = country.get("percentage", 100)
         rcs.append(rc)
     return rcs
 
-def get_sectors(activity):
+def get_sectors_from_transactions(activity, version):
+    codes = { 2: "2", 1: "C" }
+    vocabs = { 2: "1", 1: "DAC" }
+
+    trans = activity.xpath("transaction[transaction-type/@code='{}']".format(codes[version]))
+    codes_values = list(map(lambda t: (
+                float(t.find("value").text),
+                str(getfirst(t.xpath("sector[@vocabulary='{}']/@code|sector[not(@vocabulary)]/@code".format(vocabs[version]))))
+                ), trans))
+    total_value = sum(map(lambda x: x[0], codes_values))
+    if total_value == 0:
+        return []
+    d = defaultdict(list)
+    for value, code in codes_values:
+        d[code].append(value)
+    return list(map(lambda s: {"code": s[0], "percentage": round(sum(s[1])/total_value*100, 2)}, d.items()))
+
+def get_sectors(activity, version):
     s = []
     sectors=activity.xpath(
         'sector[@vocabulary="DAC"]|sector[not(@vocabulary)]|sector[@vocabulary="1"]')
     sectors, num_sectors=getDACSectors(sectors)
+
+    if num_sectors == 0:
+        sectors = get_sectors_from_transactions(activity, version)
+
     for sector in sectors:
         ns = models.Sector()
-        ns.code = unicode(sector['code'])
+        ns.code = avoidIntegrityError(
+                    unicode(sector['code']), "Sector", "0")
         ns.percentage = sector['percentage'] or 100
         s.append(ns)
     return s
@@ -104,7 +128,7 @@ def get_o_role(value):
         raise InvalidFormatException("""{} is not a valid participating 
         organisation role for this version of the IATI Standard""")
 
-def get_orgs(activity, country_code, version):
+def get_orgs(activity, version):
     ret = []
     seen = set()
     for ele in activity.xpath("./participating-org"):
@@ -115,8 +139,7 @@ def get_orgs(activity, country_code, version):
         if organisation and not (role, organisation.name) in seen:
             seen.add((role, organisation.name))
             ret.append(models.Participation(role=role,
-                      organisation=organisation,
-                      country_code=country_code))
+                      organisation=organisation))
     return ret
 
 def get_currency(activity, transaction):
@@ -195,6 +218,8 @@ def get_forward_spend_item(ele, activity, iati_identifier, exchange_rates,
     # If start and end months are not in the same quarter, then we need to handle this…
 
     fiscal_periods = get_fiscal_periods(start_date, end_date)
+    # There is a budget, but the end date is before the start date. Ignore.
+    if len(fiscal_periods) == 0: return []
     fiscal_period_value = value_usd/len(fiscal_periods)
     fps = []
     for year, quarter in fiscal_periods:
@@ -267,8 +292,10 @@ def get_transactions(activity, iati_identifier, version, exchange_rates):
         tr.transaction_date = datetime.datetime.strptime(
                 t_date, "%Y-%m-%d" )
         tr.transaction_type_code = t_type
-        tr.finance_type_code = get_alt(ele.xpath("finance-type/@code"),
-                    activity.xpath('default-finance-type/@code'))
+        tr.finance_type_code =  avoidIntegrityError(
+                get_alt(ele.xpath("finance-type/@code"),
+                activity.xpath('default-finance-type/@code')),
+                "FinanceType", "110")
         ret.append(tr)
     return ret 
 
@@ -282,6 +309,39 @@ def get_titles(activity, version):
         title.lang = unicode(getfirst(ele.xpath('@xml:lang'),
                              getfirst(activity.xpath('@xml:lang'))))
         ret.append(title)
+    return ret
+
+def get_document_titles(title_field):
+    tfs = []
+    for field in title_field:
+        document_title = models.DocumentTitle()
+        document_title.title = field.text
+        document_title.lang = getfirst(field.xpath("@xml:lang"))
+        tfs.append(document_title)
+    return tfs
+
+def get_categories(document):
+    cats = []
+    loop = document.xpath("category")
+    for ele in loop:
+        category = models.DocumentsCategories()
+        category.documentcategory_code = ele.get("code")
+        cats.append(category)
+    return cats
+
+def get_documents(activity, version):
+    ret = []
+    loop = activity.xpath("./document-link")
+    for ele in loop:
+        title_field = {1: ele.xpath("./title"),
+                    2: ele.xpath("./title/narrative")}[version]
+        document = models.Document()
+        #document.title = get_document_titles(title_field)
+        #document.lang = unicode(getfirst(ele.xpath('language/@code'), "en"))
+        #document.url = unicode(ele.get("url"))
+        #document.format = unicode(ele.get("format"))
+        #document.categories = get_categories(ele)
+        ret.append(document)
     return ret
 
 def get_descriptions(activity, version):
@@ -311,12 +371,19 @@ def null_to_default(value, default):
         return default
     return value
 
-def write_activity(activity, country_code, reporting_org_id, version, exchange_rates):
+def avoidIntegrityError(value, codelist, default):
+    if value not in codelists.CODELISTS[codelist]:
+        return default
+    return value
+
+def write_activity(activity, reporting_org_id, version, exchange_rates):
     iati_identifier = unicode(getfirst(activity.xpath('iati-identifier/text()')))
     #if this identifier already exists, then delete, otherwise, insert
     checkA = models.Activity.query.filter_by(iati_identifier=iati_identifier).first()
     if checkA:
+        return
         db.session.delete(checkA)
+        db.session.commit()
     a = models.Activity()
     a.iati_identifier = iati_identifier
     a.reporting_org_id = reporting_org_id
@@ -324,12 +391,14 @@ def write_activity(activity, country_code, reporting_org_id, version, exchange_r
     a.all_titles = get_titles(activity, version)
     a.recipient_countries = get_recipient_countries(activity)
     a.all_descriptions = get_descriptions(activity, version)
-    a.sectors = get_sectors(activity)
-    a.participating_orgs = get_orgs(activity, country_code, version)
+    a.sectors = get_sectors(activity, version)
+    a.participating_orgs = get_orgs(activity, version)
     a.transactions = get_transactions(activity, a.iati_identifier, 
                                       version, exchange_rates)
     a.forward_spend = get_forward_spend(activity, a.iati_identifier, 
                                       version, exchange_rates)
+    #a.documents = get_documents(activity, version)
+    a.sectors = get_sectors(activity, version)
     a.status_code = unicode(null_to_default(
         getfirst(activity.xpath('activity-status/@code')),
         "2"
@@ -342,10 +411,9 @@ def write_activity(activity, country_code, reporting_org_id, version, exchange_r
         getfirst(activity.xpath('collaboration-type/@code')),
         "2"
         ))
-    a.aid_type_code = unicode(null_to_default(
+    a.aid_type_code = avoidIntegrityError(
 getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code')),
-        "C01"
-        ))
+        "AidType", "C01")
     a.date_start_planned = get_date(activity, {1: 'start-planned', 2: "1"}[version])
     a.date_end_planned = get_date(activity, {1: 'end-planned', 2: "3"}[version])
     a.date_start_actual = get_date(activity, {1: 'start-actual', 2: "2"}[version])
@@ -364,7 +432,7 @@ def get_version(activity):
     raise UnrecognisedVersionException("""The IATI-XML version {} was not 
     recognised.""".format(version))
 
-def parse_doc(country_code, reporting_org_id, doc, update_exchange_rates=True, sample=False):
+def parse_doc(reporting_org_id, doc, update_exchange_rates=True, sample=False):
     exchange_rates = exchangerates.CurrencyConverter(update=update_exchange_rates)
     reporting_org_code = absettings.reporting_org_by_id(reporting_org_id).code
     if reporting_org_code in flatten_rules.FLATTEN_RULES:
@@ -374,14 +442,14 @@ def parse_doc(country_code, reporting_org_id, doc, update_exchange_rates=True, s
     for i, activity in enumerate(activities):
         version = get_version(activity)
         try:
-            write_activity(activity, unicode(country_code), reporting_org_id,
+            write_activity(activity, reporting_org_id,
                        version, exchange_rates)
         except sa.exc.IntegrityError:
             db.session.rollback()
             iati_identifier = activity.xpath("iati-identifier/text()")
-            flash("""Unable to parse activity {} as one or more codes used 
+            print("""Unable to parse activity {} as one or more codes used
             are invalid""".format("".join(iati_identifier)))
 
-def parse_file(country_code, filename, sample=False):
+def parse_file(filename, sample=False):
     doc=etree.parse(filename)
     parse_doc(doc)
