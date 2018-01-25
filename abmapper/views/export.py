@@ -1,4 +1,4 @@
-from flask import send_file, jsonify
+from flask import send_file, jsonify, abort
 import xlrd, xlwt
 import StringIO
 import datetime
@@ -27,9 +27,9 @@ def comma_join(attrA, attrB, list):
     return ",".join(map(lambda budget:
                  getattr(getattr(budget, attrA), attrB), list))
 
-@app.route("/<country_code>/<reporting_org>/export.xls")
-@app.route("/<country_code>/export.xls")
-def activity_export(country_code, reporting_org=None):
+@app.route("/<lang>/countries/<country_code>/<reporting_org>/export.xls")
+@app.route("/<lang>/countries/<country_code>/export.xls")
+def activity_export(country_code, reporting_org=None, lang="en"):
     def notNone(value):
         if value is not None:
             return True
@@ -69,7 +69,7 @@ def activity_export(country_code, reporting_org=None):
     ws = wb.add_sheet('Raw data export')
     
     headers = ['iati_identifier', 'project_title', 'project_description',
-        'pct_{}'.format(country_name),
+        u'pct_{}'.format(country_name),
         'sector_code', 'sector_name', 'sector_pct', 'aid_type_code', 'aid_type',
         'collaboration_type_code','collaboration_type','finance_type_code',
         'finance_type',
@@ -176,16 +176,3 @@ def activity_export(country_code, reporting_org=None):
     return send_file(strIOsender,
                      attachment_filename=the_filename,
                      as_attachment=True)
-
-@app.route("/sectors/export.csv")
-def sectors_stats_csv():
-    data = abstats.sectors_stats()
-    strIOsender = StringIO.StringIO()
-    fieldnames = ['sector_code', 'sector_description',
-      'sector_parent_code', 'countries', 'total_value', 'num_activities']
-    writer = unicodecsv.DictWriter(strIOsender, fieldnames=fieldnames)
-    writer.writeheader()
-    for stats in data:
-        writer.writerow(stats)
-    strIOsender.seek(0)
-    return send_file(strIOsender)
