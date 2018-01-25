@@ -9,3 +9,4 @@ pyenv
 config.py
 *.sqlite
 *~lock*#
+abmapper/build/
