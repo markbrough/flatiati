@@ -23,12 +23,15 @@ def projects(country_code, reporting_org=None):
                 models.Activity.reporting_org_id==reporting_org
             ).join(models.RecipientCountries
             ).all()
-        
     return p
-    
+
 def country(country_code):
     c = models.RecipientCountry.query.filter_by(code=country_code).first()
     return c
+
+def countries_active():
+    c = models.RecipientCountry.query.filter_by(active=True).all()
+    return list(map(lambda c: c.code, c))
 
 def countries_activities():
     c = db.session.query(
@@ -37,6 +40,7 @@ def countries_activities():
                 func.count(models.Activity.iati_identifier).label("num_activities")
             ).outerjoin(models.RecipientCountries
             ).outerjoin(models.Activity
+            ).filter(models.RecipientCountry.active==True
             ).group_by(models.RecipientCountry
             ).order_by("num_activities DESC"
             ).order_by(models.RecipientCountry.code
