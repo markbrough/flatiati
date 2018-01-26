@@ -34,7 +34,7 @@ act_ForeignKey = ft.partial(
 )
 FWDDATA_QUERY = """
     SELECT sum(value) AS value,
-    strftime('%%Y', DATE(period_start_date, '-%s month'))
+    strftime('%%Y', DATE(period_start_date, 'start of month', '-%s month'))
     AS fiscal_year
     FROM forwardspend
     WHERE forwardspend.activity_iati_identifier = '%s'
@@ -45,13 +45,13 @@ FWDDATA_QUERY = """
 
 FYDATA_QUERY = """
     SELECT sum(value) AS value,
-    strftime('%%Y', DATE(transaction_date, '-%s month'))
+    strftime('%%Y', DATE(transaction_date, 'start of month', '-%s month'))
     AS fiscal_year,
     CASE 
-        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('01','02','03') THEN 'Q1'
-        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('04','05','06') THEN 'Q2'
-        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('07','08','09') THEN 'Q3'
-        WHEN strftime('%%m', DATE(transaction_date, '-%s month')) IN ('10','11','12') THEN 'Q4'
+        WHEN strftime('%%m', DATE(transaction_date, 'start of month', '-%s month')) IN ('01','02','03') THEN 'Q1'
+        WHEN strftime('%%m', DATE(transaction_date, 'start of month', '-%s month')) IN ('04','05','06') THEN 'Q2'
+        WHEN strftime('%%m', DATE(transaction_date, 'start of month', '-%s month')) IN ('07','08','09') THEN 'Q3'
+        WHEN strftime('%%m', DATE(transaction_date, 'start of month', '-%s month')) IN ('10','11','12') THEN 'Q4'
     END AS fiscal_quarter
     FROM atransaction
     WHERE atransaction.activity_iati_identifier = '%s'
