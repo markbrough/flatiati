@@ -3,9 +3,9 @@ mkdir abmapper/build
 cd abmapper/build
 git init .
 git remote add origin git@github.com:markbrough/flatiati.git
-git pull origin gh-pages
+git fetch origin gh-pages
 git checkout gh-pages
-rm -rf en fr index.html static
+rm -rf en fr index.html static CNAME
 cd ../../
 ./abtool.py --update-exchange-rates
 ./abtool.py --update-all
