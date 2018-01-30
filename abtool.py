@@ -43,6 +43,8 @@ def update_codelists(options):
     absetup.update_codelists()
 
 def update_exchange_rates(options):
+    print ""
+    print "Updating exchange rates"
     absetup.update_exchange_rates()
 
 def update_all_reporting_orgs(options):
