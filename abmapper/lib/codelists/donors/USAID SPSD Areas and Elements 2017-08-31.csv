@@ -1,0 +1,427 @@
+code,name
+1.1,Counter-Terrorism
+1.1.1,"Deny Terrorist Sponsorship, Support and Sanctuary"
+1.1.2,De-Legitimize Terrorist Ideology
+1.1.3,Governments' Capabilities
+1.1.4,Program Design and Learning (Counter-Terrorism)
+1.1.4,Program Support (Counter-Terrorism)
+1.1.5,Administration and Oversight (Counter-Terrorism)
+1.2,Combating Weapons of Mass Destruction (WMD)
+1.2.1,Counter WMD Proliferation and Combat WMD Terrorism
+1.3,Stabilization Operations and Security Sector Reform
+1.3.1,OTI/Operations Support
+1.3.2,"Disarmament, Demobilization & Reintegration (DDR)"
+1.3.4,Explosive Remnants of War (ERW)
+1.3.5,Immediate Protection of Civilians in Conflict
+1.3.6,"Defense, Military, and Border Restructuring, Reform and Operations"
+1.3.7,"Law Enforcement Restructuring, Reform and Operations"
+1.3.8,Program Design and Learning (Stabilization)
+1.3.8,Program Support (Stabilization)
+1.3.9,Administration and Oversight (Stabilization)
+1.4,Counter-Narcotics
+1.4.2,Alternative Development and Alternative Livelihoods
+1.4.3,Interdiction
+1.4.4,Drug Demand Reduction
+1.4.5,Program Design and Learning (Narcotics)
+1.4.5,Program Support (Narcotics)
+1.4.6,Administration and Oversight (Narcotics)
+1.5,Transnational Crime
+1.5.1,Financial Crimes and Money Laundering
+1.5.2,"Intellectual Property Theft, Corporate Espionage and Cyber Security"
+1.5.3,Trafficking-in-Persons and Migrant Smuggling
+1.5.5,Program Design and Learning (Crime)
+1.5.5,Program Support (Crime)
+1.5.6,Administration and Oversight (Crime)
+1.6,Conflict Mitigation and Reconciliation
+1.6.1,Conflict Mitigation
+1.6.2,Peace and Reconciliation Processes
+1.6.3,Preventive Diplomacy
+1.6.4,Program Design and Learning (Conflict)
+1.6.4,Program Support (Conflict)
+1.6.5,Administration and Oversight (Conflict)
+2.1,Rule of Law and Human Rights
+2.1.1,"Constitutions, Laws, and Legal Systems"
+2.1.2,Judicial Independence
+2.1.3,Justice System
+2.1.4,Human Rights
+2.1.5,Program Design and Learning (Rule of Law)
+2.1.5,Program Support (Rule of Law)
+2.1.6,Administration and Oversight (Rule of Law)
+2.2,Good Governance
+2.2.1,Legislative Function and Processes
+2.2.2,Public Sector Executive Function
+2.2.3,Local Government and Decentralization
+2.2.4,Anti-Corruption Reforms
+2.2.5,Governance of the Security Sector
+2.2.6,Program Design and Learning (Governance)
+2.2.6,Program Support (Governance)
+2.2.6.1,Host Country Strategic Information Capacity (Governance)
+2.2.7,Administration and Oversight (Governance)
+2.3,Political Competition and Consensus-Building
+2.3.1,Consensus-Building Processes
+2.3.2,Elections and Political Processes
+2.3.2.2,Election Management
+2.3.2.4,"Enfranchisement, Access and Participation"
+2.3.3,Political Parties
+2.3.3.1,Political Party Organizational Development
+2.3.4,Program Design and Learning (Political Competition)
+2.3.4,Program Support (Political Competition)
+2.3.5,Administration and Oversight (Political Competition)
+2.4,Civil Society
+2.4.1,Civic Participation
+2.4.2,Media Freedom and Freedom of Information
+2.4.3,Program Design and Learning (Civil Society)
+2.4.3,Program Support (Civil Society)
+2.4.4,Administration and Oversight (Civil Society)
+3.1,Health
+3.1.1,HIV/AIDS
+3.1.1.1,HIV/AIDS - Preventing Mother-to-child Transmission (PMTCT)
+3.1.1.2,"HIV/AIDS - Sexual Prevention, Abstinence / Be Faithful"
+3.1.1.3,HIV/AIDS - Biomedical Prevention - Blood Safety
+3.1.1.4,HIV/AIDS - Biomedical Prevention - Injection Safety
+3.1.1.5,HIV/AIDS - Sexual Prevention - Other Sexual Prevention
+3.1.1.6,HIV/AIDS - Adult Care and Support
+3.1.1.7,HIV/AIDS - TB / HIV
+3.1.1.8,HIV/AIDS - Orphans and Vulnerable Children
+3.1.1.9,HIV/AIDS - Counseling and Testing
+3.1.1.10,HIV/AIDS - Treatment / ARV Drugs
+3.1.1.11,HIV/AIDS - Treatment / Adult Services
+3.1.1.12,HIV/AIDS - Laboratory Infrastructure
+3.1.1.13,HIV/AIDS - Health System Strengthening
+3.1.1.14,HIV/AIDS - Strategic Information
+3.1.1.17,HIV/AIDS - Biomedical Prevention - Medical Male Circumcision
+3.1.1.18,HIV/AIDS - Biomedical Prevention - Prevention Among Injecting and Non-Injecting Drug Users
+3.1.1.19,HIV/AIDS - Pediatric Care and Support
+3.1.1.20,HIV/AIDS - Treatment / Pediatric Treatment
+3.1.2,Tuberculosis
+3.1.2.1,"Tuberculosis - Directly Observed Therapy, Short-Courses (DOTS) Expansion and Enhancement"
+3.1.2.2,Tuberculosis - Drugs for the Treatment of TB
+3.1.2.3,Tuberculosis - Improve Management of TB / HIV
+3.1.2.4,Tuberculosis - Multi-Drug Resistant TB (MDR TB)
+3.1.2.5,Tuberculosis - Care and Support
+3.1.2.6,Tuberculosis - Development of New Tools and Improved Approaches
+3.1.2.7,Tuberculosis - Health Governance and Finance (TB)
+3.1.2.8,Tuberculosis - Host Country Strategic Information Capacity (TB)
+3.1.3,Malaria
+3.1.3.1,Malaria - Treatment with Artemisinin-Based Combination Therapies
+3.1.3.2,Malaria - Insecticide-Treated Nets (ITNs) to Prevent Malaria
+3.1.3.3,Malaria - Indoor Residual Spraying (IRS) to Prevent Malaria
+3.1.3.4,Malaria - Intermittent Preventive Treatment of Pregnant Women  
+3.1.3.5,Malaria - Epidemic Preparedness and Response 
+3.1.3.6,Malaria - Malaria Research   
+3.1.3.7,Malaria - Health Governance and Finance (Malaria)
+3.1.3.8,Malaria - Anti-Microbial Resistance (Malaria)
+3.1.3.9,Malaria - Host Country Strategic Information Capacity (Malaria)  
+3.1.4,Avian Influenza
+3.1.4,Pandemic Influenza and Other Emerging Threats (PIOET)
+3.1.4.1,Pandemic Influenza and Other Emerging Threats (PIOET) - Planning and Preparedness for Outbreak Response
+3.1.4.2,Pandemic Influenza and Other Emerging Threats (PIOET) - Animal and Human Disease Surveillance
+3.1.4.3,Pandemic Influenza and Other Emerging Threats (PIOET) - Commodity Stockpile
+3.1.4.4,Pandemic Influenza and Other Emerging Threats (PIOET) - Behavior Change Communications
+3.1.4.5,Pandemic Influenza and Other Emerging Threats (PIOET) - Response to Disease Outbreak
+3.1.4.6,Pandemic Influenza and Other Emerging Threats (PIOET) - Health Governance and Finance (PIOET)
+3.1.4.7,Pandemic Influenza and Other Emerging Threats (PIOET) - Host Country Strategic Information Capacity (PIOET)
+3.1.5,Other Public Health Threats
+3.1.5.1,Other Public Health Threats - Other Infectious Diseases
+3.1.5.2,Other Public Health Threats - Non-Communicable Public Health Threats Including Injuries
+3.1.5.3,Other Public Health Threats - Health Governance and Finance (Other Health)
+3.1.5.4,Other Public Health Threats - Host Country Strategic Information Capacity (Other Health)
+3.1.6,Maternal and Child Health
+3.1.6.1,Maternal and Child Health - Birth Preparedness and Maternity Services
+3.1.6.2,Maternal and Child Health - Treatment of Obstetric Complications and Disabilities
+3.1.6.3,Maternal and Child Health - Newborn Care and Treatment
+3.1.6.4,Maternal and Child Health - Other Immunizations
+3.1.6.5,Maternal and Child Health - Polio
+3.1.6.7,Maternal and Child Health - Treatment of Child Illnesses
+3.1.6.8,"Maternal and Child Health - Household Level Water, Sanitation, Hygiene and Environment"
+3.1.6.9,Maternal and Child Health - Health Governance and Finance (MCH)
+3.1.6.10,Maternal and Child Health - Anti-Microbial Resistance (MCH)
+3.1.6.11,Maternal and Child Health - Host Country Strategic Information Capacity (MCH)
+3.1.7,Family Planning and Reproductive Health
+3.1.7.1,Family Planning and Reproductive Health - Service Delivery
+3.1.7.2,Family Planning and Reproductive Health - Communication (FP)
+3.1.7.3,Family Planning and Reproductive Health - Policy Analysis and System Stregthening
+3.1.7.4,Family Planning and Reproductive Health - Health Governance and Finance (FP)
+3.1.7.5,Family Planning and Reproductive Health - Host Country Strategic Information Capacity (FP)
+3.1.8,Water Supply and Sanitation
+3.1.8.1,Water Supply and Sanitation - Safe Water Access
+3.1.8.2,Water Supply and Sanitation - Basic Sanitation
+3.1.8.3,Water Supply and Sanitation - Water and Sanitation Policy and Governance
+3.1.8.4,Water Supply and Sanitation - Sustainable Financing for Water and Sanitation Services
+3.1.8.5,Water Supply and Sanitation - Water Resources Productivity
+3.1.8.6,Water Supply and Sanitation - Science and Technology Cooperation
+3.1.8.7,Water Supply and Sanitation - Host Country Strategic Information Capacity (Water)
+3.1.9,Nutrition
+3.1.9.1,Nutrition - Individual Prevention Programs
+3.1.9.2,Nutrition - Population-Based Nutrition Service Delivery (including micronutrient supplementation)
+3.1.9.3,Nutrition - Nutrition Enabling Environment and Capacity
+3.2,Education
+3.2.1,Basic Education
+3.2.1.1,Basic Education - Pre-Primary Education
+3.2.1.2,Basic Education - Primary Education
+3.2.1.3,Basic Education - Lower Secondary Education
+3.2.1.4,Basic Education - Learning for Out-of-School Youth
+3.2.1.5,Basic Education - Literacy and Numeracy for Adults
+3.2.1.6,Basic Education - Upper Secondary Education
+3.2.1.7,Basic Education - Education Systems
+3.2.1.8,Basic Education - Host Country Strategic Information Capacity (Basic Ed)
+3.2.2,Higher Education
+3.2.2.1,Higher Education - Policy Development and Reform
+3.2.2.2,Higher Education - Institutional Capacity Development
+3.2.2.3,Higher Education - Engaging Higher Education Institutions in Development
+3.2.2.4,Higher Education - Professional Development
+3.2.2.5,Higher Education - Host Country Strategic Information Capacity (Higher Ed)
+3.3,Soc. & Econ. Svs. & Protection for Vulnerable Populations
+3.3.1,"Policies, Regulations, and Systems"
+3.3.1.1,"Policies, Regulations, and Systems - Social Policy Governance"
+3.3.1.2,"Policies, Regulations, and Systems - Research Capacity"
+3.3.1.3,"Policies, Regulations, and Systems - Host Country Strategic Information Capacity (Social Services Policy)"
+3.3.2,Social Services
+3.3.2.1,Social Services - Vulnerable Children
+3.3.2.2,Social Services - Victims of War
+3.3.2.3,Social Services - Victims of Torture
+3.3.2.4,Social Services - Other Targeted Vulnerable Groups
+3.3.2.5,Social Services - Host Country Strategic Information Capacity (Social Services)
+3.3.3,Social Assistance
+3.3.3.1,Social Assistance - Targeted Assistance to Meet Basic Needs for the Poorest
+3.3.3.2,Social Assistance - Conditional Cash Transfers
+3.3.3.3,Social Assistance - Targeted Subsidies for Low-Income Households
+3.3.3.4,Social Assistance - Self-Help Programs
+3.3.3.5,Social Assistance - Host Country Strategic Information Capacity (Social Assistance)
+4.1,Macroeconomic Foundation for Growth
+4.1.1,Fiscal policy
+4.1.2,Monetary policy
+4.1.3,Program Design and Learning (Macro Economics)
+4.1.3,Program Support (Macro Economics)
+4.1.4,Administration and Oversight (Macro Economics)
+4.2,Trade and Investment
+4.2.1,Trade and Investment Enabling Environment
+4.2.2,Trade and Investment Capacity
+4.2.3,Program Design and Learning (Trade)
+4.2.3,Program Support (Trade)
+4.2.4,Administration and Oversight (Trade)
+4.3,Financial Sector
+4.3.1,Financial Sector Enabling Environment
+4.3.2,Financial Services
+4.3.3,Program Design and Learning (Financial Sector)
+4.3.3,Program Support (Financial Sector)
+4.3.4,Administration and Oversight (Financial Sector)
+4.4,Infrastructure
+4.4.1,Modern Energy Services
+4.4.2,Communications Services
+4.4.3,Transport Services
+4.4.4,Program Design and Learning (Infrastructure)
+4.4.4,Program Support (Infrastructure)
+4.4.5,Administration and Oversight (Infrastructure)
+4.5,Agriculture
+4.5.1,Agricultural Enabling Environment
+4.5.2,Agricultural Sector Productivity
+4.5.3,Program Design and Learning (Agriculture)
+4.5.3,Program Support (Agriculture)
+4.5.4,Administration and Oversight (Agriculture)
+4.6,Private Sector Competitiveness
+4.6.1,Business Enabling Environment
+4.6.2,Private Sector Productivity
+4.6.3,Workforce Development
+4.6.4,Program Design and Learning (Private Sector)
+4.6.4,Program Support (Private Sector)
+4.6.5,Administration and Oversight (Private Sector)
+4.7,Economic Opportunity
+4.7.1,Inclusive Financial Markets
+4.7.2,Policy Environment for Micro and Small Enterprises
+4.7.3,Strengthen Microenterprise Productivity
+4.7.4,Inclusive Economic Law and Property Rights
+4.7.5,Program Design and Learning (Econ Opportunity)
+4.7.5,Program Support (Econ Opportunity)
+4.7.6,Administration and Oversight (Econ Opportunity)
+4.8,Environment
+4.8.1,Natural Resources and Biodiversity
+4.8.2,Clean Productive Environment
+4.8.3,Program Design and Learning (Environment)
+4.8.3,Program Support (Environment)
+4.8.4,Administration and Oversight (Environment)
+5.1,"Protection, Assistance and Solutions"
+5.1.1,Protection and Solutions
+5.1.2,Crisis Assistance and Recovery
+5.1.3,Program Design and Learning (Protection)
+5.1.3,Program Support (Protection)
+5.1.4,Administration and Oversight (Protection)
+5.2,Disaster Readiness
+5.2.1,"Capacity Building, Preparedness, and Planning"
+5.2.2,Mitigation
+5.2.3,Program Design and Learning (Disaster Readiness)
+5.2.3,Program Support (Disaster Readiness)
+5.2.4,Administration and Oversight (Disaster Readiness)
+5.3,Migration Management
+5.3.1,Protection and Assistance
+6.1,Program Design and Learning
+6.1,Program Support
+6.1.1,Program Design and Learning
+6.1.1,Program Support
+6.1.2,Administration and Oversight
+6.2,Administration and Oversight
+DR.1,Rule of Law (ROL)
+DR.2,Good Governance
+DR.2.3,Local Government and Decentralization
+DR.2.4,Anti-Corruption Reforms
+DR.3,Political Competition and Consensus-Building
+DR.4,Civil Society
+DR.4.4,Civic Education and Democratic Culture
+DR.5,Independent Media and Free Flow of Information
+DR.6,Human Rights
+EG.1,Macroeconomic Foundation for Growth
+EG.10,Environment
+EG.11,Climate Change - Adaptation
+EG.12,Climate Change - Clean Energy
+EG.13,Climate Change - Sustainable Landscapes
+EG.2,Trade and Investment
+EG.3,Agriculture
+EG.4,Financial Sector
+EG.5,Private Sector Productivity
+EG.6,Workforce Development
+EG.7,Modern Energy Services
+EG.8,Information and Communications Technology Services
+EG.9,Transport Services
+ES.1,Basic Education
+ES.1.1,Basic Education - Pre-Primary Education
+ES.1.2,Basic Education - Primary Education
+ES.1.3,Basic Education - Lower Secondary Education
+ES.1.4,Basic Education - Learning for Out-of-School Youth
+ES.1.5,Basic Education - Literacy and Numeracy for Youth and Adults
+ES.1.6,Basic Education - Upper Secondary Education
+ES.1.7,Basic Education - Education Systems
+ES.1.8,Basic Education - Host Country Strategic Information Capacity (Basic Ed)
+ES.2,Higher Education
+ES.2.5,Higher Education - Systemic Reform of Tertiary Institutions
+ES.2.1,Higher Education - Engaging Higher Education Institutions in Research and Development
+ES.2.2,Higher Education - Access to Tertiary Education and Professional Development to Strengthen Higher Education
+ES.2.3,Higher Education - Host Country Strategic Information Capacity (Higher Ed)
+ES.2.4,Higher Education - Engaging Tertiary Institutions in Workforce Development
+ES.2.6,Higher Education - Access to Higher Education Opportunities
+ES.2.1,Engaging Higher Ed Institutions in Research and Development
+ES.3,"Social Policies, Regulations, and Systems"
+ES.3.1,"Social Policies, Regulations, and Systems - Social Policy Governance"
+ES.3.2,"Social Policies, Regulations, and Systems - Research Capacity"
+ES.3.3,"Social Policies, Regulations, and Systems - Host Country Strategic Information Capacity (Social Services Policy)"
+ES.4,Social Services
+ES.4.1,Social Services - Vulnerable Children
+ES.4.2,Social Services - Victims of War
+ES.4.3,Social Services - Victims of Torture
+ES.4.4,Social Services - Other Targeted Vulnerable Groups
+ES.4.5,Social Services - Host Country Strategic Information Capacity (Social Services)
+ES.5,Social Assistance
+ES.5.1,Social Assistance - Targeted Financial Assistance to Meet Basic Needs for the Poorest
+ES.5.2,Social Assistance - Conditional Cash Transfers
+ES.5.3,Social Assistance - Targeted Subsidies for Low-Income Households
+ES.5.4,Social Assistance - Self-Help Programs
+ES.5.5,Social Assistance - Host Country Strategic Information Capacity for Targeted Cash or In-Kind Social Assistance
+HA.1,"Protection, Assistance and Solutions"
+HA.1.1,Protection and Solutions
+HA.1.2,Assistance and Recovery
+HA.2,Disaster Readiness
+HA.3,Migration Management
+HL.1,HIV/AIDS
+HL.1.1,HIV/AIDS - Preventing Mother-to-child Transmission (PMTCT)
+HL.1.2,"HIV/AIDS - Sexual Prevention, Abstinence / Be Faithful"
+HL.1.3,HIV/AIDS - Biomedical Prevention - Blood Safety
+HL.1.4,HIV/AIDS - Biomedical Prevention - Injection Safety
+HL.1.5,HIV/AIDS - Sexual Prevention - Other Sexual Prevention
+HL.1.6,HIV/AIDS - Adult Care and Support
+HL.1.7,HIV/AIDS - TB / HIV
+HL.1.8,HIV/AIDS - Orphans and Vulnerable Children
+HL.1.9,HIV/AIDS - Counseling and Testing
+HL.1.10,HIV/AIDS - Treatment / ARV Drugs
+HL.1.11,HIV/AIDS - Treatment / Adult Services
+HL.1.12,HIV/AIDS - Laboratory Infrastructure
+HL.1.13,HIV/AIDS - Health System Strengthening
+HL.1.14,HIV/AIDS - Strategic Information
+HL.1.15,HIV/AIDS - Biomedical Prevention - Medical Male Circumcision
+HL.1.16,HIV/AIDS - Biomedical Prevention - Prevention Among Injecting and Non-Injecting Drug Users
+HL.1.17,HIV/AIDS - Pediatric Care and Support
+HL.1.18,HIV/AIDS - Treatment / Pediatric Treatment
+HL.2,Tuberculosis
+HL.2.1,Tuberculosis - Universal Access to TB Diagnosis and Treatment
+HL.2.2,Tuberculosis - Improved TB Drug Management
+HL.2.10,Tuberculosis - Improved Diagnosis and Treatment of Pediatric TB
+HL.2.3,Tuberculosis - Improved Management of TB / HIV Co-infection
+HL.2.11,Tuberculosis - Improved TB Infection Prevention and Control
+HL.2.4,Tuberculosis - Programmatic Management of Multi Drug-Resistant TB (MDR-TB)
+HL.2.5,Tuberculosis - Treatment and Support Services
+HL.2.6,Tuberculosis - Development of New Tools and Improved Approaches
+HL.2.7,Tuberculosis - Cross-Cutting Health System Strengthening
+HL.2.8,Tuberculosis - Host Country Strategic Information Systems
+HL.2.9,Tuberculosis - TB Laboratory Strengthening
+HL.3,Malaria
+HL.3.1,Malaria - Diagnosis and Treatment with Artemisinin-Based Combination Therapies
+HL.3.2,Malaria - Insecticide-Treated Nets (ITNs) to Prevent Malaria
+HL.3.3,Malaria - Indoor Residual Spraying (IRS) to Prevent Malaria
+HL.3.4,Malaria - Intermittent Preventive Treatment of Pregnant Women  
+HL.3.5,Malaria - Epidemic Preparedness and Response 
+HL.3.6,Malaria - Malaria Research   
+HL.3.7,Malaria - Cross-cutting Health Systems Strengthening (Malaria)
+HL.3.8,Malaria - Anti-Microbial Resistance (Malaria)
+HL.3.9,Malaria - Host Country Strategic Information Systems (Malaria)  
+HL.4,Pandemic Influenza and Other Emerging Threats (PIOET)
+HL.4.1,Pandemic Influenza and Other Emerging Threats (PIOET) - Planning and Preparedness for Outbreak Response
+HL.4.2,Pandemic Influenza and Other Emerging Threats (PIOET) - Animal and Human Disease Surveillance
+HL.4.3,Pandemic Influenza and Other Emerging Threats (PIOET) - Commodity Stockpile
+HL.4.4,Pandemic Influenza and Other Emerging Threats (PIOET) - Behavior Change Communications
+HL.4.5,Pandemic Influenza and Other Emerging Threats (PIOET) - Response to Disease Outbreak
+HL.4.6,Pandemic Influenza and Other Emerging Threats (PIOET) - Cross-cutting Health Systems Strengthening (GHSD)
+HL.4.7,Pandemic Influenza and Other Emerging Threats (PIOET) - Host Country Strategic Information System (GHSD)
+HL.5,Other Public Health Threats
+HL.5.1,Other Public Health Threats - Neglected Tropical Diseases and Other Infectious Diseases
+HL.5.2,Other Public Health Threats - Non-Communicable Public Health Threats Including Injuries
+HL.5.3,Other Public Health Threats - Cross-cutting Health Systems Strengthening (Other Health)
+HL.5.4,Other Public Health Threats - Host Country Strategic Information Systems (Other Countries)
+HL.6,Maternal and Child Health
+HL.6.1,Maternal and Child Health - Birth Preparedness and Maternity Services
+HL.6.2,Maternal and Child Health - Treatment of Obstetric Complications and Disabilities
+HL.6.3,Maternal and Child Health - Newborn Care and Treatment
+HL.6.4,Maternal and Child Health - Immunization
+HL.6.5,Maternal and Child Health - Polio
+HL.6.7,Maternal and Child Health - Treatment of Child Illnesses
+HL.6.8,"Maternal and Child Health - Household Level Water, Sanitation, Hygiene and Environment"
+HL.6.9,Maternal and Child Health -Cross-cutting Health Systems Strengthening
+HL.6.10,Maternal and Child Health - Anti-Microbial Resistance (MCH)
+HL.6.11,Maternal and Child Health - Host Country Strategic Information Systems (MCH)
+HL.6.8,Cross-cutting Health Systems Strengthening
+HL.7,Family Planning and Reproductive Health
+HL.7.1,Family Planning and Reproductive Health - Service Delivery
+HL.7.2,Family Planning and Reproductive Health - Communication and Knowledge Management (FP/RH)
+HL.7.3,Family Planning and Reproductive Health - Policy Analysis and Capacity Building
+HL.7.6,Family Planning and Reproductive Health - Procurement and Supply Chain (FP/RH)
+HL.7.4,Family Planning and Reproductive Health - Cross-cutting Health Systems Strengthening (FP/RH)
+HL.7.5,Family Planning and Reproductive Health - Host Country Strategic Information Capacity (FP/RH)
+HL.7.7,Family Planning and Reproductive Health - Research (FP/RH)
+HL.8,Water Supply and Sanitation
+HL.8.1,Water Supply and Sanitation - Safe Water Access
+HL.8.2,Water Supply and Sanitation - Basic Sanitation
+HL.8.3,Water Supply and Sanitation - Water and Sanitation Policy and Governance
+HL.8.4,Water Supply and Sanitation - Sustainable Financing for Water and Sanitation Services
+HL.8.5,Water Supply and Sanitation - Water Resources Productivity
+HL.8.6,Water Supply and Sanitation - Science and Technology Cooperation
+HL.8.7,Water Supply and Sanitation - Host Country Strategic Information Systems (Water)
+HL.8.8,Water Supply and Sanitation - Cross-cutting Health Systems Strengthening (Water)
+HL.9,Nutrition
+HL.9.1,Nutrition - Promotion of Improved Nutrition Practices
+HL.9.2,Nutrition - Population-Based Nutrition Service Delivery 
+HL.9.3,Nutrition - Nutrition Enabling Environment and Capacity
+HL.9.4,Nutrition - Cross-cutting Health Systems Strengthening (Nutrition)
+HL.9.5,Nutrition - Host-Country Strategic Information Systems (Nutrition)
+PO.1,Program Design and Learning
+PO.1.1,Program Design and Learning
+PO.2,Administration and Oversight
+PO.2.1,Administration and Oversight
+PO.3,Evaluation
+PS.1,Counter-Terrorism
+PS.2,Combating Weapons of Mass Destruction (WMD)
+PS.3,Counter-Narcotics
+PS.4,Transnational Threats and Crime
+PS.5,Trafficking in Persons
+PS.6,Conflict Mitigation and Stabilization
+PS.6.2,Peace and Reconciliation Processes
+PS.7,Conventional Weapons Security and ERW
+PS.8,Strengthening Military Partnerships and Capabilities
+PS.9,Citizen Security and Law Enforcement
+,Administrative Costs
