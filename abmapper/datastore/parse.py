@@ -65,16 +65,19 @@ def get_recipient_countries(activity):
 
 def get_sectors_from_transactions(activity, version):
     codes = { 2: "2", 1: "C" }
+    codes_D = { 2: "3", 1: "D" }
     vocabs = { 2: "1", 1: "DAC" }
-
-    trans = activity.xpath("transaction[transaction-type/@code='{}']".format(codes[version]))
-    codes_values = list(map(lambda t: (
-                float(t.find("value").text),
-                str(getfirst(t.xpath("sector[@vocabulary='{}']/@code|sector[not(@vocabulary)]/@code".format(vocabs[version]))))
-                ), trans))
-    total_value = sum(map(lambda x: x[0], codes_values))
+    def get_transaction_sectors(codes):
+        trans = activity.xpath("transaction[transaction-type/@code='{}']".format(codes[version]))
+        codes_values = list(map(lambda t: (
+                    float(t.find("value").text),
+                    str(getfirst(t.xpath("sector[@vocabulary='{}']/@code|sector[not(@vocabulary)]/@code".format(vocabs[version]))))
+                    ), trans))
+        total_value = sum(map(lambda x: x[0], codes_values))
+        return total_value, codes_values
+    total_value, codes_values = get_transaction_sectors(codes)
     if total_value == 0:
-        return []
+        total_value, codes_values = get_transaction_sectors(codes_D)
     d = defaultdict(list)
     for value, code in codes_values:
         d[code].append(value)
@@ -381,7 +384,6 @@ def write_activity(activity, reporting_org_id, version, exchange_rates):
     #if this identifier already exists, then delete, otherwise, insert
     checkA = models.Activity.query.filter_by(iati_identifier=iati_identifier).first()
     if checkA:
-        return
         db.session.delete(checkA)
         db.session.commit()
     a = models.Activity()
