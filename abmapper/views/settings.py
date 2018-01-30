@@ -46,7 +46,7 @@ def country_settings(country_code, lang="en"):
             flash("Updated fiscal year start", "success")
         elif "fetch_reporting_org" in request.form:
             country = abprojects.country(country_code)
-            download.download_data(country.code, request.form["reporting_org_ref"])
+            download.download_data(request.form["reporting_org_ref"], country.code)
             flash("Retrieved data for {}".format(request.form["reporting_org_ref"]), "success")
         elif "fetch_all_reporting_orgs" in request.form:
             orgs = absettings.reporting_orgs()
