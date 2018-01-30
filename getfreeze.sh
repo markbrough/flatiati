@@ -16,5 +16,3 @@ echo "spreadsheets.aidonbudget.org" > CNAME
 git add .
 git commit -a -m "Update"
 git push origin gh-pages
-rm -rf *
-rm -rf .git
