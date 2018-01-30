@@ -8,10 +8,14 @@ from abmapper.query import models
 from abmapper.query import projects
 from abmapper.query import settings
 import parse
+import unicodecsv
 
 URL = "http://datastore.iatistandard.org/api/1/access/activity.xml?reporting-org={}&recipient-country={}&stream=True"
-URL_COUNTRY = "http://datastore.iatistandard.org/api/1/access/activity.xml?recipient-country={}&reporting-org={}&stream=True"
+URL_COUNTRY = "http://datastore.iatistandard.org/api/1/access/activity.xml?reporting-org={}&recipient-country={}&stream=True"
 IDENTIFIER_URL = "http://datastore.iatistandard.org/api/1/access/activity.xml?iati-identifier={}&stream=True"
+
+basedir = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), os.path.pardir))
 
 def download_data(reporting_org, country_code=None,
                     update_exchange_rates=False, save=False):
@@ -54,6 +58,23 @@ def download_data(reporting_org, country_code=None,
         for ufdoc_activity in ufdoc_activities:
             doc_iati_activities.append(ufdoc_activity)
 
+    if reporting_org=="US-GOV-1":
+        """We do some clean up for USAID activities"""
+        print("There are {} activities", 
+            len(doc.xpath("//iati-activity")))
+        # We clean up data for now
+        codelists_dir = os.path.join(basedir, 
+            "lib", "codelists", "donors")
+        usaid_csv_f = open(os.path.join(codelists_dir, 
+            "USAID SPSD Areas and Elements 2017-08-31.csv"), "r")
+        usaid_csv = unicodecsv.DictReader(usaid_csv_f)
+        prohibited_names = list(map(lambda x: x["name"], usaid_csv))
+        doc_activities = doc.xpath("//iati-activity")
+        for activity in doc_activities:
+            if activity.find("title").find("narrative").text in prohibited_names:
+                activity.getparent().remove(activity) 
+        print("There are {} activities", 
+            len(doc.xpath("//iati-activity")))
     if not save:
         parse.parse_doc(reporting_org_id, doc, update_exchange_rates)
     else:
