@@ -19,7 +19,6 @@ def get_root(doc):
 def get_reporting_org_activities(rep, root, doc):
     data = {}
     
-    print flatten_rules.FLATTEN_RULES
     rules = flatten_rules.FLATTEN_RULES[rep]
     
     # Get all hierarchies
@@ -40,10 +39,10 @@ def get_reporting_org_activities(rep, root, doc):
         for iati_id, activity in data[from_h].items():
             related_activity_ids = activity.xpath(
                 'related-activity[@type="{}"]/@ref'.format(related_activity_type))
-            if not related_activity_ids: 
+            if len(related_activity_ids) == 0:
                 continue
             other_activity = data[str(int(from_h)+related_activity_h)].get(related_activity_ids[0])
-            if not other_activity:
+            if other_activity is None:
                 continue
             
             for element in rules["flatten_from_fields"][from_h]:
