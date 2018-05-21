@@ -78,6 +78,8 @@ def get_sectors_from_transactions(activity, version):
     total_value, codes_values = get_transaction_sectors(codes)
     if total_value == 0:
         total_value, codes_values = get_transaction_sectors(codes_D)
+    if total_value == 0:
+        return []
     d = defaultdict(list)
     for value, code in codes_values:
         d[code].append(value)
@@ -426,9 +428,9 @@ getfirst(activity.xpath('default-aid-type/@code|transaction/aid-type/@code')),
 def get_version(activity):
     ns = activity.nsmap["iati-extra"]
     version = activity.get("{%s}version" % ns, "1.05")
-    if version in ("2.01", "2.02"):
+    if version in ("2.01", "2.02", "2.03"):
         return 2
-    elif version in ("1.01", "1.04", "1.05"):
+    elif version in ("1.01", "1.03", "1.04", "1.05"):
         #FIXME when looking at locations, handle differently
         return 1
     raise UnrecognisedVersionException("""The IATI-XML version {} was not 
