@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Projet  &raquo; Aide sur des tableurs</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/fr/">Aide sur des tableurs</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/fr/countries/UG/">Ouganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/fr/countries/UG/">
+                Vue d&#39;ensemble
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/fr/countries/UG/activities/">
+                Projets
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/CA-3-S064589001/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/CA-3-S064589001/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Développer les capacités des travailleurs en santé communautaire</h2>
+
+
+<p>Ce projet vise à améliorer l’accès à de l’information et à des services de santé de base, particulièrement en matière de santé des mères et des enfants, au moyen de la formation de 1 320 travailleurs de la santé communautaire dans des collectivités marginalisées et vulnérables de la Tanzanie, du Kenya et de l’Ouganda, et de la formation de plus de 800 praticiens de la santé traditionnelle en Afrique du Sud. Les travailleurs de la santé communautaire contribuent à réduire les incidences du paludisme, du VIH/sida et d’autres problèmes de santé prévisibles en offrant des services de santé communautaire et de sensibilisation aux mères et aux enfants. Cinq cliniques de santé de la Tanzanie sont remises en état. Afin de favoriser l’efficacité et la durabilité, la Fondation pour la médecine et la recherche en Afrique du Canada (AMREF) recueille des pratiques exemplaires en matière de formation des travailleurs de la santé communautaire, recense les méthodes les plus efficaces pour améliorer l’intégration de ces travailleurs dans les systèmes de santé du gouvernement et rassemble les leçons retenues pour renforcer les systèmes de santé en collaboration avec les travailleurs de la santé communautaire. La Fondation travaille aussi avec les ONG partenaires locales, les ministères gouvernementaux (au niveau des districts et au niveau national), les établissements communautaires et les spécialistes de la santé sur le terrain. Elle favorise également l’engagement du public canadien à l’égard de la santé des mères et des enfants par l’entremise d’exposés, d’activités de réseautage social et de communications dans les médias.</p>
+
+<dl class="dl-horizontal">
+  <dt>ID Projet</dt>
+  <dd><code>CA-3-S064589001</code></dd>
+  <dt>Statut de l'activité</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Type d'aide</dt>
+  <dd>B03 - Contributions à des programmes ou fonds à objectif spécifique gérés par des organisations internationales (multilatérales, ONGI)</dd>
+  <dt>% to Ouganda</dt>
+  <dd>20.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Canadian International Development Agency</dd>
+  
+  <dt>Implementing</dt><dd>Amref Health Africa in Canada </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Versements par exercice fiscal, trimestre </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Ouganda Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q1</td>
+          <td>104,224.86</td>
+          <td>20,844.97</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q2</td>
+          <td>203,813.24</td>
+          <td>40,762.65</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q1</td>
+          <td>286,836.52</td>
+          <td>57,367.30</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q3</td>
+          <td>184,502.21</td>
+          <td>36,900.44</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q2</td>
+          <td>323,548.75</td>
+          <td>64,709.75</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q1</td>
+          <td>233,925.50</td>
+          <td>46,785.10</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q3</td>
+          <td>142,486.44</td>
+          <td>28,497.29</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q2</td>
+          <td>385,820.08</td>
+          <td>77,164.02</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q1</td>
+          <td>232,745.33</td>
+          <td>46,549.07</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>261,634.75</td>
+          <td>52,326.95</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Engagements par exercice fiscal, trimestre </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Ouganda Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>2,310,003.49</td>
+          <td>462,000.70</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Projections de CDMT par exercice fiscal </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Ouganda Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2013</td>
+          <td>518,839.50</td>
+          <td>103,767.90</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>747,502.37</td>
+          <td>149,500.47</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>710,309.09</td>
+          <td>142,061.82</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>400,045.62</td>
+          <td>80,009.12</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>75,705.15</td>
+          <td>15,141.03</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>Code CRS</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-12110">
+      <td>
+        Politique de la santé et gestion administrative
+        (12110)
+      </td>
+      <td>
+        15.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12220">
+      <td>
+        Soins et services de santé de base
+        (12220)
+      </td>
+      <td>
+        5.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12230">
+      <td>
+        Infrastructure pour la santé de base
+        (12230)
+      </td>
+      <td>
+        5.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12261">
+      <td>
+        Éducation sanitaire
+        (12261)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12262">
+      <td>
+        Lutte contre le paludisme
+        (12262)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12281">
+      <td>
+        Formation de personnel de santé
+        (12281)
+      </td>
+      <td>
+        35.0
+      </td>
+    </tr>
+    
+    <tr id="sector-13040">
+      <td>
+        Lutte contre les MST et VIH/sida
+        (13040)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+    <tr id="sector-15150">
+      <td>
+        Participation démocratique et société civile
+        (15150)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/UG/">Uganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/UG/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/UG/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/44000-P117876/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/44000-P117876/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>UG-Support to Municipal Infra Dev</h2>
+
+
+<p>The objective of the Uganda Support to Municipal Infrastructure Development Program Project (USMID) is to enhance the institutional performance of program Local Governments (LGs) to improve urban service delivery. The core of the program will comprise two grant flows to Municipalities: (i) the Municipal Development Grant (MDG) which will provide substantial additional funds to the targeted Municipalities for investment in urban infrastructure, designed in such a way as to leverage and incentivize improved institutional and delivery performance of these bodies; (ii) the Municipal Capacity Building Grant (MCBG), amounting to about 7 percent of the MDG, which will provide Municipalities with the resources to access the capacity building inputs that are required for them to achieve the performance that the MDG will incentivize. The program will also involve a range of administration, oversight and support activities to be undertaken by the relevant central government entities responsible for the various elements of the implementation of the Program. The first phase of the USMID will run over a period of six years (FY 2013/14-FY 2018/19) at a total cost of US$160 million. The main aim of the program is to enhance the capacity of the targeted municipalities to improve urban service delivery in the context of a rapidly urbanizing society in which significant service delivery responsibilities have been decentralized.</p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>44000-P117876</code></dd>
+  <dt>Activity status</dt>
+  <dd>2 - Implementation</dd>
+  <dt>Aid type</dt>
+  <dd>C01 - Project-type interventions</dd>
+  <dt>% to Uganda</dt>
+  <dd>100.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Extending</dt><dd>International Development Association</dd>
+  
+  <dt>Funding</dt><dd>International Development Association</dd>
+  
+  <dt>Accountable</dt><dd>MINISTRY OF LANDS, HOUSING AND URBAN DEVELOPMENT</dd>
+  
+  <dt>Implementing</dt><dd>MINISTRY OF LANDS, HOUSING AND URBAN DEVELOPMENT</dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2017</td>
+          <td>Q2</td>
+          <td>23,831,879.00</td>
+          <td>23,831,879.00</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q2</td>
+          <td>29,380,015.00</td>
+          <td>29,380,015.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q4</td>
+          <td>10,976,099.00</td>
+          <td>10,976,099.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q1</td>
+          <td>22,913,547.00</td>
+          <td>22,913,547.00</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q4</td>
+          <td>22,389,388.00</td>
+          <td>22,389,388.00</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q3</td>
+          <td>26,465,468.00</td>
+          <td>26,465,468.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q3</td>
+          <td>150,000,000.00</td>
+          <td>150,000,000.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2017</td>
+          <td>31,400,000.00</td>
+          <td>31,400,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>33,700,000.00</td>
+          <td>33,700,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>33,700,000.00</td>
+          <td>33,700,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>24,600,000.00</td>
+          <td>24,600,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>25,600,000.00</td>
+          <td>25,600,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>1,000,000.00</td>
+          <td>1,000,000.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-43030">
+      <td>
+        Urban development and management
+        (43030)
+      </td>
+      <td>
+        100.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

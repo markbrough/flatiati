@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Projet  &raquo; Aide sur des tableurs</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/fr/">Aide sur des tableurs</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/fr/countries/UG/">Ouganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/fr/countries/UG/">
+                Vue d&#39;ensemble
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/fr/countries/UG/activities/">
+                Projets
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/44000-P050439/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/44000-P050439/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>UG-Priv &amp; Utility Sec Reform (FY01)</h2>
+
+
+<p>The Privatization and Utility Sector Reform Project for Uganda aims to improve the quality, coverage, and economic efficiency of commercial and utility services, through privatization, private participation in infrastructure, and an improved regulatory framework. The level two restructuring relates to a request from the Republic of Uganda (&#39;Borrower&#39;), received on March 13, 2014, to advance the project&#39;s closing date to March 30, 2014. The current project closing date is February 15, 2015. The main reason for this request is the fact that the underlying project credit (Cr-3411-UG) is fully disbursed and that all the Project&#39;s supported activities have been fully completed by now.</p>
+
+<dl class="dl-horizontal">
+  <dt>ID Projet</dt>
+  <dd><code>44000-P050439</code></dd>
+  <dt>Statut de l'activité</dt>
+  <dd>3 - Completion</dd>
+  <dt>Type d'aide</dt>
+  <dd>C01 - Interventions de type projet</dd>
+  <dt>% to Ouganda</dt>
+  <dd>100.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Extending</dt><dd>International Development Association</dd>
+  
+  <dt>Funding</dt><dd>International Development Association</dd>
+  
+  <dt>Accountable</dt><dd>MINISTRY OF FINANCE, PLANNING AND ECONOMIC DEVELOPMENT</dd>
+  
+  <dt>Implementing</dt><dd>MINISTRY OF FINANCE, PLANNING AND ECONOMIC DEVELOPMENT</dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Versements par exercice fiscal, trimestre </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Ouganda Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2006</td>
+          <td>Q1</td>
+          <td>-11,853.00</td>
+          <td>-11,853.00</td>
+        </tr>
+    
+        <tr>
+          <td>2005</td>
+          <td>Q4</td>
+          <td>364,397.00</td>
+          <td>364,397.00</td>
+        </tr>
+    
+        <tr>
+          <td>2005</td>
+          <td>Q3</td>
+          <td>6,424,757.00</td>
+          <td>6,424,757.00</td>
+        </tr>
+    
+        <tr>
+          <td>2005</td>
+          <td>Q2</td>
+          <td>784,315.00</td>
+          <td>784,315.00</td>
+        </tr>
+    
+        <tr>
+          <td>2005</td>
+          <td>Q1</td>
+          <td>950,456.00</td>
+          <td>950,456.00</td>
+        </tr>
+    
+        <tr>
+          <td>2004</td>
+          <td>Q4</td>
+          <td>1,334,342.00</td>
+          <td>1,334,342.00</td>
+        </tr>
+    
+        <tr>
+          <td>2004</td>
+          <td>Q3</td>
+          <td>901,860.00</td>
+          <td>901,860.00</td>
+        </tr>
+    
+        <tr>
+          <td>2004</td>
+          <td>Q2</td>
+          <td>1,091,867.00</td>
+          <td>1,091,867.00</td>
+        </tr>
+    
+        <tr>
+          <td>2004</td>
+          <td>Q1</td>
+          <td>947,660.00</td>
+          <td>947,660.00</td>
+        </tr>
+    
+        <tr>
+          <td>2003</td>
+          <td>Q4</td>
+          <td>1,383,562.00</td>
+          <td>1,383,562.00</td>
+        </tr>
+    
+        <tr>
+          <td>2003</td>
+          <td>Q3</td>
+          <td>1,436,191.00</td>
+          <td>1,436,191.00</td>
+        </tr>
+    
+        <tr>
+          <td>2003</td>
+          <td>Q2</td>
+          <td>503,562.00</td>
+          <td>503,562.00</td>
+        </tr>
+    
+        <tr>
+          <td>2003</td>
+          <td>Q1</td>
+          <td>2,061,765.00</td>
+          <td>2,061,765.00</td>
+        </tr>
+    
+        <tr>
+          <td>2002</td>
+          <td>Q4</td>
+          <td>1,037,831.00</td>
+          <td>1,037,831.00</td>
+        </tr>
+    
+        <tr>
+          <td>2002</td>
+          <td>Q3</td>
+          <td>1,344,536.00</td>
+          <td>1,344,536.00</td>
+        </tr>
+    
+        <tr>
+          <td>2002</td>
+          <td>Q2</td>
+          <td>1,315,727.00</td>
+          <td>1,315,727.00</td>
+        </tr>
+    
+        <tr>
+          <td>2002</td>
+          <td>Q1</td>
+          <td>6,349,564.00</td>
+          <td>6,349,564.00</td>
+        </tr>
+    
+        <tr>
+          <td>2001</td>
+          <td>Q4</td>
+          <td>809,984.00</td>
+          <td>809,984.00</td>
+        </tr>
+    
+        <tr>
+          <td>2001</td>
+          <td>Q3</td>
+          <td>815,108.00</td>
+          <td>815,108.00</td>
+        </tr>
+    
+        <tr>
+          <td>2001</td>
+          <td>Q2</td>
+          <td>151,335.00</td>
+          <td>151,335.00</td>
+        </tr>
+    
+        <tr>
+          <td>2001</td>
+          <td>Q1</td>
+          <td>319,334.00</td>
+          <td>319,334.00</td>
+        </tr>
+    
+        <tr>
+          <td>2000</td>
+          <td>Q4</td>
+          <td>294,888.00</td>
+          <td>294,888.00</td>
+        </tr>
+    
+        <tr>
+          <td>2000</td>
+          <td>Q3</td>
+          <td>670,847.00</td>
+          <td>670,847.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Engagements par exercice fiscal, trimestre </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Ouganda Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q3</td>
+          <td>-8,416,533.00</td>
+          <td>-8,416,533.00</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q1</td>
+          <td>-5,500,000.00</td>
+          <td>-5,500,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>Q2</td>
+          <td>-12,136,912.00</td>
+          <td>-12,136,912.00</td>
+        </tr>
+    
+        <tr>
+          <td>2004</td>
+          <td>Q3</td>
+          <td>5,500,000.00</td>
+          <td>5,500,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2000</td>
+          <td>Q1</td>
+          <td>48,500,000.00</td>
+          <td>48,500,000.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Projections de CDMT par exercice fiscal </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Ouganda Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2004</td>
+          <td>6,001,235.91</td>
+          <td>6,001,235.91</td>
+        </tr>
+    
+        <tr>
+          <td>2003</td>
+          <td>9,802,021.44</td>
+          <td>9,802,021.44</td>
+        </tr>
+    
+        <tr>
+          <td>2002</td>
+          <td>10,002,061.24</td>
+          <td>10,002,061.24</td>
+        </tr>
+    
+        <tr>
+          <td>2001</td>
+          <td>11,202,310.32</td>
+          <td>11,202,310.32</td>
+        </tr>
+    
+        <tr>
+          <td>2000</td>
+          <td>11,492,369.73</td>
+          <td>11,492,369.73</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>Code CRS</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-16010">
+      <td>
+        Services sociaux
+        (16010)
+      </td>
+      <td>
+        100.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/UG/">Uganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/UG/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/UG/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/CA-3-S064589001/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/CA-3-S064589001/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Building the Capacity of Community Health Workers</h2>
+
+
+<p>This project aims to improve access to health information and basic health services, particularly for child and maternal health, by training 1,320 community health workers in vulnerable and marginalized communities in Tanzania, Kenya, and Uganda, and 800 traditional health practitioners in South Africa. The community health workers help reduce the incidence of malaria, HIV/AIDS and other preventable health problems by providing community health education and services to children and mothers. Five health clinics in Tanzania are being rehabilitated. To promote effectiveness and sustainability, the African Medical and Research Foundation Canada (AMREF) is documenting best practices for training community health workers, identifying the most effective methods for improving the integration of these health workers into the government&#39;s health systems, and documenting lessons learned for strengthening health systems with community health workers. AMREF Canada works with local NGO partners, government ministries (at the district level and national levels), community institutions and health experts in the field. AMREF Canada also promotes Canadian public engagement on maternal and child health through presentations, social networking activities, and media.</p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>CA-3-S064589001</code></dd>
+  <dt>Activity status</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Aid type</dt>
+  <dd>B03 - Contributions to  specific-purpose programmes and funds managed by international organisations (multilateral, INGO)</dd>
+  <dt>% to Uganda</dt>
+  <dd>20.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Canadian International Development Agency</dd>
+  
+  <dt>Implementing</dt><dd>Amref Health Africa in Canada </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q1</td>
+          <td>104,224.86</td>
+          <td>20,844.97</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q2</td>
+          <td>203,813.24</td>
+          <td>40,762.65</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q1</td>
+          <td>286,836.52</td>
+          <td>57,367.30</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q3</td>
+          <td>184,502.21</td>
+          <td>36,900.44</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q2</td>
+          <td>323,548.75</td>
+          <td>64,709.75</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q1</td>
+          <td>233,925.50</td>
+          <td>46,785.10</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q3</td>
+          <td>142,486.44</td>
+          <td>28,497.29</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q2</td>
+          <td>385,820.08</td>
+          <td>77,164.02</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q1</td>
+          <td>232,745.33</td>
+          <td>46,549.07</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>261,634.75</td>
+          <td>52,326.95</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>2,310,003.49</td>
+          <td>462,000.70</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2013</td>
+          <td>518,839.50</td>
+          <td>103,767.90</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>747,502.37</td>
+          <td>149,500.47</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>710,309.09</td>
+          <td>142,061.82</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>400,045.62</td>
+          <td>80,009.12</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>75,705.15</td>
+          <td>15,141.03</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-12110">
+      <td>
+        Health policy and administrative management
+        (12110)
+      </td>
+      <td>
+        15.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12220">
+      <td>
+        Basic health care
+        (12220)
+      </td>
+      <td>
+        5.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12230">
+      <td>
+        Basic health infrastructure
+        (12230)
+      </td>
+      <td>
+        5.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12261">
+      <td>
+        Health education
+        (12261)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12262">
+      <td>
+        Malaria control
+        (12262)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12281">
+      <td>
+        Health personnel development
+        (12281)
+      </td>
+      <td>
+        35.0
+      </td>
+    </tr>
+    
+    <tr id="sector-13040">
+      <td>
+        STD control including HIV/AIDS
+        (13040)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+    <tr id="sector-15150">
+      <td>
+        Democratic participation and civil society
+        (15150)
+      </td>
+      <td>
+        10.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

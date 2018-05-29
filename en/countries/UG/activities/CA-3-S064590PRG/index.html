@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/UG/">Uganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/UG/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/UG/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/CA-3-S064590PRG/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/CA-3-S064590PRG/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>East Africa Water, Sanitation and Hygiene Education Program</h2>
+
+
+<p>This program contributes to improvements in the health status and quality of life of poor and vulnerable people living in urban and rural communities in East Africa (Kenya, Uganda, Ethiopia) by improving their access to clean water, sanitation, and hygiene education in rural and urban areas. WaterCan/EauVive supports eight local non-governmental organizations in East Africa to enable them to support communities in building and maintaining sustainable water and sanitation facilities, to deliver sustained hygiene education programs in schools and communities, to expand water and sanitation programs and work more effectively with stakeholders and beneficiaries. Community groups build and maintain water and sanitation facilities and hygiene education programs that can provide 40,000 men, women and children with more access to safe water and sanitation, better health, basic education and quality of life.   Partner organizations are: Cheshire Foundation Action for Inclusion/CFAI (Ethiopia), Rural Community Development Organisation/COWDO (Ethiopia), Oromo Self-Reliance Association/OSRA (Ethiopiea), Water Action/WACT (Ethiopia), Kenya Water for Health Organisation/KWAHO (Kenya), Sustainable Aid in Africa International/SANA (Kenya), Community Integrated Development Initiatives/CIDI (Uganda), Voluntary Action for Development/VAD (Uganda).   Project activities ended in November 2012, but the project remains in operational status as an evaluation is being undertaken.</p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>CA-3-S064590PRG</code></dd>
+  <dt>Activity status</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Aid type</dt>
+  <dd>C01 - Project-type interventions</dd>
+  <dt>% to Uganda</dt>
+  <dd>20.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Canadian International Development Agency</dd>
+  
+  <dt>Implementing</dt><dd>WaterCan </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q2</td>
+          <td>105,418.68</td>
+          <td>21,083.74</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q4</td>
+          <td>102,513.98</td>
+          <td>20,502.80</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q3</td>
+          <td>107,804.92</td>
+          <td>21,560.98</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q2</td>
+          <td>318,364.47</td>
+          <td>63,672.89</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q4</td>
+          <td>296,584.21</td>
+          <td>59,316.84</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>70,469.96</td>
+          <td>14,093.99</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q2</td>
+          <td>262,743.15</td>
+          <td>52,548.63</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q3</td>
+          <td>488,409.62</td>
+          <td>97,681.92</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q2</td>
+          <td>187,158.40</td>
+          <td>37,431.68</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q1</td>
+          <td>0.00</td>
+          <td>0.00</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q4</td>
+          <td>246,700.00</td>
+          <td>49,340.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q3</td>
+          <td>2,604,202.02</td>
+          <td>520,840.40</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2011</td>
+          <td>597,749.79</td>
+          <td>119,549.96</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>881,027.95</td>
+          <td>176,205.59</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>734,468.55</td>
+          <td>146,893.71</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>335,484.24</td>
+          <td>67,096.85</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>55,471.50</td>
+          <td>11,094.30</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-14010">
+      <td>
+        Water sector policy and administrative management
+        (14010)
+      </td>
+      <td>
+        20.0
+      </td>
+    </tr>
+    
+    <tr id="sector-14021">
+      <td>
+        Water supply - large systems
+        (14021)
+      </td>
+      <td>
+        7.5
+      </td>
+    </tr>
+    
+    <tr id="sector-14022">
+      <td>
+        Sanitation - large systems
+        (14022)
+      </td>
+      <td>
+        7.5
+      </td>
+    </tr>
+    
+    <tr id="sector-14031">
+      <td>
+        Basic drinking water supply
+        (14031)
+      </td>
+      <td>
+        25.0
+      </td>
+    </tr>
+    
+    <tr id="sector-14032">
+      <td>
+        Basic sanitation
+        (14032)
+      </td>
+      <td>
+        25.0
+      </td>
+    </tr>
+    
+    <tr id="sector-14081">
+      <td>
+        Education and training in water supply and sanitation
+        (14081)
+      </td>
+      <td>
+        15.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>
