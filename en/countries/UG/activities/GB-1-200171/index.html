@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/UG/">Uganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/UG/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/UG/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/GB-1-200171/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/GB-1-200171/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Trademark East Africa - Uganda Window</h2>
+
+
+<p>Greater regional integration and trade competitiveness in Uganda . It is expected that the programme will reduce transport times along the northern corridor by 15% and increase Uganda’s exports by 10%. </p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>GB-1-200171</code></dd>
+  <dt>Activity status</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Aid type</dt>
+  <dd>C01 - Project-type interventions</dd>
+  <dt>% to Uganda</dt>
+  <dd>100.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Accountable</dt><dd>Department for International Development</dd>
+  
+  <dt>Extending</dt><dd>Department for International Development</dd>
+  
+  <dt>Funding</dt><dd>Department for International Development</dd>
+  
+  <dt>Implementing</dt><dd>Adam Smith International</dd>
+  
+  <dt>Implementing</dt><dd>TradeMark East Africa</dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2017</td>
+          <td>Q1</td>
+          <td>18,214.34</td>
+          <td>18,214.34</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q4</td>
+          <td>3,914,411.52</td>
+          <td>3,914,411.52</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q2</td>
+          <td>5,618,900.00</td>
+          <td>5,618,900.00</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q1</td>
+          <td>768,300.00</td>
+          <td>768,300.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q4</td>
+          <td>2,416,640.00</td>
+          <td>2,416,640.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q2</td>
+          <td>3,309,000.00</td>
+          <td>3,309,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q1</td>
+          <td>769,209.34</td>
+          <td>769,209.34</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q4</td>
+          <td>523,360.00</td>
+          <td>523,360.00</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q3</td>
+          <td>233.01</td>
+          <td>233.01</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q2</td>
+          <td>1,270,631.26</td>
+          <td>1,270,631.26</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q4</td>
+          <td>127.41</td>
+          <td>127.41</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q3</td>
+          <td>1,227,160.50</td>
+          <td>1,227,160.50</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q2</td>
+          <td>785.44</td>
+          <td>785.44</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q1</td>
+          <td>1,453,937.30</td>
+          <td>1,453,937.30</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q4</td>
+          <td>854,436.08</td>
+          <td>854,436.08</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q3</td>
+          <td>19,985.45</td>
+          <td>19,985.45</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q2</td>
+          <td>620,376.85</td>
+          <td>620,376.85</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q1</td>
+          <td>3,202.86</td>
+          <td>3,202.86</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q4</td>
+          <td>1,148.34</td>
+          <td>1,148.34</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q3</td>
+          <td>5,359.10</td>
+          <td>5,359.10</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q2</td>
+          <td>2,067,158.75</td>
+          <td>2,067,158.75</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q1</td>
+          <td>10,047.62</td>
+          <td>10,047.62</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q4</td>
+          <td>82,547.01</td>
+          <td>82,547.01</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>108,531.66</td>
+          <td>108,531.66</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q2</td>
+          <td>907,410.02</td>
+          <td>907,410.02</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q1</td>
+          <td>1,049,213.58</td>
+          <td>1,049,213.58</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q4</td>
+          <td>188,771.02</td>
+          <td>188,771.02</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q3</td>
+          <td>35,913.27</td>
+          <td>35,913.27</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q2</td>
+          <td>31,725.34</td>
+          <td>31,725.34</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q1</td>
+          <td>9,007.74</td>
+          <td>9,007.74</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q4</td>
+          <td>16,332,505.30</td>
+          <td>16,332,505.30</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q4</td>
+          <td>7,425,915.17</td>
+          <td>7,425,915.17</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q2</td>
+          <td>928,888.23</td>
+          <td>928,888.23</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q4</td>
+          <td>98,085.15</td>
+          <td>98,085.15</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q1</td>
+          <td>164,724.39</td>
+          <td>164,724.39</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-33120">
+      <td>
+        Trade facilitation
+        (33120)
+      </td>
+      <td>
+        35.21
+      </td>
+    </tr>
+    
+    <tr id="sector-33130">
+      <td>
+        Regional trade agreements (RTAs)
+        (33130)
+      </td>
+      <td>
+        30.0
+      </td>
+    </tr>
+    
+    <tr id="sector-33110">
+      <td>
+        Trade policy and administrative Management
+        (33110)
+      </td>
+      <td>
+        20.38
+      </td>
+    </tr>
+    
+    <tr id="sector-33181">
+      <td>
+        Trade education/training
+        (33181)
+      </td>
+      <td>
+        9.92
+      </td>
+    </tr>
+    
+    <tr id="sector-0">
+      <td>
+        Unknown
+        (0)
+      </td>
+      <td>
+        4.48
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>
