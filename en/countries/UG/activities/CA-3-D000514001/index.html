@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/UG/">Uganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/UG/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/UG/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/CA-3-D000514001/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/CA-3-D000514001/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Global Fund to Fight AIDS, Tuberculosis and Malaria - Institutional Support - 2014-2016</h2>
+
+
+<p>This grant represents Canada’s long-term institutional support to the Global Fund to Fight AIDS, Tuberculosis and Malaria. The Global Fund to Fight AIDS, Tuberculosis and Malaria uses these funds, along with other donors’ funding, to achieve its mandate.   The Global Fund to Fight AIDS, Tuberculosis and Malaria is a unique, public-private partnership and international financing institution dedicated to attracting and disbursing additional resources to prevent and treat AIDS, tuberculosis and malaria. It is a partnership between governments, civil society, the private sector and affected communities, which represents an innovative approach to international health financing. The Global Fund’s model is based on the concepts of country ownership and performance-based funding, which means that organizations in developing countries implement their own programs based on their own priorities and must be able to show what results have been achieved.   Since its creation in 2002, the Global Fund has become the main global financier of programs to fight AIDS, tuberculosis and malaria, with approved funding of US$30 billion for more than 1,000 programs in more than 140 countries. The Global Fund is one of Canada’s key partners to improve the health of mothers and children in developing countries.   This project is part of Canada&#39;s Maternal, Newborn and Child Health commitment.</p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>CA-3-D000514001</code></dd>
+  <dt>Activity status</dt>
+  <dd>2 - Implementation</dd>
+  <dt>Aid type</dt>
+  <dd>B02 - Core contributions to multilateral institutions</dd>
+  <dt>% to Uganda</dt>
+  <dd>1.15</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Foreign Affairs, Trade and Development Canada</dd>
+  
+  <dt>Implementing</dt><dd>Global Fund to Fight AIDS, Tuberculosis &amp; Malaria </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q2</td>
+          <td>200,700,000.00</td>
+          <td>2,308,050.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q1</td>
+          <td>165,515,200.00</td>
+          <td>1,903,424.80</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q3</td>
+          <td>223,185,600.00</td>
+          <td>2,566,634.40</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2014</td>
+          <td>Q3</td>
+          <td>566,055,000.01</td>
+          <td>6,509,632.50</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2016</td>
+          <td>141,513,750.00</td>
+          <td>1,627,408.12</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>188,685,000.00</td>
+          <td>2,169,877.50</td>
+        </tr>
+    
+        <tr>
+          <td>2014</td>
+          <td>188,685,000.00</td>
+          <td>2,169,877.50</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>47,171,250.00</td>
+          <td>542,469.37</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-12262">
+      <td>
+        Malaria control
+        (12262)
+      </td>
+      <td>
+        32.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12263">
+      <td>
+        Tuberculosis control
+        (12263)
+      </td>
+      <td>
+        18.0
+      </td>
+    </tr>
+    
+    <tr id="sector-13040">
+      <td>
+        STD control including HIV/AIDS
+        (13040)
+      </td>
+      <td>
+        50.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>
