@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/LR/">Liberia</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/LR/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/LR/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/LR/activities/CA-3-M013487001/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/LR/activities/CA-3-M013487001/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Côte d&#39;Ivoire Crisis - International Committee of the Red Cross 2011</h2>
+
+
+<p>14 April, 2011 - Côte d&#39;Ivoire has been plunged into turmoil following the refusal of incumbent President Laurent Gbagbo to concede defeat after losing the 28 November second round of elections to former Prime Minister Alassane Ouattara. Insecurity and post-electoral violence have claimed hundreds of lives and have led over 130,000 Ivoirians to flee to neighbouring countries, the vast majority seeking refuge in Liberia. An additional 800,000 people have been displaced within the country following outbreaks of violence. Despite Gbagbo’s 11 April 2011 surrender, the security situation remains volatile and pockets of fighting and looting continue in Abidjan. There are no indications that refugees and displaced populations have begun to return to their areas of origin, until which time they remain reliant on humanitarian assistance to meet their basic needs. Clean water, shelter, food, health and medical assistance, and access to sanitation facilities all remain urgent needs for displaced populations and hosting communities.    With CIDA support, the International Committee of the Red Cross (ICRC) is addressing the emergency needs of those affected by the crisis in Côte d’Ivoire. ICRC is carrying out activities in both Côte d’Ivoire and Liberia, which include: treating the wounded; supporting overwhelmed medical facilities by providing technical assistance, equipment, supplies and training; providing basic assistance to displaced populations, refugees and host communities through the distribution of shelter materials, mosquito nets, and basic household and hygiene items; improving access to safe water and sanitation facilities through the provision of clean water, rehabilitation of water points and rehabilitation/construction of latrines in areas faced with population influxes; and helping to reunite people separated from their families, including through the registration and identification of unaccompanied children.</p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>CA-3-M013487001</code></dd>
+  <dt>Activity status</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Aid type</dt>
+  <dd>B03 - Contributions to  specific-purpose programmes and funds managed by international organisations (multilateral, INGO)</dd>
+  <dt>% to Liberia</dt>
+  <dd>15.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Canadian International Development Agency</dd>
+  
+  <dt>Implementing</dt><dd>ICRC - International Committee of the Red Cross </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Liberia Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>1,466,000.00</td>
+          <td>219,900.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Liberia Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>1,474,650.00</td>
+          <td>221,197.50</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Liberia Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>368,662.50</td>
+          <td>55,299.38</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>122,887.50</td>
+          <td>18,433.12</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-72010">
+      <td>
+        Material relief assistance and services
+        (72010)
+      </td>
+      <td>
+        100.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

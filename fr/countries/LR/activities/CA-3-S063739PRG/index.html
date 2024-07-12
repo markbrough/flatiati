@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Projet  &raquo; Aide sur des tableurs</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/fr/">Aide sur des tableurs</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/fr/countries/LR/">Libéria</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/fr/countries/LR/">
+                Vue d&#39;ensemble
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/fr/countries/LR/activities/">
+                Projets
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/LR/activities/CA-3-S063739PRG/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/LR/activities/CA-3-S063739PRG/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Programme d&#39;apprentissage par le jeu</h2>
+
+
+<p>Le programme de Right To Play vise à améliorer la vie des enfants et des jeunes dans les collectivités défavorisées, en Afrique de l’Ouest et francophone. Le programme est conçu pour utiliser le sport et le jeu comme outils pour impliquer les enfants et les jeunes, incluant les jeunes femmes et les jeunes filles, dans les domaines du développement de compétences de vie (y compris le leadership, la discipline, la tolérance et le travail d’équipe), de la prévention des maladies telles que le paludisme et le VIH/sida et du renforcement institutionnel des organisations de la société civile.</p>
+
+<dl class="dl-horizontal">
+  <dt>ID Projet</dt>
+  <dd><code>CA-3-S063739PRG</code></dd>
+  <dt>Statut de l'activité</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Type d'aide</dt>
+  <dd>D01 - Personnel du pays donneur</dd>
+  <dt>% to Libéria</dt>
+  <dd>15.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Canadian International Development Agency</dd>
+  
+  <dt>Implementing</dt><dd>Right To Play </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Versements par exercice fiscal, trimestre </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Libéria Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q3</td>
+          <td>64,817.63</td>
+          <td>9,722.64</td>
+        </tr>
+    
+        <tr>
+          <td>2013</td>
+          <td>Q1</td>
+          <td>969,375.15</td>
+          <td>145,406.27</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q3</td>
+          <td>1,864,330.80</td>
+          <td>279,649.62</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q2</td>
+          <td>146,068.80</td>
+          <td>21,910.32</td>
+        </tr>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q1</td>
+          <td>1,656,151.35</td>
+          <td>248,422.70</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q3</td>
+          <td>3,235,535.91</td>
+          <td>485,330.39</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q2</td>
+          <td>1,706,107.95</td>
+          <td>255,916.19</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q1</td>
+          <td>3,175,389.06</td>
+          <td>476,308.36</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>2,638,235.74</td>
+          <td>395,735.36</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q2</td>
+          <td>428,736.51</td>
+          <td>64,310.48</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q4</td>
+          <td>950,247.75</td>
+          <td>142,537.16</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q3</td>
+          <td>741,928.50</td>
+          <td>111,289.28</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q1</td>
+          <td>434,800.00</td>
+          <td>65,220.00</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q4</td>
+          <td>361,200.00</td>
+          <td>54,180.00</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q3</td>
+          <td>377,963.90</td>
+          <td>56,694.59</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q2</td>
+          <td>302,203.55</td>
+          <td>45,330.53</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q1</td>
+          <td>388,658.73</td>
+          <td>58,298.81</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>Q2</td>
+          <td>591,150.19</td>
+          <td>88,672.53</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Engagements par exercice fiscal, trimestre </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Libéria Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2007</td>
+          <td>Q2</td>
+          <td>19,215,511.48</td>
+          <td>2,882,326.72</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Projections de CDMT par exercice fiscal </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Libéria Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2010</td>
+          <td>336,665.96</td>
+          <td>50,499.89</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>809,599.01</td>
+          <td>121,439.85</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>929,836.03</td>
+          <td>139,475.40</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>593,171.51</td>
+          <td>88,975.73</td>
+        </tr>
+    
+        <tr>
+          <td>2006</td>
+          <td>120,237.50</td>
+          <td>18,035.62</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>Code CRS</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-11230">
+      <td>
+        Éducation pour une meilleure qualité de vie pour les jeunes et les adultes
+        (11230)
+      </td>
+      <td>
+        46.0
+      </td>
+    </tr>
+    
+    <tr id="sector-15160">
+      <td>
+        Droits de la personne
+        (15160)
+      </td>
+      <td>
+        12.0
+      </td>
+    </tr>
+    
+    <tr id="sector-0">
+      <td>
+        Inconnu
+        (0)
+      </td>
+      <td>
+        12.0
+      </td>
+    </tr>
+    
+    <tr id="sector-16050">
+      <td>
+        Aide plurisectorielle pour les services sociaux de base
+        (16050)
+      </td>
+      <td>
+        30.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

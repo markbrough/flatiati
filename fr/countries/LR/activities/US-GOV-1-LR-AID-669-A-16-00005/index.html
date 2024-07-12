@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Projet  &raquo; Aide sur des tableurs</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/fr/">Aide sur des tableurs</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/fr/countries/LR/">Libéria</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/fr/countries/LR/">
+                Vue d&#39;ensemble
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/fr/countries/LR/activities/">
+                Projets
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/LR/activities/US-GOV-1-LR-AID-669-A-16-00005/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/LR/activities/US-GOV-1-LR-AID-669-A-16-00005/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Liberia Agribusiness Development Activity (LADA)</h2>
+
+
+<p>The Liberia Agribusiness Development Activity (LADA) will use Agriculture funds to strengthen Liberia&#39;s food security and increase income of smallholder farmers, especially women and youth. The activity will strengthen agro-dealers and aggregators to channel improved inputs and technical assistance to increase smallholder farmer incomes. The activity will award 20 matching co-investment fund (CIF) grants worth $0.75 Million and leverage private investment with a target of $1.5 million, including $260,000 in agriculture loans accessed through LADA facilitation. The activity will provide technical assistance to 50 agro-enterprises impacting over 1,000 individuals. The activity&#39;s components include: increased private sector investment in agriculture input systems; increased private sector investment in post-harvest handling, packaging and auxiliary services.</p>
+
+<p>Sustain the productivity of the agricultural sector through investments that foster increasing returns to land, labor, and capital. Targeted interventions to male and female producers provide improvements in technology and management practices, expanded access to markets and credit, increased organizational and market efficiency, and restoration and protection of resiliency in production and livelihood systems. Improve nutrient quality, dietary diversity, and safety of food supply across agriculture value chains during production, post-harvest processing and storage; build awareness of agriculture sector actors at national and local levels on nutrition; promote the production and utilization of nutritious biofortified crops at the household farm level; and promote markets for foods that are particularly important for nutrition and that smallholder farmers produce.  Create and sustain career-enhancing education and training programs that are responsive to the current and future labor needs of local, regional, and international employers, both formal and nonformal, including through financial sustainability. Generally, these programs certify competence of male and female learners in accordance with industry standards and provide labor market and social support services. In contexts where the private sector is weak, technical/vocational training may be oriented towards self-employment.</p>
+
+<dl class="dl-horizontal">
+  <dt>ID Projet</dt>
+  <dd><code>US-GOV-1-LR-AID-669-A-16-00005</code></dd>
+  <dt>Statut de l'activité</dt>
+  <dd>3 - Completion</dd>
+  <dt>Type d'aide</dt>
+  <dd>C01 - Interventions de type projet</dd>
+  <dt>% to Libéria</dt>
+  <dd>100.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Accountable</dt><dd>U.S. Agency for International Development</dd>
+  
+  <dt>Extending</dt><dd>U.S. Agency for International Development</dd>
+  
+  <dt>Funding</dt><dd>U.S. Agency for International Development</dd>
+  
+  <dt>Implementing</dt><dd>Citizens Network for Foreign Affairs</dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Versements par exercice fiscal, trimestre </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Libéria Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2017</td>
+          <td>Q1</td>
+          <td>1,367,152.71</td>
+          <td>1,367,152.71</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q4</td>
+          <td>1,280,818.36</td>
+          <td>1,280,818.36</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q3</td>
+          <td>1,349,514.22</td>
+          <td>1,349,514.22</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q2</td>
+          <td>1,150,000.00</td>
+          <td>1,150,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q1</td>
+          <td>1,025,000.00</td>
+          <td>1,025,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q4</td>
+          <td>815,000.00</td>
+          <td>815,000.00</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q3</td>
+          <td>215,000.00</td>
+          <td>215,000.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Engagements par exercice fiscal, trimestre </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Trimestre fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Libéria Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2016</td>
+          <td>Q4</td>
+          <td>3,244,015.60</td>
+          <td>3,244,015.60</td>
+        </tr>
+    
+        <tr>
+          <td>2015</td>
+          <td>Q2</td>
+          <td>6,984,105.00</td>
+          <td>6,984,105.00</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Projections de CDMT par exercice fiscal </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Exercice fiscal</th>
+        <th>Montant (USD)</th>
+        <th>Libéria Montant (USD)</th>
+      </thead>
+      <tbody>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>Code CRS</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-31110">
+      <td>
+        Politique agricole et gestion administrative
+        (31110)
+      </td>
+      <td>
+        11.84
+      </td>
+    </tr>
+    
+    <tr id="sector-11230">
+      <td>
+        Éducation pour une meilleure qualité de vie pour les jeunes et les adultes
+        (11230)
+      </td>
+      <td>
+        9.78
+      </td>
+    </tr>
+    
+    <tr id="sector-25010">
+      <td>
+        Services et institutions de soutien commerciaux
+        (25010)
+      </td>
+      <td>
+        4.89
+      </td>
+    </tr>
+    
+    <tr id="sector-32130">
+      <td>
+        Développement des Petites et moyennes entreprises (PME)
+        (32130)
+      </td>
+      <td>
+        28.2
+      </td>
+    </tr>
+    
+    <tr id="sector-31120">
+      <td>
+        Développement agricole
+        (31120)
+      </td>
+      <td>
+        45.3
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>

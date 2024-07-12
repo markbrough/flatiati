@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Project  &raquo; Aid on Spreadsheets</title>
+    <link href="/static/vendor/bootstrap-3.2.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/vendor/jquery/3.2.1/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/vendor/bootstrap-3.2.0/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/vendor/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <link href="/static/style.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container-fluid header-container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <h1 class="brand"><a href="/en/">Aid on Spreadsheets</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="navbar navbar-country" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/en/countries/UG/">Uganda</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li >
+              <a href="/en/countries/UG/">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li >
+              <a href="/en/countries/UG/activities/">
+                Projects
+              </a>
+            </li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/en/countries/UG/activities/CA-3-S063409PRG/">EN</a>
+          </li>
+          <li>
+            <a href="/fr/countries/UG/activities/CA-3-S063409PRG/">FR</a>
+          </li>
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+
+  <div class="container-fluid body-container">
+    
+      
+    
+        
+<br />
+
+
+<h2>Society of Obstetricians and Gynaecologists of Canada (SOGC) Program</h2>
+
+
+<p>The program is supporting sister associations in four countries in order to strengthen their organizational capacities. This allows them to better contribute to nationally owned efforts to enhance care for safe motherhood, newborn health and the prevention of HIV/AIDS. The beneficiaries of the program are: (i) the professional associations and their members in targeted countries; (ii) ministries of health and other stakeholders such as national and international organizations involved in safe motherhood, newborn health and prevention of HIV/AIDS; (iii) health professionals and administrators who participate in training programs offered by the local professional associations with the support of the SOGC; and (iv) women of reproductive age and newborn children.</p>
+
+<dl class="dl-horizontal">
+  <dt>Project ID</dt>
+  <dd><code>CA-3-S063409PRG</code></dd>
+  <dt>Activity status</dt>
+  <dd>4 - Post-completion</dd>
+  <dt>Aid type</dt>
+  <dd>D01 - Donor country personnel</dd>
+  <dt>% to Uganda</dt>
+  <dd>25.00</dd>
+</dl>
+
+<h2>Organisations</h2>
+<dl class="dl-horizontal">
+  
+  <dt>Funding</dt><dd>Canada</dd>
+  
+  <dt>Extending</dt><dd>Canadian International Development Agency</dd>
+  
+  <dt>Implementing</dt><dd>Society of Obstetricians and Gynaecologists of Canada </dd>
+  
+</dl>
+
+<div class="modal" id="addSectorsModal" tabindex="-1" role="dialog" aria-labelledby="addSectorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Sector</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="sector" class="col-sm-2 control-label">Sector</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="sector-selector" name="sector">
+                <option>Select one...</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sector-percentage" class="col-sm-2 control-label">Percentage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="sector-percentage" placeholder="Percentage">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sector-add">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--
+<div class="pull-right">
+  <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addSectorsModal" href="#addSectorsModal">
+    <b>Add sector</b>
+  </a>
+</div>
+-->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Disbursements by fiscal year, quarter </h2>
+
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2012</td>
+          <td>Q3</td>
+          <td>-12,728.97</td>
+          <td>-3,182.24</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q3</td>
+          <td>300,243.46</td>
+          <td>75,060.86</td>
+        </tr>
+    
+        <tr>
+          <td>2011</td>
+          <td>Q1</td>
+          <td>167,723.60</td>
+          <td>41,930.90</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q3</td>
+          <td>21,111.92</td>
+          <td>5,277.98</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q2</td>
+          <td>339,150.85</td>
+          <td>84,787.71</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>Q1</td>
+          <td>54,412.45</td>
+          <td>13,603.11</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q3</td>
+          <td>79,181.25</td>
+          <td>19,795.31</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>Q2</td>
+          <td>156,563.43</td>
+          <td>39,140.86</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q3</td>
+          <td>250,332.65</td>
+          <td>62,583.16</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q2</td>
+          <td>270,802.15</td>
+          <td>67,700.54</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>Q1</td>
+          <td>104,821.34</td>
+          <td>26,205.33</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>Q4</td>
+          <td>118,231.87</td>
+          <td>29,557.97</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>Q3</td>
+          <td>251,412.60</td>
+          <td>62,853.15</td>
+        </tr>
+    
+        <tr>
+          <td>2006</td>
+          <td>Q3</td>
+          <td>602,713.44</td>
+          <td>150,678.36</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>Commitments by fiscal year, quarter </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Fiscal quarter</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2006</td>
+          <td>Q2</td>
+          <td>2,877,612.34</td>
+          <td>719,403.09</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h2>MTEF projections by fiscal year </h2>
+    <table class="table" id="sectors">
+      <thead>
+        <th>Fiscal year</th>
+        <th>Value (USD)</th>
+        <th>Uganda Value (USD)</th>
+      </thead>
+      <tbody>
+    
+        <tr>
+          <td>2011</td>
+          <td>292,920.97</td>
+          <td>73,230.24</td>
+        </tr>
+    
+        <tr>
+          <td>2010</td>
+          <td>487,047.83</td>
+          <td>121,761.96</td>
+        </tr>
+    
+        <tr>
+          <td>2009</td>
+          <td>519,210.00</td>
+          <td>129,802.50</td>
+        </tr>
+    
+        <tr>
+          <td>2008</td>
+          <td>519,210.00</td>
+          <td>129,802.50</td>
+        </tr>
+    
+        <tr>
+          <td>2007</td>
+          <td>519,210.00</td>
+          <td>129,802.50</td>
+        </tr>
+    
+        <tr>
+          <td>2006</td>
+          <td>226,289.02</td>
+          <td>56,572.26</td>
+        </tr>
+    
+        <tr>
+          <td>2005</td>
+          <td>32,162.17</td>
+          <td>8,040.54</td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2></h2>
+<table class="table" id="sectors">
+  <thead>
+    <th>CRS code</th>
+    <th>%</th>
+  </thead>
+  <tbody>
+    
+    <tr id="sector-12110">
+      <td>
+        Health policy and administrative management
+        (12110)
+      </td>
+      <td>
+        15.0
+      </td>
+    </tr>
+    
+    <tr id="sector-12181">
+      <td>
+        Medical education/training
+        (12181)
+      </td>
+      <td>
+        15.0
+      </td>
+    </tr>
+    
+    <tr id="sector-13020">
+      <td>
+        Reproductive health care
+        (13020)
+      </td>
+      <td>
+        30.0
+      </td>
+    </tr>
+    
+    <tr id="sector-13040">
+      <td>
+        STD control including HIV/AIDS
+        (13040)
+      </td>
+      <td>
+        25.0
+      </td>
+    </tr>
+    
+    <tr id="sector-15150">
+      <td>
+        Democratic participation and civil society
+        (15150)
+      </td>
+      <td>
+        15.0
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+    <script type="text/javascript">
+        $('.flashmessage').fadeIn('slow');
+    </script>
+    <footer class="footer">
+    <div class="container">
+    <div class="pull-left">
+        <p><a href="https://github.com/markbrough/flatiati">Source code on Github</a>, released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0 License</a>.</p>
+        <p><a href="http://aidtransparency.net">International Aid Transparency Initiative (IATI)</a></p>
+        <p><a href="http://iatiregistry.org">IATI Registry</a> &ndash; <a href="http://iatistandard.org">IATI Standard</a></p>
+    </div>
+    <div class="pull-right">
+        <p><a href="http://twitter.com/mark_brough">@mark_brough</a></p>
+    </div>
+    </div></footer>
+</body>
+</html>
